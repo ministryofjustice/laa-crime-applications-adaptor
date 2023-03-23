@@ -16,7 +16,7 @@ git clone git@github.com:ministryofjustice/laa-crime-applications-adaptor.git
 cd crime-applications-adaptor
 ```
 
-Make sure tests all testes are passed by running following ‘gradle’ Command
+Make sure all tests are passed by running following ‘gradle’ Command
 
 ```sh
 ./gradlew clean test
