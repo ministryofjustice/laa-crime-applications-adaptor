@@ -8,3 +8,15 @@ management:
     web:
       exposure:
         include: health,info,metrics,prometheus
+
+springdoc:
+  packagesToScan: uk.gov.justice.laa.crime.applications.adaptor
+  show-actuator: true
+  api-docs:
+    path: /crime-applications-adaptor
+    enabled: true
+
+  swagger-ui:
+    path: /open-api/docs.html
+    enabled: true
+    operationsSorter: method
