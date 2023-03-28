@@ -8,7 +8,6 @@ plugins {
 }
 
 group = 'uk.gov.justice.laa.crime'
-version = '0.0.1-SNAPSHOT'
 
 def versions = [
 		sentryVersion                      : '6.15.0',
