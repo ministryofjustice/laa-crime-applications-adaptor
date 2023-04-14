@@ -11,7 +11,7 @@ group = 'uk.gov.justice.laa.crime'
 
 def versions = [
 		sentryVersion                      : '6.15.0',
-		springdocVersion                   : '1.6.15'
+		springdocVersion                   : '1.7.0'
 ]
 
 dependencyManagement {
