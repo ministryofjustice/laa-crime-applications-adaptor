@@ -9,6 +9,7 @@ management:
       exposure:
         include: health,info,metrics,prometheus
 
+
 springdoc:
   packagesToScan: uk.gov.justice.laa.crime.applications.adaptor
   show-actuator: true
