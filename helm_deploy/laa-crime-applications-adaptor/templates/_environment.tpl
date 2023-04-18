@@ -10,3 +10,4 @@ env:
     value: {{ .Values.sentry_dsn }}
   - name: SENTRY_ENV
     value: {{ .Values.java.host_env }}
+{{- end -}}
