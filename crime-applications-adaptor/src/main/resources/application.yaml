@@ -20,3 +20,16 @@ springdoc:
     path: /open-api/docs.html
     enabled: true
     operationsSorter: method
+
+retry-config:
+  max-retries: 3
+  min-back-off-period: 5
+  jitter-value: 0.75
+
+services:
+  maat-api:
+    oAuthEnabled: true
+    baseUrl: ${MAAT_API_BASE_URL}
+
+  crime-apply-api:
+    baseUrl: ${CRIME_APPLY_API_URL}
