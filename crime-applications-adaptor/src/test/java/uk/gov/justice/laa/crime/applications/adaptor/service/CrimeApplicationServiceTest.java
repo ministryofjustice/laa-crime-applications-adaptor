@@ -5,19 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.utils.FileUtils;
-import uk.gov.justice.laa.crime.applications.adaptor.utils.JsonUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

@@ -33,5 +33,5 @@ services:
 
   crime-apply-api:
     baseUrl: ${CRIME_APPLY_API_URL}
-    clientSecret: ${CLIENT_SECRET_KEY}
-    issuer: ${SECRET_KEY_ISSUER}
+    clientSecret: ${CRIME_APPLY_API_AUTH_SECRET}
+    issuer: ${CRIME_APPLY_AUTH_KEY_ISSUER}

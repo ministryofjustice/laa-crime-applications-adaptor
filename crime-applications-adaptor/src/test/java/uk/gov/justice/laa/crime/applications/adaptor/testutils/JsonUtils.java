@@ -1,4 +1,4 @@
-package uk.gov.justice.laa.crime.applications.adaptor.utils;
+package uk.gov.justice.laa.crime.applications.adaptor.testutils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

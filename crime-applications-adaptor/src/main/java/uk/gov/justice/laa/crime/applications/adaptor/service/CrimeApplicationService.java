@@ -1,7 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,11 +17,14 @@ public class CrimeApplicationService {
 
     private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
     private final ServicesConfiguration servicesConfiguration;
+
     public MaatApplication callCrimeApplyDatastore(Long usn) {
-        return crimeApplyDatastoreClient.getApplicationDetails(usn,
+        MaatApplication applicationDetails = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
+        log.info("applicationDetails: "+applicationDetails.getId());
+        return applicationDetails;
 
     }
 }

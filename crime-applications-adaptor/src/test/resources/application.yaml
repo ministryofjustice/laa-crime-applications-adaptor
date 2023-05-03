@@ -11,14 +11,11 @@ management:
 
 springdoc:
   packagesToScan: uk.gov.justice.laa.crime.applications.adaptor
-  show-actuator: true
   api-docs:
-    path: /crime-applications-adaptor
-    enabled: true
+    path: /open-api/api-docs
 
   swagger-ui:
-    path: /open-api/docs.html
-    enabled: true
+    path: /open-api/swagger-ui/index.html
     operationsSorter: method
 
 retry-config:
@@ -33,4 +30,5 @@ services:
 
   crime-apply-api:
     baseUrl: ${CRIME_APPLY_API_URL}
-    clientSecret: ${CLIENT_SECRET_KEY}
+    clientSecret: ${CRIME_APPLY_API_AUTH_SECRET}
+    issuer: ${CRIME_APPLY_AUTH_KEY_ISSUER}
