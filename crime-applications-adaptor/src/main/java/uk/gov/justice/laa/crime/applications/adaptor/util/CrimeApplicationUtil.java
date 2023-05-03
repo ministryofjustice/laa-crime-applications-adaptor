@@ -24,8 +24,6 @@ public class CrimeApplicationUtil {
     }
 
     private String generateJWTForCrimeApplyService(String clientSecret, String issuer) {
-        log.info("issuer: "+issuer);
-        log.info("client secret: "+clientSecret);
         return Jwts.builder()
                 .setIssuer(issuer)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

@@ -19,12 +19,10 @@ public class CrimeApplicationService {
     private final ServicesConfiguration servicesConfiguration;
 
     public MaatApplication callCrimeApplyDatastore(Long usn) {
-        MaatApplication applicationDetails = crimeApplyDatastoreClient.getApplicationDetails(usn,
+        return crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
-        log.info("applicationDetails: "+applicationDetails.getId());
-        return applicationDetails;
 
     }
 }
