@@ -20,10 +20,7 @@
         "legal_rep_last_name": { "type": "string" },
         "legal_rep_telephone": { "type": "string" }
       },
-      "required": [
-        "office_code", "provider_email",
-        "legal_rep_first_name", "legal_rep_last_name", "legal_rep_telephone"
-      ]
+      "required": ["office_code", "provider_email", "legal_rep_first_name", "legal_rep_last_name", "legal_rep_telephone"]
     },
     "client_details": {
       "type": "object",
@@ -58,8 +55,15 @@
     }
   },
   "required": [
-    "id", "schema_version", "reference", "submitted_at", "date_stamp",
-    "provider_details", "client_details", "case_details", "interests_of_justice"
+    "id",
+    "schema_version",
+    "reference",
+    "submitted_at",
+    "date_stamp",
+    "provider_details",
+    "client_details",
+    "case_details",
+    "interests_of_justice"
   ],
   "definitions": {
     "applicant": { "$ref": "general/applicant.json" }
