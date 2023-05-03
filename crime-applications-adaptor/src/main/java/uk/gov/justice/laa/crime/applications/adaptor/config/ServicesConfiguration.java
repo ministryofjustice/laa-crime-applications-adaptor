@@ -22,5 +22,11 @@ public class ServicesConfiguration {
 
         @NotNull
         private String baseUrl;
+
+        @NotNull
+        private String clientSecret;
+
+        @NotNull
+        private String issuer;
     }
 }
