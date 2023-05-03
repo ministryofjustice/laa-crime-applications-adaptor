@@ -23,6 +23,10 @@ def versions = [
 		testngVersion          : '6.10',
 		festVersion            : '1.4',
 		harmcrestVersion       : '1.3',
+		jjwtVersion            : '0.11.5',
+		validationapiVersion   : '2.0.1.Final',
+		jaxbapiVersion         : '2.3.1'
+
 ]
 
 java {
@@ -63,6 +67,17 @@ dependencies {
 
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3Version"
 
+	annotationProcessor "org.projectlombok:lombok"
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	implementation "io.jsonwebtoken:jjwt-api:$versions.jjwtVersion"
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:$versions.jjwtVersion"
+	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$versions.jjwtVersion"
+
+	implementation "javax.validation:validation-api:$versions.validationapiVersion"
+
+	implementation "javax.xml.bind:jaxb-api:$versions.jaxbapiVersion"
+
 	testImplementation "org.pitest:pitest:$versions.pitest"
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.security:spring-security-test"
@@ -72,18 +87,6 @@ dependencies {
 	testImplementation group: 'org.testng', name: 'testng', version: versions.testngVersion
 	testImplementation group: 'org.easytesting', name: 'fest-assert', version: versions.festVersion
 	testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: versions.harmcrestVersion
-
-
-	annotationProcessor "org.projectlombok:lombok"
-	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
-	implementation 'javax.validation:validation-api:2.0.1.Final'
-
-	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
 }
 
