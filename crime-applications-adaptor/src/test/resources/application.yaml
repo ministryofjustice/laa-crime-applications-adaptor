@@ -1,34 +1,12 @@
 server:
   port: 8088
 
-management:
-  server:
-    port: 8099
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-
-springdoc:
-  packagesToScan: uk.gov.justice.laa.crime.applications.adaptor
-  api-docs:
-    path: /open-api/api-docs
-
-  swagger-ui:
-    path: /open-api/swagger-ui/index.html
-    operationsSorter: method
-
-retry-config:
-  max-retries: 3
-  min-back-off-period: 5
-  jitter-value: 0.75
-
 services:
   maat-api:
     oAuthEnabled: true
-    baseUrl: ${MAAT_API_BASE_URL}
+    baseUrl: maat_api_baseUrl
 
   crime-apply-api:
-    baseUrl: ${CRIME_APPLY_API_URL}
-    clientSecret: ${CRIME_APPLY_API_AUTH_SECRET}
-    issuer: ${CRIME_APPLY_AUTH_KEY_ISSUER}
+    baseUrl: baseUrl
+    clientSecret: secret
+    issuer: issuer

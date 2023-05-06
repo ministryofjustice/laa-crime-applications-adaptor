@@ -13,11 +13,11 @@ plugins {
 group = 'uk.gov.justice.laa.crime'
 
 def versions = [
-		springdocVersion       : "1.7.0",
+		springdocVersion       : "2.1.0",
 		okhttpVersion          : "4.9.3",
 		mockwebserverVersion   : "4.10.0",
-		pitest                 : "1.4.10",
-		commonsLang3Version    : "3.10",
+		pitest                 : "1.11.5",
+		commonsLang3Version    : "3.12.0",
 		postgresqlVersion      : "42.3.3",
 		springauthserverVersion: "1.0.1",
 		testngVersion          : '6.10',
@@ -25,8 +25,7 @@ def versions = [
 		harmcrestVersion       : '1.3',
 		jjwtVersion            : '0.11.5',
 		validationapiVersion   : '2.0.1.Final',
-		jaxbapiVersion         : '2.3.1'
-
+		resilience4jVersion    : "2.0.2"
 ]
 
 java {
@@ -58,14 +57,13 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-actuator"
 	implementation "org.springframework.boot:spring-boot-starter-webflux"
 	implementation "org.springframework.boot:spring-boot-starter-validation"
+	implementation "org.springframework.boot:spring-boot-starter-aop"
 	//implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
 	//implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
-
-
-	implementation "org.springdoc:springdoc-openapi-ui:$versions.springdocVersion"
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$versions.springdocVersion"
 	//implementation "org.springframework.security:spring-security-oauth2-authorization-server:$versions.springauthserverVersion"
-
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3Version"
+	implementation "io.github.resilience4j:resilience4j-spring-boot3:$versions.resilience4jVersion"
 
 	annotationProcessor "org.projectlombok:lombok"
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
@@ -76,12 +74,9 @@ dependencies {
 
 	implementation "javax.validation:validation-api:$versions.validationapiVersion"
 
-	implementation "javax.xml.bind:jaxb-api:$versions.jaxbapiVersion"
-
 	testImplementation "org.pitest:pitest:$versions.pitest"
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.security:spring-security-test"
-	testImplementation "com.squareup.okhttp3:okhttp:$versions.okhttpVersion"
 	testImplementation "com.squareup.okhttp3:mockwebserver:$versions.mockwebserverVersion"
 	testImplementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 	testImplementation group: 'org.testng', name: 'testng', version: versions.testngVersion

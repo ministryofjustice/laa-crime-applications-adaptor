@@ -8,23 +8,22 @@ management:
     web:
       exposure:
         include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
 
-springdoc:
-  packagesToScan: uk.gov.justice.laa.crime.applications.adaptor
-  show-actuator: true
-  api-docs:
-    path: /crime-applications-adaptor
-    enabled: true
+resilience4j:
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - org.springframework.web.reactive.function.client.WebClientRequestException
 
-  swagger-ui:
-    path: /open-api/docs.html
-    enabled: true
-    operationsSorter: method
-
-retry-config:
-  max-retries: 3
-  min-back-off-period: 5
-  jitter-value: 0.75
+    instances:
+      callCrimeApplyDatastore:
+        base-config: default
 
 services:
   maat-api:
