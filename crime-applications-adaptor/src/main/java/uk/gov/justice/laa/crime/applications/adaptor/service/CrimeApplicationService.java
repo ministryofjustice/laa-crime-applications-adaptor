@@ -27,6 +27,7 @@ public class CrimeApplicationService {
 
     @Retry(name=SERVICE_NAME)
     public MaatApplication callCrimeApplyDatastore(Long usn) {
+        log.info("Starting call to Crime Apply datastore");
         MaatApplication maatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
