@@ -9,22 +9,29 @@ import java.io.IOException;
 
 public class WireMockStubs {
 
-    public static Dispatcher forCrimeApplyDatastoreAPI() throws IOException {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
+    public static Dispatcher forCrimeApplyDatastoreAPI() {
         return new Dispatcher() {
             @Override
-            public MockResponse dispatch(RecordedRequest recordedRequest) throws InterruptedException {
+            public MockResponse dispatch(RecordedRequest recordedRequest) {
                 switch (recordedRequest.getPath()) {
                     case "/1001":
-                        return new MockResponse().addHeader("Content-Type",
-                                        MediaType.APPLICATION_JSON)
-                                .setResponseCode(200)
-                                .setBody(maatApplicationJson);
+                        return stubForCrimeApplyDatastore();
                     case "/404":
                         return new MockResponse().setResponseCode(404);
                 }
                 return new MockResponse().setResponseCode(503);
             }
         };
+    }
+
+    private static MockResponse stubForCrimeApplyDatastore() {
+        try {
+            return new MockResponse().addHeader("Content-Type",
+                            MediaType.APPLICATION_JSON)
+                    .setResponseCode(200)
+                    .setBody(FileUtils.readFileToString("data/application.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
