@@ -61,7 +61,7 @@ public class CrimeApplyWebClientConfiguration {
     }
 
     @Bean
-    CrimeApplyDatastoreClient postClient(WebClient webClient) {
+    CrimeApplyDatastoreClient crimeApplyDatastoreClient(WebClient webClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
                 HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient))
                          .blockTimeout(Duration.of(20, ChronoUnit.SECONDS))
