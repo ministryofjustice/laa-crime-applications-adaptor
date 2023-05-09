@@ -50,8 +50,4 @@ public class CrimeApplicationController {
         log.info("Get the applicant details from crime apply datastore");
         return crimeApplicationService.callCrimeApplyDatastore(id);
     }
-
-
-
-
 }

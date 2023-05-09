@@ -7,6 +7,6 @@ services:
     baseUrl: maat_api_baseUrl
 
   crime-apply-api:
-    baseUrl: baseUrl
-    clientSecret: secret
-    issuer: issuer
+    baseUrl: http://localhost:9999
+    clientSecret: TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=
+    issuer: maat-adaptor

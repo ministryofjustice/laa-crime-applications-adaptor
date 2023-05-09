@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class FileUtils {
 
-    public static String CHARACTER_ENCODING = "UTF-8";
+    public static final String CHARACTER_ENCODING = "UTF-8";
 
     public  static String readFileToString(String filePath) throws IOException {
         String ret = StringUtils.EMPTY;

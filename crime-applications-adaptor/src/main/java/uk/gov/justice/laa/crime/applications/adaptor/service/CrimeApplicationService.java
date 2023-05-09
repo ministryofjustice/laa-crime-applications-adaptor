@@ -32,7 +32,7 @@ public class CrimeApplicationService {
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        return Observation.createNotStarted("callCrimeApplyDatastore", observationRegistry)
+        return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(()->maatApplication);
     }
 }

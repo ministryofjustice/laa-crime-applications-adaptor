@@ -5,20 +5,20 @@
   "submitted_at": "2023-04-24T12:37:40",
   "date_stamp": "2023-04-24T12:31:06.353",
   "provider_details": {
-    "office_code": "0Z981E",
-    "provider_email": "pmullin@quinn-melville.co.uk",
-    "legal_rep_first_name": "Paul",
-    "legal_rep_last_name": "Mullin",
-    "legal_rep_telephone": "01632960001"
+    "office_code": "099A1E",
+    "provider_email": "test@test.co.uk",
+    "legal_rep_first_name": "legal_firstname",
+    "legal_rep_last_name": "legal_lastname",
+    "legal_rep_telephone": "03332960001"
   },
   "client_details": {
     "applicant": {
       "date_of_birth": "1980-01-10",
-      "nino": "JA293483A",
+      "nino": "TEST3483A",
       "telephone_number": "",
       "correspondence_address_type": "providers_office_address",
-      "last_name": "Walker",
-      "first_name": "Pat",
+      "last_name": "lastname",
+      "first_name": "firstname",
       "other_names": ""
     }
   },
