@@ -76,7 +76,7 @@ class CrimeApplicationIntegrationTest {
         mvc.perform(request).andExpect(status().is4xxClientError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("404"))
-                .andExpect(jsonPath("$.detail").value("HTTP 404 NOT_FOUND"));
+                .andExpect(jsonPath("$.detail").value("404 Not Found from GET http://localhost:9999/404"));
     }
 
     @Test
@@ -87,7 +87,7 @@ class CrimeApplicationIntegrationTest {
         mvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("503"))
-                .andExpect(jsonPath("$.detail").value("HTTP 503 SERVICE_UNAVAILABLE"));
+                .andExpect(jsonPath("$.detail").value("503 Service Unavailable from GET http://localhost:9999/503"));
 
     }
 }

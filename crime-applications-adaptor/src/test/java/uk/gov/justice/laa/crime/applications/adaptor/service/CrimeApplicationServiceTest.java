@@ -6,11 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.APIClientException;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.RetryableWebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
@@ -18,8 +17,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import java.io.IOException;
 
 import static org.junit.Assert.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CrimeApplicationServiceTest {
@@ -49,20 +49,20 @@ class CrimeApplicationServiceTest {
     @Test
     void givenInvaidParams_whenCrimeApplyDatastoreServiceIsInvoked_then4xxClientExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenThrow(new APIClientException("404"));
+                .thenThrow(new WebClientResponseException(404, "", null, null, null));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
 
-        assertThrows(APIClientException.class, () ->
+        assertThrows(WebClientResponseException.class, () ->
             crimeApplicationService.callCrimeApplyDatastore(1001L)
         );
     }
     @Test
     void whenCrimeApplyDatastoreServiceIsUnavailable_then5xxServerExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenThrow(new RetryableWebClientResponseException("503"));
+                .thenThrow(new WebClientResponseException(404, "", null, null, null));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
 
-        assertThrows(RetryableWebClientResponseException.class, () ->
+        assertThrows(WebClientResponseException.class, () ->
             crimeApplicationService.callCrimeApplyDatastore(1001L)
         );
     }

@@ -10,3 +10,19 @@ services:
     baseUrl: http://localhost:9999
     clientSecret: TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=
     issuer: maat-adaptor
+resilience4j:
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+          - org.springframework.web.reactive.function.client.WebClientResponseException.BadGateway
+          - org.springframework.web.reactive.function.client.WebClientResponseException.ServiceUnavailable
+          - org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError
+          - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
+
+    instances:
+      callCrimeApplyDatastore:
+        base-config: default
