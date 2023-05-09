@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationUtil;
+import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class CrimeApplicationService {
     @Retry(name=SERVICE_NAME)
     public MaatApplication callCrimeApplyDatastore(Long usn) {
         MaatApplication maatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
-                CrimeApplicationUtil.getHttpHeaders(
+                CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 

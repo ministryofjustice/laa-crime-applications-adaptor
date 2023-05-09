@@ -9,7 +9,7 @@ class CrimeApplicationUtilTest {
 
     @Test
     void testJWSTokenGenerationForCrimeApplyApi(){
-        assertThat(CrimeApplicationUtil.getHttpHeaders(
+        assertThat(CrimeApplicationHttpUtil.getHttpHeaders(
                   "TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=",
                 "maat-adapter")).isNotEmpty();
     }

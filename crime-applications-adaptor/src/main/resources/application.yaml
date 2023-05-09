@@ -20,7 +20,6 @@ resilience4j:
         wait-duration: 2s
         retry-exceptions:
           - uk.gov.justice.laa.crime.applications.adaptor.exception.RetryableWebClientResponseException
-          - org.springframework.web.reactive.function.client.WebClientRequestException
 
     instances:
       callCrimeApplyDatastore:

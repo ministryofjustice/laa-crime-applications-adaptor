@@ -13,9 +13,9 @@ import java.time.Instant;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    public static final String CLIENT_ERROR = "Client_Error";
-    public static final String INTERNAL_SERVER_ERROR = "Internal_Server_Error";
-    public static final String TIMESTAMP = "timestamp";
+    private static final String CLIENT_ERROR = "Client_Error";
+    private static final String INTERNAL_SERVER_ERROR = "Internal_Server_Error";
+    private static final String TIMESTAMP = "timestamp";
 
     @ExceptionHandler(APIClientException.class)
     ProblemDetail handleException(APIClientException e) {

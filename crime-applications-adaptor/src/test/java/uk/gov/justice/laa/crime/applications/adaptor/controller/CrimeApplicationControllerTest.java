@@ -31,8 +31,6 @@ class CrimeApplicationControllerTest {
     @MockBean
     private CrimeApplicationService crimeApplicationService;
 
-    @SpyBean
-    private CrimeApplicationService spyedCrimeApplicationService;
 
     @Test
     void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws Exception {

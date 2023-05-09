@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @UtilityClass
-public class CrimeApplicationUtil {
-    public static final String AUTHORIZATION = "Authorization";
-    public static final int TIME_IN_MILLISEC = 60000;
+public class CrimeApplicationHttpUtil {
+    private static final String AUTHORIZATION = "Authorization";
+    private static final int TIME_IN_MILLISEC = 60000;
 
     public Map<String, String> getHttpHeaders(String clientSecret, String issuer) {
         Map<String, String> headers = new HashMap<>();
