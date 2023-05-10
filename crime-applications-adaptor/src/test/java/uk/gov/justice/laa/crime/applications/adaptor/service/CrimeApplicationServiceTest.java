@@ -49,7 +49,7 @@ class CrimeApplicationServiceTest {
         Assertions.assertThat(response).isEqualTo(expected);
     }
     @Test
-    void Given4xxOr5xxHttpErrorsOnInvokingCrimeApplyDatastoreService_thenWebClientResponseExceptionIsThrown() {
+    void given4xxOr5xxHttpErrorsOnInvokingCrimeApplyDatastoreService_thenWebClientResponseExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientResponseException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
@@ -58,7 +58,7 @@ class CrimeApplicationServiceTest {
         );
     }
     @Test
-    void GivenNetworkUnrechableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
+    void givenNetworkUnrechableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
