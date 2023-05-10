@@ -1,16 +1,5 @@
 server:
-  port: 8088
-
-management:
-  server:
-    port: 8099
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      show-details: always
+  port: 9088
 
 resilience4j:
   retry:
@@ -25,16 +14,12 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError
           - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
 
-    instances:
-      callCrimeApplyDatastore:
-        base-config: default
-
 services:
   maat-api:
     oAuthEnabled: true
-    baseUrl: ${MAAT_API_BASE_URL}
+    baseUrl: maat_api_baseUrl
 
   crime-apply-api:
-    baseUrl: ${CRIME_APPLY_API_URL}
-    clientSecret: ${CRIME_APPLY_API_AUTH_SECRET}
-    issuer: ${CRIME_APPLY_AUTH_KEY_ISSUER}
+    baseUrl: http://localhost:9999
+    clientSecret: TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=
+    issuer: maat-adaptor
