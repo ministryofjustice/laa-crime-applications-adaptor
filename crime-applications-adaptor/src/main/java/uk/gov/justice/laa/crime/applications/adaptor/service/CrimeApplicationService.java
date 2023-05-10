@@ -17,12 +17,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUt
 @RequiredArgsConstructor
 @Slf4j
 public class CrimeApplicationService {
-
     private static final String SERVICE_NAME = "callCrimeApplyDatastore";
-
     private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
     private final ServicesConfiguration servicesConfiguration;
-
     private final ObservationRegistry observationRegistry;
 
     @Retry(name=SERVICE_NAME)

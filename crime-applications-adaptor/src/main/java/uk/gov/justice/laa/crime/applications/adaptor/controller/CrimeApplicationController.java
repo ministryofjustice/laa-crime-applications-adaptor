@@ -35,14 +35,14 @@ public class CrimeApplicationController {
 
     @ApiResponse(responseCode = "400",
             description = "Bad request.",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+            content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
 
     @ApiResponse(responseCode = "500",
             description = "Server Error.",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+            content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )

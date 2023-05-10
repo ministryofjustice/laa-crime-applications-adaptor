@@ -1,25 +1,25 @@
 package uk.gov.justice.laa.crime.applications.adaptor.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.APIClientException;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.RetryableWebClientResponseException;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CrimeApplicationController.class)
@@ -37,7 +37,7 @@ class CrimeApplicationControllerTest {
         String maatApplicationJson = FileUtils.readFileToString("data/application.json");
         MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
 
-        when(crimeApplicationService.callCrimeApplyDatastore(ArgumentMatchers.<Long>any())).thenReturn(application);
+        when(crimeApplicationService.callCrimeApplyDatastore(any())).thenReturn(application);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -52,22 +52,22 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenInvalidParams_whenCrimeApplyDatastoreServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.callCrimeApplyDatastore(ArgumentMatchers.<Long>any()))
-                .thenThrow(new APIClientException("404"));
+        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+                .thenThrow(new WebClientResponseException(404, "NOT_FOUND", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is4xxClientError())
-                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
                 .andExpect(jsonPath("$.status").value("404"))
-                .andExpect(jsonPath("$.detail").value("HTTP 404 NOT_FOUND"));
+                .andExpect(jsonPath("$.detail").value("404 NOT_FOUND"));
     }
 
     @Test
     void whenCrimeApplyDatastoreServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.callCrimeApplyDatastore(ArgumentMatchers.<Long>any()))
-                .thenThrow(new RetryableWebClientResponseException("503"));
+        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+                .thenThrow(new WebClientResponseException(503, "SERVICE_UNAVAILABLE", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -75,7 +75,20 @@ class CrimeApplicationControllerTest {
         mockMvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("503"))
-                .andExpect(jsonPath("$.detail").value("HTTP 503 SERVICE_UNAVAILABLE"));
+                .andExpect(jsonPath("$.detail").value("503 SERVICE_UNAVAILABLE"));
+    }
+
+    @Test
+    void whenCrimeApplyDatastoreServiceIsNotReachable_then_500ServerExceptionIsThrown() throws Exception {
+        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+                .thenThrow(Mockito.mock(WebClientRequestException.class));
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(request).andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value("500"));
     }
 
 }
