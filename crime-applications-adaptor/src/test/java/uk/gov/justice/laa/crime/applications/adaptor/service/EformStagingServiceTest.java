@@ -26,7 +26,7 @@ class EformStagingServiceTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParams_whenMaatReferencExistForUsnInEformStaging_thenRuntimeExceptionIsThrown() throws IOException {
+    void givenValidParams_whenMaatReferenceExistForUsnInEformStaging_thenRuntimeExceptionIsThrown() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).build();
 
         when(eformStagingApiClient.retriveOrInsertDummyUsnRecordInEformStaging(any()))
@@ -40,7 +40,7 @@ class EformStagingServiceTest {
     }
 
     @Test
-    void givenValidParams_whenMaatReferencNotExistForUsnInEformStaging_thenCallEformStagingApiClientToCreateDummyRecord() throws IOException {
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEformStaging_thenCallEformStagingApiClientToCreateDummyRecord() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
         when(eformStagingApiClient.retriveOrInsertDummyUsnRecordInEformStaging(any()))
                 .thenReturn(retrievedData);
