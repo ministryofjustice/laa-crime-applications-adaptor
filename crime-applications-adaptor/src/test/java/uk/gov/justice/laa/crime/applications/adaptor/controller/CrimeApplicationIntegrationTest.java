@@ -5,6 +5,8 @@ import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,12 +22,14 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.WireMockStubs;
 
 import java.io.IOException;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CrimeApplicationsAdaptorApplication.class, webEnvironment = DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class})
 class CrimeApplicationIntegrationTest {
 
     private MockMvc mvc;
@@ -39,7 +43,7 @@ class CrimeApplicationIntegrationTest {
     public void initialiseMockWebServer() throws IOException {
         mockCrimeApplyDatastoreApi = new MockWebServer();
         mockCrimeApplyDatastoreApi
-                .setDispatcher(WireMockStubs.forCrimeApplyDatastoreAPI());
+                .setDispatcher(WireMockStubs.forDownstreamApiCalls());
         mockCrimeApplyDatastoreApi.start(9999);
     }
 
@@ -55,7 +59,7 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws Exception {
+    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thencrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
         String maatApplicationJson = FileUtils.readFileToString("data/application.json");
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -69,25 +73,37 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenInvalidParams_whenCrimeApplyDatastoreServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "404")
+    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndExceptionIsThrownWithAppropriateMessage() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1002")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+        mvc.perform(request).andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+                .andExpect(jsonPath("$.status").value("500"))
+                .andExpect(jsonPath("$.detail").value("MAAT Reference [1000001] for USN [1002] already exist"));
+
+    }
+
+    @Test
+    void givenInvalidParams_whenDownstreamServiceIsCalled_then4xxClientExceptionIsThrown() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "403")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().is4xxClientError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
-                .andExpect(jsonPath("$.status").value("404"))
-                .andExpect(jsonPath("$.detail").value("404 Not Found from GET http://localhost:9999/404"));
+                .andExpect(jsonPath("$.status").value("403"))
+                .andExpect(jsonPath("$.detail", containsString("403 Forbidden")));
     }
 
     @Test
-    void whenCrimeApplyDatastoreServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
+    void whenDownstreamServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "503")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("503"))
-                .andExpect(jsonPath("$.detail").value("503 Service Unavailable from GET http://localhost:9999/503"));
+                .andExpect(jsonPath("$.detail", containsString(("503 Service Unavailable"))));
     }
 
 }

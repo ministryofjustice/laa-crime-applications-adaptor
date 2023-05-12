@@ -6,21 +6,30 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
-import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
+import uk.gov.justice.laa.crime.applications.adaptor.client.EformStagingApiClient;
 
 import java.time.Duration;
 
 @Configuration
 @AllArgsConstructor
 @Slf4j
-public class CrimeApplyWebClientConfiguration {
+public class EformStagingWebClientConfiguration {
     @Bean
-    WebClient crimeApplyWebClient(ServicesConfiguration servicesConfiguration) {
+    WebClient eformStagingWebClient(ServicesConfiguration servicesConfiguration, ClientRegistrationRepository clientRegistrations,
+                                    OAuth2AuthorizedClientRepository authorizedClients) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
+                new ServletOAuth2AuthorizedClientExchangeFilterFunction(
+                        clientRegistrations, authorizedClients
+                );
+        oauth.setDefaultClientRegistrationId(servicesConfiguration.getEformStagingApi().getRegistrationId());
         ConnectionProvider provider =
                 ConnectionProvider.builder("custom")
                         .maxConnections(500)
@@ -31,7 +40,7 @@ public class CrimeApplyWebClientConfiguration {
                         .build();
 
         return WebClient.builder()
-                .baseUrl(servicesConfiguration.getCrimeApplyApi().getBaseUrl())
+                .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
                 .clientConnector(new ReactorClientHttpConnector(
                                 HttpClient.create(provider)
                                         .resolver(DefaultAddressResolverGroup.INSTANCE)
@@ -39,14 +48,17 @@ public class CrimeApplyWebClientConfiguration {
                                         .responseTimeout(Duration.ofSeconds(30))
                         )
                 )
+                .filter(oauth)
                 .build();
     }
 
     @Bean
-    CrimeApplyDatastoreClient crimeApplyDatastoreClient(WebClient crimeApplyWebClient) {
+    EformStagingApiClient eformStagingApiClient(WebClient eformStagingWebClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(crimeApplyWebClient))
+                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(eformStagingWebClient))
                         .build();
-        return httpServiceProxyFactory.createClient(CrimeApplyDatastoreClient.class);
+        return httpServiceProxyFactory.createClient(EformStagingApiClient.class);
     }
+
+
 }

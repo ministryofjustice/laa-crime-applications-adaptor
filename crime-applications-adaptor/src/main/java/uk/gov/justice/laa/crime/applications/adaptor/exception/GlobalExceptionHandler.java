@@ -23,4 +23,10 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return problemDetail;
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ProblemDetail onRuntimeException(RuntimeException exception){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return problemDetail;
+    }
 }

@@ -29,10 +29,25 @@ resilience4j:
       callCrimeApplyDatastore:
         base-config: default
 
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          maatapi:
+            token-uri: ${MAAT_API_OAUTH_URL}
+        registration:
+          maatapi:
+            client-id: ${MAAT_API_OAUTH_CLIENT_ID}
+            client-secret: ${MAAT_API_OAUTH_CLIENT_SECRET}
+            authorization-grant-type: client_credentials
+            scope:
+              - ${MAAT_API_OAUTH_SCOPE}
+
 services:
-  maat-api:
-    oAuthEnabled: true
+  eform-staging-api:
     baseUrl: ${MAAT_API_BASE_URL}
+    registrationId: ${MAAT_API_REGISTRATION_ID}
 
   crime-apply-api:
     baseUrl: ${CRIME_APPLY_API_URL}

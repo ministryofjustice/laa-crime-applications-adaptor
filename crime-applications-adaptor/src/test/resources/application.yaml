@@ -15,9 +15,8 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
 
 services:
-  maat-api:
-    oAuthEnabled: true
-    baseUrl: maat_api_baseUrl
+  eform-staging-api:
+    baseUrl: http://localhost:9999
 
   crime-apply-api:
     baseUrl: http://localhost:9999

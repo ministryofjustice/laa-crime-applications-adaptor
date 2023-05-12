@@ -54,7 +54,7 @@ class CrimeApplicationServiceTest {
                 .thenThrow(Mockito.mock(WebClientResponseException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
         assertThrows(WebClientResponseException.class, () ->
-            crimeApplicationService.callCrimeApplyDatastore(1001l)
+            crimeApplicationService.callCrimeApplyDatastore(1001L)
         );
     }
     @Test
