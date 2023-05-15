@@ -13,11 +13,18 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.ServiceUnavailable
           - org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError
           - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
+          - org.springframework.web.reactive.function.client.WebClientResponseException.GatewayTimeout
+
+    instances:
+      eformStagingService:
+        base-config: default
+      callCrimeApplyDatastore:
+        base-config: default
 
 services:
-  maat-api:
-    oAuthEnabled: true
-    baseUrl: maat_api_baseUrl
+  eform-staging-api:
+    baseUrl: http://localhost:9999
+    registrationId: maatapi
 
   crime-apply-api:
     baseUrl: http://localhost:9999
