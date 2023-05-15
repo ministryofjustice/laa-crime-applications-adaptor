@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
+import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 
 @Slf4j
 @RestController
@@ -24,6 +25,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationSer
 public class CrimeApplicationController {
 
     private CrimeApplicationService crimeApplicationService;
+
+    private EformStagingService eformStagingService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
@@ -47,7 +50,8 @@ public class CrimeApplicationController {
             )
     )
     public MaatApplication getCrimeApplyData(@PathVariable Long id) {
-        log.info("Get the applicant details from crime apply datastore");
-        return crimeApplicationService.callCrimeApplyDatastore(id);
+        log.info("Get applicant details from Crime Apply datastore");
+        eformStagingService.retriveOrInsertDummyUsnRecord(id);
+        return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
     }
 }

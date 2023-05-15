@@ -23,4 +23,10 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return problemDetail;
     }
+
+    @ExceptionHandler(CrimeApplicationException.class)
+    public ProblemDetail onRuntimeException(CrimeApplicationException exception){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return problemDetail;
+    }
 }

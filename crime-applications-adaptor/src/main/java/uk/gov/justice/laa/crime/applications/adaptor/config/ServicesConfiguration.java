@@ -15,6 +15,9 @@ public class ServicesConfiguration {
     @NotNull
     private CrimeApplyApi crimeApplyApi;
 
+    @NotNull
+    private EformStagingApi eformStagingApi;
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
@@ -28,5 +31,17 @@ public class ServicesConfiguration {
 
         @NotNull
         private String issuer;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class EformStagingApi {
+
+        @NotNull
+        private String baseUrl;
+
+        @NotNull
+        private String registrationId;
     }
 }
