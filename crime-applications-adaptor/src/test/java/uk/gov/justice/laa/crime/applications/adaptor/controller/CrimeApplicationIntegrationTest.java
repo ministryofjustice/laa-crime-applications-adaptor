@@ -77,7 +77,7 @@ class CrimeApplicationIntegrationTest {
         mvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
                 .andExpect(jsonPath("$.status").value("500"))
-                .andExpect(jsonPath("$.detail").value("MAAT Reference [1000001] for USN [6000309] already exists"));
+                .andExpect(jsonPath("$.detail").value("USN: 1000001 already used on MAAT Id: 6000309"));
 
     }
 

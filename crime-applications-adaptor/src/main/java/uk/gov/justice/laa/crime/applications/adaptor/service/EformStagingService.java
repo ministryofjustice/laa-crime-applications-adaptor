@@ -14,7 +14,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 @RequiredArgsConstructor
 @Slf4j
 public class EformStagingService {
-    private static final String EXCEPTION_MESSAGE_FORMAT = "MAAT Reference [%d] for USN [%d] already exists";
+    private static final String EXCEPTION_MESSAGE_FORMAT = "USN: %d already used on MAAT Id: %d";
     private static final String SERVICE_NAME = "eformStagingService";
 
     private final MaatCourtDataApiClient eformStagingApiClient;
