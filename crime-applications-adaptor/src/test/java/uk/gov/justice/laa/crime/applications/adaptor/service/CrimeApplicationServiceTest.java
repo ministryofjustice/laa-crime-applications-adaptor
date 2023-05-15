@@ -44,7 +44,7 @@ class CrimeApplicationServiceTest {
                 .thenReturn(expected);
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
 
-        MaatApplication response = crimeApplicationService.callCrimeApplyDatastore(1001L);
+        MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
 
         Assertions.assertThat(response).isEqualTo(expected);
     }
@@ -54,7 +54,7 @@ class CrimeApplicationServiceTest {
                 .thenThrow(Mockito.mock(WebClientResponseException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
         assertThrows(WebClientResponseException.class, () ->
-            crimeApplicationService.callCrimeApplyDatastore(1001l)
+            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
         );
     }
     @Test
@@ -63,7 +63,7 @@ class CrimeApplicationServiceTest {
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
         assertThrows(WebClientRequestException.class, () ->
-            crimeApplicationService.callCrimeApplyDatastore(1001L)
+            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
         );
     }
 
