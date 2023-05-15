@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.RecordExistsException;
+import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 
 @Service
@@ -28,7 +28,7 @@ public class EformStagingService {
         Integer maatRef = eformStagingResponse.getMaatRef();
         if (maatRef != null) {
             String message = String.format(EXCEPTION_MESSAGE_FORMAT, maatRef, usn);
-            throw new RecordExistsException(message);
+            throw new CrimeApplicationException(message);
         }
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(()->eformStagingResponse);

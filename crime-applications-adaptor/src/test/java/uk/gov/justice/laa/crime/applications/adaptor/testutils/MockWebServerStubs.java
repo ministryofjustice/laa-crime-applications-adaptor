@@ -9,11 +9,11 @@ import java.io.IOException;
 
 public class MockWebServerStubs {
 
-    public static final String REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF = "/initialise/6000308";
-    public static final String REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF = "/initialise/6000309";
-    public static final String REQUEST_PATH_CRIME_APPLY_DATASTORE = "/6000308";
-    public static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
-    public static final String REQUEST_PATH_EFORM_STAGING_4XX = "/initialise/403";
+    private static final String REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF = "/initialise/6000308";
+    private static final String REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF = "/initialise/6000309";
+    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE = "/6000308";
+    private static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
+    private static final String REQUEST_PATH_EFORM_STAGING_4XX = "/initialise/403";
 
     public static Dispatcher forDownstreamApiCalls() {
         return new Dispatcher() {

@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.RecordExistsException;
+import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ class EformStagingServiceTest {
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(any()))
                 .thenReturn(retrievedData);
 
-        assertThrows(RecordExistsException.class, invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
+        assertThrows(CrimeApplicationException.class, invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
     }
 
     @Test
