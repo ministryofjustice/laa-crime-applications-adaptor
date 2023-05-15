@@ -25,6 +25,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService
 public class CrimeApplicationController {
 
     private CrimeApplicationService crimeApplicationService;
+
     private EformStagingService eformStagingService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,7 +50,8 @@ public class CrimeApplicationController {
             )
     )
     public MaatApplication getCrimeApplyData(@PathVariable Long id) {
+        log.info("Get applicant details from Crime Apply datastore");
         eformStagingService.retriveOrInsertDummyUsnRecord(id);
-        return crimeApplicationService.callCrimeApplyDatastore(id);
+        return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
     }
 }

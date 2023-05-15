@@ -18,13 +18,16 @@ import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUt
 @Slf4j
 public class CrimeApplicationService {
     private static final String SERVICE_NAME = "callCrimeApplyDatastore";
+
     private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
+
     private final ServicesConfiguration servicesConfiguration;
+
     private final ObservationRegistry observationRegistry;
 
     @Retry(name=SERVICE_NAME)
-    public MaatApplication callCrimeApplyDatastore(Long usn) {
-        log.info("Start - calling to Crime Apply datastore ");
+    public MaatApplication retrieveApplicationDetailsFromCrimeApplyDatastore(Long usn) {
+        log.info("Start - call to Crime Apply datastore ");
         MaatApplication maatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),

@@ -14,17 +14,17 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
-import uk.gov.justice.laa.crime.applications.adaptor.client.EformStagingApiClient;
+import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 
 import java.time.Duration;
 
 @Configuration
 @AllArgsConstructor
 @Slf4j
-public class EformStagingWebClientConfiguration {
+public class MaatCourtDataWebClientConfiguration {
     @Bean
-    WebClient eformStagingWebClient(ServicesConfiguration servicesConfiguration, ClientRegistrationRepository clientRegistrations,
-                                    OAuth2AuthorizedClientRepository authorizedClients) {
+    WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration, ClientRegistrationRepository clientRegistrations,
+                                     OAuth2AuthorizedClientRepository authorizedClients) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
                 new ServletOAuth2AuthorizedClientExchangeFilterFunction(
                         clientRegistrations, authorizedClients
@@ -53,11 +53,11 @@ public class EformStagingWebClientConfiguration {
     }
 
     @Bean
-    EformStagingApiClient eformStagingApiClient(WebClient eformStagingWebClient) {
+    MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(eformStagingWebClient))
+                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(maatCourtDataWebClient))
                         .build();
-        return httpServiceProxyFactory.createClient(EformStagingApiClient.class);
+        return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
     }
 
 

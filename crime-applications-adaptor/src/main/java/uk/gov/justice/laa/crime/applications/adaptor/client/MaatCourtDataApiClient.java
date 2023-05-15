@@ -5,8 +5,8 @@ import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 @HttpExchange()
-public interface EformStagingApiClient {
+public interface MaatCourtDataApiClient {
     @PostExchange("/initialise/{usn}")
-    EformStagingResponse retriveOrInsertDummyUsnRecordInEformStaging(@PathVariable Long usn);
+    EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(@PathVariable Long usn);
 
 }

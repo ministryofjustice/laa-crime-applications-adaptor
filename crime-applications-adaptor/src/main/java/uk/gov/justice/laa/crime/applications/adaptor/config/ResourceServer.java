@@ -8,11 +8,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class CsrfSecurityConfig {
+public class ResourceServer {
 
+    //Need the API Gateway - Cognito setup in cloud platform.
+    //Blocked by https://dsdmoj.atlassian.net/browse/LASB-1828 (WIP).
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         return http.build();
     }
 }

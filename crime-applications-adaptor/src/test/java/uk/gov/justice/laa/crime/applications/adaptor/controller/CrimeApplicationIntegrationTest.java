@@ -5,8 +5,6 @@ import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.justice.laa.crime.applications.adaptor.CrimeApplicationsAdaptorApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.WireMockStubs;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.MockWebServerStubs;
 
 import java.io.IOException;
 
@@ -29,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CrimeApplicationsAdaptorApplication.class, webEnvironment = DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class})
 class CrimeApplicationIntegrationTest {
 
     private MockMvc mvc;
@@ -43,7 +40,7 @@ class CrimeApplicationIntegrationTest {
     public void initialiseMockWebServer() throws IOException {
         mockCrimeApplyDatastoreApi = new MockWebServer();
         mockCrimeApplyDatastoreApi
-                .setDispatcher(WireMockStubs.forDownstreamApiCalls());
+                .setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
         mockCrimeApplyDatastoreApi.start(9999);
     }
 
@@ -59,9 +56,9 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thencrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
+    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
         String maatApplicationJson = FileUtils.readFileToString("data/application.json");
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request).andExpect(status().isOk())
@@ -73,14 +70,14 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndExceptionIsThrownWithAppropriateMessage() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1002")
+    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndRecordExistsExceptionIsThrownWithAppropriateMessage() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000309")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
                 .andExpect(jsonPath("$.status").value("500"))
-                .andExpect(jsonPath("$.detail").value("MAAT Reference [1000001] for USN [1002] already exist"));
+                .andExpect(jsonPath("$.detail").value("MAAT Reference [1000001] for USN [6000309] already exists"));
 
     }
 

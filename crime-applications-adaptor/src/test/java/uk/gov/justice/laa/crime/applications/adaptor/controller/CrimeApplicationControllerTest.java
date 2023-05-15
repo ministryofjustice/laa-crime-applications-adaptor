@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import uk.gov.justice.laa.crime.applications.adaptor.exception.RecordExistsException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
@@ -37,46 +38,44 @@ class CrimeApplicationControllerTest {
 
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thencrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
+    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
         String maatApplicationJson = FileUtils.readFileToString("data/application.json");
         MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
 
-        doNothing().when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
-        when(crimeApplicationService.callCrimeApplyDatastore(any())).thenReturn(application);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
-        String expectedJsonString = JsonUtils.objectToJson(application);
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().json(expectedJsonString)).andReturn();
+                .andExpect(content().json(maatApplicationJson)).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(expectedJsonString, actualJsonString, true);
-        verify(crimeApplicationService, times(1)).callCrimeApplyDatastore(1001L);
+        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, true);
+        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndExceptionIsThrownWithAppropriateMessage() throws Exception {
-        doThrow(new RuntimeException("MAAT Reference for USN already exist")).when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
+    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndRecordExistsExceptionIsThrownWithAppropriateMessage() throws Exception {
+        doThrow(new RecordExistsException("MAAT Reference for USN already exist")).when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is5xxServerError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
                 .andExpect(jsonPath("$.status").value("500"))
                 .andExpect(jsonPath("$.detail").value("MAAT Reference for USN already exist"));
-        verify(crimeApplicationService, times(0)).callCrimeApplyDatastore(1001L);
+
+        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
     }
 
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
-        doNothing().when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
-        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
                 .thenThrow(new WebClientResponseException(403, "Forbidden", null, null, null));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is4xxClientError())
@@ -87,11 +86,10 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenDownstreamServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
-        doNothing().when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
-        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
                 .thenThrow(new WebClientResponseException(503, "SERVICE_UNAVAILABLE", null, null, null));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is5xxServerError())
@@ -102,10 +100,10 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenCrimeApplyDatastoreServiceIsNotReachable_then_500ServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.callCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "1001")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is5xxServerError())

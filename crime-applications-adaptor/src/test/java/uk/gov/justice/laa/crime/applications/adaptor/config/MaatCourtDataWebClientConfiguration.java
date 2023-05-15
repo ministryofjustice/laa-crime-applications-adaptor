@@ -5,22 +5,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import uk.gov.justice.laa.crime.applications.adaptor.client.EformStagingApiClient;
+import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 
 @Configuration
-public class EformStagingWebClientConfiguration {
+public class MaatCourtDataWebClientConfiguration {
     @Bean
-    WebClient eformStagingWebClient(ServicesConfiguration servicesConfiguration) {
+    WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration) {
         return WebClient.builder()
                 .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
                 .build();
     }
 
     @Bean
-    EformStagingApiClient eformStagingApiClient(WebClient eformStagingWebClient) {
+    MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(eformStagingWebClient))
+                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(maatCourtDataWebClient))
                         .build();
-        return httpServiceProxyFactory.createClient(EformStagingApiClient.class);
+        return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
     }
 }

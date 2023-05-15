@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ProblemDetail onRuntimeException(RuntimeException exception){
+    @ExceptionHandler(RecordExistsException.class)
+    public ProblemDetail onRuntimeException(RecordExistsException exception){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return problemDetail;
     }

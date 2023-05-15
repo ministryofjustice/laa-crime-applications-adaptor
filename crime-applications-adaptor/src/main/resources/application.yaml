@@ -24,8 +24,11 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.ServiceUnavailable
           - org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError
           - org.springframework.web.reactive.function.client.WebClientResponseException.NotImplemented
+          - org.springframework.web.reactive.function.client.WebClientResponseException.GatewayTimeout
 
     instances:
+      eformStagingService:
+        base-config: default
       callCrimeApplyDatastore:
         base-config: default
 
