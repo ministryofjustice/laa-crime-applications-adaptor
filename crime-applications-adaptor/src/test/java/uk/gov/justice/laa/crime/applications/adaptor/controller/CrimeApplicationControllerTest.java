@@ -57,7 +57,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndRecordExistsExceptionIsThrownWithAppropriateMessage() throws Exception {
-        doThrow(new CrimeApplicationException("MAAT Reference for USN already exist")).when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
+        doThrow(new CrimeApplicationException("MAAT Reference for USN already exist")).when(eformStagingService).retrieveOrInsertDummyUsnRecord(any());
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);

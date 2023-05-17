@@ -52,7 +52,7 @@ class EformStagingServiceTest {
         return new Executable() {
             @Override
             public void execute() throws Throwable {
-                eformStagingService.retriveOrInsertDummyUsnRecord(6000308L);
+                eformStagingService.retrieveOrInsertDummyUsnRecord(6000308L);
             }
         };
     }

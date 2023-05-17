@@ -21,8 +21,8 @@ public class EformStagingService {
 
     private final ObservationRegistry observationRegistry;
 
-    @Retry(name=SERVICE_NAME)
-    public void retriveOrInsertDummyUsnRecord(Long usn) {
+    @Retry(name = SERVICE_NAME)
+    public void retrieveOrInsertDummyUsnRecord(Long usn) {
         log.info("Start - call to Eform Staging API ");
         EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
         Integer maatRef = eformStagingResponse.getMaatRef();
@@ -31,6 +31,6 @@ public class EformStagingService {
             throw new CrimeApplicationException(message);
         }
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(()->eformStagingResponse);
+                .observe(() -> eformStagingResponse);
     }
 }

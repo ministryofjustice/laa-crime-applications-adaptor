@@ -51,7 +51,7 @@ public class CrimeApplicationController {
     )
     public MaatApplication getCrimeApplyData(@PathVariable Long id) {
         log.info("Get applicant details from Crime Apply datastore");
-        eformStagingService.retriveOrInsertDummyUsnRecord(id);
+        eformStagingService.retrieveOrInsertDummyUsnRecord(id);
         return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
     }
 }
