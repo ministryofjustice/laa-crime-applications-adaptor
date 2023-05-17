@@ -10,7 +10,10 @@ import java.util.Map;
 
 @HttpExchange
 public interface CrimeApplyDatastoreClient {
+
+    // TODO Alex need to understand what/how we do the mapping logic
     @GetExchange("/{usn}")
-    MaatApplication getApplicationDetails(@PathVariable Long usn, @RequestHeader Map<String, String> headers);
+    MaatApplication getApplicationDetails(@PathVariable Long usn,
+                                          @RequestHeader Map<String, String> headers);
 
 }
