@@ -6,10 +6,11 @@ import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.EformMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
@@ -22,18 +23,20 @@ public class CrimeApplicationService {
     private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
 
     private final ServicesConfiguration servicesConfiguration;
-
     private final ObservationRegistry observationRegistry;
+    private final EformMapper eformMapper;
 
     @Retry(name=SERVICE_NAME)
     public MaatApplication retrieveApplicationDetailsFromCrimeApplyDatastore(Long usn) {
         log.info("Start - call to Crime Apply datastore ");
-        MaatApplication maatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
+        EformStagingResponse eFormData = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
+        MaatApplication maatApplication = eformMapper.mapToMaatApplication(eFormData.getXmlDoc());
+
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(()->maatApplication);
+                .observe(() -> maatApplication);
     }
 }

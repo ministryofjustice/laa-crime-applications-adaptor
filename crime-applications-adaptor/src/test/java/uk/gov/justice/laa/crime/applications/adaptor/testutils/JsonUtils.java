@@ -9,13 +9,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class JsonUtils {
 
-    public static String objectToJson(Object object) throws JsonProcessingException {
+    public static String objectToJson(Object object) {
         ObjectMapper mapper = getObjectMapper();
-        String returnValue = null;
-        if (object != null) {
-            returnValue = mapper.writeValueAsString(object);
+
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            String message = "Unable to serialise [%s] to a JSON String".formatted(object);
+            throw new RuntimeException(message);
         }
-        return returnValue;
     }
 
     public static <T> T jsonToObject(String jsonStr, Class<T> clz) throws JsonProcessingException {
