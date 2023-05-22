@@ -7,13 +7,13 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 
 @Service
 @RequiredArgsConstructor
-public class EformMapper {
+public class CrimeApplyMapper {
 
     public MaatApplication mapToMaatApplication(MaatCaaContract crimeApplyApplicationDetails) {
         // TODO Alex implement this
         // apply mapping logic as per doc to go from Crime Apply response to MaatApplication
         MaatApplication maatApplication = new MaatApplication();
-        
+
         return maatApplication;
     }
 }

@@ -10,13 +10,13 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
-class EformMapperTest {
+class CrimeApplyMapperTest {
 
-    private EformMapper eformMapper;
+    private CrimeApplyMapper crimeApplyMapper;
 
     @BeforeEach
     void setUp() {
-        eformMapper = new EformMapper();
+        crimeApplyMapper = new CrimeApplyMapper();
     }
 
     @Test
@@ -24,7 +24,7 @@ class EformMapperTest {
         String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/crimeapply/MaatCaaContract_default.json");
         MaatCaaContract crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatCaaContract.class);
 
-        MaatApplication maatApplication = eformMapper.mapToMaatApplication(crimeApplyApplicationDetails);
+        MaatApplication maatApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
 
         String actualMaatApplicationJson = JsonUtils.objectToJson(maatApplication);
 

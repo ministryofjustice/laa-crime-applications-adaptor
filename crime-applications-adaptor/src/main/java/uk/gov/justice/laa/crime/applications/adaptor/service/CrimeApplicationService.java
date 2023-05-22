@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.mapper.EformMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract;
 import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
@@ -24,7 +24,7 @@ public class CrimeApplicationService {
 
     private final ServicesConfiguration servicesConfiguration;
     private final ObservationRegistry observationRegistry;
-    private final EformMapper eformMapper;
+    private final CrimeApplyMapper crimeApplyMapper;
 
     @Retry(name=SERVICE_NAME)
     public MaatApplication retrieveApplicationDetailsFromCrimeApplyDatastore(Long usn) {
@@ -34,7 +34,7 @@ public class CrimeApplicationService {
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        MaatApplication maatApplication = eformMapper.mapToMaatApplication(crimeApplyApplicationDetails);
+        MaatApplication maatApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
 
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> maatApplication);
