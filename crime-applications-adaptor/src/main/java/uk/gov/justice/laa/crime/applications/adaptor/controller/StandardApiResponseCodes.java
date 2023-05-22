@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

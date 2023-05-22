@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;

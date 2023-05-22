@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.EformMapper;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
 @Service
@@ -29,12 +29,12 @@ public class CrimeApplicationService {
     @Retry(name=SERVICE_NAME)
     public MaatApplication retrieveApplicationDetailsFromCrimeApplyDatastore(Long usn) {
         log.info("Start - call to Crime Apply datastore ");
-        EformStagingResponse eFormData = crimeApplyDatastoreClient.getApplicationDetails(usn,
+        MaatCaaContract crimeApplyApplicationDetails = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        MaatApplication maatApplication = eformMapper.mapToMaatApplication(eFormData.getXmlDoc());
+        MaatApplication maatApplication = eformMapper.mapToMaatApplication(crimeApplyApplicationDetails);
 
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> maatApplication);

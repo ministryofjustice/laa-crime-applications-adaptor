@@ -20,11 +20,16 @@ public class JsonUtils {
         }
     }
 
-    public static <T> T jsonToObject(String jsonStr, Class<T> clz) throws JsonProcessingException {
+    public static <T> T jsonToObject(String jsonStr, Class<T> clz) {
         ObjectMapper mapper = getObjectMapper();
         T returnValue = null;
-        if(StringUtils.isNotEmpty(jsonStr)) {
-            returnValue = mapper.readValue(jsonStr, clz);
+        if (StringUtils.isNotEmpty(jsonStr)) {
+            try {
+                returnValue = mapper.readValue(jsonStr, clz);
+            } catch (JsonProcessingException e) {
+                String message = "Unable to deserialise [%s] into a [%s] encountered error: %s".formatted(jsonStr, clz, e.getMessage());
+                throw new RuntimeException(message, e);
+            }
         }
         return returnValue;
     }

@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONCompare;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
@@ -20,9 +21,10 @@ class EformMapperTest {
 
     @Test
     void mapToMaatApplication() throws JSONException {
-        String eformXML = FileUtils.readFileToString("data/eforms/EFORMS_STAGING_4716.xml");
+        String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/crimeapply/MaatCaaContract_default.json");
+        MaatCaaContract crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatCaaContract.class);
 
-        MaatApplication maatApplication = eformMapper.mapToMaatApplication(eformXML);
+        MaatApplication maatApplication = eformMapper.mapToMaatApplication(crimeApplyApplicationDetails);
 
         String actualMaatApplicationJson = JsonUtils.objectToJson(maatApplication);
 

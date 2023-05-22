@@ -12,7 +12,8 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
@@ -38,7 +39,7 @@ class CrimeApplicationServiceTest {
     @Test
     void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws IOException {
         String maatApplicationJson = FileUtils.readFileToString("data/application.json");
-        MaatApplication expected = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
+        MaatCaaContract expected = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenReturn(expected);

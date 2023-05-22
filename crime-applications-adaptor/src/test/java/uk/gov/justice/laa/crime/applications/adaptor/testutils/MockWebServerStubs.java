@@ -5,8 +5,6 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.springframework.http.MediaType;
 
-import java.io.IOException;
-
 public class MockWebServerStubs {
 
     private static final String REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF = "/initialise/6000308";
@@ -35,35 +33,23 @@ public class MockWebServerStubs {
     }
 
     private static MockResponse stubForCrimeApplyDatastore() {
-        try {
             return new MockResponse().addHeader("Content-Type",
                             MediaType.APPLICATION_JSON)
                     .setResponseCode(200)
                     .setBody(FileUtils.readFileToString("data/application.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static MockResponse stubForEformStagingWithMaatRef() {
-        try {
             return new MockResponse().addHeader("Content-Type",
                             MediaType.APPLICATION_JSON)
                     .setResponseCode(200)
                     .setBody(FileUtils.readFileToString("data/eform_staging_with_maatref.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static MockResponse stubForEformStagingWithNoMaatRef() {
-        try {
             return new MockResponse().addHeader("Content-Type",
                             MediaType.APPLICATION_JSON)
                     .setResponseCode(200)
                     .setBody(FileUtils.readFileToString("data/eform_staging_with_no_maatref.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
