@@ -13,5 +13,4 @@ public class EformStagingResponse {
     private Integer usn;
     private String type;
     private Integer maatRef;
-    private String xmlDoc; // TODO ALex needs to be added in maat api also
 }

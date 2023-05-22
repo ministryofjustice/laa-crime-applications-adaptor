@@ -11,7 +11,10 @@ public class CrimeApplyMapper {
 
     public MaatApplication mapToMaatApplication(MaatCaaContract crimeApplyApplicationDetails) {
         // TODO Alex implement this
-        // apply mapping logic as per doc to go from Crime Apply response to MaatApplication
+        // apply mapping logic as per doc to go from Crime Apply response
+        // uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract
+        // to
+        // uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication
         MaatApplication maatApplication = new MaatApplication();
 
         return maatApplication;
