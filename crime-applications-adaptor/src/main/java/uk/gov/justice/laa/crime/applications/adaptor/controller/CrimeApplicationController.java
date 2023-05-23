@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 
@@ -17,18 +17,18 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/internal/v1/crimeapply")
-@Tag(name = "Crime Application Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
+@Tag(name = "Crime Applications Adaptor", description = "Rest API to retrieve and transform application details from Crime Apply datastore")
 public class CrimeApplicationController {
 
     private final CrimeApplicationService crimeApplicationService;
     private final EformStagingService eformStagingService;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{usn}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
     @StandardApiResponseCodes
-    public MaatApplication getCrimeApplyData(@PathVariable Long id) {
-        log.info("Get applicant details from Crime Apply datastore");
-        eformStagingService.retrieveOrInsertDummyUsnRecord(id);
-        return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
+    public MaatApplication getCrimeApplyData(@PathVariable long usn) {
+        log.info("Get applicant details from Crime Apply datastore with usn {}", usn);
+        eformStagingService.retrieveOrInsertDummyUsnRecord(usn);
+        return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(usn);
     }
 }

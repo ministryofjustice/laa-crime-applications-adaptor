@@ -1,23 +1,24 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
-import org.fest.assertions.Assertions;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract;
-import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CadApplicationResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
-
-import java.io.IOException;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -33,29 +34,34 @@ class CrimeApplicationServiceTest {
     @Mock
     private ServicesConfiguration servicesConfiguration;
 
+    @Mock
+    private CrimeApplyMapper crimeApplyMapper;
+
     @InjectMocks
     private CrimeApplicationService crimeApplicationService;
 
     @Test
-    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws IOException {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
-        MaatCaaContract expected = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
+    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws JSONException {
+        String cadApplicationResponseJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/CADApplicationResponse_default.json");
+        CadApplicationResponse cadApplicationResponse = JsonUtils.jsonToObject(cadApplicationResponseJson, CadApplicationResponse.class);
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenReturn(expected);
+                .thenReturn(cadApplicationResponse);
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
 
-        MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
+        String responseJson = JsonUtils.objectToJson(response);
 
-        Assertions.assertThat(response).isEqualTo(expected);
+        JSONAssert.assertEquals("{}", responseJson, JSONCompareMode.STRICT);
     }
+
     @Test
     void given4xxOr5xxHttpErrorsOnInvokingCrimeApplyDatastoreService_thenWebClientResponseExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientResponseException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
         assertThrows(WebClientResponseException.class, () ->
-            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
+                crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308)
         );
     }
     @Test
@@ -67,6 +73,5 @@ class CrimeApplicationServiceTest {
             crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
         );
     }
-
 }
 

@@ -36,20 +36,20 @@ public class MockWebServerStubs {
             return new MockResponse().addHeader("Content-Type",
                             MediaType.APPLICATION_JSON)
                     .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/application.json"));
+                    .setBody(FileUtils.readFileToString("data/criminalapplicationsdatastore/CADApplicationResponse_default.json"));
     }
 
     private static MockResponse stubForEformStagingWithMaatRef() {
-            return new MockResponse().addHeader("Content-Type",
-                            MediaType.APPLICATION_JSON)
-                    .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/eform_staging_with_maatref.json"));
+        return new MockResponse().addHeader("Content-Type",
+                        MediaType.APPLICATION_JSON)
+                .setResponseCode(200)
+                .setBody(FileUtils.readFileToString("data/maatcourtdataapi/eform_staging_with_maatref.json"));
     }
 
     private static MockResponse stubForEformStagingWithNoMaatRef() {
-            return new MockResponse().addHeader("Content-Type",
-                            MediaType.APPLICATION_JSON)
-                    .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/eform_staging_with_no_maatref.json"));
+        return new MockResponse().addHeader("Content-Type",
+                        MediaType.APPLICATION_JSON)
+                .setResponseCode(200)
+                .setBody(FileUtils.readFileToString("data/maatcourtdataapi/eform_staging_with_no_maatref.json"));
     }
 }

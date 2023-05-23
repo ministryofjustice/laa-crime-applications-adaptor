@@ -7,6 +7,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 @HttpExchange()
 public interface MaatCourtDataApiClient {
     @PostExchange("/initialise/{usn}")
-    EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(@PathVariable Long usn);
+    EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(@PathVariable long usn);
 
 }

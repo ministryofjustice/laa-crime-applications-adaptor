@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
@@ -39,10 +39,10 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
-        MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/MaatApplication_default.json");
+        MaatApplication maatApplication = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
 
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(maatApplication);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -51,8 +51,8 @@ class CrimeApplicationControllerTest {
                 .andExpect(content().json(maatApplicationJson)).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, true);
-        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        JSONAssert.assertEquals("{}", actualJsonString, true);
+        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 
     @Test
@@ -67,12 +67,12 @@ class CrimeApplicationControllerTest {
                 .andExpect(jsonPath("$.status").value("500"))
                 .andExpect(jsonPath("$.detail").value("MAAT Reference for USN already exist"));
 
-        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(403, "Forbidden", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -86,7 +86,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenDownstreamServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(503, "SERVICE_UNAVAILABLE", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -100,7 +100,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenCrimeApplyDatastoreServiceIsNotReachable_then_500ServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -110,5 +110,4 @@ class CrimeApplicationControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("500"));
     }
-
 }

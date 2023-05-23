@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +29,7 @@ class EformStagingServiceTest {
     void givenValidParams_whenMaatReferenceExistForUsnInEformStaging_thenRuntimeExceptionIsThrown() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).build();
 
-        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(any()))
+        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
                 .thenReturn(retrievedData);
 
         assertThrows(CrimeApplicationException.class, invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
@@ -40,7 +39,7 @@ class EformStagingServiceTest {
     void givenValidParams_whenMaatReferenceNotExistForUsnInEformStaging_thenEformStagingApiClientIsInvokedToCreateDummyRecord() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
 
-        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(any()))
+        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
                 .thenReturn(retrievedData);
 
         assertDoesNotThrow(invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
