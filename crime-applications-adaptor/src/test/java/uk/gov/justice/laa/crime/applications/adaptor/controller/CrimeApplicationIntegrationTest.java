@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.justice.laa.crime.applications.adaptor.CrimeApplicationsAdaptorApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.MockWebServerStubs;
 
 import java.io.IOException;
@@ -63,7 +64,9 @@ class CrimeApplicationIntegrationTest {
         MvcResult result = mvc.perform(request).andExpect(status().isOk()).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals("{}", actualJsonString, JSONCompareMode.STRICT);
+        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatapplication/MaatApplication_default.json");
+
+        JSONAssert.assertEquals(expectedMaatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
     }
 
     @Test

@@ -51,8 +51,9 @@ class CrimeApplicationServiceTest {
 
         MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
         String responseJson = JsonUtils.objectToJson(response);
+        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatapplication/MaatApplication_default.json");
 
-        JSONAssert.assertEquals("{}", responseJson, JSONCompareMode.STRICT);
+        JSONAssert.assertEquals(expectedMaatApplicationJson, responseJson, JSONCompareMode.STRICT);
     }
 
     @Test

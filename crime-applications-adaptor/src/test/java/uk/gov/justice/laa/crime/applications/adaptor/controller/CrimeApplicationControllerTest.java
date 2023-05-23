@@ -3,6 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.controller;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -51,7 +52,9 @@ class CrimeApplicationControllerTest {
                 .andExpect(content().json(maatApplicationJson)).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals("{}", actualJsonString, true);
+        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatapplication/MaatApplication_default.json");
+
+        JSONAssert.assertEquals(expectedMaatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 

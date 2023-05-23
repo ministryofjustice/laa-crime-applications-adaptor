@@ -1,0 +1,31 @@
+{
+  "statusReason": "current",
+  "solicitorName": "Karl Kent",
+  "applicationType": "New application",
+  "caseDetails": {
+    "hearingCourtName": "Cardiff Magistrates' Court"
+  },
+  "offence": {
+    "offenceType": "summary_only"
+  },
+  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "welshCorrespondence": false,
+  "applicant": {
+    "gender": "Prefer not to say",
+    "hasPartner": false,
+    "noFixedAbode": false,
+    "useSupplierAdressForPost": false,
+    "disabilityStatement": {}
+  },
+  "hasPartner": false,
+  "passported": {
+    "benefitClaimedByPartner": false,
+    "under18HeardMagsCourt": false,
+    "under18HeardYouthCourt": false,
+    "benefitEmploymentSupport": false,
+    "benefitGaurenteedStatePension": false,
+    "newWorkReason": {
+      "description": "TEST"
+    }
+  }
+}
