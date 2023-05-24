@@ -4,49 +4,18 @@
   "title": "Applicant",
   "description": "Holds attributes of an applicant. Extends from Person.",
   "type": "object",
-  "allOf": [
-    {
-      "$ref": "#/definitions/person"
-    }
-  ],
+  "allOf": [{ "$ref": "#/definitions/person" }],
   "properties": {
-    "date_of_birth": {
-      "type": "string",
-      "format": "date"
-    },
-    "nino": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "telephone_number": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "correspondence_address_type": {
-      "type": "string"
-    },
-    "home_address": {
-      "$ref": "#/definitions/address"
-    },
-    "correspondence_address": {
-      "$ref": "#/definitions/address"
-    }
+    "date_of_birth": { "type": "string", "format": "date" },
+    "nino": { "type": ["string", "null"] },
+    "telephone_number": { "type": ["string", "null"] },
+    "correspondence_address_type": { "type": "string" },
+    "home_address": { "$ref": "#/definitions/address" },
+    "correspondence_address": { "$ref": "#/definitions/address" }
   },
-  "required": [
-    "date_of_birth",
-    "nino",
-    "correspondence_address_type"
-  ],
+  "required": ["date_of_birth", "nino", "correspondence_address_type"],
   "definitions": {
-    "person": {
-      "$ref": "person.json"
-    },
-    "address": {
-      "$ref": "address.json"
-    }
+    "person": { "$ref": "person.json" },
+    "address": { "$ref": "address.json" }
   }
 }

@@ -5,21 +5,9 @@
   "description": "Holds common attributes of a person",
   "type": "object",
   "properties": {
-    "first_name": {
-      "type": "string"
-    },
-    "last_name": {
-      "type": "string"
-    },
-    "other_names": {
-      "type": [
-        "string",
-        "null"
-      ]
-    }
+    "first_name": { "type": "string" },
+    "last_name": { "type": "string" },
+    "other_names": { "type": ["string", "null"] }
   },
-  "required": [
-    "first_name",
-    "last_name"
-  ]
+  "required": ["first_name", "last_name"]
 }

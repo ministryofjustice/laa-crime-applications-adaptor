@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = @Schema(implementation = MaatApplication.class))),
+                        schema = @Schema(implementation = MaatCaaContract.class))),
 
         @ApiResponse(responseCode = "400",
                 description = "Bad request.",

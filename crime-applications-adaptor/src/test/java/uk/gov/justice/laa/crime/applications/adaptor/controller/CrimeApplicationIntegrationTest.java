@@ -57,14 +57,14 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request).andExpect(status().isOk()).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatapplication/MaatApplication_default.json");
+        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatcaacontract/MaatApplication_default.json");
 
         JSONAssert.assertEquals(expectedMaatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
     }

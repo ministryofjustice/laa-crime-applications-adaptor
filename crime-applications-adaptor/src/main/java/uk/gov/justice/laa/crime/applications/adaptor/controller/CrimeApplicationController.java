@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 
@@ -26,7 +26,7 @@ public class CrimeApplicationController {
     @GetMapping(value = "/{usn}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
     @StandardApiResponseCodes
-    public MaatApplication getCrimeApplyData(@PathVariable long usn) {
+    public MaatCaaContract getCrimeApplyData(@PathVariable long usn) {
         log.info("Get applicant details from Crime Apply datastore with usn {}", usn);
         eformStagingService.retrieveOrInsertDummyUsnRecord(usn);
         return crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(usn);

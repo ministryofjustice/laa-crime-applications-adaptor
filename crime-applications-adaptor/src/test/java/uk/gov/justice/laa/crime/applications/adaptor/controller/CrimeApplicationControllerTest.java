@@ -16,11 +16,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -39,22 +39,21 @@ class CrimeApplicationControllerTest {
 
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/MaatApplication_default.json");
-        MaatApplication maatApplication = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
-
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(maatApplication);
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
+        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract();
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
+                .thenReturn(maatCaaContract);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().json(maatApplicationJson)).andReturn();
+        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        String expectedMaatApplicationJson = FileUtils.readFileToString("data/expected/maatapplication/MaatApplication_default.json");
+        String expectedMaatCaaContract = JsonUtils.objectToJson(maatCaaContract);
+        ;
 
-        JSONAssert.assertEquals(expectedMaatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
+        JSONAssert.assertEquals(expectedMaatCaaContract, actualJsonString, JSONCompareMode.STRICT);
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 

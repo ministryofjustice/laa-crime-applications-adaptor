@@ -1,0 +1,303 @@
+{
+    "type": "object",
+    "description": "Means assessment application object",
+    "properties": {
+        "statusReason": {
+            "type": "string",
+            "default": "current"
+        },
+        "solicitorName": {
+            "type": "string"
+        },
+        "repId": {
+            "type": "integer"
+        },
+        "applicationType": {
+            "type": "string",
+            "default": "New application"
+        },
+        "caseDetails": {
+            "type": "object",
+            "properties": {
+                "caseType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "caseType"
+            ]
+        },
+        "magsOutcome": {
+            "type": "object",
+            "properties": {
+                "outcome": {
+                    "type:": "string"
+                }
+            }
+        },
+        "iojResult": {
+            "type": "string"
+        },
+        "areaId": {
+            "type": "integer"
+        },
+        "usn": {
+            "type": "integer"
+        },
+        "commonPlatformData": {
+            "type": "object",
+            "properties": {
+                "urn": {
+                    "type": "string"
+                }
+            }
+        },
+        "caseId": {
+            "type": "string"
+        },
+        "offence": {
+            "type": "object",
+            "properties": {
+                "offenceType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "offenceType"
+            ]
+        },
+        "arrestSummonsNumber": {
+            "type": "string"
+        },
+        "solicitorAdminEmail": {
+            "type": "string"
+        },
+        "courtCustody": {
+            "type": "boolean",
+            "default": false
+        },
+        "welshCorrespondence": {
+            "type": "boolean",
+            "default": false
+        },
+        "dateCreated": {
+            "type": "integer"
+        },
+        "dateStamp": {
+            "type": "integer"
+        },
+        "hearingDate": {
+            "type": "integer"
+        },
+        "committalDate": {
+            "type": "integer"
+        },
+        "dateOfSignature": {
+            "type": "integer"
+        },
+        "dateReceived": {
+            "type": "integer"
+        },
+        "applicant": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "otherNames": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string",
+                    "default": "Prefer not to say"
+                },
+                "hasPartner": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "foreignId": {
+                    "type": "string"
+                },
+                "mobileTelephone": {
+                    "type": "string"
+                },
+                "homeTelephone": {
+                    "type": "string"
+                },
+                "workTelephone": {
+                    "type": "string"
+                },
+                "niNumber": {
+                    "type": "string"
+                },
+                "noFixedAbode": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useSupplierAddressForPost": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "partnerContraryInterest": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string",
+                            "default": "NOCON"
+                        }
+                    }
+                },
+                "ethnicity": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "employmentStatus": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "disabilityStatement": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string",
+                            "default": "NOT_DISABLED"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "disabilities": {
+                            "type": "array",
+                            "disabilities" : {
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "homeAddress": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string"
+                        },
+                        "line1": {
+                            "type": "string"
+                        },
+                        "line2": {
+                            "type": "string"
+                        },
+                        "line3": {
+                            "type": "string"
+                        },
+                        "postCode": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "postalAddress": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string"
+                        },
+                        "line1": {
+                            "type": "string"
+                        },
+                        "line2": {
+                            "type": "string"
+                        },
+                        "line3": {
+                            "type": "string"
+                        },
+                        "postCode": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "hasPartner": {
+            "type": "boolean",
+            "default": false
+        },
+        "supplier": {
+            "type": "object",
+            "properties": {
+                "accountNumber": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string"
+                        },
+                        "line1": {
+                            "type": "string"
+                        },
+                        "line2": {
+                            "type": "string"
+                        },
+                        "line3": {
+                            "type": "string"
+                        },
+                        "postCode": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "passported": {
+            "type": "object",
+            "description": "Passported data- not required for iteration 1"
+        },
+        "assessment": {
+            "type": "object",
+            "description": "Means assessment information - not required for iteration 1"
+        },
+        "capitalEquity": {
+            "type": "object",
+            "description": "Capital equity information - not required fro Iteration 1"
+        }
+    },
+    "required": [
+        "statusReason",
+        "applicationType",
+        "caseDetails",
+        "areaId",
+        "usn",
+        "commonPlatformData",
+        "caseId",
+        "offence",
+        "arrestSummonsNumber",
+        "solicitorName",
+        "solicitorAdminEmail",
+        "courtCustody",
+        "welshCorrespondence",
+        "dateCreated"
+    ]
+}

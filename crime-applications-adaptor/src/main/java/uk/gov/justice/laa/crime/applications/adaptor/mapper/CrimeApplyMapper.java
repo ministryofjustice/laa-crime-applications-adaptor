@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.model.*;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CadApplicationResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 
 /**
  * The responsibility of this class is to encapsulate the required logic to map from a
@@ -15,21 +15,25 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 @RequiredArgsConstructor
 public class CrimeApplyMapper {
 
-    public MaatApplication mapToMaatApplication(CadApplicationResponse crimeApplyResponse) {
+    public MaatCaaContract mapToMaatApplication(MaatApplication crimeApplyResponse) {
         // TODO Alex implement this
         // apply mapping logic as per doc to go from Crime Apply response
         // uk.gov.justice.laa.crime.applications.adaptor.model.crimeapply.MaatCaaContract
         // to
         // uk.gov.justice.laa.crime.applications.adaptor.model.maat.MaatApplication
-        MaatApplication maatApplication = new MaatApplication();
+        MaatCaaContract maatApplication = new MaatCaaContract();
         maatApplication.setStatusReason("current");
         maatApplication.setSolicitorName(crimeApplyResponse.getProviderDetails().getLegalRepFirstName() + " " +
                 crimeApplyResponse.getProviderDetails().getLegalRepLastName());
         maatApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
         maatApplication.setRepId(null);
-        maatApplication.setCourtCustody(null);
-        //maatApplication.setPartnerContraryInterest
+        maatApplication.setCourtCustody(null); // TODO no custody field present in datastore
+        maatApplication.setWelshCorrespondence(null); // TODO no Welsh field present in datastore
+        //maatApplication.setDateStamp(crimeApplyResponse.getDateStamp()); // TODO update schema
+        maatApplication.setUsn(null); // TODO should come from originating request?
+        //maatApplication.setHearingDate(crimeApplyResponse.getCaseDetails().getHearingDate()); // TODO parse/convert
         maatApplication.setCaseDetails(mapToCaseDetails(crimeApplyResponse));
+        maatApplication.setMagsOutcome(mapMagsOutcome(crimeApplyResponse));
 
         maatApplication.setApplicant(mapToApplicant(crimeApplyResponse));
         maatApplication.setPassported(mapToPassported(crimeApplyResponse));
@@ -38,41 +42,57 @@ public class CrimeApplyMapper {
         return maatApplication;
     }
 
-    private Offence mapToOffence(CadApplicationResponse crimeApplyResponse) {
+    private MagsOutcome mapMagsOutcome(MaatApplication crimeApplyResponse) {
+        MagsOutcome magsOutcome = new MagsOutcome();
+        magsOutcome.setOutcome("TODO"); // TODO
+        return magsOutcome;
+    }
+
+    private Passported mapToPassported(MaatApplication crimeApplyResponse) {
+        return null;
+    }
+
+    private Offence mapToOffence(MaatApplication crimeApplyResponse) {
         Offence offence = new Offence();
-        offence.setOffenceType(crimeApplyResponse.getCaseDetails().getCaseType());
+        offence.setOffenceType(crimeApplyResponse.getCaseDetails().getOffenceClass());
         return offence;
     }
 
-    private Passported mapToPassported(CadApplicationResponse crimeApplyResponse) {
-        Passported passported = new Passported();
-        passported.setNewWorkReason(mapToNewWorkReason(crimeApplyResponse));
-        return passported;
-    }
-
-    private NewWorkReason mapToNewWorkReason(CadApplicationResponse crimeApplyResponse) {
-        NewWorkReason newWorkReason = new NewWorkReason();
-        newWorkReason.setCode(crimeApplyResponse.getApplicationType());
-        newWorkReason.setDescription("TEST");
-        return newWorkReason;
-    }
-
-    private Applicant mapToApplicant(CadApplicationResponse crimeApplyResponse) {
+    private Applicant mapToApplicant(MaatApplication crimeApplyResponse) {
         Applicant applicant = new Applicant();
-        applicant.setGender("Prefer not to say");
+
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
+                crimeApplyResponse.getClientDetails().getApplicant();
+        applicant.setFirstName(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setSurname(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
+        applicant.setEmail(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setGender(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setNiNumber(crimeApplyApplicant.getNino()); // TODO is this NI Number?
+        applicant.setNoFixedAbode(crimeApplyApplicant.getHomeAddress() == null);
+        applicant.setUseSupplierAddressForPost(false); // TODO missing properties?
+        applicant.setPartnerContraryInterest(mapPartnerContraryInterest(crimeApplyResponse));
         applicant.setDisabilityStatement(mapToDisabilityStatement(crimeApplyResponse));
+
         return applicant;
     }
 
-    private DisabilityStatement mapToDisabilityStatement(CadApplicationResponse crimeApplyResponse) {
-        DisabilityStatement disabilityStatement = new DisabilityStatement();
+    private PartnerContraryInterest mapPartnerContraryInterest(MaatApplication crimeApplyResponse) {
+        PartnerContraryInterest partnerContraryInterest = new PartnerContraryInterest();
+        partnerContraryInterest.setCode(crimeApplyResponse.getClientDetails().getApplicant().toString()); // TODO missing properties?
+        return partnerContraryInterest;
+    }
 
+    private DisabilityStatement mapToDisabilityStatement(MaatApplication crimeApplyResponse) {
+        DisabilityStatement disabilityStatement = new DisabilityStatement();
+        disabilityStatement.setCode(crimeApplyResponse.getClientDetails().getApplicant().toString()); // TODO missing properties?
         return disabilityStatement;
     }
 
-    private CaseDetails mapToCaseDetails(CadApplicationResponse crimeApplyResponse) {
+    private CaseDetails mapToCaseDetails(MaatApplication crimeApplyResponse) {
         CaseDetails caseDetails = new CaseDetails();
         caseDetails.setAdditionalProperty("hearingCourtName", crimeApplyResponse.getCaseDetails().getHearingCourtName());
+        caseDetails.setCaseType(crimeApplyResponse.getCaseDetails().getCaseType());
 
         return caseDetails;
     }

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CadApplicationResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
 @Service
@@ -27,14 +27,14 @@ public class CrimeApplicationService {
     private final CrimeApplyMapper crimeApplyMapper;
 
     @Retry(name = SERVICE_NAME)
-    public MaatApplication retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
+    public MaatCaaContract retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
         log.info("Start - call to Crime Apply datastore with usn {}", usn);
-        CadApplicationResponse crimeApplyApplicationDetails = crimeApplyDatastoreClient.getApplicationDetails(usn,
+        MaatApplication crimeApplyApplicationDetails = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        MaatApplication maatApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
+        MaatCaaContract maatApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
 
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> maatApplication);

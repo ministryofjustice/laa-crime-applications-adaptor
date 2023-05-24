@@ -33,10 +33,10 @@ public class MockWebServerStubs {
     }
 
     private static MockResponse stubForCrimeApplyDatastore() {
-            return new MockResponse().addHeader("Content-Type",
-                            MediaType.APPLICATION_JSON)
-                    .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/criminalapplicationsdatastore/CADApplicationResponse_default.json"));
+        String body = JsonUtils.objectToJson(TestData.getMaatApplication());
+        return new MockResponse().addHeader("Content-Type", MediaType.APPLICATION_JSON)
+                .setResponseCode(200)
+                .setBody(body);
     }
 
     private static MockResponse stubForEformStagingWithMaatRef() {
