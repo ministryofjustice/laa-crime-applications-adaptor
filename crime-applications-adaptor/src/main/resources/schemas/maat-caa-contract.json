@@ -42,7 +42,7 @@
             "type": "integer"
         },
         "usn": {
-            "type": "integer"
+            "type": "number"
         },
         "commonPlatformData": {
             "type": "object",
