@@ -15,7 +15,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 @RequiredArgsConstructor
 @Slf4j
 public class EformStagingService {
-    public static final String EFORM_STAGING_HUB_USER = "HUB";
+    private static final String EFORM_STAGING_HUB_USER = "HUB";
     private static final String EXCEPTION_MESSAGE_FORMAT = "USN: %d created by HUB user";
     private static final String SERVICE_NAME = "eformStagingService";
 
