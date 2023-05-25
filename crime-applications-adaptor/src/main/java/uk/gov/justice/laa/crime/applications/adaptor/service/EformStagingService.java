@@ -27,7 +27,7 @@ public class EformStagingService {
     public EformStagingResponse retriveOrInsertDummyUsnRecord(Long usn) {
         log.info("Start - call to Eform Staging API ");
         EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
-        if (isRecordCreatedByHubUser(eformStagingResponse)) {
+        if (isUsnInEformStagingCreatedByHubUser(eformStagingResponse)) {
             String message = String.format(EXCEPTION_MESSAGE_FORMAT, usn);
             throw new CrimeApplicationException(message);
         }
@@ -35,7 +35,7 @@ public class EformStagingService {
                 .observe(() -> eformStagingResponse);
     }
 
-    private static boolean isRecordCreatedByHubUser(EformStagingResponse eformStagingResponse) {
+    private static boolean isUsnInEformStagingCreatedByHubUser(EformStagingResponse eformStagingResponse) {
         return StringUtils.isNotBlank(eformStagingResponse.getUserCreated())
                 && eformStagingResponse.getUserCreated().equalsIgnoreCase(EFORM_STAGING_HUB_USER);
     }
