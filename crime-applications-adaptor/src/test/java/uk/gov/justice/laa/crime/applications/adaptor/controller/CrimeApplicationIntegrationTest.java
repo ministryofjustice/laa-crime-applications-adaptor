@@ -21,6 +21,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.MockWebServerStub
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -56,8 +57,8 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
+    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
@@ -70,15 +71,25 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndRecordExistsExceptionIsThrownWithAppropriateMessage() throws Exception {
+    void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000309")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+        mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value("7ce78426-93dc-437f-a5fe-7203dcbf103e"))
+                .andExpect(jsonPath("$.reference", is(6000309)))
+                .andExpect(jsonPath("$.maatRef", is(5676399)));
+    }
 
-        mvc.perform(request).andExpect(status().is5xxServerError())
+        @Test
+    void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000310")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+        mvc.perform(request).andExpect(status().is4xxClientError())
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
-                .andExpect(jsonPath("$.status").value("500"))
-                .andExpect(jsonPath("$.detail").value("USN: 1000001 already used on MAAT Id: 6000309"));
-
+                .andExpect(jsonPath("$.status").value("404"))
+                .andExpect(jsonPath("$.detail").value("USN: 6000310 created by HUB user"));
     }
 
     @Test

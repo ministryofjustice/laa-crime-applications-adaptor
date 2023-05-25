@@ -37,7 +37,7 @@ class CrimeApplicationServiceTest {
 
     @Test
     void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws IOException {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
         MaatApplication expected = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))

@@ -15,12 +15,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
+import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -36,13 +38,15 @@ class CrimeApplicationControllerTest {
     @MockBean
     private EformStagingService eformStagingService;
 
-
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsInvokedAndApplicationDataIsReturned() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/application.json");
+    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
         MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
-
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
+
+        String eformStagingResponseWithNoMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_no_maatref.json");
+        EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithNoMaatRef, EformStagingResponse.class);
+        when(eformStagingService.retriveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -56,17 +60,38 @@ class CrimeApplicationControllerTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStaging_thenCrimeApplyDatastoreServiceIsNotInvokedAndRecordExistsExceptionIsThrownWithAppropriateMessage() throws Exception {
-        doThrow(new CrimeApplicationException("MAAT Reference for USN already exist")).when(eformStagingService).retriveOrInsertDummyUsnRecord(any());
+    void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
+        MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
+
+        String eformStagingResponseWithMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_maatref.json");
+        EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithMaatRef, EformStagingResponse.class);
+        when(eformStagingService.retriveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
-        mockMvc.perform(request).andExpect(status().is5xxServerError())
-                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
-                .andExpect(jsonPath("$.status").value("500"))
-                .andExpect(jsonPath("$.detail").value("MAAT Reference for USN already exist"));
+        mockMvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value("7ce78426-93dc-437f-a5fe-7203dcbf103e"))
+                .andExpect(jsonPath("$.reference", is(6000308)))
+                .andExpect(jsonPath("$.maatRef", is(5676399)));
+        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+    }
 
+    @Test
+    void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
+        when(eformStagingService.retriveOrInsertDummyUsnRecord(any()))
+                .thenThrow(new CrimeApplicationException("USN created by Hub user"));
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(request).andExpect(status().is4xxClientError())
+                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
+                .andExpect(jsonPath("$.status").value("404"))
+                .andExpect(jsonPath("$.detail").value("USN created by Hub user"));
         verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
     }
 

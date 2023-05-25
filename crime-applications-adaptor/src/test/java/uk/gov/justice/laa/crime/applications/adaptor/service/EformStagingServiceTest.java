@@ -28,7 +28,7 @@ class EformStagingServiceTest {
 
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEformStaging_thenRuntimeExceptionIsThrown() throws IOException {
-        EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).build();
+        EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).userCreated("HUB").build();
 
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(any()))
                 .thenReturn(retrievedData);
