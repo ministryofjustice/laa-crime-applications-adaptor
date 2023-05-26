@@ -2,10 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import uk.gov.justice.laa.crime.applications.adaptor.model.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.DisabilityStatement;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
-import uk.gov.justice.laa.crime.applications.adaptor.model.PartnerContraryInterest;
+import uk.gov.justice.laa.crime.applications.adaptor.model.*;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 
 /**
@@ -63,18 +60,50 @@ public class CrimeApplyMapper {
 
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
                 crimeApplyResponse.getClientDetails().getApplicant();
+
         applicant.setFirstName("TODO Alex"); // TODO missing properties?
+        applicant.setOtherNames("TODO Alex"); // TODO missing properties?
         applicant.setSurname("TODO Alex"); // TODO missing properties?
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
         applicant.setEmail("TODO Alex"); // TODO missing properties?
         applicant.setGender("TODO Alex"); // TODO missing properties?
+        applicant.setHasPartner(false); // TODO missing properties?
+        applicant.setForeignId("TODO Alex"); // TODO missing properties?
+        applicant.setMobileTelephone("TODO Alex"); // TODO missing properties?
+        applicant.setHomeTelephone("TODO Alex"); // TODO missing properties?
+        applicant.setWorkTelephone("TODO Alex"); // TODO missing properties?
         applicant.setNiNumber(crimeApplyApplicant.getNino()); // TODO is this NI Number?
-        applicant.setNoFixedAbode(crimeApplyApplicant.getHomeAddress() == null);
+
+        applicant.setNoFixedAbode(crimeApplyApplicant.getHomeAddress() == null); // TODO missing properties?
         applicant.setUseSupplierAddressForPost(false); // TODO missing properties?
         applicant.setPartnerContraryInterest(mapPartnerContraryInterest(crimeApplyResponse));
+        applicant.setEthnicity(mapEthnicity(crimeApplyResponse));
+        applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse));
         applicant.setDisabilityStatement(mapToDisabilityStatement(crimeApplyResponse));
+        applicant.setHomeAddress(mapHomeAddress(crimeApplyResponse));
+        applicant.setPostalAddress(mapPostalAddress(crimeApplyResponse));
 
         return applicant;
+    }
+
+    private PostalAddress mapPostalAddress(MaatApplication crimeApplyResponse) {
+        PostalAddress postalAddress = new PostalAddress();
+        return postalAddress;
+    }
+
+    private HomeAddress mapHomeAddress(MaatApplication crimeApplyResponse) {
+        HomeAddress homeAddress = new HomeAddress();
+        return homeAddress;
+    }
+
+    private EmploymentStatus mapEmploymentStatus(MaatApplication crimeApplyResponse) {
+        EmploymentStatus employmentStatus = new EmploymentStatus();
+        return employmentStatus;
+    }
+
+    private Ethnicity mapEthnicity(MaatApplication crimeApplyResponse) {
+        Ethnicity ethnicity = new Ethnicity();
+        return ethnicity;
     }
 
     private PartnerContraryInterest mapPartnerContraryInterest(MaatApplication crimeApplyResponse) {
