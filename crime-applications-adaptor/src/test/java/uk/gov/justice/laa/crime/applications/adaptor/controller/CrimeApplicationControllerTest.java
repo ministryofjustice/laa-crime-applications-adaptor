@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClientRequestExceptio
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
@@ -41,13 +41,13 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
-        MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
+        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
+        MaatCaaContract application = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(application);
 
         String eformStagingResponseWithNoMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_no_maatref.json");
         EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithNoMaatRef, EformStagingResponse.class);
-        when(eformStagingService.retriveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -62,13 +62,13 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
-        MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
+        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
+        MaatCaaContract application = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(application);
 
         String eformStagingResponseWithMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_maatref.json");
         EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithMaatRef, EformStagingResponse.class);
-        when(eformStagingService.retriveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -83,7 +83,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
-        when(eformStagingService.retriveOrInsertDummyUsnRecord(any()))
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any()))
                 .thenThrow(new CrimeApplicationException(HttpStatus.NOT_FOUND, "USN created by Hub user"));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -98,7 +98,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(403, "Forbidden", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -112,7 +112,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenDownstreamServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(503, "SERVICE_UNAVAILABLE", null, null, null));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -126,7 +126,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void whenCrimeApplyDatastoreServiceIsNotReachable_then_500ServerExceptionIsThrown() throws Exception {
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any()))
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -136,5 +136,4 @@ class CrimeApplicationControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value("500"));
     }
-
 }

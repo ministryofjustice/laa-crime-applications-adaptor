@@ -12,6 +12,9 @@
         "repId": {
             "type": "integer"
         },
+        "maatRef": {
+            "type": "integer"
+        },
         "applicationType": {
             "type": "string",
             "default": "New application"

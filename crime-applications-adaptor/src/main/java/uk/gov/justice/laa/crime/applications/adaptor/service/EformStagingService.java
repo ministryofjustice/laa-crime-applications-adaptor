@@ -25,7 +25,7 @@ public class EformStagingService {
     private final ObservationRegistry observationRegistry;
 
     @Retry(name = SERVICE_NAME)
-    public EformStagingResponse retriveOrInsertDummyUsnRecord(Long usn) {
+    public EformStagingResponse retrieveOrInsertDummyUsnRecord(Long usn) {
         log.info("Start - call to Eform Staging API ");
         EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
         if (isUsnInEformStagingCreatedByHubUser(eformStagingResponse)) {

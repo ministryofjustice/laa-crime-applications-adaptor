@@ -12,11 +12,12 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
-
-import java.io.IOException;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -32,22 +33,26 @@ class CrimeApplicationServiceTest {
     @Mock
     private ServicesConfiguration servicesConfiguration;
 
+    @Mock
+    private CrimeApplyMapper crimeApplyMapper;
+
     @InjectMocks
     private CrimeApplicationService crimeApplicationService;
 
     @Test
-    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws IOException {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
+    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() {
+        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
         MaatApplication expected = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenReturn(expected);
+                .thenReturn(TestData.getMaatApplication());
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
 
-        MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        MaatCaaContract response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
 
         Assertions.assertThat(response).isEqualTo(expected);
     }
+
     @Test
     void given4xxOr5xxHttpErrorsOnInvokingCrimeApplyDatastoreService_thenWebClientResponseExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
@@ -57,15 +62,14 @@ class CrimeApplicationServiceTest {
             crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
         );
     }
+
     @Test
-    void givenNetworkUnrechableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
+    void givenNetworkUnreachableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
         when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
         assertThrows(WebClientRequestException.class, () ->
-            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
+                crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
         );
     }
-
 }
-

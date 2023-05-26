@@ -1,33 +1,41 @@
 {
   "statusReason": "current",
-  "repId": null,
+  "solicitorName": "Karl Kent",
+  "maatRef": 0,
   "applicationType": "New application",
   "usn": 6000308,
-  "offence": {
-    "offenceType": "Class H"
-  },
-  "solicitorName": "Karl Kent",
-  "solicitorEmail": "abenn@quinn-melville.co.uk",
   "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "courtCustody": false,
+  "welshCorrespondence": false,
   "dateCreated": "2023-05-15T11:33:06",
   "dateStamp": "2023-04-24T12:31:06.353",
   "applicant": {
-    "firstName": "Pat",
-    "otherNames": null,
-    "surname": "Walker",
+    "firstName": "TODO Alex",
+    "otherNames": "TODO Alex",
+    "surname": "TODO Alex",
     "dateOfBirth": "1980-01-10",
-    "email": null,
-    "gender": "Prefernot to say",
+    "email": "TODO Alex - can't find in Crime Apply response",
+    "gender": "Prefer not to say",
     "hasPartner": false,
-    "foreignId": null,
-    "mobileTelephone": null,
-    "homeTelephone": null,
-    "workTelephone": null,
+    "foreignId": "TODO Alex",
+    "mobileTelephone": "TODO Alex",
+    "homeTelephone": "TODO Alex",
+    "workTelephone": "TODO Alex",
     "niNumber": "JA293483A",
     "noFixedAbode": true,
-    "useSupplierAdressForPost": true,
+    "useSupplierAddressForPost": true,
+    "partnerContraryInterest": {
+      "code": "TODO Alex"
+    },
+    "ethnicity": {
+      "id": 245
+    },
+    "employmentStatus": {
+      "code": "Unknown"
+    },
     "disabilityStatement": {
       "code": "NO_COMMENT"
     }
-  }
+  },
+  "hasPartner": false
 }

@@ -27,6 +27,7 @@ public class CrimeApplyMapper {
     private static final String DEFAULT_EMPLOYMENT_STATUS_CODE = "Unknown";
     private static final int DEFAULT_ETHNICITY_ID = 245;
     private static final DisabilityStatement.Code DEFAULT_DISABILITY_STATEMENT_CODE = DisabilityStatement.Code.NO_COMMENT;
+    private static final Integer DEFAULT_MAAT_REF = 0;
 
     public MaatCaaContract mapToMaatApplication(MaatApplication crimeApplyResponse) {
         // TODO Alex implement this
@@ -35,6 +36,7 @@ public class CrimeApplyMapper {
         maatApplication.setStatusReason(DEFAULT_STATUS_REASON);
         maatApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
         maatApplication.setRepId(DEFAULT_REP_ID);
+        maatApplication.setMaatRef(DEFAULT_MAAT_REF);
         // maatApplication.setApplicationType(mapApplicationType(crimeApplyResponse));
         // maatApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
         // maatApplication.setMagsOutcome(mapMagsOutcome(crimeApplyResponse));
