@@ -52,7 +52,8 @@
           "reason": { "type": "string" }
         }
       }
-    }
+    },
+    "maatRef": { "type": "integer" }
   },
   "required": [
     "id",

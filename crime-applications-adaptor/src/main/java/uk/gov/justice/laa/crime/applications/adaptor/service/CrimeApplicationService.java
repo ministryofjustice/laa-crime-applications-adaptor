@@ -1,12 +1,10 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
-
 import io.github.resilience4j.retry.annotation.Retry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
