@@ -177,9 +177,10 @@
                     "properties": {
                         "code": {
                             "type": "string",
-                            "default": "NO COMMENT",
+                            "default": "NO_COMMENT",
                             "enum": [
-                                "NO COMMENT",
+                                "NOT_DISABLED",
+                                "NO_COMMENT",
                                 "PHYSICAL",
                                 "SENSORY",
                                 "MENTAL",

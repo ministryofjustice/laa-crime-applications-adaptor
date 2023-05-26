@@ -2,34 +2,15 @@
   "statusReason": "current",
   "repId": null,
   "applicationType": "New application",
-  "caseDetails": {
-    "caseType": "SUMMARY ONLY"
-  },
-  "magsOutcome": {
-    "outcome": "RESOLVED IN MAGS"
-  },
-  "iojResult": null,
-  "areaId": null,
   "usn": 6000308,
-  "commonPlatformData": {
-    "urn": ""
-  },
-  "caseId": null,
   "offence": {
     "offenceType": "Class H"
   },
-  "arrestSummonsNumber": null,
   "solicitorName": "Karl Kent",
   "solicitorEmail": "abenn@quinn-melville.co.uk",
   "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
-  "courtCustody": false,
-  "welshCorrespondence": false,
   "dateCreated": "2023-05-15T11:33:06",
   "dateStamp": "2023-04-24T12:31:06.353",
-  "hearingDate": null,
-  "committalDate": null,
-  "dateOfSignature": null,
-  "dateReceived": null,
   "applicant": {
     "firstName": "Pat",
     "otherNames": null,
@@ -45,27 +26,8 @@
     "niNumber": "JA293483A",
     "noFixedAbode": true,
     "useSupplierAdressForPost": true,
-    "ethnicity": {
-      "id": null
-    },
-    "partnerContraryInterest": {
-      "code": "NOCON"
-    },
-    "employmentStatus": {
-      "code": null
-    },
     "disabilityStatement": {
-      "code": "NOT_DISABLED"
-    },
-    "homeAddress": null,
-    "postalAddress": null,
-    "supplier": {
-      "name": null,
-      "accountNumber": "0Z981E",
-      "address": null
-    },
-    "passported": null,
-    "assessment": null,
-    "capitalEquity": null
+      "code": "NO_COMMENT"
+    }
   }
 }

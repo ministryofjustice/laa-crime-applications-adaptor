@@ -63,11 +63,11 @@ public class CrimeApplyMapper {
 
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
                 crimeApplyResponse.getClientDetails().getApplicant();
-        applicant.setFirstName(crimeApplyApplicant.toString()); // TODO missing properties?
-        applicant.setSurname(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setFirstName("TODO Alex"); // TODO missing properties?
+        applicant.setSurname("TODO Alex"); // TODO missing properties?
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
-        applicant.setEmail(crimeApplyApplicant.toString()); // TODO missing properties?
-        applicant.setGender(crimeApplyApplicant.toString()); // TODO missing properties?
+        applicant.setEmail("TODO Alex"); // TODO missing properties?
+        applicant.setGender("TODO Alex"); // TODO missing properties?
         applicant.setNiNumber(crimeApplyApplicant.getNino()); // TODO is this NI Number?
         applicant.setNoFixedAbode(crimeApplyApplicant.getHomeAddress() == null);
         applicant.setUseSupplierAddressForPost(false); // TODO missing properties?
@@ -79,13 +79,14 @@ public class CrimeApplyMapper {
 
     private PartnerContraryInterest mapPartnerContraryInterest(MaatApplication crimeApplyResponse) {
         PartnerContraryInterest partnerContraryInterest = new PartnerContraryInterest();
-        partnerContraryInterest.setCode(crimeApplyResponse.getClientDetails().getApplicant().toString()); // TODO missing properties?
+        partnerContraryInterest.setCode("TODO Alex"); // TODO missing properties?
         return partnerContraryInterest;
     }
 
     private DisabilityStatement mapToDisabilityStatement(MaatApplication crimeApplyResponse) {
         DisabilityStatement disabilityStatement = new DisabilityStatement();
-        disabilityStatement.setCode(crimeApplyResponse.getClientDetails().getApplicant().toString()); // TODO missing properties?
+        // disabilityStatement.setCode(); TODO not available in crimeApplyResponse
+        disabilityStatement.setDisabilities(null);
         return disabilityStatement;
     }
 }
