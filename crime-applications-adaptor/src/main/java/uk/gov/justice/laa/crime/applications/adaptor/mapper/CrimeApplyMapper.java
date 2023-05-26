@@ -18,21 +18,42 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 @RequiredArgsConstructor
 public class CrimeApplyMapper {
 
+    private static final String DEFAULT_STATUS_REASON = "current";
+    private static final Integer DEFAULT_REP_ID = null;
+
     public MaatCaaContract mapToMaatApplication(MaatApplication crimeApplyResponse) {
         // TODO Alex implement this
 
         MaatCaaContract maatApplication = new MaatCaaContract();
-        maatApplication.setStatusReason("current");
+        maatApplication.setStatusReason(DEFAULT_STATUS_REASON);
         maatApplication.setSolicitorName(crimeApplyResponse.getProviderDetails().getLegalRepFirstName() + " " +
                 crimeApplyResponse.getProviderDetails().getLegalRepLastName());
-        maatApplication.setRepId(null);
+        maatApplication.setRepId(DEFAULT_REP_ID);
+        // maatApplication.setApplicationType(mapApplicationType(crimeApplyResponse));
+        // maatApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
+        // maatApplication.setMagsOutcome(mapMagsOutcome(crimeApplyResponse));
+        // maatApplication.setIojResult();
+        // maatApplication.setAreaId();
         maatApplication.setUsn(crimeApplyResponse.getReference());
+        // maatApplication.setCommonPlatformData(mapCommonPlatformData(crimeApplyResponse));
+        // maatApplication.setCaseId();
+        // maatApplication.setOffence(mapOffence(crimeApplyResponse));
+        // maatApplication.setArrestSummonsNumber();
         maatApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
-
-
-        maatApplication.setDateStamp(crimeApplyResponse.getDateStamp()); // TODO
-
+        // maatApplication.setCourtCustody();
+        // maatApplication.setWelshCorrespondence();
+        // maatApplication.setDateCreated();
+        // maatApplication.setDateStamp();
+        // maatApplication.setHearingDate();
+        // maatApplication.setCommittalDate();
+        // maatApplication.setDateOfSignature();
+        // maatApplication.setDateReceived();
         maatApplication.setApplicant(mapToApplicant(crimeApplyResponse));
+        // maatApplication.setHasPartner();
+        // maatApplication.setSupplier(mapSupplier(crimeApplyResponse));
+        // maatApplication.setPassported(mapPassported(crimeApplyResponse));
+        // maatApplication.setAssessment(mapAssessment(crimeApplyResponse));
+        // maatApplication.setCapitalEquity(mapCapitalEquity(crimeApplyResponse));
 
         return maatApplication;
     }
