@@ -1,0 +1,158 @@
+{
+  "title": "Applicant",
+  "description": "Represents the person who has made the application for Legal Aid",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "otherNames": {
+      "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date"
+    },
+    "email": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string",
+      "default": "Prefer not to say"
+    },
+    "hasPartner": {
+      "type": "boolean",
+      "default": false
+    },
+    "foreignId": {
+      "type": "string"
+    },
+    "mobileTelephone": {
+      "type": "string"
+    },
+    "homeTelephone": {
+      "type": "string"
+    },
+    "workTelephone": {
+      "type": "string"
+    },
+    "niNumber": {
+      "type": "string"
+    },
+    "noFixedAbode": {
+      "type": "boolean",
+      "default": false
+    },
+    "useSupplierAddressForPost": {
+      "type": "boolean",
+      "default": false
+    },
+    "partnerContraryInterest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "default": "NOCON"
+        }
+      }
+    },
+    "ethnicity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "employmentStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "disabilityStatement": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "default": "NO_COMMENT",
+          "enum": [
+            "NOT_DISABLED",
+            "NO_COMMENT",
+            "PHYSICAL",
+            "SENSORY",
+            "MENTAL",
+            "COGNITIVE",
+            "HEARING",
+            "LEARNING",
+            "DEAFNESS",
+            "VISUAL",
+            "LONG ILLNESS",
+            "BLINDNESS",
+            "MOBILITY",
+            "UNKNOWN",
+            "OTHER"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "disabilities": {
+          "type": "array",
+          "disabilities": {
+            "properties": {
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "homeAddress": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "line3": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        }
+      }
+    },
+    "postalAddress": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "line3": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
