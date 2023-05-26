@@ -112,35 +112,7 @@
             "default": false
         },
         "supplier": {
-            "type": "object",
-            "properties": {
-                "accountNumber": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "address": {
-                    "type": "object",
-                    "properties": {
-                        "city": {
-                            "type": "string"
-                        },
-                        "line1": {
-                            "type": "string"
-                        },
-                        "line2": {
-                            "type": "string"
-                        },
-                        "line3": {
-                            "type": "string"
-                        },
-                        "postCode": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
+            "$ref": "#/definitions/supplier"
         },
         "passported": {
             "type": "object",
@@ -174,6 +146,9 @@
     "definitions": {
         "applicant": {
             "$ref": "applicant.json"
+        },
+        "supplier": {
+            "$ref": "supplier.json"
         }
     }
 }

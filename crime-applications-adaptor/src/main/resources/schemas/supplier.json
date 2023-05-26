@@ -1,0 +1,33 @@
+{
+  "title": "Supplier",
+  "description": "TODO",
+  "type": "object",
+  "properties": {
+    "accountNumber": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "line3": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
