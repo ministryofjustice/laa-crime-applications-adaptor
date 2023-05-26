@@ -1,6 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
-
 import io.github.resilience4j.retry.annotation.Retry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;

@@ -55,7 +55,8 @@
           "reason": { "type": "string" }
         }
       }
-    }
+    },
+    "maatRef": { "type": "integer" }
   },
   "required": [
     "id", "schema_version", "reference", "submitted_at", "date_stamp",

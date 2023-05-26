@@ -26,8 +26,8 @@ class EformStagingServiceTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParams_whenMaatReferenceExistForUsnInEformStaging_thenRuntimeExceptionIsThrown() throws IOException {
-        EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).build();
+    void givenValidParamsAndEformStagingUsnCreatedByHubUser_whenEformStagingServiceIsInvoked_thenCrimeApplicationExceptionIsThrown() throws IOException {
+        EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).userCreated("HUB").build();
 
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
                 .thenReturn(retrievedData);
@@ -36,7 +36,7 @@ class EformStagingServiceTest {
     }
 
     @Test
-    void givenValidParams_whenMaatReferenceNotExistForUsnInEformStaging_thenEformStagingApiClientIsInvokedToCreateDummyRecord() throws IOException {
+    void givenValidParamsAndEformStagingUsnNotCreatedByHubUser_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
 
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
