@@ -177,7 +177,23 @@
                     "properties": {
                         "code": {
                             "type": "string",
-                            "default": "NOT_DISABLED"
+                            "default": "NO COMMENT",
+                            "enum": [
+                                "NO COMMENT",
+                                "PHYSICAL",
+                                "SENSORY",
+                                "MENTAL",
+                                "COGNITIVE",
+                                "HEARING",
+                                "LEARNING",
+                                "DEAFNESS",
+                                "VISUAL",
+                                "LONG ILLNESS",
+                                "BLINDNESS",
+                                "MOBILITY",
+                                "UNKNOWN",
+                                "OTHER"
+                            ]
                         },
                         "description": {
                             "type": "string"
