@@ -11,19 +11,23 @@ public class MockWebServerStubs {
 
     private static final String REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF = "/initialise/6000308";
     private static final String REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF = "/initialise/6000309";
-    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE = "/6000308";
-    private static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
+    private static final String REQUEST_PATH_EFORM_STAGING_HUB_USER = "/initialise/6000310";
     private static final String REQUEST_PATH_EFORM_STAGING_4XX = "/initialise/403";
+    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 = "/6000308";
+    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 = "/6000309";
+    private static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
 
     public static Dispatcher forDownstreamApiCalls() {
         return new Dispatcher() {
             @Override
             public MockResponse dispatch(RecordedRequest recordedRequest) {
                 return switch (recordedRequest.getPath()) {
-                    case REQUEST_PATH_CRIME_APPLY_DATASTORE -> stubForCrimeApplyDatastore();
+                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 -> getMockResponse("data/crimeapply/MaatApplication_6000308.json");
+                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 -> getMockResponse("data/crimeapply/MaatApplication_6000309.json");
                     case REQUEST_PATH_CRIME_APPLY_4XX, REQUEST_PATH_EFORM_STAGING_4XX -> getMockResponseFor403();
-                    case REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF -> stubForEformStagingWithNoMaatRef();
-                    case REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF -> stubForEformStagingWithMaatRef();
+                    case REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF -> getMockResponse("data/eformstaging/record_with_no_maatref.json");
+                    case REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF -> getMockResponse("data/eformstaging/record_with_maatref.json");
+                    case REQUEST_PATH_EFORM_STAGING_HUB_USER -> getMockResponse("data/eformstaging/record_created_by_hub.json");
                     default -> new MockResponse().setResponseCode(503);
                 };
             }
@@ -34,34 +38,12 @@ public class MockWebServerStubs {
         return new MockResponse().setResponseCode(403);
     }
 
-    private static MockResponse stubForCrimeApplyDatastore() {
+    private static MockResponse getMockResponse(String filePath) {
         try {
             return new MockResponse().addHeader("Content-Type",
                             MediaType.APPLICATION_JSON)
                     .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/application.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static MockResponse stubForEformStagingWithMaatRef() {
-        try {
-            return new MockResponse().addHeader("Content-Type",
-                            MediaType.APPLICATION_JSON)
-                    .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/eform_staging_with_maatref.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static MockResponse stubForEformStagingWithNoMaatRef() {
-        try {
-            return new MockResponse().addHeader("Content-Type",
-                            MediaType.APPLICATION_JSON)
-                    .setResponseCode(200)
-                    .setBody(FileUtils.readFileToString("data/eform_staging_with_no_maatref.json"));
+                    .setBody(FileUtils.readFileToString(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
