@@ -81,22 +81,28 @@
             "default": false
         },
         "dateCreated": {
-            "type": "integer"
+            "type": "string",
+            "format": "date-time"
         },
         "dateStamp": {
-            "type": "integer"
+            "type": "string",
+            "format": "date-time"
         },
         "hearingDate": {
-            "type": "integer"
+            "type": "string",
+            "format": "date"
         },
         "committalDate": {
-            "type": "integer"
+            "type": "string",
+            "format": "date"
         },
         "dateOfSignature": {
-            "type": "integer"
+            "type": "string",
+            "format": "date"
         },
         "dateReceived": {
-            "type": "integer"
+            "type": "string",
+            "format": "date"
         },
         "applicant": {
             "type": "object",
@@ -111,7 +117,8 @@
                     "type": "string"
                 },
                 "dateOfBirth": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date"
                 },
                 "email": {
                     "type": "string"
