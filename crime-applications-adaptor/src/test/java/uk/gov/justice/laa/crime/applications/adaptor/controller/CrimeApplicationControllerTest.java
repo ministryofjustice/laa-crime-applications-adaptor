@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -40,7 +41,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
         MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
 
@@ -61,7 +62,7 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
         MaatApplication application = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(any())).thenReturn(application);
 
@@ -83,7 +84,7 @@ class CrimeApplicationControllerTest {
     @Test
     void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
         when(eformStagingService.retriveOrInsertDummyUsnRecord(any()))
-                .thenThrow(new CrimeApplicationException("USN created by Hub user"));
+                .thenThrow(new CrimeApplicationException(HttpStatus.NOT_FOUND, "USN created by Hub user"));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);

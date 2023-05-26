@@ -6,6 +6,7 @@ import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
@@ -29,15 +30,14 @@ public class EformStagingService {
         EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
         if (isUsnInEformStagingCreatedByHubUser(eformStagingResponse)) {
             String message = String.format(EXCEPTION_MESSAGE_FORMAT, usn);
-            throw new CrimeApplicationException(message);
+            throw new CrimeApplicationException(HttpStatus.NOT_FOUND, message);
         }
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> eformStagingResponse);
     }
 
     private static boolean isUsnInEformStagingCreatedByHubUser(EformStagingResponse eformStagingResponse) {
-        return StringUtils.isNotBlank(eformStagingResponse.getUserCreated())
-                && eformStagingResponse.getUserCreated().equalsIgnoreCase(EFORM_STAGING_HUB_USER);
+        return StringUtils.equalsIgnoreCase(EFORM_STAGING_HUB_USER, eformStagingResponse.getUserCreated()) ;
     }
 }
 

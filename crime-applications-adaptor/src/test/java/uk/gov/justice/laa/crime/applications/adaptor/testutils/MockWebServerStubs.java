@@ -13,8 +13,8 @@ public class MockWebServerStubs {
     private static final String REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF = "/initialise/6000309";
     private static final String REQUEST_PATH_EFORM_STAGING_HUB_USER = "/initialise/6000310";
     private static final String REQUEST_PATH_EFORM_STAGING_4XX = "/initialise/403";
-    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_1 = "/6000308";
-    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_2 = "/6000309";
+    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 = "/6000308";
+    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 = "/6000309";
     private static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
 
     public static Dispatcher forDownstreamApiCalls() {
@@ -22,8 +22,8 @@ public class MockWebServerStubs {
             @Override
             public MockResponse dispatch(RecordedRequest recordedRequest) {
                 return switch (recordedRequest.getPath()) {
-                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_1 -> getMockResponse("data/crimeapply/application_1.json");
-                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_2 -> getMockResponse("data/crimeapply/application_2.json");
+                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 -> getMockResponse("data/crimeapply/MaatApplication_6000308.json");
+                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 -> getMockResponse("data/crimeapply/MaatApplication_6000309.json");
                     case REQUEST_PATH_CRIME_APPLY_4XX, REQUEST_PATH_EFORM_STAGING_4XX -> getMockResponseFor403();
                     case REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF -> getMockResponse("data/eformstaging/record_with_no_maatref.json");
                     case REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF -> getMockResponse("data/eformstaging/record_with_maatref.json");

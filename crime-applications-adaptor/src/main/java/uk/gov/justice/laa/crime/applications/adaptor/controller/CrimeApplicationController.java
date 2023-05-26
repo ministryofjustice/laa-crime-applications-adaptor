@@ -54,9 +54,10 @@ public class CrimeApplicationController {
         log.info("Get applicant details from Crime Apply datastore");
         EformStagingResponse eformStagingResponse = eformStagingService.retriveOrInsertDummyUsnRecord(id);
         MaatApplication maatApplication = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
-        if(eformStagingResponse.getMaatRef() != null) {
+        Integer maatRef = eformStagingResponse.getMaatRef();
+        if(maatRef != null) {
             return maatApplication
-                    .withMaatRef(eformStagingResponse.getMaatRef());
+                    .withMaatRef(maatRef);
         }
         return maatApplication;
     }

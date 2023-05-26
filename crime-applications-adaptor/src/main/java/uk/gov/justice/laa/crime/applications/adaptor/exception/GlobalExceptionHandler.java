@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CrimeApplicationException.class)
     public ProblemDetail onRuntimeException(CrimeApplicationException exception){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(exception.getHttpResponseCode(), exception.getMessage());
         return problemDetail;
     }
 }

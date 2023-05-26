@@ -58,7 +58,7 @@ class CrimeApplicationIntegrationTest {
 
     @Test
     void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/application_1.json");
+        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
