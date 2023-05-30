@@ -1,38 +1,49 @@
+
 {
-  "id": "620954f5-54b2-4b02-88b0-f6e4165cb6d3",
-  "schema_version": 1.0,
-  "reference": 6000308,
-  "submitted_at": "2023-05-15T11:33:06",
-  "date_stamp": "2023-04-24T12:31:06.353",
+  "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
+  "schema_version": 1,
+  "reference": 6000001,
+  "application_type": "initial",
+  "submitted_at": "2022-10-24T09:50:04.019Z",
+  "date_stamp": "2022-10-24T09:50:04.019Z",
   "provider_details": {
-    "office_code": "0Z981E",
-    "provider_email": "abenn@quinn-melville.co.uk",
-    "legal_rep_first_name": "Karl",
-    "legal_rep_last_name": "Kent",
-    "legal_rep_telephone": "07712345678"
+    "office_code": "1A123B",
+    "provider_email": "provider@example.com",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "123456789"
   },
   "client_details": {
     "applicant": {
-      "date_of_birth": "1980-01-10",
-      "nino": "JA293483A",
-      "telephone_number": "",
-      "correspondence_address_type": "providers_office_address",
-      "last_name": "Walker",
-      "first_name": "Pat",
-      "other_names": ""
+      "first_name": "Kit",
+      "last_name": "Pound",
+      "nino": "AJ123456C",
+      "date_of_birth": "2011-06-09",
+      "telephone_number": "07771231231",
+      "correspondence_address_type": "home_address",
+      "home_address": {
+        "lookup_id": null,
+        "address_line_one": "1 Road",
+        "address_line_two": "Village",
+        "city": "Some nice city",
+        "country": "United Kingdom",
+        "postcode": "SW1A 2AA"
+      },
+      "correspondence_address": null
     }
   },
   "case_details": {
     "urn": "",
-    "case_type": "summary_only",
-    "offence_class": "H",
+    "case_type": "appeal_to_crown_court",
+    "offence_class": "A",
+    "appeal_maat_id": null,
     "hearing_court_name": "Cardiff Magistrates' Court",
-    "hearing_date": "2024-09-27"
+    "hearing_date": "2024-11-11"
   },
   "interests_of_justice": [
     {
-      "type": "understanding",
-      "reason": "My client is a sole parent and has severe learning difficulties, which means they are unable to read and write."
+      "type": "loss_of_liberty",
+      "reason": "More details about loss of liberty."
     }
   ]
 }

@@ -14,5 +14,5 @@ class TestDataTest {
     @Test
     void verifyThatGetMaatApplicationTestDataIsNonNull() {
         assertNotNull(TestData.getMaatApplication());
-    }
+   }
 }

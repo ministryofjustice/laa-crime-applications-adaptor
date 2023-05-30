@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.model.*;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant__1;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.ProviderDetails__1;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Provider;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class CrimeApplyMapper {
         return maatApplication;
     }
 
-    private static String mapSolicitorName(ProviderDetails__1 providerDetails) {
+    private static String mapSolicitorName(Provider providerDetails) {
         if (providerDetails == null) {
             return null;
         }
@@ -79,20 +80,17 @@ public class CrimeApplyMapper {
     private Applicant mapToApplicant(MaatApplication crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
-                crimeApplyResponse.getClientDetails().getApplicant();
+        Applicant__1 crimeApplyApplicant = crimeApplyResponse.getClientDetails().getApplicant();
 
-        applicant.setFirstName("TODO Alex"); // TODO allOfIssue
-        applicant.setOtherNames("TODO Alex"); // TODO allOfIssue
-        applicant.setSurname("TODO Alex"); // TODO allOfIssue
+        applicant.setFirstName(crimeApplyApplicant.getFirstName());
+        applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
+        applicant.setSurname(crimeApplyApplicant.getLastName());
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
         applicant.setEmail("TODO Alex - can't find in Crime Apply response"); // TODO missing property
         applicant.setGender(DEFAULT_GENDER); // TODO missing property
         applicant.setHasPartner(DEFAULT_HAS_PARTNER); // TODO missing property
         applicant.setForeignId("TODO Alex"); // TODO missing property
-        applicant.setMobileTelephone("TODO Alex"); // TODO missing property only telephone_number avail
-        applicant.setHomeTelephone("TODO Alex"); // TODO missing property only telephone_number avail
-        applicant.setWorkTelephone("TODO Alex"); // TODO missing property only telephone_number avail
+        applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
         applicant.setNiNumber(crimeApplyApplicant.getNino());
         applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
         applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyApplicant));
@@ -106,8 +104,8 @@ public class CrimeApplyMapper {
         return applicant;
     }
 
-    private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant) {
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType addressType = crimeApplyApplicant.getCorrespondenceAddressType();
+    private Boolean mapUseSupplierAddressForPost(Applicant__1 crimeApplyApplicant) {
+        Applicant__1.CorrespondenceAddressType addressType = crimeApplyApplicant.getCorrespondenceAddressType();
         switch (addressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;
@@ -143,10 +141,11 @@ public class CrimeApplyMapper {
             return null;
         }
         HomeAddress homeAddress = new HomeAddress();
-        homeAddress.setCity(crimeApplyHomeAddress.getCity());
+        homeAddress.setLookupId(crimeApplyHomeAddress.getLookupId());
         homeAddress.setLine1(crimeApplyHomeAddress.getAddressLineOne());
         homeAddress.setLine2(crimeApplyHomeAddress.getAddressLineTwo());
-        homeAddress.setLine3(DEFAULT_LINE_3); // TODO missing property
+        homeAddress.setCity(crimeApplyHomeAddress.getCity());
+        homeAddress.setCountry(crimeApplyHomeAddress.getCountry());
         homeAddress.setPostCode(crimeApplyHomeAddress.getPostcode());
         return homeAddress;
     }

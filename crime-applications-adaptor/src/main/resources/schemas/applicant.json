@@ -30,17 +30,13 @@
     "foreignId": {
       "type": "string"
     },
-    "mobileTelephone": {
-      "type": "string"
-    },
-    "homeTelephone": {
-      "type": "string"
-    },
-    "workTelephone": {
-      "type": "string"
+    "telephone": {
+      "type": "string",
+      "description": "The applicant's preferred telephone number."
     },
     "niNumber": {
-      "type": "string"
+      "type": "string",
+      "description": "The applicant's National Insurance Number."
     },
     "noFixedAbode": {
       "type": "boolean",
@@ -117,7 +113,7 @@
     "homeAddress": {
       "type": "object",
       "properties": {
-        "city": {
+        "lookupId": {
           "type": "string"
         },
         "line1": {
@@ -126,7 +122,10 @@
         "line2": {
           "type": "string"
         },
-        "line3": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
           "type": "string"
         },
         "postCode": {

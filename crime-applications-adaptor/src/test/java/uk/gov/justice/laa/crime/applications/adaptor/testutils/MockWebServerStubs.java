@@ -23,7 +23,7 @@ public class MockWebServerStubs {
                     case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 ->
                             getMockResponse("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
                     case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 ->
-                            getMockResponse("data/criminalapplicationsdatastore/MaatApplication_6000309.json");
+                            getMockResponse("data/criminalapplicationsdatastore/MaatApplication_6000295.json");
                     case REQUEST_PATH_CRIME_APPLY_4XX, REQUEST_PATH_EFORM_STAGING_4XX -> getMockResponseFor403();
                     case REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF ->
                             getMockResponse("data/eformstaging/record_with_no_maatref.json");

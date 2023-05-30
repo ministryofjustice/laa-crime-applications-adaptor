@@ -1,0 +1,46 @@
+{
+  "id": "6a8bef75-4d2f-4a94-b2cc-79c8008fe274",
+  "schema_version": 1.0,
+  "reference": 6000295,
+  "submitted_at": "2023-04-20T12:52:53.433",
+  "date_stamp": "2023-04-20T12:51:32.196",
+  "provider_details": {
+    "office_code": "1K022G",
+    "provider_email": "acox@smw-law.co.uk",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "1234567890"
+  },
+  "client_details": {
+    "applicant": {
+      "date_of_birth": "1980-06-01",
+      "nino": "NC123458A",
+      "telephone_number": "",
+      "correspondence_address_type": "home_address",
+      "home_address": {
+        "lookup_id": "23747771",
+        "address_line_one": "10, PRIME MINISTER & FIRST LORD OF THE TREASURY",
+        "address_line_two": "DOWNING STREET",
+        "city": "LONDON",
+        "country": "UNITED KINGDOM",
+        "postcode": "SW1A 2AA"
+      },
+      "last_name": "JONES",
+      "first_name": "John",
+      "other_names": ""
+    }
+  },
+  "case_details": {
+    "urn": "",
+    "case_type": "summary_only",
+    "hearing_court_name": "Cardiff Crown Court",
+    "hearing_date": "2023-05-10"
+  },
+  "interests_of_justice": [
+    {
+      "type": "loss_of_liberty",
+      "reason": "test"
+    }
+  ],
+  "maatRef": 5677777
+}
