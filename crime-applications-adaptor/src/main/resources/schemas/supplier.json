@@ -12,16 +12,16 @@
     "address": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
-        },
         "line1": {
           "type": "string"
         },
         "line2": {
           "type": "string"
         },
-        "line3": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
           "type": "string"
         },
         "postCode": {

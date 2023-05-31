@@ -68,7 +68,6 @@ class CrimeApplicationIntegrationTest {
 
         String actualJsonString = result.getResponse().getContentAsString();
         JSONAssert.assertEquals(maatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
-
     }
 
     @Test
@@ -114,5 +113,4 @@ class CrimeApplicationIntegrationTest {
                 .andExpect(jsonPath("$.status").value("503"))
                 .andExpect(jsonPath("$.detail", containsString(("503 Service Unavailable"))));
     }
-
 }

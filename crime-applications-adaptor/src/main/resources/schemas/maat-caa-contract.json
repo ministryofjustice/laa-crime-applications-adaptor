@@ -4,23 +4,32 @@
     "properties": {
         "statusReason": {
             "type": "string",
-            "default": "current"
+            "default": "current",
+            "description": "Currently not populated."
         },
         "solicitorName": {
-            "type": "string"
+            "type": "string",
+            "description": "The full name of the solicitor."
         },
         "repId": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "maatRef": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "applicationType": {
             "type": "string",
-            "default": "New application"
+            "default": "New application",
+            "description": "Currently not populated."
         },
         "caseDetails": {
             "type": "object",
+            "nullable": true,
+            "description": "Currently not populated.",
             "properties": {
                 "caseType": {
                     "type": "string"
@@ -32,6 +41,8 @@
         },
         "magsOutcome": {
             "type": "object",
+            "nullable": true,
+            "description": "Currently not populated.",
             "properties": {
                 "outcome": {
                     "type:": "string"
@@ -39,16 +50,23 @@
             }
         },
         "iojResult": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "areaId": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "usn": {
-            "type": "number"
+            "type": "number",
+            "description": "Each eForms application has an ID (created by eForms) called the USN (Unique Sequence Number)"
         },
         "commonPlatformData": {
             "type": "object",
+            "nullable": true,
+            "description": "Currently not populated.",
             "properties": {
                 "urn": {
                     "type": "string"
@@ -56,10 +74,14 @@
             }
         },
         "caseId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "offence": {
             "type": "object",
+            "nullable": true,
+            "description": "Currently not populated.",
             "properties": {
                 "offenceType": {
                     "type": "string"
@@ -70,18 +92,22 @@
             ]
         },
         "arrestSummonsNumber": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "solicitorAdminEmail": {
             "type": "string"
         },
         "courtCustody": {
             "type": "boolean",
-            "default": false
+            "default": false,
+            "description": "Currently not populated."
         },
         "welshCorrespondence": {
             "type": "boolean",
-            "default": false
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "dateCreated": {
             "type": "string",
@@ -93,57 +119,58 @@
         },
         "hearingDate": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "committalDate": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "dateOfSignature": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "dateReceived": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "nullable": true,
+            "description": "Currently not populated."
         },
         "applicant": {
             "$ref": "#/definitions/applicant"
         },
-        "hasPartner": {
-            "type": "boolean",
-            "default": false
-        },
         "supplier": {
-            "$ref": "#/definitions/supplier"
+            "$ref": "#/definitions/supplier",
+            "description": "Currently not populated."
         },
         "passported": {
             "type": "object",
+            "nullable": true,
             "description": "Passported data- not required for iteration 1"
         },
         "assessment": {
             "type": "object",
+            "nullable": true,
             "description": "Means assessment information - not required for iteration 1"
         },
         "capitalEquity": {
             "type": "object",
-            "description": "Capital equity information - not required fro Iteration 1"
+            "nullable": true,
+            "description": "Capital equity information - not required for Iteration 1"
         }
     },
     "required": [
         "statusReason",
         "applicationType",
-        "caseDetails",
-        "areaId",
         "usn",
-        "commonPlatformData",
-        "caseId",
-        "offence",
-        "arrestSummonsNumber",
         "solicitorName",
         "solicitorAdminEmail",
         "courtCustody",
-        "welshCorrespondence",
         "dateCreated"
     ],
     "definitions": {

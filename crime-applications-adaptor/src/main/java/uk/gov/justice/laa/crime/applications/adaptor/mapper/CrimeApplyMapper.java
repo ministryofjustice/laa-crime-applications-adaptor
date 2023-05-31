@@ -3,7 +3,10 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import uk.gov.justice.laa.crime.applications.adaptor.model.*;
+import uk.gov.justice.laa.crime.applications.adaptor.model.Applicant;
+import uk.gov.justice.laa.crime.applications.adaptor.model.HomeAddress;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.PostalAddress;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant__1;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Provider;
@@ -20,24 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrimeApplyMapper {
 
-    private static final String DEFAULT_STATUS_REASON = "current";
-    private static final Integer DEFAULT_REP_ID = null;
-    private static final String DEFAULT_GENDER = "Prefer not to say";
-    private static final boolean DEFAULT_HAS_PARTNER = false;
-    private static final String DEFAULT_LINE_3 = null;
-    private static final String DEFAULT_EMPLOYMENT_STATUS_CODE = "Unknown";
-    private static final int DEFAULT_ETHNICITY_ID = 245;
-    private static final DisabilityStatement.Code DEFAULT_DISABILITY_STATEMENT_CODE = DisabilityStatement.Code.NO_COMMENT;
-    private static final Integer DEFAULT_MAAT_REF = 0;
-
     public MaatCaaContract mapToMaatApplication(MaatApplication crimeApplyResponse) {
-        // TODO Alex implement this
 
         MaatCaaContract maatApplication = new MaatCaaContract();
-        maatApplication.setStatusReason(DEFAULT_STATUS_REASON);
         maatApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
-        maatApplication.setRepId(DEFAULT_REP_ID);
-        maatApplication.setMaatRef(DEFAULT_MAAT_REF);
         // maatApplication.setApplicationType(mapApplicationType(crimeApplyResponse));
         // maatApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
         // maatApplication.setMagsOutcome(mapMagsOutcome(crimeApplyResponse));
@@ -58,7 +47,6 @@ public class CrimeApplyMapper {
         // maatApplication.setDateOfSignature();
         // maatApplication.setDateReceived();
         maatApplication.setApplicant(mapToApplicant(crimeApplyResponse));
-        // maatApplication.setHasPartner();
         // maatApplication.setSupplier(mapSupplier(crimeApplyResponse));
         // maatApplication.setPassported(mapPassported(crimeApplyResponse));
         // maatApplication.setAssessment(mapAssessment(crimeApplyResponse));
@@ -86,18 +74,10 @@ public class CrimeApplyMapper {
         applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
         applicant.setSurname(crimeApplyApplicant.getLastName());
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
-        applicant.setEmail("TODO Alex - can't find in Crime Apply response"); // TODO missing property
-        applicant.setGender(DEFAULT_GENDER); // TODO missing property
-        applicant.setHasPartner(DEFAULT_HAS_PARTNER); // TODO missing property
-        applicant.setForeignId("TODO Alex"); // TODO missing property
         applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
         applicant.setNiNumber(crimeApplyApplicant.getNino());
         applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
         applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyApplicant));
-        applicant.setPartnerContraryInterest(mapPartnerContraryInterest(crimeApplyResponse));
-        applicant.setEthnicity(mapEthnicity(crimeApplyResponse));
-        applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse));
-        applicant.setDisabilityStatement(mapToDisabilityStatement(crimeApplyResponse));
         applicant.setHomeAddress(mapHomeAddress(crimeApplyResponse.getClientDetails().getApplicant().getHomeAddress()));
         applicant.setPostalAddress(mapPostalAddress(crimeApplyResponse.getClientDetails().getApplicant().getCorrespondenceAddress()));
 
@@ -131,7 +111,6 @@ public class CrimeApplyMapper {
         postalAddress.setCity(correspondenceAddress.getCity());
         postalAddress.setLine1(correspondenceAddress.getAddressLineOne());
         postalAddress.setLine2(correspondenceAddress.getAddressLineTwo());
-        postalAddress.setLine3(DEFAULT_LINE_3); // TODO missing property
         postalAddress.setPostCode(correspondenceAddress.getPostcode());
         return postalAddress;
     }
@@ -148,30 +127,5 @@ public class CrimeApplyMapper {
         homeAddress.setCountry(crimeApplyHomeAddress.getCountry());
         homeAddress.setPostCode(crimeApplyHomeAddress.getPostcode());
         return homeAddress;
-    }
-
-    private EmploymentStatus mapEmploymentStatus(MaatApplication crimeApplyResponse) {
-        EmploymentStatus employmentStatus = new EmploymentStatus();
-        employmentStatus.setCode(DEFAULT_EMPLOYMENT_STATUS_CODE); // TODO Alex missing in crimeApplyResponse
-        return employmentStatus;
-    }
-
-    private Ethnicity mapEthnicity(MaatApplication crimeApplyResponse) {
-        Ethnicity ethnicity = new Ethnicity();
-        ethnicity.setId(DEFAULT_ETHNICITY_ID); // TODO Alex missing in crimeApplyResponse
-        return ethnicity;
-    }
-
-    private PartnerContraryInterest mapPartnerContraryInterest(MaatApplication crimeApplyResponse) {
-        PartnerContraryInterest partnerContraryInterest = new PartnerContraryInterest();
-        partnerContraryInterest.setCode("TODO Alex"); // TODO missing properties?
-        return partnerContraryInterest;
-    }
-
-    private DisabilityStatement mapToDisabilityStatement(MaatApplication crimeApplyResponse) {
-        DisabilityStatement disabilityStatement = new DisabilityStatement();
-        disabilityStatement.setCode(DEFAULT_DISABILITY_STATEMENT_CODE); // TODO not available in crimeApplyResponse
-        disabilityStatement.setDisabilities(null);
-        return disabilityStatement;
     }
 }
