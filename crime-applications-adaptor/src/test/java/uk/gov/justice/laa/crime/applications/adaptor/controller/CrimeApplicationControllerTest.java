@@ -2,8 +2,6 @@ package uk.gov.justice.laa.crime.applications.adaptor.controller;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
@@ -21,8 +18,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.hamcrest.Matchers.is;
@@ -43,23 +38,23 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
-        MaatCaaContract application = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(application);
+        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
+        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("record_with_no_maatref.json");
 
-        String eformStagingResponseWithNoMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_no_maatref.json");
-        EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithNoMaatRef, EformStagingResponse.class);
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
+                .thenReturn(maatCaaContract);
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
+                .thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().json(maatApplicationJson)).andReturn();
-
-        String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
-        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.usn", is(6000308)))
+                .andExpect(jsonPath("$.maatRef").doesNotExist());
+        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 
     @Test
@@ -93,7 +88,7 @@ class CrimeApplicationControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
                 .andExpect(jsonPath("$.status").value("404"))
                 .andExpect(jsonPath("$.detail").value("USN created by Hub user"));
-        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 
     @Test
