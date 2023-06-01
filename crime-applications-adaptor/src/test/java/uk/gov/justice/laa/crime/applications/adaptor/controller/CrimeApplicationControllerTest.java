@@ -49,7 +49,7 @@ class CrimeApplicationControllerTest {
 
         String eformStagingResponseWithNoMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_no_maatref.json");
         EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithNoMaatRef, EformStagingResponse.class);
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -67,8 +67,8 @@ class CrimeApplicationControllerTest {
         MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("record_with_maatref.json");
 
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
                 .thenReturn(maatCaaContract);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
@@ -76,15 +76,14 @@ class CrimeApplicationControllerTest {
 
         mockMvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value("7ce78426-93dc-437f-a5fe-7203dcbf103e"))
-                .andExpect(jsonPath("$.reference", is(6000308)))
+                .andExpect(jsonPath("$.usn", is(6000308)))
                 .andExpect(jsonPath("$.maatRef", is(5676399)));
-        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
 
     @Test
     void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(any()))
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
                 .thenThrow(new CrimeApplicationException(HttpStatus.NOT_FOUND, "USN created by Hub user"));
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")

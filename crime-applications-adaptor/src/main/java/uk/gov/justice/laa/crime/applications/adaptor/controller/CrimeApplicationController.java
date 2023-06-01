@@ -47,7 +47,7 @@ public class CrimeApplicationController {
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-    public MaatCaaContract getCrimeApplyData(@PathVariable Long id) {
+    public MaatCaaContract getCrimeApplyData(@PathVariable long id) {
         log.info("Get applicant details from Crime Apply datastore");
         EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
         MaatCaaContract maatCaaContract = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
