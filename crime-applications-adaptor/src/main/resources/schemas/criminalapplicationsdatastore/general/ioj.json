@@ -8,8 +8,16 @@
     "type": {
       "type": "string",
       "enum": [
-        "loss_of_liberty", "suspended_sentence", "loss_of_livelihood", "reputation", "question_of_law",
-        "understanding", "witness_tracing", "expert_examination", "interest_of_another", "other"
+        "loss_of_liberty",
+        "suspended_sentence",
+        "loss_of_livelihood",
+        "reputation",
+        "question_of_law",
+        "understanding",
+        "witness_tracing",
+        "expert_examination",
+        "interest_of_another",
+        "other"
       ]
     },
     "reason": { "type": "string" }
