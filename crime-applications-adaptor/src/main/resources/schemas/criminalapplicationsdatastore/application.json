@@ -36,7 +36,18 @@
       "type": "object",
       "properties": {
         "urn": { "type": ["string", "null"] },
-        "case_type": { "type": "string", "enum": ["summary_only", "either_way", "indictable", "already_in_crown_court", "committal", "appeal_to_crown_court", "appeal_to_crown_court_with_changes"] },
+        "case_type": {
+          "type": "string",
+          "enum": [
+            "summary_only",
+            "either_way",
+            "indictable",
+            "already_in_crown_court",
+            "committal",
+            "appeal_to_crown_court",
+            "appeal_to_crown_court_with_changes"
+          ]
+        },
         "offence_class": { "type": ["string", "null"], "enum": ["A", "K", "G", "B", "I", "J", "D", "C", "H", "F", "E", null] },
         "appeal_maat_id": { "type": ["string", "null"] },
         "appeal_with_changes_maat_id": { "type": ["string", "null"] },
@@ -62,16 +73,27 @@
     "return_details": {
       "type": "object",
       "properties": {
-        "reason": { "type": "string", "enum": ["clarification_required", "evidence_issue", "duplicate_application", "case_concluded", "provider_request"] },
+        "reason": {
+          "type": "string",
+          "enum": ["clarification_required", "evidence_issue", "duplicate_application", "case_concluded", "provider_request"]
+        },
         "details": { "type": "string" },
-    	"returned_at": { "type": "string", "format": "date-time" }
+        "returned_at": { "type": "string", "format": "date-time" }
       },
       "required": ["reason", "details", "returned_at"]
     }
   },
   "required": [
-    "id", "schema_version", "reference", "created_at", "submitted_at", "date_stamp",
-    "provider_details", "client_details", "case_details", "interests_of_justice"
+    "id",
+    "schema_version",
+    "reference",
+    "created_at",
+    "submitted_at",
+    "date_stamp",
+    "provider_details",
+    "client_details",
+    "case_details",
+    "interests_of_justice"
   ],
   "definitions": {
     "provider": { "$ref": "general/provider.json" },
