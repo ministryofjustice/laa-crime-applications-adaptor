@@ -1,0 +1,21 @@
+{
+  "statusReason": "current",
+  "solicitorName": "Karl Kent",
+  "applicationType": "New application",
+  "usn": 6000308,
+  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "courtCustody": false,
+  "dateCreated": "2023-05-15T11:33:06.717",
+  "dateStamp": "2023-04-24T12:31:06.353",
+  "applicant": {
+    "firstName": "Pat",
+    "otherNames": "",
+    "surname": "Walker",
+    "dateOfBirth": "1980-01-10",
+    "hasPartner": false,
+    "telephone": "",
+    "niNumber": "JA293483A",
+    "noFixedAbode": true,
+    "useSupplierAddressForPost": true
+  }
+}

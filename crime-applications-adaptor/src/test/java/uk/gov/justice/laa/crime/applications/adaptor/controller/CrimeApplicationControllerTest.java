@@ -23,6 +23,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationSer
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
@@ -63,13 +64,12 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
-        MaatCaaContract application = JsonUtils.jsonToObject(maatApplicationJson, MaatCaaContract.class);
-        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong())).thenReturn(application);
+        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
+        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("record_with_maatref.json");
 
-        String eformStagingResponseWithMaatRef = FileUtils.readFileToString("data/eformstaging/record_with_maatref.json");
-        EformStagingResponse eformStagingResponse = JsonUtils.jsonToObject(eformStagingResponseWithMaatRef, EformStagingResponse.class);
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(any())).thenReturn(eformStagingResponse);
+        when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
+                .thenReturn(maatCaaContract);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);

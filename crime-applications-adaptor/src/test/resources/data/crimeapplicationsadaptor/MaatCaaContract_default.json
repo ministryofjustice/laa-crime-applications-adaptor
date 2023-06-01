@@ -1,41 +1,27 @@
 {
   "statusReason": "current",
-  "solicitorName": "Karl Kent",
-  "maatRef": 0,
+  "solicitorName": "John Doe",
   "applicationType": "New application",
-  "usn": 6000308,
-  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "usn": 6000001,
+  "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
-  "welshCorrespondence": false,
-  "dateCreated": "2023-05-15T11:33:06",
-  "dateStamp": "2023-04-24T12:31:06.353",
+  "dateCreated": "2022-10-24T09:50:04.019",
+  "dateStamp": "2022-10-24T09:50:04.019",
   "applicant": {
-    "firstName": "TODO Alex",
-    "otherNames": "TODO Alex",
-    "surname": "TODO Alex",
-    "dateOfBirth": "1980-01-10",
-    "email": "TODO Alex - can't find in Crime Apply response",
-    "gender": "Prefer not to say",
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
     "hasPartner": false,
-    "foreignId": "TODO Alex",
-    "mobileTelephone": "TODO Alex",
-    "homeTelephone": "TODO Alex",
-    "workTelephone": "TODO Alex",
-    "niNumber": "JA293483A",
-    "noFixedAbode": true,
-    "useSupplierAddressForPost": true,
-    "partnerContraryInterest": {
-      "code": "TODO Alex"
-    },
-    "ethnicity": {
-      "id": 245
-    },
-    "employmentStatus": {
-      "code": "Unknown"
-    },
-    "disabilityStatement": {
-      "code": "NO_COMMENT"
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "noFixedAbode": false,
+    "useSupplierAddressForPost": false,
+    "homeAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
     }
-  },
-  "hasPartner": false
+  }
 }
