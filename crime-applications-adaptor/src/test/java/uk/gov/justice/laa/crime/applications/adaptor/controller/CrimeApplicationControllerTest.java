@@ -39,7 +39,7 @@ class CrimeApplicationControllerTest {
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
-        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("record_with_no_maatref.json");
+        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
                 .thenReturn(maatCaaContract);
@@ -60,7 +60,7 @@ class CrimeApplicationControllerTest {
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
         MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
-        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("record_with_maatref.json");
+        EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
