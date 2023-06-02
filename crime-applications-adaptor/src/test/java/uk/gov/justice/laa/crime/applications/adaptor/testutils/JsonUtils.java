@@ -9,29 +9,42 @@ import org.jetbrains.annotations.NotNull;
 
 public class JsonUtils {
 
-    public static String objectToJson(Object object) throws JsonProcessingException {
+    public static String objectToJson(Object object) {
         ObjectMapper mapper = getObjectMapper();
-        String returnValue = null;
-        if (object != null) {
-            returnValue = mapper.writeValueAsString(object);
+
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            String message = "Unable to serialise [%s] to a JSON String".formatted(object);
+            throw new RuntimeException(message);
         }
-        return returnValue;
     }
 
-    public static <T> T jsonToObject(String jsonStr, Class<T> clz) throws JsonProcessingException {
+    public static <T> T jsonToObject(String jsonStr, Class<T> clz) {
         ObjectMapper mapper = getObjectMapper();
         T returnValue = null;
-        if(StringUtils.isNotEmpty(jsonStr)) {
-            returnValue = mapper.readValue(jsonStr, clz);
+        if (StringUtils.isNotEmpty(jsonStr)) {
+            try {
+                returnValue = mapper.readValue(jsonStr, clz);
+            } catch (JsonProcessingException e) {
+                String message = "Unable to deserialise [%s] into a [%s] encountered error: %s".formatted(jsonStr, clz, e.getMessage());
+                throw new RuntimeException(message, e);
+            }
         }
         return returnValue;
     }
 
     @NotNull
     private static ObjectMapper getObjectMapper() {
-        ObjectMapper mapper = new ObjectMapper( );
+        ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         return mapper;
+
+        /*      Granularity of timestamps is controlled through the companion features
+         * {@link com.fasterxml.jackson.databind.SerializationFeature#WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS} and
+         * {@link com.fasterxml.jackson.databind.DeserializationFeature#READ_DATE_TIMESTAMPS_AS_NANOSECONDS}. For serialization, timestamps are
+         **/
     }
 }

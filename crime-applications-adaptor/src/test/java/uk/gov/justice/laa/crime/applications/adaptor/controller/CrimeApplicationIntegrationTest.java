@@ -4,6 +4,7 @@ import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -58,7 +59,7 @@ class CrimeApplicationIntegrationTest {
 
     @Test
     void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
+        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
@@ -66,8 +67,7 @@ class CrimeApplicationIntegrationTest {
                 .andExpect(content().json(maatApplicationJson)).andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, true);
-
+        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
     }
 
     @Test
@@ -81,7 +81,7 @@ class CrimeApplicationIntegrationTest {
                 .andExpect(jsonPath("$.maatRef", is(5676399)));
     }
 
-        @Test
+    @Test
     void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000310")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -113,5 +113,4 @@ class CrimeApplicationIntegrationTest {
                 .andExpect(jsonPath("$.status").value("503"))
                 .andExpect(jsonPath("$.detail", containsString(("503 Service Unavailable"))));
     }
-
 }

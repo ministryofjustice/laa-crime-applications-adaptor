@@ -9,11 +9,11 @@
     "date_of_birth": { "type": "string", "format": "date" },
     "nino": { "type": ["string", "null"] },
     "telephone_number": { "type": ["string", "null"] },
-    "correspondence_address_type": { "type": "string" },
+    "correspondence_address_type": { "type": "string", "enum": ["other_address", "home_address", "providers_office_address"] },
     "home_address": { "$ref": "#/definitions/address" },
     "correspondence_address": { "$ref": "#/definitions/address" }
   },
-  "required": ["date_of_birth", "nino", "correspondence_address_type"],
+  "required": ["date_of_birth", "correspondence_address_type"],
   "definitions": {
     "person": { "$ref": "person.json" },
     "address": { "$ref": "address.json" }

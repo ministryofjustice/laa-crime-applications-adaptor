@@ -1,6 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
-import org.fest.assertions.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,13 +11,13 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
-import java.io.IOException;
-
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.when;
@@ -32,40 +31,54 @@ class CrimeApplicationServiceTest {
     @Mock
     private ServicesConfiguration servicesConfiguration;
 
+    @Mock
+    private CrimeApplyMapper crimeApplyMapper;
+
     @InjectMocks
     private CrimeApplicationService crimeApplicationService;
 
     @Test
-    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() throws IOException {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
-        MaatApplication expected = JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
+    void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() {
+        MaatApplication maatApplication = TestData.getMaatApplication();
+        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract();
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenReturn(expected);
-        when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
+                .thenReturn(maatApplication);
+        when(servicesConfiguration.getCrimeApplyApi())
+                .thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
+        when(crimeApplyMapper.mapToMaatApplication(maatApplication))
+                .thenReturn(maatCaaContract);
 
-        MaatApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L);
+        MaatCaaContract response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
 
-        Assertions.assertThat(response).isEqualTo(expected);
+        assertEquals(maatCaaContract, response);
     }
+
     @Test
     void given4xxOr5xxHttpErrorsOnInvokingCrimeApplyDatastoreService_thenWebClientResponseExceptionIsThrown() {
+        ServicesConfiguration.CrimeApplyApi crimeApplyApi = MockServicesConfiguration.getConfiguration().getCrimeApplyApi();
+
+        when(servicesConfiguration.getCrimeApplyApi())
+                .thenReturn(crimeApplyApi);
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientResponseException.class));
-        when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
+
         assertThrows(WebClientResponseException.class, () ->
-            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
+                crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308)
         );
     }
+
     @Test
-    void givenNetworkUnrechableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
+    void givenNetworkUnreachableOnInvokingCrimeApplyDatastoreService_thenWebClientRequestExceptionIsThrown() {
+        ServicesConfiguration.CrimeApplyApi crimeApplyApi = MockServicesConfiguration.getConfiguration().getCrimeApplyApi();
+
+        when(servicesConfiguration.getCrimeApplyApi())
+                .thenReturn(crimeApplyApi);
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
-        when(servicesConfiguration.getCrimeApplyApi()).thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
+
         assertThrows(WebClientRequestException.class, () ->
-            crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308L)
+                crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308)
         );
     }
-
 }
-

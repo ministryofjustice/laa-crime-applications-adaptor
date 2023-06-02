@@ -1,0 +1,172 @@
+{
+  "type": "object",
+  "description": "Means assessment application object",
+  "properties": {
+    "statusReason": {
+      "type": "string",
+      "default": "current",
+      "description": "Currently not populated."
+    },
+    "solicitorName": {
+      "type": "string",
+      "description": "The full name of the solicitor."
+    },
+    "repId": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "maatRef": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "applicationType": {
+      "type": "string",
+      "default": "New application",
+      "description": "Currently not populated."
+    },
+    "caseDetails": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "caseType": {
+          "type": "string"
+        }
+      },
+      "required": ["caseType"]
+    },
+    "magsOutcome": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "outcome": {
+          "type:": "string"
+        }
+      }
+    },
+    "iojResult": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "areaId": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "usn": {
+      "type": "number",
+      "description": "Each eForms application has an ID (created by eForms) called the USN (Unique Sequence Number)"
+    },
+    "commonPlatformData": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "urn": {
+          "type": "string"
+        }
+      }
+    },
+    "caseId": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "offence": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "offenceType": {
+          "type": "string"
+        }
+      },
+      "required": ["offenceType"]
+    },
+    "arrestSummonsNumber": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "solicitorAdminEmail": {
+      "type": "string"
+    },
+    "courtCustody": {
+      "type": "boolean",
+      "default": false,
+      "description": "Currently not populated."
+    },
+    "welshCorrespondence": {
+      "type": "boolean",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "dateCreated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dateStamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hearingDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "committalDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "dateOfSignature": {
+      "type": "string",
+      "format": "date",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "dateReceived": {
+      "type": "string",
+      "format": "date",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "applicant": {
+      "$ref": "#/definitions/applicant"
+    },
+    "supplier": {
+      "$ref": "#/definitions/supplier",
+      "description": "Currently not populated."
+    },
+    "passported": {
+      "type": "object",
+      "nullable": true,
+      "description": "Passported data- not required for iteration 1"
+    },
+    "assessment": {
+      "type": "object",
+      "nullable": true,
+      "description": "Means assessment information - not required for iteration 1"
+    },
+    "capitalEquity": {
+      "type": "object",
+      "nullable": true,
+      "description": "Capital equity information - not required for Iteration 1"
+    }
+  },
+  "required": ["statusReason", "applicationType", "usn", "solicitorName", "solicitorAdminEmail", "courtCustody", "dateCreated"],
+  "definitions": {
+    "applicant": {
+      "$ref": "applicant.json"
+    },
+    "supplier": {
+      "$ref": "supplier.json"
+    }
+  }
+}

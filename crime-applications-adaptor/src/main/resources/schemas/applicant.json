@@ -1,0 +1,184 @@
+{
+  "title": "Applicant",
+  "description": "Represents the person who has made the application for Legal Aid",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The applicant's first name."
+    },
+    "otherNames": {
+      "type": "string",
+      "nullable": true
+    },
+    "surname": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The applicant's surname (last name)."
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "The applicant's date of birth."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "nullable": true,
+      "description": "The applicant's email address. Currently not populated."
+    },
+    "gender": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "hasPartner": {
+      "type": "boolean",
+      "default": false,
+      "description": "Currently not populated."
+    },
+    "foreignId": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "telephone": {
+      "type": "string",
+      "description": "The applicant's preferred telephone number."
+    },
+    "niNumber": {
+      "type": "string",
+      "nullable": true,
+      "description": "The applicant's National Insurance Number."
+    },
+    "noFixedAbode": {
+      "type": "boolean"
+    },
+    "useSupplierAddressForPost": {
+      "type": "boolean",
+      "default": false
+    },
+    "partnerContraryInterest": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "default": "NOCON"
+        }
+      }
+    },
+    "ethnicity": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "employmentStatus": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "disabilityStatement": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "default": "NO_COMMENT",
+          "enum": [
+            "NOT_DISABLED",
+            "NO_COMMENT",
+            "PHYSICAL",
+            "SENSORY",
+            "MENTAL",
+            "COGNITIVE",
+            "HEARING",
+            "LEARNING",
+            "DEAFNESS",
+            "VISUAL",
+            "LONG ILLNESS",
+            "BLINDNESS",
+            "MOBILITY",
+            "UNKNOWN",
+            "OTHER"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "Currently not populated."
+        },
+        "disabilities": {
+          "type": "array",
+          "description": "Currently not populated.",
+          "disabilities": {
+            "properties": {
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "homeAddress": {
+      "type": "object",
+      "nullable": true,
+      "properties": {
+        "lookupId": {
+          "type": "string",
+          "nullable": true,
+          "description": "Currently not populated."
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        }
+      }
+    },
+    "postalAddress": {
+      "type": "object",
+      "nullable": true,
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "line3": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
