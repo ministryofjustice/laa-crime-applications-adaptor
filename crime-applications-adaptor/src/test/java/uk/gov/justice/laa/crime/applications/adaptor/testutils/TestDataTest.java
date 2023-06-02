@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class TestDataTest {
 
     @Test
-    void verifyThatGetMaatCaaContractTestDataIsNonNull() {
-        assertNotNull(TestData.getMaatCaaContract());
+    void verifyThatGetCrimeApplicationTestDataIsNonNull() {
+        assertNotNull(TestData.getCrimeApplication());
     }
 
     @Test

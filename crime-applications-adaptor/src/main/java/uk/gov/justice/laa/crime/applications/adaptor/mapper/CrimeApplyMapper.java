@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant__1;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Provider;
@@ -22,36 +22,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrimeApplyMapper {
 
-    public MaatCaaContract mapToMaatApplication(MaatApplication crimeApplyResponse) {
+    public CrimeApplication mapToMaatApplication(MaatApplication crimeApplyResponse) {
 
-        MaatCaaContract maatApplication = new MaatCaaContract();
-        maatApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
-        // maatApplication.setApplicationType(mapApplicationType(crimeApplyResponse));
-        // maatApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
-        // maatApplication.setMagsOutcome(mapMagsOutcome(crimeApplyResponse));
-        // maatApplication.setIojResult();
-        // maatApplication.setAreaId();
-        maatApplication.setUsn(crimeApplyResponse.getReference());
-        // maatApplication.setCommonPlatformData(mapCommonPlatformData(crimeApplyResponse));
-        // maatApplication.setCaseId();
-        // maatApplication.setOffence(mapOffence(crimeApplyResponse));
-        // maatApplication.setArrestSummonsNumber();
-        maatApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
-        // maatApplication.setCourtCustody();
-        // maatApplication.setWelshCorrespondence();
-        maatApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
-        maatApplication.setDateStamp(crimeApplyResponse.getDateStamp());
-        // maatApplication.setHearingDate();
-        // maatApplication.setCommittalDate();
-        // maatApplication.setDateOfSignature();
-        // maatApplication.setDateReceived();
-        maatApplication.setApplicant(mapToApplicant(crimeApplyResponse));
-        // maatApplication.setSupplier(mapSupplier(crimeApplyResponse));
-        // maatApplication.setPassported(mapPassported(crimeApplyResponse));
-        // maatApplication.setAssessment(mapAssessment(crimeApplyResponse));
-        // maatApplication.setCapitalEquity(mapCapitalEquity(crimeApplyResponse));
+        CrimeApplication crimeApplication = new CrimeApplication();
+        crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
+        crimeApplication.setUsn(crimeApplyResponse.getReference());
+        crimeApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
+        crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
+        crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
+        crimeApplication.setApplicant(mapToApplicant(crimeApplyResponse));
 
-        return maatApplication;
+        return crimeApplication;
     }
 
     private static String mapSolicitorName(Provider providerDetails) {
