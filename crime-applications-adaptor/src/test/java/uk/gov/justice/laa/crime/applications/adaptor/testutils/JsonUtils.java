@@ -9,6 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class JsonUtils {
 
+    private JsonUtils() {
+    }
+
     public static String objectToJson(Object object) {
         ObjectMapper mapper = getObjectMapper();
 
@@ -41,10 +44,5 @@ public class JsonUtils {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
         return mapper;
-
-        /*      Granularity of timestamps is controlled through the companion features
-         * {@link com.fasterxml.jackson.databind.SerializationFeature#WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS} and
-         * {@link com.fasterxml.jackson.databind.DeserializationFeature#READ_DATE_TIMESTAMPS_AS_NANOSECONDS}. For serialization, timestamps are
-         **/
     }
 }
