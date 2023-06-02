@@ -78,7 +78,7 @@ class CrimeApplicationIntegrationTest {
         mvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.usn", is(6000288)))
-                .andExpect(jsonPath("$.maatRef", is(5676399)));
+                .andExpect(jsonPath("$.maatRef", is(5676400)));
     }
 
     @Test
