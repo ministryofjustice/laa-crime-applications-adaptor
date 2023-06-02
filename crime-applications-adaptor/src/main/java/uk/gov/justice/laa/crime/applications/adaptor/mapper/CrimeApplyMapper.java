@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant__1;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Provider;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.util.List;
 
@@ -48,7 +47,8 @@ public class CrimeApplyMapper {
     private Applicant mapToApplicant(MaatApplication crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
-        Applicant__1 crimeApplyApplicant = crimeApplyResponse.getClientDetails().getApplicant();
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
+                crimeApplyResponse.getClientDetails().getApplicant();
 
         applicant.setFirstName(crimeApplyApplicant.getFirstName());
         applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
@@ -64,8 +64,9 @@ public class CrimeApplyMapper {
         return applicant;
     }
 
-    private Boolean mapUseSupplierAddressForPost(Applicant__1 crimeApplyApplicant) {
-        Applicant__1.CorrespondenceAddressType addressType = crimeApplyApplicant.getCorrespondenceAddressType();
+    private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant) {
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType addressType =
+                crimeApplyApplicant.getCorrespondenceAddressType();
         switch (addressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;
@@ -77,13 +78,13 @@ public class CrimeApplyMapper {
         }
     }
 
-    private static boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address homeAddress) {
+    private static boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address homeAddress) {
         return homeAddress == null ||
                 (StringUtils.isBlank(homeAddress.getAddressLineOne()) &&
                         StringUtils.isBlank(homeAddress.getPostcode()));
     }
 
-    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address correspondenceAddress) {
+    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address correspondenceAddress) {
         if (correspondenceAddress == null) {
             return null;
         }
@@ -95,7 +96,7 @@ public class CrimeApplyMapper {
         return Address;
     }
 
-    private Address mapHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address crimeApplyHomeAddress) {
+    private Address mapHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyHomeAddress) {
         if (crimeApplyHomeAddress == null) {
             return null;
         }
