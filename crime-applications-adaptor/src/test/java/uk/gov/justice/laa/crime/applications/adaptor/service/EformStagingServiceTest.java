@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 
 import java.io.IOException;
 

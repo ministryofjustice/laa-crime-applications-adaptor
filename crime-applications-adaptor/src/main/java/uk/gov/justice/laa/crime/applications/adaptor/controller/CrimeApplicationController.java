@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 
@@ -32,7 +32,7 @@ public class CrimeApplicationController {
     @Operation(description = "Retrieve application details from crime apply datastore")
     @ApiResponse(responseCode = "200",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = MaatCaaContract.class)
+                    schema = @Schema(implementation = CrimeApplication.class)
             )
     )
     @ApiResponse(responseCode = "400",
@@ -47,15 +47,15 @@ public class CrimeApplicationController {
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-    public MaatCaaContract getCrimeApplyData(@PathVariable long id) {
+    public CrimeApplication getCrimeApplyData(@PathVariable long id) {
         log.info("Get applicant details from Crime Apply datastore");
         EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
-        MaatCaaContract maatCaaContract = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
+        CrimeApplication crimeApplication = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
         Integer maatRef = eformStagingResponse.getMaatRef();
         if (maatRef != null) {
-            return maatCaaContract
+            return crimeApplication
                     .withMaatRef(maatRef);
         }
-        return maatCaaContract;
+        return crimeApplication;
     }
 }

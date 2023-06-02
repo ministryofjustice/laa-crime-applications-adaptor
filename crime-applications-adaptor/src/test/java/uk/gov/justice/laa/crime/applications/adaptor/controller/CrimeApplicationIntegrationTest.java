@@ -66,8 +66,8 @@ class CrimeApplicationIntegrationTest {
                 .andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        String expectedMaatCaaContractJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/MaatCaaContract_6000308.json");
-        JSONAssert.assertEquals(expectedMaatCaaContractJson, actualJsonString, JSONCompareMode.STRICT);
+        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/CrimeApplication_6000308.json");
+        JSONAssert.assertEquals(expectedCrimeApplicationJson, actualJsonString, JSONCompareMode.STRICT);
     }
 
     @Test

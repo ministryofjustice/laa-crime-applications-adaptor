@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatCaaContract;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
@@ -38,11 +38,11 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
+        CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
-                .thenReturn(maatCaaContract);
+                .thenReturn(crimeApplication);
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
                 .thenReturn(eformStagingResponse);
 
@@ -59,12 +59,12 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        MaatCaaContract maatCaaContract = TestData.getMaatCaaContract("MaatCaaContract_6000308.json");
+        CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
-                .thenReturn(maatCaaContract);
+                .thenReturn(crimeApplication);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
