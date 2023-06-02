@@ -9,19 +9,18 @@ public class TestData {
     private TestData() {
     }
 
-    public static MaatCaaContract getMaatCaaContract() {
-        String maatCaaContractJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/MaatCaaContract_default.json");
+    public static MaatCaaContract getMaatCaaContract(String stubDataFile) {
+        String maatCaaContractJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/" + stubDataFile);
         return JsonUtils.jsonToObject(maatCaaContractJson, MaatCaaContract.class);
+    }
+
+    public static MaatCaaContract getMaatCaaContract() {
+        return getMaatCaaContract("MaatCaaContract_default.json");
     }
 
     public static MaatApplication getMaatApplication() {
         String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_default.json");
         return JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
-    }
-
-    public static MaatCaaContract getMaatCaaContract(String stubDataFile) {
-        String maatCaaContractJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/" + stubDataFile);
-        return JsonUtils.jsonToObject(maatCaaContractJson, MaatCaaContract.class);
     }
 
     public static EformStagingResponse getEformStagingResponse(String stubDataFile) {

@@ -33,22 +33,21 @@ class CrimeApplicationIntegrationTest {
 
     private MockMvc mvc;
 
-    private static MockWebServer mockCrimeApplyDatastoreApi;
+    private static MockWebServer mockWebServer;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     @BeforeAll
     public void initialiseMockWebServer() throws IOException {
-        mockCrimeApplyDatastoreApi = new MockWebServer();
-        mockCrimeApplyDatastoreApi
-                .setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
-        mockCrimeApplyDatastoreApi.start(9999);
+        mockWebServer = new MockWebServer();
+        mockWebServer.setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
+        mockWebServer.start(9999);
     }
 
     @AfterAll
     protected void shutdownMockWebServer() throws IOException {
-        mockCrimeApplyDatastoreApi.shutdown();
+        mockWebServer.shutdown();
     }
 
     @BeforeEach
@@ -58,27 +57,28 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().json(maatApplicationJson)).andReturn();
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, JSONCompareMode.STRICT);
+        String expectedMaatCaaContractJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/MaatCaaContract_6000308.json");
+        JSONAssert.assertEquals(expectedMaatCaaContractJson, actualJsonString, JSONCompareMode.STRICT);
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000309")
+    void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000288")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
         mvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value("7ce78426-93dc-437f-a5fe-7203dcbf103e"))
-                .andExpect(jsonPath("$.reference", is(6000309)))
-                .andExpect(jsonPath("$.maatRef", is(5676399)));
+                .andExpect(jsonPath("$.usn", is(6000288)))
+                .andExpect(jsonPath("$.maatRef", is(5676400)));
     }
 
     @Test

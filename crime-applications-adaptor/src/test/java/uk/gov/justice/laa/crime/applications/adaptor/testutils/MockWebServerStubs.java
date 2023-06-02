@@ -3,47 +3,74 @@ package uk.gov.justice.laa.crime.applications.adaptor.testutils;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.List;
 
 public class MockWebServerStubs {
 
-    private static final String REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF = "/initialise/6000308";
-    private static final String REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF = "/initialise/6000309";
-    private static final String REQUEST_PATH_EFORM_STAGING_HUB_USER = "/initialise/6000310";
-    private static final String REQUEST_PATH_EFORM_STAGING_4XX = "/initialise/403";
-    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 = "/6000308";
-    private static final String REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 = "/6000309";
-    private static final String REQUEST_PATH_CRIME_APPLY_4XX = "/403";
-
     public static Dispatcher forDownstreamApiCalls() {
         return new Dispatcher() {
+            @NotNull
             @Override
-            public MockResponse dispatch(RecordedRequest recordedRequest) {
-                return switch (recordedRequest.getPath()) {
-                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308 ->
-                            getMockResponse("data/criminalapplicationsdatastore/MaatApplication_6000308.json");
-                    case REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000309 ->
-                            getMockResponse("data/criminalapplicationsdatastore/MaatApplication_6000295.json");
-                    case REQUEST_PATH_CRIME_APPLY_4XX, REQUEST_PATH_EFORM_STAGING_4XX -> getMockResponseFor403();
-                    case REQUEST_PATH_EFORM_STAGING_WITH_NO_MAAT_REF ->
-                            getMockResponse("data/eformstaging/record_with_no_maatref.json");
-                    case REQUEST_PATH_EFORM_STAGING_WITH_MAAT_REF ->
-                            getMockResponse("data/eformstaging/record_with_maatref.json");
-                    case REQUEST_PATH_EFORM_STAGING_HUB_USER ->
-                            getMockResponse("data/eformstaging/record_created_by_hub.json");
-                    default -> new MockResponse().setResponseCode(503);
-                };
+            public MockResponse dispatch(@NotNull RecordedRequest recordedRequest) {
+                String requestPath = recordedRequest.getPath();
+                List<RequestPathResponseMapping> matchingMappings = Arrays.stream(RequestPathResponseMapping.values())
+                        .filter(requestPathResponseMapping -> requestPathResponseMapping.matchesRequestPath(requestPath))
+                        .toList();
+
+                if (matchingMappings.isEmpty()) {
+                    return new MockResponse().setResponseCode(HttpStatus.SERVICE_UNAVAILABLE.value());
+                }
+
+                if (matchingMappings.size() > 1) {
+                    String message = "Multiple matching request path response mappings found for [%s] found %s".formatted(requestPath, matchingMappings);
+                    throw new IllegalStateException(message);
+                }
+
+                return matchingMappings.get(0).getMockResponse();
             }
         };
     }
 
-    private static MockResponse getMockResponseFor403() {
-        return new MockResponse().setResponseCode(403);
-    }
+    private enum RequestPathResponseMapping {
+        EFORM_STAGING_WITH_NO_MAAT_REF("/initialise/6000308", "data/eformstaging/EformStagingResponse_WithNoMaatRef_6000308.json", HttpStatus.OK),
+        EFORM_STAGING_WITH_MAAT_REF("/initialise/6000288", "data/eformstaging/EformStagingResponse_WithMaatRef_6000288.json", HttpStatus.OK),
+        EFORM_STAGING_HUB_USER("/initialise/6000310", "data/eformstaging/EformStagingResponse_CreatedByHub_6000310.json", HttpStatus.OK),
+        EFORM_STAGING_4XX("/initialise/403", null, HttpStatus.FORBIDDEN),
+        REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000288("/6000288", "data/criminalapplicationsdatastore/MaatApplication_6000288.json", HttpStatus.OK),
+        REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308("/6000308", "data/criminalapplicationsdatastore/MaatApplication_6000308.json", HttpStatus.OK),
+        REQUEST_PATH_CRIME_APPLY_4XX("/403", null, HttpStatus.FORBIDDEN);
 
-    private static MockResponse getMockResponse(String filePath) {
-        return new MockResponse().addHeader("Content-Type", MediaType.APPLICATION_JSON)
-                .setResponseCode(200)
-                .setBody(FileUtils.readFileToString(filePath));
+        private final String requestPath;
+        private final String responseBodyFilePath;
+        private final HttpStatus httpResponseStatus;
+
+        RequestPathResponseMapping(String requestPath,
+                                   String responseBodyFilePath,
+                                   HttpStatus httpResponseStatus) {
+            this.requestPath = requestPath;
+            this.responseBodyFilePath = responseBodyFilePath;
+            this.httpResponseStatus = httpResponseStatus;
+        }
+
+        public boolean matchesRequestPath(String requestPathParameter) {
+            return requestPath.equals(requestPathParameter);
+        }
+
+        public MockResponse getMockResponse() {
+            MockResponse mockResponse = new MockResponse()
+                    .addHeader("Content-Type", MediaType.APPLICATION_JSON)
+                    .setResponseCode(httpResponseStatus.value());
+
+            if (StringUtils.isNotBlank(responseBodyFilePath)) {
+                mockResponse.setBody(FileUtils.readFileToString(responseBodyFilePath));
+            }
+            return mockResponse;
+        }
     }
 }
