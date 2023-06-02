@@ -3,10 +3,9 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.HomeAddress;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatCaaContract;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.PostalAddress;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant__1;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Provider;
@@ -79,7 +78,7 @@ public class CrimeApplyMapper {
         applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
         applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyApplicant));
         applicant.setHomeAddress(mapHomeAddress(crimeApplyResponse.getClientDetails().getApplicant().getHomeAddress()));
-        applicant.setPostalAddress(mapPostalAddress(crimeApplyResponse.getClientDetails().getApplicant().getCorrespondenceAddress()));
+        applicant.setPostalAddress(mapAddress(crimeApplyResponse.getClientDetails().getApplicant().getCorrespondenceAddress()));
 
         return applicant;
     }
@@ -103,23 +102,23 @@ public class CrimeApplyMapper {
                         StringUtils.isBlank(homeAddress.getPostcode()));
     }
 
-    private PostalAddress mapPostalAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address correspondenceAddress) {
+    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address correspondenceAddress) {
         if (correspondenceAddress == null) {
             return null;
         }
-        PostalAddress postalAddress = new PostalAddress();
-        postalAddress.setCity(correspondenceAddress.getCity());
-        postalAddress.setLine1(correspondenceAddress.getAddressLineOne());
-        postalAddress.setLine2(correspondenceAddress.getAddressLineTwo());
-        postalAddress.setPostCode(correspondenceAddress.getPostcode());
-        return postalAddress;
+        Address Address = new Address();
+        Address.setCity(correspondenceAddress.getCity());
+        Address.setLine1(correspondenceAddress.getAddressLineOne());
+        Address.setLine2(correspondenceAddress.getAddressLineTwo());
+        Address.setPostCode(correspondenceAddress.getPostcode());
+        return Address;
     }
 
-    private HomeAddress mapHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address crimeApplyHomeAddress) {
+    private Address mapHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Address crimeApplyHomeAddress) {
         if (crimeApplyHomeAddress == null) {
             return null;
         }
-        HomeAddress homeAddress = new HomeAddress();
+        Address homeAddress = new Address();
         homeAddress.setLookupId(crimeApplyHomeAddress.getLookupId());
         homeAddress.setLine1(crimeApplyHomeAddress.getAddressLineOne());
         homeAddress.setLine2(crimeApplyHomeAddress.getAddressLineTwo());
