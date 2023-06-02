@@ -1,4 +1,4 @@
-package uk.gov.justice.laa.crime.applications.adaptor.model;
+package uk.gov.justice.laa.crime.applications.adaptor.model.eform;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
