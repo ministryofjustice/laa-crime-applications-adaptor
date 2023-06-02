@@ -38,12 +38,11 @@ public class MockWebServerStubs {
     }
 
     private enum RequestPathResponseMapping {
-        EFORM_STAGING_WITH_MAAT_REF("/initialise/6000295", "data/eformstaging/record_with_maatref.json", HttpStatus.OK),
         EFORM_STAGING_WITH_NO_MAAT_REF("/initialise/6000308", "data/eformstaging/record_with_no_maatref.json", HttpStatus.OK),
+        EFORM_STAGING_WITH_MAAT_REF("/initialise/6000288", "data/eformstaging/record_with_maatref.json", HttpStatus.OK),
         EFORM_STAGING_HUB_USER("/initialise/6000310", "data/eformstaging/record_created_by_hub.json", HttpStatus.OK),
         EFORM_STAGING_4XX("/initialise/403", null, HttpStatus.FORBIDDEN),
         REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000288("/6000288", "data/criminalapplicationsdatastore/MaatApplication_6000288.json", HttpStatus.OK),
-        REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000295("/6000295", "data/criminalapplicationsdatastore/MaatApplication_6000295.json", HttpStatus.OK),
         REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308("/6000308", "data/criminalapplicationsdatastore/MaatApplication_6000308.json", HttpStatus.OK),
         REQUEST_PATH_CRIME_APPLY_4XX("/403", null, HttpStatus.FORBIDDEN);
 
