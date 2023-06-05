@@ -66,9 +66,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "offenceType"
-      ]
+      "required": ["offenceType"]
     },
     "arrestSummonsNumber": {
       "type": "string",

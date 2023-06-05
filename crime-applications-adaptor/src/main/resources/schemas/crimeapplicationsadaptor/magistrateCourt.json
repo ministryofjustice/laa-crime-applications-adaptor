@@ -13,7 +13,5 @@
       "description": "Currently not populated."
     }
   },
-  "required": [
-    "court"
-  ]
+  "required": ["court"]
 }
