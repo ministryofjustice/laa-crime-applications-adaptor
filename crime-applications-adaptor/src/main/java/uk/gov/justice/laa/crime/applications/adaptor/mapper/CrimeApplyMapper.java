@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
@@ -23,13 +24,29 @@ public class CrimeApplyMapper {
 
         CrimeApplication crimeApplication = new CrimeApplication();
         crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
+        crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
         crimeApplication.setUsn(crimeApplyResponse.getReference());
         crimeApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
         crimeApplication.setApplicant(mapApplicant(crimeApplyResponse));
+        crimeApplication.setSupplier(mapSupplier(crimeApplyResponse));
 
         return crimeApplication;
+    }
+
+    private Supplier mapSupplier(MaatApplication crimeApplyResponse) {
+        Supplier supplier = new Supplier();
+
+        Provider providerDetails = crimeApplyResponse.getProviderDetails();
+
+        supplier.setOfficeCode(providerDetails.getOfficeCode());
+        supplier.setEmail(providerDetails.getProviderEmail());
+        supplier.setTelephone(providerDetails.getLegalRepTelephone());
+        supplier.setFirstName(providerDetails.getLegalRepFirstName());
+        supplier.setSurname(providerDetails.getLegalRepLastName());
+
+        return supplier;
     }
 
     private String mapSolicitorName(Provider providerDetails) {

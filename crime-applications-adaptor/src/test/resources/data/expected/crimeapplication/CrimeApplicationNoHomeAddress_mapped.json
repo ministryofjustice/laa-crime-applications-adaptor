@@ -1,7 +1,7 @@
 {
   "statusReason": "current",
   "solicitorName": "John Doe",
-  "applicationType": "New application",
+  "applicationType": "initial",
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
@@ -23,5 +23,12 @@
       "country": "United Kingdom",
       "postCode": "SW1A 2AA"
     }
+  },
+  "supplier": {
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
+    "firstName": "John",
+    "surname": "Doe"
   }
 }

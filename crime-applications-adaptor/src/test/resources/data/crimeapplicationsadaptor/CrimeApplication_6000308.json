@@ -1,7 +1,6 @@
 {
   "statusReason": "current",
   "solicitorName": "Karl Kent",
-  "applicationType": "New application",
   "usn": 6000308,
   "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
   "courtCustody": false,
@@ -17,5 +16,12 @@
     "niNumber": "JA293483A",
     "noFixedAbode": true,
     "useSupplierAddressForPost": true
+  },
+  "supplier": {
+    "officeCode": "0Z981E",
+    "email": "abenn@quinn-melville.co.uk",
+    "telephone": "07712345678",
+    "firstName": "Karl",
+    "surname": "Kent"
   }
 }

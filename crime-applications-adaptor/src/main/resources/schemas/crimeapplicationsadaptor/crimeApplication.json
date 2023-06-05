@@ -4,8 +4,7 @@
   "properties": {
     "statusReason": {
       "type": "string",
-      "default": "current",
-      "description": "Currently not populated."
+      "default": "current"
     },
     "solicitorName": {
       "type": "string",
@@ -23,8 +22,8 @@
     },
     "applicationType": {
       "type": "string",
-      "default": "New application",
-      "description": "Currently not populated."
+      "nullable": true,
+      "description": "The type of application, possible values include New application, and initial."
     },
     "caseDetails": {
       "type": "object",
@@ -35,7 +34,9 @@
           "type": "string"
         }
       },
-      "required": ["caseType"]
+      "required": [
+        "caseType"
+      ]
     },
     "magsOutcome": {
       "type": "object",
@@ -85,7 +86,9 @@
           "type": "string"
         }
       },
-      "required": ["offenceType"]
+      "required": [
+        "offenceType"
+      ]
     },
     "arrestSummonsNumber": {
       "type": "string",
@@ -141,8 +144,7 @@
       "$ref": "#/definitions/applicant"
     },
     "supplier": {
-      "$ref": "#/definitions/supplier",
-      "description": "Currently not populated."
+      "$ref": "#/definitions/supplier"
     },
     "passported": {
       "type": "object",
@@ -160,7 +162,15 @@
       "description": "Capital equity information - not required for Iteration 1"
     }
   },
-  "required": ["statusReason", "applicationType", "usn", "solicitorName", "solicitorAdminEmail", "courtCustody", "dateCreated"],
+  "required": [
+    "statusReason",
+    "applicationType",
+    "usn",
+    "solicitorName",
+    "solicitorAdminEmail",
+    "courtCustody",
+    "dateCreated"
+  ],
   "definitions": {
     "applicant": {
       "$ref": "applicant.json"

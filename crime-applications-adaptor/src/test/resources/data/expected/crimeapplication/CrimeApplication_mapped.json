@@ -1,27 +1,28 @@
 {
   "statusReason": "current",
-  "solicitorName": "John Doe",
-  "applicationType": "New application",
-  "usn": 6000001,
-  "solicitorAdminEmail": "provider@example.com",
+  "solicitorName": "Karl Kent",
+  "applicationType": "initial",
+  "usn": 6000308,
+  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
   "courtCustody": false,
-  "dateCreated": "2022-10-24T09:50:04.019",
-  "dateStamp": "2022-10-24T09:50:04.019",
+  "dateCreated": "2023-05-15T11:33:06.717",
+  "dateStamp": "2023-04-24T12:31:06.353",
   "applicant": {
-    "firstName": "Kit",
-    "surname": "Pound",
-    "dateOfBirth": "2011-06-09",
+    "firstName": "Pat",
+    "otherNames": "",
+    "surname": "Walker",
+    "dateOfBirth": "1980-01-10",
     "hasPartner": false,
-    "telephone": "07771231231",
-    "niNumber": "AJ123456C",
-    "noFixedAbode": false,
-    "useSupplierAddressForPost": false,
-    "homeAddress": {
-      "line1": "1 Road",
-      "line2": "Village",
-      "city": "Some nice city",
-      "country": "United Kingdom",
-      "postCode": "SW1A 2AA"
-    }
+    "telephone": "",
+    "niNumber": "JA293483A",
+    "noFixedAbode": true,
+    "useSupplierAddressForPost": true
+  },
+  "supplier": {
+    "officeCode": "0Z981E",
+    "email": "abenn@quinn-melville.co.uk",
+    "telephone": "07712345678",
+    "firstName": "Karl",
+    "surname": "Kent"
   }
 }
