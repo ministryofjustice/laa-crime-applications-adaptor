@@ -2,14 +2,12 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Supplier;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.*;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The responsibility of this class is to encapsulate the required logic to map from a
@@ -25,6 +23,9 @@ public class CrimeApplyMapper {
         CrimeApplication crimeApplication = new CrimeApplication();
         crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
+        crimeApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
+        crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse));
+        crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse));
         crimeApplication.setUsn(crimeApplyResponse.getReference());
         crimeApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
@@ -33,6 +34,32 @@ public class CrimeApplyMapper {
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse));
 
         return crimeApplication;
+    }
+
+    private List<InterestOfJustice> mapInterestsOfJustice(MaatApplication crimeApplyResponse) {
+
+        return crimeApplyResponse.getInterestsOfJustice().stream().map(ioj -> {
+            InterestOfJustice.Type iojType = InterestOfJustice.Type.fromValue(ioj.getType().value());
+            return new InterestOfJustice(iojType, ioj.getReason());
+        }).collect(Collectors.toList());
+    }
+
+    private MagistrateCourt mapMagistrateCourt(MaatApplication crimeApplyResponse) {
+        MagistrateCourt magistrateCourt = new MagistrateCourt();
+        magistrateCourt.setCourt(crimeApplyResponse.getCaseDetails().getHearingCourtName());
+        return magistrateCourt;
+    }
+
+    private CaseDetails mapCaseDetails(MaatApplication crimeApplyResponse) {
+        CaseDetails caseDetails = new CaseDetails();
+
+        caseDetails.setUrn(crimeApplyResponse.getCaseDetails().getUrn());
+        caseDetails.setCaseType(CaseDetails.CaseType.fromValue(
+                crimeApplyResponse.getCaseDetails().getCaseType().value()));
+        caseDetails.setOffenceClass(CaseDetails.OffenceClass.fromValue(
+                crimeApplyResponse.getCaseDetails().getOffenceClass().value()));
+
+        return caseDetails;
     }
 
     private Supplier mapSupplier(MaatApplication crimeApplyResponse) {

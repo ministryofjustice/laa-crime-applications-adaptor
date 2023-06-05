@@ -2,6 +2,20 @@
   "statusReason": "current",
   "solicitorName": "John Doe",
   "applicationType": "initial",
+  "caseDetails": {
+    "urn": "",
+    "caseType": "appeal_to_crown_court",
+    "offenceClass": "A"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "interestsOfJustice": [
+    {
+      "type": "loss_of_liberty",
+      "reason": "More details about loss of liberty."
+    }
+  ],
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,

@@ -26,32 +26,17 @@
       "description": "The type of application, possible values include New application, and initial."
     },
     "caseDetails": {
-      "type": "object",
-      "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "caseType": {
-          "type": "string"
-        }
+      "$ref": "#/definitions/caseDetails"
+    },
+    "magsCourt": {
+      "$ref": "#/definitions/magistrateCourt"
+    },
+    "interestsOfJustice": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/interestsOfJustice"
       },
-      "required": [
-        "caseType"
-      ]
-    },
-    "magsOutcome": {
-      "type": "object",
-      "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "outcome": {
-          "type:": "string"
-        }
-      }
-    },
-    "iojResult": {
-      "type": "string",
-      "nullable": true,
-      "description": "Currently not populated."
+      "description": "(IOJ)"
     },
     "areaId": {
       "type": "integer",
@@ -65,12 +50,7 @@
     "commonPlatformData": {
       "type": "object",
       "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "urn": {
-          "type": "string"
-        }
-      }
+      "description": "Currently not populated."
     },
     "caseId": {
       "type": "string",
@@ -165,6 +145,9 @@
   "required": [
     "statusReason",
     "applicationType",
+    "caseDetails",
+    "magsCourt",
+    "interestsOfJustice",
     "usn",
     "solicitorName",
     "solicitorAdminEmail",
@@ -177,6 +160,15 @@
     },
     "supplier": {
       "$ref": "supplier.json"
+    },
+    "caseDetails": {
+      "$ref": "caseDetails.json"
+    },
+    "magistrateCourt": {
+      "$ref": "magistrateCourt.json"
+    },
+    "interestsOfJustice": {
+      "$ref": "interestOfJustice.json"
     }
   }
 }
