@@ -1,4 +1,4 @@
-package uk.gov.justice.laa.crime.applications.adaptor.controller;
+package uk.gov.justice.laa.crime.applications.adaptor.integration;
 
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;

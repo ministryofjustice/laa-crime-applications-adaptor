@@ -26,10 +26,6 @@ public class MockWebServerStubs {
             public MockResponse dispatch(@NotNull RecordedRequest recordedRequest) {
                 String requestPath = recordedRequest.getPath();
                 RequestPathResponseMapping responseMapping = PATH_TO_RESPONSE_MAPPING_MAP.get(requestPath);
-
-                if (responseMapping == null) {
-                    return new MockResponse().setResponseCode(HttpStatus.SERVICE_UNAVAILABLE.value());
-                }
                 return responseMapping.getMockResponse();
             }
         };
@@ -39,10 +35,13 @@ public class MockWebServerStubs {
         EFORM_STAGING_WITH_NO_MAAT_REF("/initialise/6000308", "data/eformstaging/EformStagingResponse_WithNoMaatRef_6000308.json", HttpStatus.OK),
         EFORM_STAGING_WITH_MAAT_REF("/initialise/6000288", "data/eformstaging/EformStagingResponse_WithMaatRef_6000288.json", HttpStatus.OK),
         EFORM_STAGING_HUB_USER("/initialise/6000310", "data/eformstaging/EformStagingResponse_CreatedByHub_6000310.json", HttpStatus.OK),
-        EFORM_STAGING_4XX("/initialise/403", null, HttpStatus.FORBIDDEN),
+        EFORM_STAGING_403("/initialise/403", null, HttpStatus.FORBIDDEN),
+        EFORM_STAGING_503("/initialise/503", null, HttpStatus.SERVICE_UNAVAILABLE),
         REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000288("/6000288", "data/criminalapplicationsdatastore/MaatApplication_6000288.json", HttpStatus.OK),
         REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308("/6000308", "data/criminalapplicationsdatastore/MaatApplication_6000308.json", HttpStatus.OK),
-        REQUEST_PATH_CRIME_APPLY_4XX("/403", null, HttpStatus.FORBIDDEN);
+        REQUEST_PATH_CRIME_APPLY_403("/403", null, HttpStatus.FORBIDDEN),
+        REQUEST_PATH_CRIME_APPLY_503("/503", null, HttpStatus.SERVICE_UNAVAILABLE),
+        DEFAULT_FALLBACK_FOR_NULL_PATH(null, null, HttpStatus.SERVICE_UNAVAILABLE);
 
         private final String requestPath;
         private final String responseBodyFilePath;
@@ -55,7 +54,7 @@ public class MockWebServerStubs {
             this.responseBodyFilePath = responseBodyFilePath;
             this.httpResponseStatus = httpResponseStatus;
         }
-        
+
         String getRequestPath() {
             return requestPath;
         }

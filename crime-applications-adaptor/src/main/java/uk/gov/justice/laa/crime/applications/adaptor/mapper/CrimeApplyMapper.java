@@ -84,13 +84,13 @@ public class CrimeApplyMapper {
         if (crimeApplyAddress == null) {
             return null;
         }
-        Address Address = new Address();
-        Address.setLookupId(crimeApplyAddress.getLookupId());
-        Address.setLine1(crimeApplyAddress.getAddressLineOne());
-        Address.setLine2(crimeApplyAddress.getAddressLineTwo());
-        Address.setCity(crimeApplyAddress.getCity());
-        Address.setCountry(crimeApplyAddress.getCountry());
-        Address.setPostCode(crimeApplyAddress.getPostcode());
-        return Address;
+        Address address = new Address();
+        address.setLookupId(crimeApplyAddress.getLookupId());
+        address.setLine1(crimeApplyAddress.getAddressLineOne());
+        address.setLine2(crimeApplyAddress.getAddressLineTwo());
+        address.setCity(crimeApplyAddress.getCity());
+        address.setCountry(crimeApplyAddress.getCountry());
+        address.setPostCode(crimeApplyAddress.getPostcode());
+        return address;
     }
 }
