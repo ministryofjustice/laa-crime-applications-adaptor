@@ -33,10 +33,6 @@ public class CrimeApplyMapper {
     }
 
     private String mapSolicitorName(Provider providerDetails) {
-        if (providerDetails == null) {
-            return null;
-        }
-
         List<String> firstAndLastName = List.of(providerDetails.getLegalRepFirstName(),
                 providerDetails.getLegalRepLastName());
         return String.join(StringUtils.SPACE, firstAndLastName);
