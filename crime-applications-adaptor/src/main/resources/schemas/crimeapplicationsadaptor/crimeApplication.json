@@ -34,9 +34,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "caseType"
-      ]
+      "required": ["caseType"]
     },
     "magsOutcome": {
       "type": "object",
@@ -86,9 +84,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "offenceType"
-      ]
+      "required": ["offenceType"]
     },
     "arrestSummonsNumber": {
       "type": "string",
@@ -162,15 +158,7 @@
       "description": "Capital equity information - not required for Iteration 1"
     }
   },
-  "required": [
-    "statusReason",
-    "applicationType",
-    "usn",
-    "solicitorName",
-    "solicitorAdminEmail",
-    "courtCustody",
-    "dateCreated"
-  ],
+  "required": ["statusReason", "applicationType", "usn", "solicitorName", "solicitorAdminEmail", "courtCustody", "dateCreated"],
   "definitions": {
     "applicant": {
       "$ref": "applicant.json"
