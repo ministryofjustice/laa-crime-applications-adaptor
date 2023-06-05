@@ -20,11 +20,11 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldMapAllRequiredFieldsFromCadApplicationResponse_to_MaatApplication() throws JSONException {
+    void shouldMapAllRequiredFieldsFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
         String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_toBeMapped.json");
         MaatApplication crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatApplication.class);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
         String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
         String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/CrimeApplication/CrimeApplication_mapped.json");

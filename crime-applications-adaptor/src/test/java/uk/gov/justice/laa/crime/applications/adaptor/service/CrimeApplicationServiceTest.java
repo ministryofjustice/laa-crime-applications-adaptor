@@ -46,7 +46,7 @@ class CrimeApplicationServiceTest {
                 .thenReturn(maatApplication);
         when(servicesConfiguration.getCrimeApplyApi())
                 .thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
-        when(crimeApplyMapper.mapToMaatApplication(maatApplication))
+        when(crimeApplyMapper.mapToCrimeApplication(maatApplication))
                 .thenReturn(crimeApplication);
 
         CrimeApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);

@@ -33,7 +33,7 @@ public class CrimeApplicationService {
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyMaatApplication);
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplication);
 
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> crimeApplication);

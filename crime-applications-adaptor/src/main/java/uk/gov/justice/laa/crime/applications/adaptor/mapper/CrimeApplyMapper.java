@@ -1,8 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
@@ -17,11 +16,10 @@ import java.util.List;
  * to a
  * Crime Applications Adaptor MAAT Application (which should be structured like a MAAT ApplicationDTO)
  */
-@Service
-@RequiredArgsConstructor
+@Component
 public class CrimeApplyMapper {
 
-    public CrimeApplication mapToMaatApplication(MaatApplication crimeApplyResponse) {
+    public CrimeApplication mapToCrimeApplication(MaatApplication crimeApplyResponse) {
 
         CrimeApplication crimeApplication = new CrimeApplication();
         crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
@@ -29,12 +27,12 @@ public class CrimeApplyMapper {
         crimeApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
-        crimeApplication.setApplicant(mapToApplicant(crimeApplyResponse));
+        crimeApplication.setApplicant(mapApplicant(crimeApplyResponse));
 
         return crimeApplication;
     }
 
-    private static String mapSolicitorName(Provider providerDetails) {
+    private String mapSolicitorName(Provider providerDetails) {
         if (providerDetails == null) {
             return null;
         }
@@ -44,7 +42,7 @@ public class CrimeApplyMapper {
         return String.join(StringUtils.SPACE, firstAndLastName);
     }
 
-    private Applicant mapToApplicant(MaatApplication crimeApplyResponse) {
+    private Applicant mapApplicant(MaatApplication crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
@@ -78,7 +76,7 @@ public class CrimeApplyMapper {
         }
     }
 
-    private static boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address homeAddress) {
+    private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address homeAddress) {
         return homeAddress == null ||
                 (StringUtils.isBlank(homeAddress.getAddressLineOne()) &&
                         StringUtils.isBlank(homeAddress.getPostcode()));
