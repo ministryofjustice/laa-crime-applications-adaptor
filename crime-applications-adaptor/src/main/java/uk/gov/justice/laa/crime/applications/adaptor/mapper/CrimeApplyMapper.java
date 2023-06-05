@@ -56,8 +56,8 @@ public class CrimeApplyMapper {
         applicant.setNiNumber(crimeApplyApplicant.getNino());
         applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
         applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyApplicant));
-        applicant.setHomeAddress(mapHomeAddress(crimeApplyResponse.getClientDetails().getApplicant().getHomeAddress()));
-        applicant.setPostalAddress(mapAddress(crimeApplyResponse.getClientDetails().getApplicant().getCorrespondenceAddress()));
+        applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
+        applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
         return applicant;
     }
@@ -77,34 +77,20 @@ public class CrimeApplyMapper {
     }
 
     private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address homeAddress) {
-        return homeAddress == null ||
-                (StringUtils.isBlank(homeAddress.getAddressLineOne()) &&
-                        StringUtils.isBlank(homeAddress.getPostcode()));
+        return homeAddress == null;
     }
 
-    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address correspondenceAddress) {
-        if (correspondenceAddress == null) {
+    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyAddress) {
+        if (crimeApplyAddress == null) {
             return null;
         }
         Address Address = new Address();
-        Address.setCity(correspondenceAddress.getCity());
-        Address.setLine1(correspondenceAddress.getAddressLineOne());
-        Address.setLine2(correspondenceAddress.getAddressLineTwo());
-        Address.setPostCode(correspondenceAddress.getPostcode());
+        Address.setLookupId(crimeApplyAddress.getLookupId());
+        Address.setLine1(crimeApplyAddress.getAddressLineOne());
+        Address.setLine2(crimeApplyAddress.getAddressLineTwo());
+        Address.setCity(crimeApplyAddress.getCity());
+        Address.setCountry(crimeApplyAddress.getCountry());
+        Address.setPostCode(crimeApplyAddress.getPostcode());
         return Address;
-    }
-
-    private Address mapHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyHomeAddress) {
-        if (crimeApplyHomeAddress == null) {
-            return null;
-        }
-        Address homeAddress = new Address();
-        homeAddress.setLookupId(crimeApplyHomeAddress.getLookupId());
-        homeAddress.setLine1(crimeApplyHomeAddress.getAddressLineOne());
-        homeAddress.setLine2(crimeApplyHomeAddress.getAddressLineTwo());
-        homeAddress.setCity(crimeApplyHomeAddress.getCity());
-        homeAddress.setCountry(crimeApplyHomeAddress.getCountry());
-        homeAddress.setPostCode(crimeApplyHomeAddress.getPostcode());
-        return homeAddress;
     }
 }
