@@ -9,9 +9,15 @@ import org.springframework.http.MediaType;
 
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MockWebServerStubs {
+
+    private static final Map<String, RequestPathResponseMapping> PATH_TO_RESPONSE_MAPPING_MAP =
+            Arrays.stream(RequestPathResponseMapping.values())
+                    .collect(Collectors.toMap(RequestPathResponseMapping::getRequestPath,
+                            requestPathResponseMapping -> requestPathResponseMapping));
 
     public static Dispatcher forDownstreamApiCalls() {
         return new Dispatcher() {
@@ -19,20 +25,12 @@ public class MockWebServerStubs {
             @Override
             public MockResponse dispatch(@NotNull RecordedRequest recordedRequest) {
                 String requestPath = recordedRequest.getPath();
-                List<RequestPathResponseMapping> matchingMappings = Arrays.stream(RequestPathResponseMapping.values())
-                        .filter(requestPathResponseMapping -> requestPathResponseMapping.matchesRequestPath(requestPath))
-                        .toList();
+                RequestPathResponseMapping responseMapping = PATH_TO_RESPONSE_MAPPING_MAP.get(requestPath);
 
-                if (matchingMappings.isEmpty()) {
+                if (responseMapping == null) {
                     return new MockResponse().setResponseCode(HttpStatus.SERVICE_UNAVAILABLE.value());
                 }
-
-                if (matchingMappings.size() > 1) {
-                    String message = "Multiple matching request path response mappings found for [%s] found %s".formatted(requestPath, matchingMappings);
-                    throw new IllegalStateException(message);
-                }
-
-                return matchingMappings.get(0).getMockResponse();
+                return responseMapping.getMockResponse();
             }
         };
     }
@@ -57,11 +55,7 @@ public class MockWebServerStubs {
             this.responseBodyFilePath = responseBodyFilePath;
             this.httpResponseStatus = httpResponseStatus;
         }
-
-        boolean matchesRequestPath(String requestPathParameter) {
-            return requestPath.equals(requestPathParameter);
-        }
-
+        
         String getRequestPath() {
             return requestPath;
         }
