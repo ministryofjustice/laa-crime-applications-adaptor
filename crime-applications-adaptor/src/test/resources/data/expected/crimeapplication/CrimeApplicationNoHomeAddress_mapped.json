@@ -1,0 +1,27 @@
+{
+  "statusReason": "current",
+  "solicitorName": "John Doe",
+  "applicationType": "New application",
+  "usn": 6000001,
+  "solicitorAdminEmail": "provider@example.com",
+  "courtCustody": false,
+  "dateCreated": "2022-10-24T09:50:04.019",
+  "dateStamp": "2022-10-24T09:50:04.019",
+  "applicant": {
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
+    "hasPartner": false,
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "noFixedAbode": true,
+    "useSupplierAddressForPost": true,
+    "postalAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
+    }
+  }
+}

@@ -20,14 +20,27 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldMapAllRequiredFieldsFromCadApplicationResponse_to_MaatApplication() throws JSONException {
+    void shouldMapAllRequiredFieldsFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
         String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_toBeMapped.json");
         MaatApplication crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatApplication.class);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToMaatApplication(crimeApplyApplicationDetails);
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
         String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
-        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/CrimeApplication/CrimeApplication_mapped.json");
+        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplication_mapped.json");
+
+        JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void shouldMapNoHomeAddressFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
+        String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplicationNoHomeAddress_toBeMapped.json");
+        MaatApplication crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatApplication.class);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
+
+        String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
+        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
 
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
     }
