@@ -40,7 +40,7 @@ class CrimeApplyMapperTest {
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
         String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
-        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/CrimeApplication/CrimeApplicationNoHomeAddress_mapped.json");
+        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
 
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
     }
