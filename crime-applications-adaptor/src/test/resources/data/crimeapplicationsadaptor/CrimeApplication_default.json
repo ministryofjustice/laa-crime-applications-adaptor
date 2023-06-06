@@ -29,6 +29,7 @@
     "hasPartner": false,
     "telephone": "07771231231",
     "niNumber": "AJ123456C",
+    "useHomeAddress": true,
     "noFixedAbode": false,
     "useSupplierAddressForPost": false,
     "homeAddress": {
