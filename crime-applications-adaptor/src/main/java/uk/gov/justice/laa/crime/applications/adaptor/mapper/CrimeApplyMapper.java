@@ -58,7 +58,8 @@ public class CrimeApplyMapper {
 
         return crimeApplyInterestsOfJustice.stream()
                 .map(ioj -> {
-                    InterestOfJustice.Type iojType = EnumUtils.getEnum(InterestOfJustice.Type.class, ioj.getType().name());
+                    Ioj.Type crimeApplyType = ioj.getType();
+                    InterestOfJustice.Type iojType = crimeApplyType == null ? null : EnumUtils.getEnum(InterestOfJustice.Type.class, crimeApplyType.name());
                     return new InterestOfJustice(iojType, ioj.getReason());
                 }).toList();
     }
