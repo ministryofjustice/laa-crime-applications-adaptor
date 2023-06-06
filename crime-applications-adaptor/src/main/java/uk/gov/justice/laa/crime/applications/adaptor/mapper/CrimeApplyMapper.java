@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.*;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Ioj;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class CrimeApplyMapper {
         crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
         crimeApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
-        crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse));
+        crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
         crimeApplication.setUsn(crimeApplyResponse.getReference());
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
@@ -42,8 +43,12 @@ public class CrimeApplyMapper {
         return providerDetails.getProviderEmail();
     }
 
-    private List<InterestOfJustice> mapInterestsOfJustice(MaatApplication crimeApplyResponse) {
-        return crimeApplyResponse.getInterestsOfJustice().stream()
+    private List<InterestOfJustice> mapInterestsOfJustice(List<Ioj> crimeApplyInterestsOfJustice) {
+        if (crimeApplyInterestsOfJustice == null) {
+            return null;
+        }
+        
+        return crimeApplyInterestsOfJustice.stream()
                 .map(ioj -> {
                     InterestOfJustice.Type iojType = InterestOfJustice.Type.fromValue(ioj.getType().value());
                     return new InterestOfJustice(iojType, ioj.getReason());
@@ -54,7 +59,7 @@ public class CrimeApplyMapper {
         if (crimeApplyCaseDetails == null) {
             return null;
         }
-        
+
         MagistrateCourt magistrateCourt = new MagistrateCourt();
         magistrateCourt.setCourt(crimeApplyCaseDetails.getHearingCourtName());
         return magistrateCourt;

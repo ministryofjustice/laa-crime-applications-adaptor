@@ -19,12 +19,16 @@ public class TestData {
     }
 
     public static MaatApplication getMaatApplication() {
-        String maatApplicationJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_default.json");
-        return JsonUtils.jsonToObject(maatApplicationJson, MaatApplication.class);
+        return getMaatApplication("MaatApplication_default.json");
     }
 
     public static EformStagingResponse getEformStagingResponse(String stubDataFileName) {
         String eformStagingResponseJson = FileUtils.readFileToString("data/eformstaging/" + stubDataFileName);
         return JsonUtils.jsonToObject(eformStagingResponseJson, EformStagingResponse.class);
+    }
+
+    public static MaatApplication getMaatApplication(String stubDataFileName) {
+        String maatApplicationResponseJson = FileUtils.readFileToString("data/criminalapplicationsdatastore/" + stubDataFileName);
+        return JsonUtils.jsonToObject(maatApplicationResponseJson, MaatApplication.class);
     }
 }

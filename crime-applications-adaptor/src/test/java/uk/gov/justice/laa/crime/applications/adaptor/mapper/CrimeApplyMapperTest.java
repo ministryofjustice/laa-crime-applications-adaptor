@@ -69,4 +69,14 @@ class CrimeApplyMapperTest {
         assertNull(crimeApplication.getCaseDetails());
         assertNull(crimeApplication.getMagsCourt());
     }
+
+    @Test
+    void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.setInterestsOfJustice(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getInterestsOfJustice());
+    }
 }
