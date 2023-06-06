@@ -153,19 +153,31 @@ public class CrimeApplyMapper {
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
         applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
         applicant.setNiNumber(crimeApplyApplicant.getNino());
-        applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
+
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType =
                 crimeApplyApplicant.getCorrespondenceAddressType();
-        if (Objects.nonNull(crimeApplyAddressType)) {
-            applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyAddressType));
-        }
+        applicant.setUseHomeAddress(mapUseHomeAddress(crimeApplyAddressType));
+        applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
+        applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyAddressType));
+
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
         return applicant;
     }
 
-    private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType) {
+    private boolean mapUseHomeAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.
+                                              CorrespondenceAddressType crimeApplyAddressType) {
+
+        return uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.
+                CorrespondenceAddressType.HOME_ADDRESS.equals(crimeApplyAddressType);
+    }
+
+    private boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType) {
+        if (crimeApplyAddressType == null) {
+            return false;
+        }
+
         switch (crimeApplyAddressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;

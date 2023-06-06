@@ -29,6 +29,7 @@
     "hasPartner": false,
     "telephone": "",
     "niNumber": "JA293483A",
+    "useHomeAddress": false,
     "noFixedAbode": true,
     "useSupplierAddressForPost": true
   },
