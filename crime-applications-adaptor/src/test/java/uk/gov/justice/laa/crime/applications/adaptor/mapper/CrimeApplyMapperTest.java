@@ -79,4 +79,54 @@ class CrimeApplyMapperTest {
 
         assertNull(crimeApplication.getInterestsOfJustice());
     }
+
+    @Test
+    void shouldSuccessfullyMapWhenCaseDetailsHaveNullCaseType() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.getCaseDetails().setCaseType(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getCaseDetails().getCaseType());
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenCaseDetailsHaveNullOffenceClass() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.getCaseDetails().setOffenceClass(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getCaseDetails().getOffenceClass());
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenApplicantCorrespondenceAddressTypeIsNull() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.getClientDetails().getApplicant().setCorrespondenceAddressType(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getApplicant().getUseSupplierAddressForPost());
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenClientDetailsAreNull() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.setClientDetails(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getApplicant());
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenApplicantIsNull() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.getClientDetails().setApplicant(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getApplicant());
+    }
 }

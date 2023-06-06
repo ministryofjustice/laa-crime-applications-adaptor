@@ -1,13 +1,17 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.*;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.ClientDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Ioj;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The responsibility of this class is to encapsulate the required logic to map from a
@@ -26,7 +30,7 @@ public class CrimeApplyMapper {
         crimeApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
-        crimeApplication.setUsn(crimeApplyResponse.getReference());
+        crimeApplication.setUsn(mapUsn(crimeApplyResponse));
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
@@ -34,6 +38,10 @@ public class CrimeApplyMapper {
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
 
         return crimeApplication;
+    }
+
+    private BigDecimal mapUsn(MaatApplication crimeApplyResponse) {
+        return crimeApplyResponse.getReference();
     }
 
     private String mapSolicitorAdminEmail(Provider providerDetails) {
@@ -47,10 +55,10 @@ public class CrimeApplyMapper {
         if (crimeApplyInterestsOfJustice == null) {
             return null;
         }
-        
+
         return crimeApplyInterestsOfJustice.stream()
                 .map(ioj -> {
-                    InterestOfJustice.Type iojType = InterestOfJustice.Type.fromValue(ioj.getType().value());
+                    InterestOfJustice.Type iojType = EnumUtils.getEnum(InterestOfJustice.Type.class, ioj.getType().name());
                     return new InterestOfJustice(iojType, ioj.getReason());
                 }).toList();
     }
@@ -73,10 +81,17 @@ public class CrimeApplyMapper {
         CaseDetails caseDetails = new CaseDetails();
 
         caseDetails.setUrn(crimeApplyCaseDetails.getUrn());
-        caseDetails.setCaseType(CaseDetails.CaseType.fromValue(
-                crimeApplyCaseDetails.getCaseType().value()));
-        caseDetails.setOffenceClass(CaseDetails.OffenceClass.fromValue(
-                crimeApplyCaseDetails.getOffenceClass().value()));
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.CaseType crimeApplyCaseType
+                = crimeApplyCaseDetails.getCaseType();
+        if (Objects.nonNull(crimeApplyCaseType)) {
+            caseDetails.setCaseType(EnumUtils.getEnum(CaseDetails.CaseType.class, crimeApplyCaseType.name()));
+        }
+
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass offenceClass
+                = crimeApplyCaseDetails.getOffenceClass();
+        if (Objects.nonNull(offenceClass)) {
+            caseDetails.setOffenceClass(EnumUtils.getEnum(CaseDetails.OffenceClass.class, offenceClass.name()));
+        }
 
         return caseDetails;
     }
@@ -110,8 +125,16 @@ public class CrimeApplyMapper {
     private Applicant mapApplicant(MaatApplication crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
+        ClientDetails crimeApplyClientDetails = crimeApplyResponse.getClientDetails();
+        if (crimeApplyClientDetails == null) {
+            return null;
+        }
+
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
-                crimeApplyResponse.getClientDetails().getApplicant();
+                crimeApplyClientDetails.getApplicant();
+        if (crimeApplyApplicant == null) {
+            return null;
+        }
 
         applicant.setFirstName(crimeApplyApplicant.getFirstName());
         applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
@@ -130,6 +153,10 @@ public class CrimeApplyMapper {
     private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant) {
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType addressType =
                 crimeApplyApplicant.getCorrespondenceAddressType();
+        if (addressType == null) {
+            return null;
+        }
+
         switch (addressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;
