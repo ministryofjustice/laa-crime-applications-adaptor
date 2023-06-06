@@ -35,10 +35,19 @@ public class CrimeApplyMapper {
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
+        crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setApplicant(mapApplicant(crimeApplyResponse));
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
 
         return crimeApplication;
+    }
+
+    private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+        if (crimeApplyCaseDetails == null) {
+            return null;
+        }
+        
+        return crimeApplyCaseDetails.getHearingDate();
     }
 
     private BigDecimal mapUsn(MaatApplication crimeApplyResponse) {

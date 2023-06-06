@@ -98,7 +98,7 @@
       "type": "string",
       "format": "date",
       "nullable": true,
-      "description": "Currently not populated."
+      "description": "The date of the next hearing for the case."
     },
     "committalDate": {
       "type": "string",

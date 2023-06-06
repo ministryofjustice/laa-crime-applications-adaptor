@@ -71,6 +71,7 @@ class CrimeApplyMapperTest {
 
         assertNull(crimeApplication.getCaseDetails());
         assertNull(crimeApplication.getMagsCourt());
+        assertNull(crimeApplication.getHearingDate());
     }
 
     @Test
