@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
+import org.hamcrest.collection.IsEmptyCollection;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CrimeApplyMapperTest {
@@ -77,7 +80,7 @@ class CrimeApplyMapperTest {
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
-        assertNull(crimeApplication.getInterestsOfJustice());
+        assertThat(crimeApplication.getInterestsOfJustice(), IsEmptyCollection.empty());
     }
 
     @Test
@@ -107,7 +110,7 @@ class CrimeApplyMapperTest {
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
-        assertNull(crimeApplication.getApplicant().getUseSupplierAddressForPost());
+        assertFalse(crimeApplication.getApplicant().getUseSupplierAddressForPost());
     }
 
     @Test

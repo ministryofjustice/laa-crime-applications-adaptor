@@ -10,6 +10,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public class CrimeApplyMapper {
 
     private List<InterestOfJustice> mapInterestsOfJustice(List<Ioj> crimeApplyInterestsOfJustice) {
         if (crimeApplyInterestsOfJustice == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         return crimeApplyInterestsOfJustice.stream()
@@ -144,20 +145,18 @@ public class CrimeApplyMapper {
         applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
         applicant.setNiNumber(crimeApplyApplicant.getNino());
         applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
-        applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyApplicant));
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType =
+                crimeApplyApplicant.getCorrespondenceAddressType();
+        if (Objects.nonNull(crimeApplyAddressType)) {
+            applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyAddressType));
+        }
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
         return applicant;
     }
 
-    private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant) {
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType =
-                crimeApplyApplicant.getCorrespondenceAddressType();
-        if (crimeApplyAddressType == null) {
-            return null;
-        }
-
+    private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType) {
         switch (crimeApplyAddressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;
