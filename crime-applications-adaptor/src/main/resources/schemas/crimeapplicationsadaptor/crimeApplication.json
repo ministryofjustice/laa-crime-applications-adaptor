@@ -156,19 +156,19 @@
   ],
   "definitions": {
     "applicant": {
-      "$ref": "applicant.json"
+      "$ref": "general/applicant.json"
     },
     "supplier": {
-      "$ref": "supplier.json"
+      "$ref": "general/supplier.json"
     },
     "caseDetails": {
-      "$ref": "caseDetails.json"
+      "$ref": "general/caseDetails.json"
     },
     "magistrateCourt": {
-      "$ref": "magistrateCourt.json"
+      "$ref": "general/magistrateCourt.json"
     },
     "interestsOfJustice": {
-      "$ref": "interestOfJustice.json"
+      "$ref": "general/interestOfJustice.json"
     }
   }
 }

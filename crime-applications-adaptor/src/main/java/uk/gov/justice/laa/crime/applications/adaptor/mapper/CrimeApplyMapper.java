@@ -7,7 +7,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The responsibility of this class is to encapsulate the required logic to map from a
@@ -37,11 +36,11 @@ public class CrimeApplyMapper {
     }
 
     private List<InterestOfJustice> mapInterestsOfJustice(MaatApplication crimeApplyResponse) {
-
-        return crimeApplyResponse.getInterestsOfJustice().stream().map(ioj -> {
-            InterestOfJustice.Type iojType = InterestOfJustice.Type.fromValue(ioj.getType().value());
-            return new InterestOfJustice(iojType, ioj.getReason());
-        }).collect(Collectors.toList());
+        return crimeApplyResponse.getInterestsOfJustice().stream()
+                .map(ioj -> {
+                    InterestOfJustice.Type iojType = InterestOfJustice.Type.fromValue(ioj.getType().value());
+                    return new InterestOfJustice(iojType, ioj.getReason());
+                }).toList();
     }
 
     private MagistrateCourt mapMagistrateCourt(MaatApplication crimeApplyResponse) {
