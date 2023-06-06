@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,10 @@ import java.util.Objects;
  * Crime Applications Adaptor MAAT Application (which should be structured like a MAAT ApplicationDTO)
  */
 @Component
+@RequiredArgsConstructor
 public class CrimeApplyMapper {
+
+    private final CrimeApplyOffenceClassMapper crimeApplyOffenceClassMapper;
 
     public CrimeApplication mapToCrimeApplication(MaatApplication crimeApplyResponse) {
 
@@ -46,7 +50,7 @@ public class CrimeApplyMapper {
         if (crimeApplyCaseDetails == null) {
             return null;
         }
-        
+
         return crimeApplyCaseDetails.getHearingDate();
     }
 
@@ -98,11 +102,7 @@ public class CrimeApplyMapper {
             caseDetails.setCaseType(EnumUtils.getEnum(CaseDetails.CaseType.class, crimeApplyCaseType.name()));
         }
 
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass crimeApplyOffenceClass
-                = crimeApplyCaseDetails.getOffenceClass();
-        if (Objects.nonNull(crimeApplyOffenceClass)) {
-            caseDetails.setOffenceClass(EnumUtils.getEnum(CaseDetails.OffenceClass.class, crimeApplyOffenceClass.name()));
-        }
+        caseDetails.setOffenceClass(crimeApplyOffenceClassMapper.map(crimeApplyCaseDetails.getOffenceClass()));
 
         return caseDetails;
     }

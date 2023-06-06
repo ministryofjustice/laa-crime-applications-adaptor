@@ -23,7 +23,19 @@
     "offenceClass": {
       "type": "string",
       "description": "The class to which the offence is classified as. Note that different offences can be under the same class",
-      "enum": ["A", "K", "G", "B", "I", "J", "D", "C", "H", "F", "E", null]
+      "enum": [
+        "MURDER",
+        "SERIOUS VIOL/DRUGS",
+        "LESSER VIOL/DRUGS",
+        "SEX",
+        "BURGLARY",
+        "DISHONESTY &lt; 30K",
+        "DISHONESTY 30K-100K",
+        "OTHER",
+        "REVENUE/PUBLIC ORDER",
+        "COMPLEX SEX",
+        "DISHONESTY &gt; 100K"
+      ]
     }
   },
   "required": ["caseType", "offenceClass"]

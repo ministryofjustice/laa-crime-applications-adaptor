@@ -22,7 +22,7 @@ class CrimeApplyMapperTest {
 
     @BeforeEach
     void setUp() {
-        crimeApplyMapper = new CrimeApplyMapper();
+        crimeApplyMapper = new CrimeApplyMapper(new CrimeApplyOffenceClassMapper());
     }
 
     @Test
