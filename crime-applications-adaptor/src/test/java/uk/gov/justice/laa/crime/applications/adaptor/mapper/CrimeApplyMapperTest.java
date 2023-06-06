@@ -9,6 +9,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CrimeApplyMapperTest {
 
@@ -21,8 +24,7 @@ class CrimeApplyMapperTest {
 
     @Test
     void shouldMapAllRequiredFieldsFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
-        String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplication_toBeMapped.json");
-        MaatApplication crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatApplication.class);
+        MaatApplication crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplication_toBeMapped.json");
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
@@ -34,8 +36,8 @@ class CrimeApplyMapperTest {
 
     @Test
     void shouldMapNoHomeAddressFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
-        String crimeApplyApplicationDetailsAsString = FileUtils.readFileToString("data/criminalapplicationsdatastore/MaatApplicationNoHomeAddress_toBeMapped.json");
-        MaatApplication crimeApplyApplicationDetails = JsonUtils.jsonToObject(crimeApplyApplicationDetailsAsString, MaatApplication.class);
+        MaatApplication crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
@@ -43,5 +45,28 @@ class CrimeApplyMapperTest {
         String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
 
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenNoProviderDetailsAreAvailable() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.setProviderDetails(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getSolicitorName());
+        assertNull(crimeApplication.getSolicitorAdminEmail());
+        assertNull(crimeApplication.getSupplier());
+    }
+
+    @Test
+    void shouldSuccessfullyMapWhenNoCaseDetailsAreAvailable() {
+        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplication.setCaseDetails(null);
+
+        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+
+        assertNull(crimeApplication.getCaseDetails());
+        assertNull(crimeApplication.getMagsCourt());
     }
 }

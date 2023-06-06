@@ -22,17 +22,24 @@ public class CrimeApplyMapper {
         CrimeApplication crimeApplication = new CrimeApplication();
         crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
-        crimeApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse));
-        crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse));
+        crimeApplication.setCaseDetails(mapCaseDetails(crimeApplyResponse.getCaseDetails()));
+        crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse));
         crimeApplication.setUsn(crimeApplyResponse.getReference());
-        crimeApplication.setSolicitorAdminEmail(crimeApplyResponse.getProviderDetails().getProviderEmail());
+        crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
         crimeApplication.setApplicant(mapApplicant(crimeApplyResponse));
-        crimeApplication.setSupplier(mapSupplier(crimeApplyResponse));
+        crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
 
         return crimeApplication;
+    }
+
+    private String mapSolicitorAdminEmail(Provider providerDetails) {
+        if (providerDetails == null) {
+            return null;
+        }
+        return providerDetails.getProviderEmail();
     }
 
     private List<InterestOfJustice> mapInterestsOfJustice(MaatApplication crimeApplyResponse) {
@@ -43,28 +50,38 @@ public class CrimeApplyMapper {
                 }).toList();
     }
 
-    private MagistrateCourt mapMagistrateCourt(MaatApplication crimeApplyResponse) {
+    private MagistrateCourt mapMagistrateCourt(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+        if (crimeApplyCaseDetails == null) {
+            return null;
+        }
+        
         MagistrateCourt magistrateCourt = new MagistrateCourt();
-        magistrateCourt.setCourt(crimeApplyResponse.getCaseDetails().getHearingCourtName());
+        magistrateCourt.setCourt(crimeApplyCaseDetails.getHearingCourtName());
         return magistrateCourt;
     }
 
-    private CaseDetails mapCaseDetails(MaatApplication crimeApplyResponse) {
+    private CaseDetails mapCaseDetails(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+        if (crimeApplyCaseDetails == null) {
+            return null;
+        }
+
         CaseDetails caseDetails = new CaseDetails();
 
-        caseDetails.setUrn(crimeApplyResponse.getCaseDetails().getUrn());
+        caseDetails.setUrn(crimeApplyCaseDetails.getUrn());
         caseDetails.setCaseType(CaseDetails.CaseType.fromValue(
-                crimeApplyResponse.getCaseDetails().getCaseType().value()));
+                crimeApplyCaseDetails.getCaseType().value()));
         caseDetails.setOffenceClass(CaseDetails.OffenceClass.fromValue(
-                crimeApplyResponse.getCaseDetails().getOffenceClass().value()));
+                crimeApplyCaseDetails.getOffenceClass().value()));
 
         return caseDetails;
     }
 
-    private Supplier mapSupplier(MaatApplication crimeApplyResponse) {
-        Supplier supplier = new Supplier();
+    private Supplier mapSupplier(Provider providerDetails) {
+        if (providerDetails == null) {
+            return null;
+        }
 
-        Provider providerDetails = crimeApplyResponse.getProviderDetails();
+        Supplier supplier = new Supplier();
 
         supplier.setOfficeCode(providerDetails.getOfficeCode());
         supplier.setEmail(providerDetails.getProviderEmail());
@@ -76,6 +93,10 @@ public class CrimeApplyMapper {
     }
 
     private String mapSolicitorName(Provider providerDetails) {
+        if (providerDetails == null) {
+            return null;
+        }
+
         List<String> firstAndLastName = List.of(providerDetails.getLegalRepFirstName(),
                 providerDetails.getLegalRepLastName());
         return String.join(StringUtils.SPACE, firstAndLastName);
