@@ -44,11 +44,11 @@ public class CrimeApplyMapper {
         return crimeApplyResponse.getReference();
     }
 
-    private String mapSolicitorAdminEmail(Provider providerDetails) {
-        if (providerDetails == null) {
+    private String mapSolicitorAdminEmail(Provider crimeApplyProviderDetails) {
+        if (crimeApplyProviderDetails == null) {
             return null;
         }
-        return providerDetails.getProviderEmail();
+        return crimeApplyProviderDetails.getProviderEmail();
     }
 
     private List<InterestOfJustice> mapInterestsOfJustice(List<Ioj> crimeApplyInterestsOfJustice) {
@@ -87,38 +87,38 @@ public class CrimeApplyMapper {
             caseDetails.setCaseType(EnumUtils.getEnum(CaseDetails.CaseType.class, crimeApplyCaseType.name()));
         }
 
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass offenceClass
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass crimeApplyOffenceClass
                 = crimeApplyCaseDetails.getOffenceClass();
-        if (Objects.nonNull(offenceClass)) {
-            caseDetails.setOffenceClass(EnumUtils.getEnum(CaseDetails.OffenceClass.class, offenceClass.name()));
+        if (Objects.nonNull(crimeApplyOffenceClass)) {
+            caseDetails.setOffenceClass(EnumUtils.getEnum(CaseDetails.OffenceClass.class, crimeApplyOffenceClass.name()));
         }
 
         return caseDetails;
     }
 
-    private Supplier mapSupplier(Provider providerDetails) {
-        if (providerDetails == null) {
+    private Supplier mapSupplier(Provider crimeApplyProviderDetails) {
+        if (crimeApplyProviderDetails == null) {
             return null;
         }
 
         Supplier supplier = new Supplier();
 
-        supplier.setOfficeCode(providerDetails.getOfficeCode());
-        supplier.setEmail(providerDetails.getProviderEmail());
-        supplier.setTelephone(providerDetails.getLegalRepTelephone());
-        supplier.setFirstName(providerDetails.getLegalRepFirstName());
-        supplier.setSurname(providerDetails.getLegalRepLastName());
+        supplier.setOfficeCode(crimeApplyProviderDetails.getOfficeCode());
+        supplier.setEmail(crimeApplyProviderDetails.getProviderEmail());
+        supplier.setTelephone(crimeApplyProviderDetails.getLegalRepTelephone());
+        supplier.setFirstName(crimeApplyProviderDetails.getLegalRepFirstName());
+        supplier.setSurname(crimeApplyProviderDetails.getLegalRepLastName());
 
         return supplier;
     }
 
-    private String mapSolicitorName(Provider providerDetails) {
-        if (providerDetails == null) {
+    private String mapSolicitorName(Provider crimeApplyProviderDetails) {
+        if (crimeApplyProviderDetails == null) {
             return null;
         }
 
-        List<String> firstAndLastName = List.of(providerDetails.getLegalRepFirstName(),
-                providerDetails.getLegalRepLastName());
+        List<String> firstAndLastName = List.of(crimeApplyProviderDetails.getLegalRepFirstName(),
+                crimeApplyProviderDetails.getLegalRepLastName());
         return String.join(StringUtils.SPACE, firstAndLastName);
     }
 
@@ -151,25 +151,25 @@ public class CrimeApplyMapper {
     }
 
     private Boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant) {
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType addressType =
+        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType =
                 crimeApplyApplicant.getCorrespondenceAddressType();
-        if (addressType == null) {
+        if (crimeApplyAddressType == null) {
             return null;
         }
 
-        switch (addressType) {
+        switch (crimeApplyAddressType) {
             case OTHER_ADDRESS, HOME_ADDRESS -> {
                 return false;
             }
             case PROVIDERS_OFFICE_ADDRESS -> {
                 return true;
             }
-            default -> throw new IllegalStateException("Unexpected value: " + addressType);
+            default -> throw new IllegalStateException("Unexpected value: " + crimeApplyAddressType);
         }
     }
 
-    private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address homeAddress) {
-        return homeAddress == null;
+    private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyAddress) {
+        return crimeApplyAddress == null;
     }
 
     private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyAddress) {
