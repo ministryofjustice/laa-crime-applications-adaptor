@@ -1,0 +1,17 @@
+{
+  "title": "Magistrate Court",
+  "description": "Details of the Magistrate Court.",
+  "type": "object",
+  "properties": {
+    "court": {
+      "type": "string",
+      "description": "Currently not populated."
+    },
+    "description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    }
+  },
+  "required": ["court"]
+}

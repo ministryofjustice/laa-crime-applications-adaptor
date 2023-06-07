@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
-import uk.gov.justice.laa.crime.applications.adaptor.model.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 
@@ -22,43 +22,40 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/internal/v1/crimeapply")
-@Tag(name = "Crime Application Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
+@Tag(name = "Crime Applications Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
 public class CrimeApplicationController {
 
     private CrimeApplicationService crimeApplicationService;
-
     private EformStagingService eformStagingService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
     @ApiResponse(responseCode = "200",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = MaatApplication.class)
+                    schema = @Schema(implementation = CrimeApplication.class)
             )
     )
-
     @ApiResponse(responseCode = "400",
             description = "Bad request.",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-
     @ApiResponse(responseCode = "500",
             description = "Server Error.",
             content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-    public MaatApplication getCrimeApplyData(@PathVariable Long id) {
+    public CrimeApplication getCrimeApplyData(@PathVariable long id) {
         log.info("Get applicant details from Crime Apply datastore");
-        EformStagingResponse eformStagingResponse = eformStagingService.retriveOrInsertDummyUsnRecord(id);
-        MaatApplication maatApplication = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
+        EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
+        CrimeApplication crimeApplication = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
         Integer maatRef = eformStagingResponse.getMaatRef();
-        if(maatRef != null) {
-            return maatApplication
+        if (maatRef != null) {
+            return crimeApplication
                     .withMaatRef(maatRef);
         }
-        return maatApplication;
+        return crimeApplication;
     }
 }

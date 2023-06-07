@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.EformStagingResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class EformStagingService {
     private final ObservationRegistry observationRegistry;
 
     @Retry(name = SERVICE_NAME)
-    public EformStagingResponse retriveOrInsertDummyUsnRecord(Long usn) {
+    public EformStagingResponse retrieveOrInsertDummyUsnRecord(long usn) {
         log.info("Start - call to Eform Staging API ");
         EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
         if (isUsnInEformStagingCreatedByHubUser(eformStagingResponse)) {

@@ -1,0 +1,113 @@
+{
+  "title": "Applicant",
+  "description": "Represents the person who has made the application for Legal Aid",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The applicant's first name."
+    },
+    "otherNames": {
+      "type": "string",
+      "nullable": true
+    },
+    "surname": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The applicant's surname (last name)."
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "The applicant's date of birth."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "nullable": true,
+      "description": "The applicant's email address. Currently not populated."
+    },
+    "gender": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "hasPartner": {
+      "type": "boolean",
+      "default": false,
+      "description": "Currently not populated."
+    },
+    "foreignId": {
+      "type": "string",
+      "nullable": true,
+      "description": "Currently not populated."
+    },
+    "telephone": {
+      "type": "string",
+      "description": "The applicant's preferred telephone number."
+    },
+    "niNumber": {
+      "type": "string",
+      "nullable": true,
+      "description": "The applicant's National Insurance Number."
+    },
+    "useHomeAddress": {
+      "type": "boolean"
+    },
+    "noFixedAbode": {
+      "type": "boolean"
+    },
+    "useSupplierAddressForPost": {
+      "type": "boolean"
+    },
+    "partnerContraryInterest": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "default": "NOCON"
+        }
+      }
+    },
+    "ethnicity": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "employmentStatus": {
+      "type": "object",
+      "nullable": true,
+      "description": "Currently not populated.",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "disabilityStatement": {
+      "$ref": "#/definitions/disabilityStatement"
+    },
+    "homeAddress": {
+      "$ref": "#/definitions/address"
+    },
+    "postalAddress": {
+      "$ref": "#/definitions/address"
+    }
+  },
+  "definitions": {
+    "address": {
+      "$ref": "address.json"
+    },
+    "disabilityStatement": {
+      "$ref": "disabilityStatement.json"
+    }
+  }
+}

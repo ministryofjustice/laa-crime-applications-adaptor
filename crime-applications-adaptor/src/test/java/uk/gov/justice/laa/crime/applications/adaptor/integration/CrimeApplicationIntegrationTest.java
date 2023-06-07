@@ -1,9 +1,10 @@
-package uk.gov.justice.laa.crime.applications.adaptor.controller;
+package uk.gov.justice.laa.crime.applications.adaptor.integration;
 
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -32,22 +33,21 @@ class CrimeApplicationIntegrationTest {
 
     private MockMvc mvc;
 
-    private static MockWebServer mockCrimeApplyDatastoreApi;
+    private static MockWebServer mockWebServer;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     @BeforeAll
     public void initialiseMockWebServer() throws IOException {
-        mockCrimeApplyDatastoreApi = new MockWebServer();
-        mockCrimeApplyDatastoreApi
-                .setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
-        mockCrimeApplyDatastoreApi.start(9999);
+        mockWebServer = new MockWebServer();
+        mockWebServer.setDispatcher(MockWebServerStubs.forDownstreamApiCalls());
+        mockWebServer.start(9999);
     }
 
     @AfterAll
     protected void shutdownMockWebServer() throws IOException {
-        mockCrimeApplyDatastoreApi.shutdown();
+        mockWebServer.shutdown();
     }
 
     @BeforeEach
@@ -57,31 +57,31 @@ class CrimeApplicationIntegrationTest {
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        String maatApplicationJson = FileUtils.readFileToString("data/crimeapply/MaatApplication_6000308.json");
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().json(maatApplicationJson)).andReturn();
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
 
         String actualJsonString = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(maatApplicationJson, actualJsonString, true);
-
+        String expectedCrimeApplicationJson = FileUtils.readFileToString("data/crimeapplicationsadaptor/CrimeApplication_6000308.json");
+        JSONAssert.assertEquals(expectedCrimeApplicationJson, actualJsonString, JSONCompareMode.STRICT);
     }
 
     @Test
-    void givenValidParams_whenMaatRefernceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000309")
+    void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000288")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
         mvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value("7ce78426-93dc-437f-a5fe-7203dcbf103e"))
-                .andExpect(jsonPath("$.reference", is(6000309)))
-                .andExpect(jsonPath("$.maatRef", is(5676399)));
+                .andExpect(jsonPath("$.usn", is(6000288)))
+                .andExpect(jsonPath("$.maatRef", is(5676400)));
     }
 
-        @Test
+    @Test
     void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000310")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -113,5 +113,4 @@ class CrimeApplicationIntegrationTest {
                 .andExpect(jsonPath("$.status").value("503"))
                 .andExpect(jsonPath("$.detail", containsString(("503 Service Unavailable"))));
     }
-
 }

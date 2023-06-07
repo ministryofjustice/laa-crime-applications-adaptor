@@ -1,0 +1,43 @@
+{
+  "statusReason": "current",
+  "solicitorName": "Karl Kent",
+  "caseDetails": {
+    "urn": "",
+    "caseType": "summary_only",
+    "offenceClass": "OTHER"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "interestsOfJustice": [
+    {
+      "type": "understanding",
+      "reason": "My client is a sole parent and has severe learning difficulties, which means they are unable to read and write."
+    }
+  ],
+  "usn": 6000308,
+  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "courtCustody": false,
+  "dateCreated": "2023-05-15T11:33:06.717",
+  "dateStamp": "2023-04-24T12:31:06.353",
+  "hearingDate": "2024-09-27",
+  "applicant": {
+    "firstName": "Pat",
+    "otherNames": "",
+    "surname": "Walker",
+    "dateOfBirth": "1980-01-10",
+    "hasPartner": false,
+    "telephone": "",
+    "niNumber": "JA293483A",
+    "useHomeAddress": false,
+    "noFixedAbode": true,
+    "useSupplierAddressForPost": true
+  },
+  "supplier": {
+    "officeCode": "0Z981E",
+    "email": "abenn@quinn-melville.co.uk",
+    "telephone": "07712345678",
+    "firstName": "Karl",
+    "surname": "Kent"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "4267d676-7d7a-4662-8265-ea36b29dcd62",
+  "schema_version": 1.0,
+  "application_type": "initial",
+  "reference": 6000288,
+  "submitted_at": "2023-04-20T07:49:19.48",
+  "date_stamp": "2023-04-20T07:48:24.67",
+  "provider_details": {
+    "office_code": "1K022G",
+    "provider_email": "acox@smw-law.co.uk",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "1234567890"
+  },
+  "client_details": {
+    "applicant": {
+      "date_of_birth": "2005-04-21",
+      "telephone_number": "",
+      "correspondence_address_type": "home_address",
+      "home_address": {
+        "lookup_id": "23747771",
+        "address_line_one": "10, PRIME MINISTER & FIRST LORD OF THE TREASURY",
+        "address_line_two": "DOWNING STREET",
+        "city": "LONDON",
+        "country": "UNITED KINGDOM",
+        "postcode": "SW1A 2AA"
+      },
+      "last_name": "Smith",
+      "first_name": "Emma",
+      "other_names": ""
+    }
+  },
+  "case_details": {
+    "urn": "",
+    "case_type": "summary_only",
+    "offence_class": "H",
+    "hearing_court_name": "Teesside Magistrates' Court",
+    "hearing_date": "2023-05-10"
+  },
+  "interests_of_justice": []
+}
