@@ -42,7 +42,6 @@ class OffenceClassMapperTest {
                 Arguments.of(CaseDetails.OffenceClass.I, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.REVENUE_PUBLIC_ORDER),
                 Arguments.of(CaseDetails.OffenceClass.J, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.COMPLEX_SEX),
                 Arguments.of(CaseDetails.OffenceClass.K, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.DISHONESTY_GT_100_K)
-
         );
     }
 }

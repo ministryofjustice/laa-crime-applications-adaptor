@@ -12,24 +12,13 @@ class CaseTypeMapper {
 
         if (Objects.nonNull(crimeApplyCaseType)) {
             switch (crimeApplyCaseType) {
-                case SUMMARY_ONLY -> {
-                    caseType = CaseDetails.CaseType.SUMMARY_ONLY;
-                }
-                case EITHER_WAY -> {
-                    caseType = CaseDetails.CaseType.EITHER_WAY;
-                }
-                case INDICTABLE -> {
-                    caseType = CaseDetails.CaseType.INDICTABLE;
-                }
-                case ALREADY_IN_CROWN_COURT -> {
-                    caseType = CaseDetails.CaseType.CC_ALREADY;
-                }
-                case COMMITTAL -> {
-                    caseType = CaseDetails.CaseType.COMMITAL;
-                }
-                case APPEAL_TO_CROWN_COURT, APPEAL_TO_CROWN_COURT_WITH_CHANGES -> {
-                    caseType = CaseDetails.CaseType.APPEAL_CC;
-                }
+                case SUMMARY_ONLY -> caseType = CaseDetails.CaseType.SUMMARY_ONLY;
+                case EITHER_WAY -> caseType = CaseDetails.CaseType.EITHER_WAY;
+                case INDICTABLE -> caseType = CaseDetails.CaseType.INDICTABLE;
+                case ALREADY_IN_CROWN_COURT -> caseType = CaseDetails.CaseType.CC_ALREADY;
+                case COMMITTAL -> caseType = CaseDetails.CaseType.COMMITAL;
+                case APPEAL_TO_CROWN_COURT, APPEAL_TO_CROWN_COURT_WITH_CHANGES ->
+                        caseType = CaseDetails.CaseType.APPEAL_CC;
             }
         }
 
