@@ -59,7 +59,8 @@ public class CrimeApplyMapper {
         return crimeApplication;
     }
 
-    private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+    private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
+                                          CaseDetails crimeApplyCaseDetails) {
         if (crimeApplyCaseDetails == null) {
             return null;
         }
@@ -91,7 +92,8 @@ public class CrimeApplyMapper {
                 }).toList();
     }
 
-    private MagistrateCourt mapMagistrateCourt(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+    private MagistrateCourt mapMagistrateCourt(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
+                                                       CaseDetails crimeApplyCaseDetails) {
         MagistrateCourt magistrateCourt = new MagistrateCourt();
 
         if (crimeApplyCaseDetails == null) {

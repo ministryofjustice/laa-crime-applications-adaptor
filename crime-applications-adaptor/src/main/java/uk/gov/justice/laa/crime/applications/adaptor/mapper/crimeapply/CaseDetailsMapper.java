@@ -15,7 +15,8 @@ class CaseDetailsMapper {
     }
 
     @NotNull
-    CaseDetails map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails crimeApplyCaseDetails) {
+    CaseDetails map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
+                            CaseDetails crimeApplyCaseDetails) {
 
         CaseDetails caseDetails = new CaseDetails();
         if (crimeApplyCaseDetails == null) {

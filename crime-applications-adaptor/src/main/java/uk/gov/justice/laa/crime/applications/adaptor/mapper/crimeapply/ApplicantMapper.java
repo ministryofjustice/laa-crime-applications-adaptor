@@ -62,31 +62,24 @@ class ApplicantMapper {
                 CorrespondenceAddressType.HOME_ADDRESS.equals(crimeApplyAddressType);
     }
 
-    private boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.CorrespondenceAddressType crimeApplyAddressType) {
-        if (crimeApplyAddressType == null) {
-            return false;
-        }
+    private boolean mapUseSupplierAddressForPost(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.
+                                                         CorrespondenceAddressType crimeApplyAddressType) {
 
-        switch (crimeApplyAddressType) {
-            case OTHER_ADDRESS, HOME_ADDRESS -> {
-                return false;
-            }
-            case PROVIDERS_OFFICE_ADDRESS -> {
-                return true;
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + crimeApplyAddressType);
-        }
+        return uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant.
+                CorrespondenceAddressType.PROVIDERS_OFFICE_ADDRESS.equals(crimeApplyAddressType);
     }
 
-    private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyAddress) {
+    private boolean mapNoFixedAbode(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.
+                                            Address crimeApplyAddress) {
         return crimeApplyAddress == null;
     }
 
-    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Address crimeApplyAddress) {
+    private Address mapAddress(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.
+                                       Address crimeApplyAddress) {
         if (crimeApplyAddress == null) {
             return null;
         }
-        
+
         Address address = new Address();
 
         address.setLookupId(crimeApplyAddress.getLookupId());

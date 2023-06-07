@@ -6,7 +6,8 @@ import java.util.Objects;
 
 class OffenceClassMapper {
 
-    CaseDetails.OffenceClass map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass crimeApplyOffenceClass) {
+    CaseDetails.OffenceClass map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.
+                                         OffenceClass crimeApplyOffenceClass) {
         if (Objects.nonNull(crimeApplyOffenceClass)) {
             switch (crimeApplyOffenceClass) {
                 case A -> {
