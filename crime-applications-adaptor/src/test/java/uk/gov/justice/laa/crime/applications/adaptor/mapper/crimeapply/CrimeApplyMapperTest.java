@@ -13,8 +13,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CrimeApplyMapperTest {
 
@@ -51,7 +50,7 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldSuccessfullyMapWhenNoProviderDetailsAreAvailable() {
+    void shouldSuccessfullyMapWhenNoProviderDetailsAreAvailable() throws JSONException {
         MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplication.setProviderDetails(null);
 
@@ -59,7 +58,7 @@ class CrimeApplyMapperTest {
 
         assertNull(crimeApplication.getSolicitorName());
         assertNull(crimeApplication.getSolicitorAdminEmail());
-        assertNull(crimeApplication.getSupplier());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getSupplier()), JSONCompareMode.STRICT);
     }
 
     @Test
@@ -70,12 +69,12 @@ class CrimeApplyMapperTest {
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
         JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getCaseDetails()), JSONCompareMode.STRICT);
-        assertNull(crimeApplication.getMagsCourt());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getMagsCourt()), JSONCompareMode.STRICT);
         assertNull(crimeApplication.getHearingDate());
     }
 
     @Test
-    void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() {
+    void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() throws JSONException {
         MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplication.setInterestsOfJustice(null);
 
@@ -115,23 +114,23 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldSuccessfullyMapWhenClientDetailsAreNull() {
+    void shouldSuccessfullyMapWhenClientDetailsAreNull() throws JSONException {
         MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplication.setClientDetails(null);
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
-        assertNull(crimeApplication.getApplicant());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getApplicant()), JSONCompareMode.STRICT);
     }
 
     @Test
-    void shouldSuccessfullyMapWhenApplicantIsNull() {
+    void shouldSuccessfullyMapWhenApplicantIsNull() throws JSONException {
         MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplication.getClientDetails().setApplicant(null);
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
-        assertNull(crimeApplication.getApplicant());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getApplicant()), JSONCompareMode.STRICT);
     }
 
     @Test
@@ -142,5 +141,6 @@ class CrimeApplyMapperTest {
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
         assertNull(crimeApplication.getInterestsOfJustice().get(0).getType());
+        assertEquals("More details about loss of liberty.", crimeApplication.getInterestsOfJustice().get(0).getReason());
     }
 }

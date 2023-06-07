@@ -1,0 +1,22 @@
+{
+  "firstName": "Kit",
+  "surname": "Pound",
+  "dateOfBirth": "2011-06-09",
+  "gender": "Prefer not to say",
+  "hasPartner": false,
+  "telephone": "07771231231",
+  "niNumber": "AJ123456C",
+  "useHomeAddress": true,
+  "noFixedAbode": false,
+  "useSupplierAddressForPost": false,
+  "partnerContraryInterest": {
+    "code": "NOCON"
+  },
+  "homeAddress": {
+    "line1": "1 Road",
+    "line2": "Village",
+    "city": "Some nice city",
+    "country": "United Kingdom",
+    "postCode": "SW1A 2AA"
+  }
+}

@@ -10,6 +10,12 @@ public class FileUtils {
 
     private static final String ERROR_MESSAGE_FORMAT = "Unable to read file with filePath [%s]";
 
+    /**
+     * Read the entire contents of a file and return it as a String.
+     *
+     * @param filePath e.g. "data/crimeapplicationsadaptor/CrimeApplication_default.json"
+     * @return String representation of the file contents
+     */
     public static String readFileToString(String filePath) {
         ClassLoader classLoader = FileUtils.class.getClassLoader();
         URL path = classLoader.getResource(filePath);
