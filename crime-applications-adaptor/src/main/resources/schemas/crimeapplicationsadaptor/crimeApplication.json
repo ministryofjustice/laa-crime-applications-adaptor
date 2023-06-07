@@ -4,8 +4,7 @@
   "properties": {
     "statusReason": {
       "type": "string",
-      "default": "current",
-      "description": "Currently not populated."
+      "default": "current"
     },
     "solicitorName": {
       "type": "string",
@@ -23,34 +22,21 @@
     },
     "applicationType": {
       "type": "string",
-      "default": "New application",
-      "description": "Currently not populated."
+      "nullable": true,
+      "description": "The type of application, possible values include New application, and initial."
     },
     "caseDetails": {
-      "type": "object",
-      "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "caseType": {
-          "type": "string"
-        }
+      "$ref": "#/definitions/caseDetails"
+    },
+    "magsCourt": {
+      "$ref": "#/definitions/magistrateCourt"
+    },
+    "interestsOfJustice": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/interestsOfJustice"
       },
-      "required": ["caseType"]
-    },
-    "magsOutcome": {
-      "type": "object",
-      "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "outcome": {
-          "type:": "string"
-        }
-      }
-    },
-    "iojResult": {
-      "type": "string",
-      "nullable": true,
-      "description": "Currently not populated."
+      "description": "(IOJ)"
     },
     "areaId": {
       "type": "integer",
@@ -64,12 +50,7 @@
     "commonPlatformData": {
       "type": "object",
       "nullable": true,
-      "description": "Currently not populated.",
-      "properties": {
-        "urn": {
-          "type": "string"
-        }
-      }
+      "description": "Currently not populated."
     },
     "caseId": {
       "type": "string",
@@ -117,7 +98,7 @@
       "type": "string",
       "format": "date",
       "nullable": true,
-      "description": "Currently not populated."
+      "description": "The date of the next hearing for the case."
     },
     "committalDate": {
       "type": "string",
@@ -141,8 +122,7 @@
       "$ref": "#/definitions/applicant"
     },
     "supplier": {
-      "$ref": "#/definitions/supplier",
-      "description": "Currently not populated."
+      "$ref": "#/definitions/supplier"
     },
     "passported": {
       "type": "object",
@@ -160,13 +140,33 @@
       "description": "Capital equity information - not required for Iteration 1"
     }
   },
-  "required": ["statusReason", "applicationType", "usn", "solicitorName", "solicitorAdminEmail", "courtCustody", "dateCreated"],
+  "required": [
+    "statusReason",
+    "applicationType",
+    "caseDetails",
+    "magsCourt",
+    "interestsOfJustice",
+    "usn",
+    "solicitorName",
+    "solicitorAdminEmail",
+    "courtCustody",
+    "dateCreated"
+  ],
   "definitions": {
     "applicant": {
-      "$ref": "applicant.json"
+      "$ref": "general/applicant.json"
     },
     "supplier": {
-      "$ref": "supplier.json"
+      "$ref": "general/supplier.json"
+    },
+    "caseDetails": {
+      "$ref": "general/caseDetails.json"
+    },
+    "magistrateCourt": {
+      "$ref": "general/magistrateCourt.json"
+    },
+    "interestsOfJustice": {
+      "$ref": "general/interestOfJustice.json"
     }
   }
 }

@@ -1,0 +1,42 @@
+{
+  "title": "Case Details",
+  "description": "Represents the details of the case for which the application for Legal Aid is related to.",
+  "type": "object",
+  "properties": {
+    "urn": {
+      "type": "string",
+      "nullable": true,
+      "description": "The Unique Reference Number for the case e.g. 12AB3456789"
+    },
+    "caseType": {
+      "type": "string",
+      "enum": [
+        "summary_only",
+        "either_way",
+        "indictable",
+        "already_in_crown_court",
+        "committal",
+        "appeal_to_crown_court",
+        "appeal_to_crown_court_with_changes"
+      ]
+    },
+    "offenceClass": {
+      "type": "string",
+      "description": "The class to which the offence is classified as. Note that different offences can be under the same class",
+      "enum": [
+        "MURDER",
+        "SERIOUS VIOL/DRUGS",
+        "LESSER VIOL/DRUGS",
+        "SEX",
+        "BURGLARY",
+        "DISHONESTY &lt; 30K",
+        "DISHONESTY 30K-100K",
+        "OTHER",
+        "REVENUE/PUBLIC ORDER",
+        "COMPLEX SEX",
+        "DISHONESTY &gt; 100K"
+      ]
+    }
+  },
+  "required": ["caseType", "offenceClass"]
+}

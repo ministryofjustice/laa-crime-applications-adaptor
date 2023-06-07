@@ -52,12 +52,14 @@
       "nullable": true,
       "description": "The applicant's National Insurance Number."
     },
+    "useHomeAddress": {
+      "type": "boolean"
+    },
     "noFixedAbode": {
       "type": "boolean"
     },
     "useSupplierAddressForPost": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "partnerContraryInterest": {
       "type": "object",

@@ -1,12 +1,27 @@
 {
   "statusReason": "current",
   "solicitorName": "John Doe",
-  "applicationType": "New application",
+  "applicationType": "initial",
+  "caseDetails": {
+    "urn": "",
+    "caseType": "appeal_to_crown_court",
+    "offenceClass": "MURDER"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "interestsOfJustice": [
+    {
+      "type": "loss_of_liberty",
+      "reason": "More details about loss of liberty."
+    }
+  ],
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
   "dateCreated": "2022-10-24T09:50:04.019",
   "dateStamp": "2022-10-24T09:50:04.019",
+  "hearingDate": "2024-11-11",
   "applicant": {
     "firstName": "Kit",
     "surname": "Pound",
@@ -14,6 +29,7 @@
     "hasPartner": false,
     "telephone": "07771231231",
     "niNumber": "AJ123456C",
+    "useHomeAddress": false,
     "noFixedAbode": true,
     "useSupplierAddressForPost": true,
     "postalAddress": {
@@ -23,5 +39,12 @@
       "country": "United Kingdom",
       "postCode": "SW1A 2AA"
     }
+  },
+  "supplier": {
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
+    "firstName": "John",
+    "surname": "Doe"
   }
 }
