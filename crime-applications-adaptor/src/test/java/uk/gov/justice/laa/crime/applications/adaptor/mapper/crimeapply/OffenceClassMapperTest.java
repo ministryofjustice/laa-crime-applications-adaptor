@@ -1,4 +1,4 @@
-package uk.gov.justice.laa.crime.applications.adaptor.mapper;
+package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,20 +10,20 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CrimeApplyOffenceClassMapperTest {
+class OffenceClassMapperTest {
 
-    private CrimeApplyOffenceClassMapper crimeApplyOffenceClassMapper;
+    private OffenceClassMapper offenceClassMapper;
 
     @BeforeEach
     void setUp() {
-        crimeApplyOffenceClassMapper = new CrimeApplyOffenceClassMapper();
+        offenceClassMapper = new OffenceClassMapper();
     }
 
     @ParameterizedTest
     @MethodSource("offenceClassMappingTestData")
     void shouldMapFromCrimeApplyOffenceClassToCrimeApplicationsOffenceClass(CaseDetails.OffenceClass inputCrimeApplyOffenceClass,
                                                                             uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass expectedOffenceClass) {
-        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass actualOffenceClass = crimeApplyOffenceClassMapper.map(inputCrimeApplyOffenceClass);
+        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass actualOffenceClass = offenceClassMapper.map(inputCrimeApplyOffenceClass);
 
         assertEquals(expectedOffenceClass, actualOffenceClass);
     }

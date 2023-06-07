@@ -137,6 +137,7 @@ jsonSchema2Pojo {
 		main{
 			io.source.setFrom files("${project.rootDir}/src/main/resources/schemas")
 			klass.targetPackage = 'uk.gov.justice.laa.crime.applications.adaptor.model'
+			klass.jackson2InclusionLevel = "NON_EMPTY"
 			methods.builders = true
 			methods.annotateJsr303 = true
 			fields.floatUseBigDecimal = true

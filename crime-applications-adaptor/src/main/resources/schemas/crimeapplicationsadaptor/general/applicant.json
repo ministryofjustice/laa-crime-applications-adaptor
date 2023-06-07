@@ -30,13 +30,11 @@
     },
     "gender": {
       "type": "string",
-      "nullable": true,
-      "description": "Currently not populated."
+      "description": "Currently has a fixed value of 'Prefer not to say'."
     },
     "hasPartner": {
       "type": "boolean",
-      "default": false,
-      "description": "Currently not populated."
+      "description": "Currently has a fixed value of 'false'."
     },
     "foreignId": {
       "type": "string",
@@ -63,12 +61,11 @@
     },
     "partnerContraryInterest": {
       "type": "object",
-      "nullable": true,
-      "description": "Currently not populated.",
+      "description": "Details about partner's interest which may be contrary to the applicant's interest.",
       "properties": {
         "code": {
           "type": "string",
-          "default": "NOCON"
+          "description": "Currently has a fixed value of 'NOCON'."
         }
       }
     },

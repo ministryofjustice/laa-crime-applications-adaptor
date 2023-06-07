@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
-import uk.gov.justice.laa.crime.applications.adaptor.mapper.CrimeApplyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.CrimeApplyMapper;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;

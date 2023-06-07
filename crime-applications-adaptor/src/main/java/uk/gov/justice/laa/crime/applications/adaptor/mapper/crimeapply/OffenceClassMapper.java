@@ -1,14 +1,12 @@
-package uk.gov.justice.laa.crime.applications.adaptor.mapper;
+package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import org.springframework.stereotype.Component;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails;
 
 import java.util.Objects;
 
-@Component
-public class CrimeApplyOffenceClassMapper {
+class OffenceClassMapper {
 
-    public CaseDetails.OffenceClass map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass crimeApplyOffenceClass) {
+    CaseDetails.OffenceClass map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.OffenceClass crimeApplyOffenceClass) {
         if (Objects.nonNull(crimeApplyOffenceClass)) {
             switch (crimeApplyOffenceClass) {
                 case A -> {

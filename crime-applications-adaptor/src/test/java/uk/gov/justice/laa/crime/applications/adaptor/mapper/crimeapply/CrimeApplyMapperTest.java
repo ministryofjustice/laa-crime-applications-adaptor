@@ -1,4 +1,4 @@
-package uk.gov.justice.laa.crime.applications.adaptor.mapper;
+package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.hamcrest.collection.IsEmptyCollection;
 import org.json.JSONException;
@@ -22,7 +22,7 @@ class CrimeApplyMapperTest {
 
     @BeforeEach
     void setUp() {
-        crimeApplyMapper = new CrimeApplyMapper(new CrimeApplyOffenceClassMapper());
+        crimeApplyMapper = new CrimeApplyMapper();
     }
 
     @Test
@@ -63,13 +63,13 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldSuccessfullyMapWhenNoCaseDetailsAreAvailable() {
+    void shouldSuccessfullyMapWhenNoCaseDetailsAreAvailable() throws JSONException {
         MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplication.setCaseDetails(null);
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
 
-        assertNull(crimeApplication.getCaseDetails());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getCaseDetails()), JSONCompareMode.STRICT);
         assertNull(crimeApplication.getMagsCourt());
         assertNull(crimeApplication.getHearingDate());
     }

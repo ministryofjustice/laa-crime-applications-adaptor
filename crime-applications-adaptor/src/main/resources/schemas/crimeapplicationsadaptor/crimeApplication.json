@@ -4,7 +4,7 @@
   "properties": {
     "statusReason": {
       "type": "string",
-      "default": "current"
+      "description": "Currently has a fixed value of current."
     },
     "solicitorName": {
       "type": "string",
@@ -18,7 +18,7 @@
     "maatRef": {
       "type": "integer",
       "nullable": true,
-      "description": "Currently not populated."
+      "description": "The MAAT reference for the associated with the USN"
     },
     "applicationType": {
       "type": "string",
@@ -78,8 +78,7 @@
     },
     "courtCustody": {
       "type": "boolean",
-      "default": false,
-      "description": "Currently not populated."
+      "description": "Currently has a fixed value of 'false'."
     },
     "welshCorrespondence": {
       "type": "boolean",
@@ -125,9 +124,7 @@
       "$ref": "#/definitions/supplier"
     },
     "passported": {
-      "type": "object",
-      "nullable": true,
-      "description": "Passported data- not required for iteration 1"
+      "$ref": "#/definitions/passported"
     },
     "assessment": {
       "type": "object",
@@ -150,7 +147,8 @@
     "solicitorName",
     "solicitorAdminEmail",
     "courtCustody",
-    "dateCreated"
+    "dateCreated",
+    "passported"
   ],
   "definitions": {
     "applicant": {
@@ -167,6 +165,9 @@
     },
     "interestsOfJustice": {
       "$ref": "general/interestOfJustice.json"
+    },
+    "passported": {
+      "$ref": "general/passported.json"
     }
   }
 }
