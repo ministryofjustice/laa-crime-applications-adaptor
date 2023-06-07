@@ -27,7 +27,7 @@ public class FileUtils {
         try {
             return org.apache.commons.io.FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException(ERROR_MESSAGE_FORMAT.formatted(filePath));
+            throw new RuntimeException(ERROR_MESSAGE_FORMAT.formatted(filePath), e);
         }
     }
 }
