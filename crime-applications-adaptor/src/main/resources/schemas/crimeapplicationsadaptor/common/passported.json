@@ -27,7 +27,10 @@
       "type": "string",
       "nullable": true,
       "description": "Currently has a fixed value of 'null'",
-      "enum": ["PARTNER", "APPLICANT"]
+      "enum": [
+        "PARTNER",
+        "APPLICANT"
+      ]
     }
   }
 }

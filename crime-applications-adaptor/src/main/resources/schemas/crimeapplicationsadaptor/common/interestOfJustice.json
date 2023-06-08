@@ -23,5 +23,8 @@
       "minLength": 1
     }
   },
-  "required": ["type", "reason"]
+  "required": [
+    "type",
+    "reason"
+  ]
 }

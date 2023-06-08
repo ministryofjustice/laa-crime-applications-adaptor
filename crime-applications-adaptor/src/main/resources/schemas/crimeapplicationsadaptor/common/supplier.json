@@ -37,7 +37,13 @@
       "nullable": true
     }
   },
-  "required": ["officeCode", "email", "telephone", "firstName", "surname"],
+  "required": [
+    "officeCode",
+    "email",
+    "telephone",
+    "firstName",
+    "surname"
+  ],
   "definitions": {
     "address": {
       "$ref": "address.json"
