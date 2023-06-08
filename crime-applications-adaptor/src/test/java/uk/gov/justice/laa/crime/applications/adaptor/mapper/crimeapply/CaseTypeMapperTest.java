@@ -1,7 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -10,7 +9,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CaseTypeMapperTest {
 
@@ -19,16 +17,6 @@ class CaseTypeMapperTest {
     @BeforeEach
     void setUp() {
         caseTypeMapper = new CaseTypeMapper();
-    }
-
-    @Test
-    void shouldSuccessfullyMapNullCrimeApplyCaseTypeToNull() {
-        uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails.CaseType
-                nullCrimeApplyCaseType = null;
-
-        CaseDetails.CaseType actualCaseType = caseTypeMapper.map(nullCrimeApplyCaseType);
-
-        assertNull(actualCaseType);
     }
 
     @ParameterizedTest

@@ -17,8 +17,8 @@ class CaseTypeMapper {
                 case INDICTABLE -> caseType = CaseDetails.CaseType.INDICTABLE;
                 case ALREADY_IN_CROWN_COURT -> caseType = CaseDetails.CaseType.CC_ALREADY;
                 case COMMITTAL -> caseType = CaseDetails.CaseType.COMMITAL;
-                case APPEAL_TO_CROWN_COURT, APPEAL_TO_CROWN_COURT_WITH_CHANGES ->
-                        caseType = CaseDetails.CaseType.APPEAL_CC;
+                case APPEAL_TO_CROWN_COURT -> caseType = CaseDetails.CaseType.APPEAL_CC;
+                case APPEAL_TO_CROWN_COURT_WITH_CHANGES -> caseType = CaseDetails.CaseType.APPEAL_CC;
             }
         }
 
