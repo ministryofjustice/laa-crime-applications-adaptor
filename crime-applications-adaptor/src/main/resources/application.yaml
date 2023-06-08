@@ -12,6 +12,10 @@ management:
     health:
       show-details: always
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
 resilience4j:
   retry:
     configs:
@@ -46,6 +50,9 @@ spring:
             authorization-grant-type: client_credentials
             scope:
               - ${MAAT_API_OAUTH_SCOPE}
+      resource-server:
+        jwt:
+          issuer-uri: ${CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI}
 
 services:
   eform-staging-api:
