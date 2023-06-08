@@ -28,5 +28,7 @@ env:
     value: {{ .Values.crimeApplyApi.issuer }}
   - name: CRIME_APPLY_API_AUTH_SECRET
     value: {{ .Values.crimeApplyApi.clientSecret }}
+  - name: CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI
+    value: {{ .Values.crimeApplicationAdaptor.issuerUri }}
 
 {{- end -}}
