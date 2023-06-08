@@ -6,13 +6,8 @@ import javax.validation.constraints.NotNull;
 
 class CaseDetailsMapper {
 
-    private final CaseTypeMapper caseTypeMapper;
-    private final OffenceClassMapper offenceClassMapper;
-
-    CaseDetailsMapper() {
-        caseTypeMapper = new CaseTypeMapper();
-        offenceClassMapper = new OffenceClassMapper();
-    }
+    private final CaseTypeMapper caseTypeMapper = new CaseTypeMapper();
+    private final OffenceClassMapper offenceClassMapper = new OffenceClassMapper();
 
     @NotNull
     CaseDetails map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.

@@ -27,15 +27,9 @@ public class CrimeApplyMapper {
     private static final String STATUS_REASON_DEFAULT_CURRENT = "current";
     private static final boolean COURT_CUSTODY_DEFAULT_FALSE = false;
 
-    private final CaseDetailsMapper caseDetailsMapper;
-    private final ApplicantMapper applicantMapper;
-    private final PassportedMapper passportedMapper;
-
-    public CrimeApplyMapper() {
-        caseDetailsMapper = new CaseDetailsMapper();
-        applicantMapper = new ApplicantMapper();
-        passportedMapper = new PassportedMapper();
-    }
+    private final CaseDetailsMapper caseDetailsMapper = new CaseDetailsMapper();
+    private final ApplicantMapper applicantMapper = new ApplicantMapper();
+    private final PassportedMapper passportedMapper = new PassportedMapper();
 
     public CrimeApplication mapToCrimeApplication(MaatApplication crimeApplyResponse) {
         CrimeApplication crimeApplication = new CrimeApplication();
