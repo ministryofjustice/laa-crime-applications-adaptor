@@ -1,8 +1,8 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Address;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.PartnerContraryInterest;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Address;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Applicant;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.PartnerContraryInterest;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.ClientDetails;
 
 import javax.validation.constraints.NotNull;

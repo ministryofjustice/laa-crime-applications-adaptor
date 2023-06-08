@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails;
 
 import java.util.stream.Stream;
 

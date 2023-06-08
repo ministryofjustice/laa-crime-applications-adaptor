@@ -1,6 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Passported;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 
 import javax.validation.constraints.NotNull;

@@ -2,7 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Passported;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 

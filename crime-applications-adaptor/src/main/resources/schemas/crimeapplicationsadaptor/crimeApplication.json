@@ -152,22 +152,22 @@
   ],
   "definitions": {
     "applicant": {
-      "$ref": "general/applicant.json"
+      "$ref": "common/applicant.json"
     },
     "supplier": {
-      "$ref": "general/supplier.json"
+      "$ref": "common/supplier.json"
     },
     "caseDetails": {
-      "$ref": "general/caseDetails.json"
+      "$ref": "common/caseDetails.json"
     },
     "magistrateCourt": {
-      "$ref": "general/magistrateCourt.json"
+      "$ref": "common/magistrateCourt.json"
     },
     "interestsOfJustice": {
-      "$ref": "general/interestOfJustice.json"
+      "$ref": "common/interestOfJustice.json"
     },
     "passported": {
-      "$ref": "general/passported.json"
+      "$ref": "common/passported.json"
     }
   }
 }

@@ -22,8 +22,8 @@ class OffenceClassMapperTest {
     @ParameterizedTest
     @MethodSource("offenceClassMappingTestData")
     void shouldMapFromCrimeApplyOffenceClassToCrimeApplicationsOffenceClass(CaseDetails.OffenceClass inputCrimeApplyOffenceClass,
-                                                                            uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass expectedOffenceClass) {
-        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass actualOffenceClass = offenceClassMapper.map(inputCrimeApplyOffenceClass);
+                                                                            uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass expectedOffenceClass) {
+        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass actualOffenceClass = offenceClassMapper.map(inputCrimeApplyOffenceClass);
 
         assertEquals(expectedOffenceClass, actualOffenceClass);
     }
@@ -31,17 +31,17 @@ class OffenceClassMapperTest {
     private static Stream<Arguments> offenceClassMappingTestData() {
         return Stream.of(
                 Arguments.of(null, null),
-                Arguments.of(CaseDetails.OffenceClass.A, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.MURDER),
-                Arguments.of(CaseDetails.OffenceClass.B, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.SERIOUS_VIOL_DRUGS),
-                Arguments.of(CaseDetails.OffenceClass.C, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.LESSER_VIOL_DRUGS),
-                Arguments.of(CaseDetails.OffenceClass.D, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.SEX),
-                Arguments.of(CaseDetails.OffenceClass.E, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.BURGLARY),
-                Arguments.of(CaseDetails.OffenceClass.F, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.DISHONESTY_LT_30_K),
-                Arguments.of(CaseDetails.OffenceClass.G, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.DISHONESTY_30_K_100_K),
-                Arguments.of(CaseDetails.OffenceClass.H, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.OTHER),
-                Arguments.of(CaseDetails.OffenceClass.I, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.REVENUE_PUBLIC_ORDER),
-                Arguments.of(CaseDetails.OffenceClass.J, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.COMPLEX_SEX),
-                Arguments.of(CaseDetails.OffenceClass.K, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CaseDetails.OffenceClass.DISHONESTY_GT_100_K)
+                Arguments.of(CaseDetails.OffenceClass.A, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.MURDER),
+                Arguments.of(CaseDetails.OffenceClass.B, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.SERIOUS_VIOL_DRUGS),
+                Arguments.of(CaseDetails.OffenceClass.C, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.LESSER_VIOL_DRUGS),
+                Arguments.of(CaseDetails.OffenceClass.D, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.SEX),
+                Arguments.of(CaseDetails.OffenceClass.E, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.BURGLARY),
+                Arguments.of(CaseDetails.OffenceClass.F, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.DISHONESTY_LT_30_K),
+                Arguments.of(CaseDetails.OffenceClass.G, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.DISHONESTY_30_K_100_K),
+                Arguments.of(CaseDetails.OffenceClass.H, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.OTHER),
+                Arguments.of(CaseDetails.OffenceClass.I, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.REVENUE_PUBLIC_ORDER),
+                Arguments.of(CaseDetails.OffenceClass.J, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.COMPLEX_SEX),
+                Arguments.of(CaseDetails.OffenceClass.K, uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails.OffenceClass.DISHONESTY_GT_100_K)
         );
     }
 }
