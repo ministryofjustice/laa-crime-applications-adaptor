@@ -19,7 +19,7 @@ public class JsonUtils {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             String message = "Unable to serialise [%s] to a JSON String".formatted(object);
-            throw new RuntimeException(message);
+            throw new RuntimeException(message, e);
         }
     }
 

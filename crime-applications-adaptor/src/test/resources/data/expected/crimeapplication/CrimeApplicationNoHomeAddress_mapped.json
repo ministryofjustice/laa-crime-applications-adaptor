@@ -3,8 +3,7 @@
   "solicitorName": "John Doe",
   "applicationType": "initial",
   "caseDetails": {
-    "urn": "",
-    "caseType": "appeal_to_crown_court",
+    "caseType": "APPEAL CC",
     "offenceClass": "MURDER"
   },
   "magsCourt": {
@@ -32,6 +31,9 @@
     "useHomeAddress": false,
     "noFixedAbode": true,
     "useSupplierAddressForPost": true,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    },
     "postalAddress": {
       "line1": "1 Road",
       "line2": "Village",
@@ -46,5 +48,12 @@
     "telephone": "123456789",
     "firstName": "John",
     "surname": "Doe"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "jobSeeker": false,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false
   }
 }

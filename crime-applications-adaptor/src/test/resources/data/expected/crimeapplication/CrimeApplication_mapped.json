@@ -3,8 +3,7 @@
   "solicitorName": "Karl Kent",
   "applicationType": "initial",
   "caseDetails": {
-    "urn": "",
-    "caseType": "summary_only",
+    "caseType": "SUMMARY ONLY",
     "offenceClass": "OTHER"
   },
   "magsCourt": {
@@ -24,15 +23,17 @@
   "hearingDate": "2024-09-27",
   "applicant": {
     "firstName": "Pat",
-    "otherNames": "",
     "surname": "Walker",
     "dateOfBirth": "1980-01-10",
+    "gender": "Prefer not to say",
     "hasPartner": false,
-    "telephone": "",
     "niNumber": "JA293483A",
     "useHomeAddress": false,
     "noFixedAbode": true,
-    "useSupplierAddressForPost": true
+    "useSupplierAddressForPost": true,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    }
   },
   "supplier": {
     "officeCode": "0Z981E",
@@ -40,5 +41,12 @@
     "telephone": "07712345678",
     "firstName": "Karl",
     "surname": "Kent"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "jobSeeker": false,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false
   }
 }

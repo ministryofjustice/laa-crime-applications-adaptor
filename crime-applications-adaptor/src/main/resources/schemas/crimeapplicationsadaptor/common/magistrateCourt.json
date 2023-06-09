@@ -5,7 +5,8 @@
   "properties": {
     "court": {
       "type": "string",
-      "description": "Currently not populated."
+      "minLength": 1,
+      "description": "The name of the Magistrate Court where the hearing is due to be."
     },
     "description": {
       "type": "string",

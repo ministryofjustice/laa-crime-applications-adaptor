@@ -3,8 +3,7 @@
   "solicitorName": "John Doe",
   "applicationType": "initial",
   "caseDetails": {
-    "urn": "",
-    "caseType": "appeal_to_crown_court",
+    "caseType": "APPEAL CC",
     "offenceClass": "MURDER"
   },
   "magsCourt": {
@@ -26,12 +25,16 @@
     "firstName": "Kit",
     "surname": "Pound",
     "dateOfBirth": "2011-06-09",
+    "gender": "Prefer not to say",
     "hasPartner": false,
     "telephone": "07771231231",
     "niNumber": "AJ123456C",
     "useHomeAddress": true,
     "noFixedAbode": false,
     "useSupplierAddressForPost": false,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    },
     "homeAddress": {
       "line1": "1 Road",
       "line2": "Village",
@@ -46,5 +49,12 @@
     "telephone": "123456789",
     "firstName": "John",
     "surname": "Doe"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "jobSeeker": false,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false
   }
 }

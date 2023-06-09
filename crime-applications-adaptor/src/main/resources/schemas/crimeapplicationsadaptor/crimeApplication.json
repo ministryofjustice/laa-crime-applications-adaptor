@@ -4,7 +4,7 @@
   "properties": {
     "statusReason": {
       "type": "string",
-      "default": "current"
+      "description": "Currently has a fixed value of current."
     },
     "solicitorName": {
       "type": "string",
@@ -18,7 +18,7 @@
     "maatRef": {
       "type": "integer",
       "nullable": true,
-      "description": "Currently not populated."
+      "description": "The MAAT reference for the associated with the USN"
     },
     "applicationType": {
       "type": "string",
@@ -78,8 +78,7 @@
     },
     "courtCustody": {
       "type": "boolean",
-      "default": false,
-      "description": "Currently not populated."
+      "description": "Currently has a fixed value of 'false'."
     },
     "welshCorrespondence": {
       "type": "boolean",
@@ -125,9 +124,7 @@
       "$ref": "#/definitions/supplier"
     },
     "passported": {
-      "type": "object",
-      "nullable": true,
-      "description": "Passported data- not required for iteration 1"
+      "$ref": "#/definitions/passported"
     },
     "assessment": {
       "type": "object",
@@ -150,23 +147,27 @@
     "solicitorName",
     "solicitorAdminEmail",
     "courtCustody",
-    "dateCreated"
+    "dateCreated",
+    "passported"
   ],
   "definitions": {
     "applicant": {
-      "$ref": "general/applicant.json"
+      "$ref": "common/applicant.json"
     },
     "supplier": {
-      "$ref": "general/supplier.json"
+      "$ref": "common/supplier.json"
     },
     "caseDetails": {
-      "$ref": "general/caseDetails.json"
+      "$ref": "common/caseDetails.json"
     },
     "magistrateCourt": {
-      "$ref": "general/magistrateCourt.json"
+      "$ref": "common/magistrateCourt.json"
     },
     "interestsOfJustice": {
-      "$ref": "general/interestOfJustice.json"
+      "$ref": "common/interestOfJustice.json"
+    },
+    "passported": {
+      "$ref": "common/passported.json"
     }
   }
 }
