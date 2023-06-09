@@ -29,6 +29,18 @@
         "COMPLEX SEX",
         "DISHONESTY &gt; 100K"
       ]
+    },
+    "appealMaatId": {
+      "type": "string",
+      "nullable": true
+    },
+    "appealWithChangesMaatId": {
+      "type": "string",
+      "nullable": true
+    },
+    "appealWithChangesDetails": {
+      "type": "string",
+      "nullable": true
     }
   },
   "required": ["caseType", "offenceClass"]

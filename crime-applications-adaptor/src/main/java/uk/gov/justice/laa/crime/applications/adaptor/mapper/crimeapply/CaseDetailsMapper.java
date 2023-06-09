@@ -21,6 +21,9 @@ class CaseDetailsMapper {
         caseDetails.setUrn(crimeApplyCaseDetails.getUrn());
         caseDetails.setCaseType(caseTypeMapper.map(crimeApplyCaseDetails.getCaseType()));
         caseDetails.setOffenceClass(offenceClassMapper.map(crimeApplyCaseDetails.getOffenceClass()));
+        caseDetails.setAppealMaatId(crimeApplyCaseDetails.getAppealMaatId());
+        caseDetails.setAppealWithChangesMaatId(crimeApplyCaseDetails.getAppealWithChangesMaatId());
+        caseDetails.setAppealWithChangesDetails(crimeApplyCaseDetails.getAppealWithChangesDetails());
 
         return caseDetails;
     }
