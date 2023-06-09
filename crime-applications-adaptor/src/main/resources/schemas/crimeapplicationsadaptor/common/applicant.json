@@ -30,7 +30,8 @@
     },
     "gender": {
       "type": "string",
-      "description": "Currently has a fixed value of 'Prefer not to say'."
+      "nullable": true,
+      "description": "Currently not populated."
     },
     "hasPartner": {
       "type": "boolean",

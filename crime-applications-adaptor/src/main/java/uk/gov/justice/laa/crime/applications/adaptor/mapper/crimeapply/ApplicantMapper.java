@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 class ApplicantMapper {
 
-    private static final String APPLICANT_GENDER_DEFAULT_PREFER_NOT_TO_SAY = "Prefer not to say";
     private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
     private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
 
@@ -31,7 +30,6 @@ class ApplicantMapper {
         applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
         applicant.setSurname(crimeApplyApplicant.getLastName());
         applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
-        applicant.setGender(APPLICANT_GENDER_DEFAULT_PREFER_NOT_TO_SAY);
         applicant.setHasPartner(APPLICANT_HAS_PARTNER_DEFAULT_FALSE);
         applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
         applicant.setNiNumber(crimeApplyApplicant.getNino());

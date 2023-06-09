@@ -24,7 +24,6 @@
     "firstName": "Pat",
     "surname": "Walker",
     "dateOfBirth": "1980-01-10",
-    "gender": "Prefer not to say",
     "hasPartner": false,
     "niNumber": "JA293483A",
     "useHomeAddress": false,
