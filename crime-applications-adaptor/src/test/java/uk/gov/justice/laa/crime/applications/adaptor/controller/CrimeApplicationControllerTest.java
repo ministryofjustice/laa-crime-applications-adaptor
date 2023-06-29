@@ -37,7 +37,7 @@ class CrimeApplicationControllerTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
@@ -58,7 +58,7 @@ class CrimeApplicationControllerTest {
     }
 
     @Test
-    void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
+    void givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
         CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
