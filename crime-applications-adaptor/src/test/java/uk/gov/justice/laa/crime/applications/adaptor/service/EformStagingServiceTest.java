@@ -24,7 +24,7 @@ class EformStagingServiceTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParamsAndEformStagingUsnNotCreatedByHubUser_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
+    void givenValidParams_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
 
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
