@@ -7,13 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,17 +24,7 @@ class EformStagingServiceTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParamsAndEformStagingUsnCreatedByHubUser_whenEformStagingServiceIsInvoked_thenCrimeApplicationExceptionIsThrown() throws IOException {
-        EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(1001).usn(6000308).userCreated("HUB").build();
-
-        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
-                .thenReturn(retrievedData);
-
-        assertThrows(CrimeApplicationException.class, invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
-    }
-
-    @Test
-    void givenValidParamsAndEformStagingUsnNotCreatedByHubUser_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
+    void givenValidParams_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
 
         when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))

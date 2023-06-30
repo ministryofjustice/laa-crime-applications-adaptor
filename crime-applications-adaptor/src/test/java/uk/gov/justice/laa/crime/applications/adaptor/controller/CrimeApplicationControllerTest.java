@@ -37,7 +37,7 @@ class CrimeApplicationControllerTest {
     private EformStagingService eformStagingService;
 
     @Test
-    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
+    void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
@@ -58,7 +58,7 @@ class CrimeApplicationControllerTest {
     }
 
     @Test
-    void givenValidParams_whenMaatReferenceExistForUsnInEFormStagingAndUsnNotCreatedByHub_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
+    void givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
         CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
@@ -75,22 +75,6 @@ class CrimeApplicationControllerTest {
                 .andExpect(jsonPath("$.maatRef", is(5676399)));
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
     }
-
-    @Test
-    void givenValidParams_whenUsnInEFormStagingCreatedByHubUser_thenCrimeApplyDatastoreServiceIsNotInvokedAndCrimeApplicationExceptionIsThrownWithAppropriateMessage() throws Exception {
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
-                .thenThrow(new CrimeApplicationException(HttpStatus.NOT_FOUND, "USN created by Hub user"));
-
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
-                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(request).andExpect(status().is4xxClientError())
-                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE))
-                .andExpect(jsonPath("$.status").value("404"))
-                .andExpect(jsonPath("$.detail").value("USN created by Hub user"));
-        verify(crimeApplicationService, times(0)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
-    }
-
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
