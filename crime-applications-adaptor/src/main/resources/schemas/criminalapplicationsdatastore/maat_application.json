@@ -73,8 +73,7 @@
     "date_stamp",
     "provider_details",
     "client_details",
-    "case_details",
-    "interests_of_justice"
+    "case_details"
   ],
   "definitions": {
     "provider": { "$ref": "general/provider.json" },
