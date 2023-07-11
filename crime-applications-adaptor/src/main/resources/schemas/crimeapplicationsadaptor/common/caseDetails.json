@@ -22,12 +22,12 @@
         "LESSER VIOL/DRUGS",
         "SEX",
         "BURGLARY",
-        "DISHONESTY > 30K",
+        "DISHONESTY < 30K",
         "DISHONESTY 30K-100K",
         "OTHER",
         "REVENUE/PUBLIC ORDER",
         "COMPLEX SEX",
-        "DISHONESTY < 100K"
+        "DISHONESTY > 100K"
       ],
       "javaEnumNames" : [
         "MURDER",
