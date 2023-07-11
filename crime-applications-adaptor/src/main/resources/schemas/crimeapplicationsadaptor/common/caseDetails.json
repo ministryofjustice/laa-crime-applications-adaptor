@@ -22,12 +22,25 @@
         "LESSER VIOL/DRUGS",
         "SEX",
         "BURGLARY",
-        "DISHONESTY &lt; 30K",
+        "DISHONESTY < 30K",
         "DISHONESTY 30K-100K",
         "OTHER",
         "REVENUE/PUBLIC ORDER",
         "COMPLEX SEX",
-        "DISHONESTY &gt; 100K"
+        "DISHONESTY > 100K"
+      ],
+      "javaEnumNames": [
+        "MURDER",
+        "SERIOUS_VIOL_DRUGS",
+        "LESSER_VIOL_DRUGS",
+        "SEX",
+        "BURGLARY",
+        "DISHONESTY_LT_30_K",
+        "DISHONESTY_30_K_100_K",
+        "OTHER",
+        "REVENUE_PUBLIC_ORDER",
+        "COMPLEX_SEX",
+        "DISHONESTY_GT_100_K"
       ]
     },
     "appealMaatId": {
