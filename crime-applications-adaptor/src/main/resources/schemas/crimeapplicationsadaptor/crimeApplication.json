@@ -107,9 +107,7 @@
     },
     "dateOfSignature": {
       "type": "string",
-      "format": "date",
-      "nullable": true,
-      "description": "Currently not populated."
+      "format": "date-time"
     },
     "dateReceived": {
       "type": "string",
@@ -135,6 +133,10 @@
       "type": "object",
       "nullable": true,
       "description": "Capital equity information - not required for Iteration 1"
+    },
+    "iojBypass": {
+      "description": "Indicates whether the Interests of Justice was skipped or not",
+      "type": "boolean"
     }
   },
   "required": [
