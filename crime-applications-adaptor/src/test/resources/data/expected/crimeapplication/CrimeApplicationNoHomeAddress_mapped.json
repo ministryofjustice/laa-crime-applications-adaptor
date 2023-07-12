@@ -9,7 +9,7 @@
   "magsCourt": {
     "court": "Cardiff Magistrates' Court"
   },
-  "iojBypass":  true,
+  "iojBypass": true,
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
