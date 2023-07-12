@@ -5,6 +5,7 @@
   "reference": 6000288,
   "submitted_at": "2023-04-20T07:49:19.48",
   "date_stamp": "2023-04-20T07:48:24.67",
+  "declaration_signed_at": "2023-04-20T07:49:19.48",
   "provider_details": {
     "office_code": "1K022G",
     "provider_email": "acox@smw-law.co.uk",
@@ -37,5 +38,5 @@
     "hearing_court_name": "Teesside Magistrates' Court",
     "hearing_date": "2023-05-10"
   },
-  "interests_of_justice": []
+  "ioj_bypass": false
 }
