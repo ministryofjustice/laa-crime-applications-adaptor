@@ -70,6 +70,8 @@ dependencies {
 
 	implementation "javax.validation:validation-api:$versions.validationapiVersion"
 
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+
 	testImplementation "org.pitest:pitest:$versions.pitest"
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.security:spring-security-test"
