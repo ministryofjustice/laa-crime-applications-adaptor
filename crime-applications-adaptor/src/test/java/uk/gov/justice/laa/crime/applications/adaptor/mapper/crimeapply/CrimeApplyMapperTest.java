@@ -132,15 +132,4 @@ class CrimeApplyMapperTest {
 
         JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getApplicant()), JSONCompareMode.STRICT);
     }
-
-    @Test
-    void shouldSuccessfullyMapWhenThereIsInterestsOfJusticeWithNullType() {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.getInterestsOfJustice().get(0).setType(null);
-
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
-
-        assertNull(crimeApplication.getInterestsOfJustice().get(0).getType());
-        assertEquals("More details about loss of liberty.", crimeApplication.getInterestsOfJustice().get(0).getReason());
-    }
 }

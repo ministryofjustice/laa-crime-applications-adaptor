@@ -10,7 +10,12 @@
     "application_type": { "type": "string" },
     "reference": { "type": "number" },
     "submitted_at": { "type": "string", "format": "date-time" },
+    "declaration_signed_at": { "type": "string", "format": "date-time" },
     "date_stamp": { "type": "string", "format": "date-time" },
+    "ioj_bypass": {
+      "description": "Indicates whether the Interests of Justice was skipped or not",
+      "type": "boolean"
+    },
     "provider_details": {
       "$ref": "#/definitions/provider"
     },
@@ -74,7 +79,7 @@
     "provider_details",
     "client_details",
     "case_details",
-    "interests_of_justice"
+    "declaration_signed_at"
   ],
   "definitions": {
     "provider": { "$ref": "general/provider.json" },

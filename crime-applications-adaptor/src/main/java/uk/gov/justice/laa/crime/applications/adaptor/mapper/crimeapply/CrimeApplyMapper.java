@@ -45,10 +45,12 @@ public class CrimeApplyMapper {
         crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
         crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
         crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
+        crimeApplication.setDateOfSignature(crimeApplyResponse.getDeclarationSignedAt());
         crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setPassported(passportedMapper.map(crimeApplyResponse));
+        crimeApplication.setIojBypass(crimeApplyResponse.getIojBypass());
 
         return crimeApplication;
     }
