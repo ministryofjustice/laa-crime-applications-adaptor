@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'jacoco'
 	id 'org.springframework.boot' version '3.1.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+	id 'io.spring.dependency-management' version '1.1.1'
 	id "org.sonarqube" version "4.2.1.3168"
 	id 'info.solidsoft.pitest' version '1.9.11'
 	id 'org.jsonschema2dataclass' version '6.0.0'
@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-	implementation platform("io.sentry:sentry-bom:6.24.0")
+	implementation platform("io.sentry:sentry-bom:6.25.2")
 
 	implementation "io.sentry:sentry-spring-boot-starter"
 	implementation "io.sentry:sentry-logback"
@@ -69,6 +69,8 @@ dependencies {
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$versions.jjwtVersion"
 
 	implementation "javax.validation:validation-api:$versions.validationapiVersion"
+
+	implementation "io.micrometer:micrometer-registry-prometheus"
 
 	testImplementation "org.pitest:pitest:$versions.pitest"
 	testImplementation "org.springframework.boot:spring-boot-starter-test"

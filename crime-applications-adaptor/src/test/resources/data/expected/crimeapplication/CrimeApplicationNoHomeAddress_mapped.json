@@ -9,18 +9,14 @@
   "magsCourt": {
     "court": "Cardiff Magistrates' Court"
   },
-  "interestsOfJustice": [
-    {
-      "type": "loss_of_liberty",
-      "reason": "More details about loss of liberty."
-    }
-  ],
+  "iojBypass": true,
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
   "dateCreated": "2022-10-24T09:50:04.019",
   "dateStamp": "2022-10-24T09:50:04.019",
   "hearingDate": "2024-11-11",
+  "dateOfSignature": "2022-10-24T09:50:04.019",
   "applicant": {
     "firstName": "Kit",
     "surname": "Pound",
