@@ -194,7 +194,6 @@ jobs:
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
 
-
   deploy-dev:
     executor: cloud-platform-executor
     steps:
