@@ -148,7 +148,9 @@ jobs:
           path: build/libs
 
   build_scan_and_push_image:
-    executor: aws-ecr/default
+    docker:
+      - image: cimg/openjdk:17.0.4
+    working_directory: ~/laa-crime-applications-adaptor/crime-applications-adaptor
     steps:
       - checkout:
           path: ~/laa-crime-applications-adaptor
