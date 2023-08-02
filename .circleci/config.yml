@@ -147,7 +147,7 @@ jobs:
       - store_artifacts:
           path: build/libs
 
-  build_and_scan_image:
+  build_scan_and_push_image:
     docker:
       - image: cimg/openjdk:17.0.4
     working_directory: ~/laa-crime-applications-adaptor/crime-applications-adaptor
@@ -164,29 +164,13 @@ jobs:
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - aws-ecr/build-image:
-          push-image: false
+          push-image: true
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
       - snyk/scan:
           docker-image-name: "$AWS_ECR_ACCOUNT_URL/laa-crime-apps-team/laa-crime-applications-adaptor-dev-ecr:${CIRCLE_SHA1}"
           <<: *snyk_options
-
-  build_and_push_image:
-    executor: aws-ecr/default
-    steps:
-      - checkout:
-          path: ~/laa-crime-applications-adaptor
-      - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME
-          region: $ECR_REGION
-      - run: |
-          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
-      - aws-ecr/build-image:
-          push-image: true
-          tag: ${CIRCLE_SHA1}
-          region: $ECR_REGION
-          repo: $ECR_REPOSITORY
 
 
   deploy-dev:
@@ -239,22 +223,18 @@ workflows:
           requires:
             - scan_app
 
-      - build_and_scan_image:
+      - build_scan_and_push_image:
           requires:
             - test_and_assemble
 
-      - build_and_push_image:
-          requires:
-            - build_and_scan_image
-
       - deploy-dev:
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - hold_install_on_uat:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-uat:
           requires:
@@ -263,7 +243,7 @@ workflows:
       - hold_install_on_staging:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-staging:
           requires:
@@ -272,7 +252,7 @@ workflows:
       - hold_install_on_prod:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-prod:
           requires:
@@ -294,18 +274,14 @@ workflows:
           requires:
             - scan_app
 
-      - build_and_scan_image:
+      - build_scan_and_push_image:
           requires:
             - test_and_assemble
-
-      - build_and_push_image:
-          requires:
-            - build_and_scan_image
 
       - hold_install_on_dev:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-dev:
           requires:
@@ -314,7 +290,7 @@ workflows:
       - hold_install_on_uat:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-uat:
           requires:
@@ -323,7 +299,7 @@ workflows:
       - hold_install_on_staging:
           type: approval
           requires:
-            - build_and_push_image
+            - build_scan_and_push_image
 
       - deploy-staging:
           requires:
