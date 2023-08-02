@@ -158,9 +158,16 @@ jobs:
           at: .
       - setup_remote_docker:
           docker_layer_caching: true
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
+      - run: |
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - aws-ecr/build-image:
-          repo: laa-crime-apps-team/laa-crime-applications-adaptor-dev-ecr
-          tag: "${CIRCLE_SHA1}"
+          push-image: false
+          tag: ${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
       - snyk/scan:
           docker-image-name: "$AWS_ECR_ACCOUNT_URL/laa-crime-apps-team/laa-crime-applications-adaptor-dev-ecr:${CIRCLE_SHA1}"
           <<: *snyk_options
