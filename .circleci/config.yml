@@ -173,16 +173,10 @@ jobs:
           <<: *snyk_options
 
   build_and_push_image:
-    docker:
-      - image: cimg/openjdk:17.0.4
-    working_directory: ~/laa-crime-applications-adaptor/crime-applications-adaptor
+    executor: aws-ecr/default
     steps:
-      - checkout:
-          path: ~/laa-crime-applications-adaptor
-      - attach_workspace:
-          at: .
-      - setup_remote_docker:
-          docker_layer_caching: true
+      - checkout
+
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME
           region: $ECR_REGION
