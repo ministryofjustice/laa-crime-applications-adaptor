@@ -9,9 +9,9 @@
     "schema_version": { "type": "number" },
     "application_type": { "type": "string" },
     "reference": { "type": "number" },
-    "submitted_at": { "type": "string", "format": "date-time" },
-    "declaration_signed_at": { "type": "string", "format": "date-time" },
-    "date_stamp": { "type": "string", "format": "date-time" },
+    "submitted_at": { "type": "string", "format": "date" },
+    "declaration_signed_at": { "type": "string", "format": "date" },
+    "date_stamp": { "type": "string", "format": "date" },
     "ioj_bypass": {
       "description": "Indicates whether the Interests of Justice was skipped or not",
       "type": "boolean"

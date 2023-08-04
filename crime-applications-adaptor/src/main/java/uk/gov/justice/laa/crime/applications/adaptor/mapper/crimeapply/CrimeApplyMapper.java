@@ -12,6 +12,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,9 +45,9 @@ public class CrimeApplyMapper {
         crimeApplication.setUsn(mapUsn(crimeApplyResponse));
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
-        crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
-        crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
-        crimeApplication.setDateOfSignature(crimeApplyResponse.getDeclarationSignedAt());
+        crimeApplication.setDateCreated(LocalDateTime.ofInstant(crimeApplyResponse.getSubmittedAt().toInstant(), ZoneId.systemDefault()));
+        crimeApplication.setDateStamp(LocalDateTime.ofInstant(crimeApplyResponse.getDateStamp().toInstant(), ZoneId.systemDefault()));
+        crimeApplication.setDateOfSignature(LocalDateTime.ofInstant(crimeApplyResponse.getDeclarationSignedAt().toInstant(), ZoneId.systemDefault()));
         crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
