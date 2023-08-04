@@ -10,11 +10,14 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Ioj;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
+import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,9 +48,9 @@ public class CrimeApplyMapper {
         crimeApplication.setUsn(mapUsn(crimeApplyResponse));
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
-        crimeApplication.setDateCreated(LocalDateTime.ofInstant(crimeApplyResponse.getSubmittedAt().toInstant(), ZoneId.systemDefault()));
-        crimeApplication.setDateStamp(LocalDateTime.ofInstant(crimeApplyResponse.getDateStamp().toInstant(), ZoneId.systemDefault()));
-        crimeApplication.setDateOfSignature(LocalDateTime.ofInstant(crimeApplyResponse.getDeclarationSignedAt().toInstant(), ZoneId.systemDefault()));
+        crimeApplication.setDateCreated(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getSubmittedAt()));
+        crimeApplication.setDateStamp(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getDateStamp()));
+        crimeApplication.setDateOfSignature(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getDeclarationSignedAt()));
         crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
