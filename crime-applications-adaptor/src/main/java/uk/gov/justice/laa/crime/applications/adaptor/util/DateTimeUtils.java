@@ -17,7 +17,8 @@ import java.util.Date;
 @Slf4j
 public class DateTimeUtils {
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter START_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final DateTimeFormatter FIN_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static LocalDateTime toLocalDateTime(Date source) {
         if (source != null) {
@@ -62,9 +63,9 @@ public class DateTimeUtils {
     public static LocalDateTime stringToLocalDateTime(String dateString){
         if(dateString!=null){
             try{
-                return LocalDateTime.parse(dateString, DATE_FORMAT);
+                return LocalDateTime.parse(dateString, START_DATE_FORMAT);
             }catch(DateTimeParseException e){
-                log.info("Date parsing error - date {} and format {}", dateString, DATE_FORMAT);
+                log.info("Date parsing error - date {} and format {}", dateString, START_DATE_FORMAT);
                 throw new RuntimeException(e);
             }
         }
