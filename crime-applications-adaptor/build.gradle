@@ -11,11 +11,11 @@ plugins {
 group = 'uk.gov.justice.laa.crime'
 
 def versions = [
-		springdocVersion       : "2.1.0",
+		springdocVersion       : "2.2.0",
 		okhttpVersion          : "4.9.3",
 		mockwebserverVersion   : "4.11.0",
 		pitest                 : "1.14.2",
-		commonsLang3Version    : "3.12.0",
+		commonsLang3Version    : "3.13.0",
 		postgresqlVersion      : "42.3.3",
 		springauthserverVersion: "1.0.1",
 		festVersion            : '1.4',
