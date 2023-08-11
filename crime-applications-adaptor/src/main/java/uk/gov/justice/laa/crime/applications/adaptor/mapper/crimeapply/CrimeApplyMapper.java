@@ -8,7 +8,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Ioj;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 
 import java.math.BigDecimal;
@@ -36,10 +35,9 @@ public class CrimeApplyMapper {
 
         crimeApplication.setStatusReason(STATUS_REASON_DEFAULT_CURRENT);
         crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
-        crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
+        crimeApplication.setApplicationType(String.valueOf(crimeApplyResponse.getApplicationType()));
         crimeApplication.setCaseDetails(caseDetailsMapper.map(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
-        crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
         crimeApplication.setUsn(mapUsn(crimeApplyResponse));
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
@@ -65,7 +63,7 @@ public class CrimeApplyMapper {
     }
 
     private BigDecimal mapUsn(MaatApplication crimeApplyResponse) {
-        return crimeApplyResponse.getReference();
+        return BigDecimal.valueOf(crimeApplyResponse.getReference());
     }
 
     private String mapSolicitorAdminEmail(Provider crimeApplyProviderDetails) {
@@ -73,19 +71,6 @@ public class CrimeApplyMapper {
             return null;
         }
         return crimeApplyProviderDetails.getProviderEmail();
-    }
-
-    private List<InterestOfJustice> mapInterestsOfJustice(List<Ioj> crimeApplyInterestsOfJustice) {
-        if (crimeApplyInterestsOfJustice == null) {
-            return Collections.emptyList();
-        }
-
-        return crimeApplyInterestsOfJustice.stream()
-                .map(ioj -> {
-                    Ioj.Type crimeApplyType = ioj.getType();
-                    InterestOfJustice.Type iojType = crimeApplyType == null ? null : EnumUtils.getEnum(InterestOfJustice.Type.class, crimeApplyType.name());
-                    return new InterestOfJustice(iojType, ioj.getReason());
-                }).toList();
     }
 
     private MagistrateCourt mapMagistrateCourt(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
