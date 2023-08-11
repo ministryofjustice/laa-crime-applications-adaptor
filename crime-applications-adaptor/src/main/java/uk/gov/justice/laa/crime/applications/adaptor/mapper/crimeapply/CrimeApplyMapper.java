@@ -48,9 +48,9 @@ public class CrimeApplyMapper {
         crimeApplication.setUsn(mapUsn(crimeApplyResponse));
         crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
-        crimeApplication.setDateCreated(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getSubmittedAt()));
-        crimeApplication.setDateStamp(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getDateStamp()));
-        crimeApplication.setDateOfSignature(DateTimeUtils.stringToLocalDateTime(crimeApplyResponse.getDeclarationSignedAt()));
+        crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
+        crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
+        crimeApplication.setDateOfSignature(crimeApplyResponse.getDeclarationSignedAt());
         crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
         crimeApplication.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
         crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
