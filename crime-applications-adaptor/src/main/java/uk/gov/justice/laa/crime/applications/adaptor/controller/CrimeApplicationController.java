@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
@@ -32,7 +32,7 @@ public class CrimeApplicationController {
     @Operation(description = "Retrieve application details from crime apply datastore")
     @ApiResponse(responseCode = "200",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = CrimeApplication.class)
+                    schema = @Schema(implementation = MaatApplicationInternal.class)
             )
     )
     @ApiResponse(responseCode = "400",
@@ -47,15 +47,15 @@ public class CrimeApplicationController {
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-    public CrimeApplication getCrimeApplyData(@PathVariable long id) {
+    public MaatApplicationInternal getCrimeApplyData(@PathVariable long id) {
         log.info("Get applicant details from Crime Apply datastore");
-        CrimeApplication crimeApplication = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
+        MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
         EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
         Integer maatRef = eformStagingResponse.getMaatRef();
         if (maatRef != null) {
-            return crimeApplication
+            return maatApplicationInternal
                     .withMaatRef(maatRef);
         }
-        return crimeApplication;
+        return maatApplicationInternal;
     }
 }

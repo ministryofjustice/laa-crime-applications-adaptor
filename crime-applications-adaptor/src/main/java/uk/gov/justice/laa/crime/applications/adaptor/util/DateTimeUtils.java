@@ -4,13 +4,17 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,7 +22,6 @@ import java.util.Date;
 public class DateTimeUtils {
 
     private static final DateTimeFormatter START_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static final DateTimeFormatter FIN_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static LocalDateTime toLocalDateTime(Date source) {
         if (source != null) {
@@ -70,5 +73,11 @@ public class DateTimeUtils {
             }
         }
         return null;
+    }
+
+    public static String dateToString(Date date) {
+        Date dateInta = new Date();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return df.format(date);
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.CrimeApplyMapper;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
 @Service
@@ -26,16 +26,16 @@ public class CrimeApplicationService {
     private final CrimeApplyMapper crimeApplyMapper;
 
     @Retry(name = SERVICE_NAME)
-    public CrimeApplication retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
+    public MaatApplicationInternal retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
         log.info("Start - call to Crime Apply datastore with usn {}", usn);
-        MaatApplication crimeApplyMaatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplicationExternal);
 
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> crimeApplication);
+                .observe(() -> maatApplicationInternal);
     }
 }

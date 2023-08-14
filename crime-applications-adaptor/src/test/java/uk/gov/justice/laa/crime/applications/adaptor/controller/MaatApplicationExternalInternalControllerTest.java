@@ -6,15 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import uk.gov.justice.laa.crime.applications.adaptor.exception.CrimeApplicationException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
@@ -25,7 +23,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers =CrimeApplicationController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
-class CrimeApplicationControllerTest {
+class MaatApplicationExternalInternalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,11 +36,11 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
+        MaatApplicationInternal maatApplicationInternal = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
-                .thenReturn(crimeApplication);
+                .thenReturn(maatApplicationInternal);
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
                 .thenReturn(eformStagingResponse);
 
@@ -59,12 +57,12 @@ class CrimeApplicationControllerTest {
 
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        CrimeApplication crimeApplication = TestData.getCrimeApplication("CrimeApplication_6000308.json");
+        MaatApplicationInternal maatApplicationInternal = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
-                .thenReturn(crimeApplication);
+                .thenReturn(maatApplicationInternal);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);

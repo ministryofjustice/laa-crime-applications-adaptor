@@ -3,21 +3,17 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.InterestOfJustice;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Ioj;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,28 +32,28 @@ public class CrimeApplyMapper {
     private final ApplicantMapper applicantMapper = new ApplicantMapper();
     private final PassportedMapper passportedMapper = new PassportedMapper();
 
-    public CrimeApplication mapToCrimeApplication(MaatApplication crimeApplyResponse) {
-        CrimeApplication crimeApplication = new CrimeApplication();
+    public MaatApplicationInternal mapToCrimeApplication(MaatApplicationExternal crimeApplyResponse) {
+        MaatApplicationInternal maatApplicationInternal = new MaatApplicationInternal();
 
-        crimeApplication.setStatusReason(STATUS_REASON_DEFAULT_CURRENT);
-        crimeApplication.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
-        crimeApplication.setApplicationType(crimeApplyResponse.getApplicationType());
-        crimeApplication.setCaseDetails(caseDetailsMapper.map(crimeApplyResponse.getCaseDetails()));
-        crimeApplication.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
-        crimeApplication.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
-        crimeApplication.setUsn(mapUsn(crimeApplyResponse));
-        crimeApplication.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
-        crimeApplication.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
-        crimeApplication.setDateCreated(crimeApplyResponse.getSubmittedAt());
-        crimeApplication.setDateStamp(crimeApplyResponse.getDateStamp());
-        crimeApplication.setDateOfSignature(crimeApplyResponse.getDeclarationSignedAt());
-        crimeApplication.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
-        crimeApplication.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
-        crimeApplication.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
-        crimeApplication.setPassported(passportedMapper.map(crimeApplyResponse));
-        crimeApplication.setIojBypass(crimeApplyResponse.getIojBypass());
+        maatApplicationInternal.setStatusReason(STATUS_REASON_DEFAULT_CURRENT);
+        maatApplicationInternal.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
+        maatApplicationInternal.setApplicationType(crimeApplyResponse.getApplicationType());
+        maatApplicationInternal.setCaseDetails(caseDetailsMapper.map(crimeApplyResponse.getCaseDetails()));
+        maatApplicationInternal.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
+        maatApplicationInternal.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
+        maatApplicationInternal.setUsn(mapUsn(crimeApplyResponse));
+        maatApplicationInternal.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
+        maatApplicationInternal.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
+        maatApplicationInternal.setDateCreated(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getSubmittedAt())));
+        maatApplicationInternal.setDateStamp(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDateStamp())));
+        maatApplicationInternal.setDateOfSignature(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDeclarationSignedAt())));
+        maatApplicationInternal.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
+        maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
+        maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
+        maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
+        maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
 
-        return crimeApplication;
+        return maatApplicationInternal;
     }
 
     private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
@@ -69,7 +65,7 @@ public class CrimeApplyMapper {
         return crimeApplyCaseDetails.getHearingDate();
     }
 
-    private BigDecimal mapUsn(MaatApplication crimeApplyResponse) {
+    private BigDecimal mapUsn(MaatApplicationExternal crimeApplyResponse) {
         return crimeApplyResponse.getReference();
     }
 

@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,7 +15,7 @@ class PassportedMapper {
     private static final Passported.WhoDwpChecked WHO_DWP_CHECKED_DEFAULT_NULL = null;
 
     @NotNull
-    Passported map(MaatApplication crimeApplyMaatApplication) {
+    Passported map(MaatApplicationExternal crimeApplyMaatApplicationExternal) {
 
         Passported passported = new Passported();
 
