@@ -28,6 +28,8 @@ public class CrimeApplicationService {
     @Retry(name = SERVICE_NAME)
     public CrimeApplication retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
         log.info("Start - call to Crime Apply datastore with usn {}", usn);
+        log.info("Client Secret - {}", servicesConfiguration.getCrimeApplyApi().getClientSecret());
+        log.info("Issuer  -{}", servicesConfiguration.getCrimeApplyApi().getIssuer());
         MaatApplication crimeApplyMaatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
                         servicesConfiguration.getCrimeApplyApi().getClientSecret(),
