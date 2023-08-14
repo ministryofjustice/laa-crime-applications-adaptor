@@ -1,6 +1,7 @@
 {
   "statusReason": "current",
   "solicitorName": "Karl Kent",
+  "applicationType": "initial",
   "caseDetails": {
     "caseType": "SUMMARY ONLY",
     "offenceClass": "OTHER"
@@ -40,7 +41,8 @@
     "benefitGuaranteedStatePension": false,
     "jobSeeker": false,
     "benefitEmploymentSupport": false,
-    "benefitClaimedByPartner": false
+    "benefitClaimedByPartner": false,
+    "meansPassport": "on_age_under18"
   },
   "iojBypass": true
 }

@@ -28,6 +28,10 @@
       "nullable": true,
       "description": "Currently has a fixed value of 'null'",
       "enum": ["PARTNER", "APPLICANT"]
+    },
+    "meansPassport": {
+      "type": "string",
+      "nullable": true
     }
   }
 }

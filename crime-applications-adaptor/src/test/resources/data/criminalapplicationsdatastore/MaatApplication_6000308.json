@@ -5,6 +5,8 @@
   "submitted_at": "2023-05-15T11:33:06.717",
   "date_stamp": "2023-04-24T12:31:06.353",
   "declaration_signed_at": "2023-05-15T11:33:06.717",
+  "application_type": "initial",
+  "means_passport": ["on_age_under18"],
   "provider_details": {
     "office_code": "0Z981E",
     "provider_email": "abenn@quinn-melville.co.uk",
