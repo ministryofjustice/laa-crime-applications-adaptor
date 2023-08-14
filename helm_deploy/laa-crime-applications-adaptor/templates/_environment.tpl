@@ -27,10 +27,7 @@ env:
   - name: CRIME_APPLY_AUTH_KEY_ISSUER
     value: {{ .Values.crimeApplyApi.issuer }}
   - name: CRIME_APPLY_API_AUTH_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: datastore-api-auth-secret
-        key: secret
+    value: {{ .Values.crimeApplyApi.clientSecret }}
   - name: CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI
     value: {{ .Values.crimeApplicationAdaptor.issuerUri }}
 
