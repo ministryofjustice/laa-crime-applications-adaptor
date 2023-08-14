@@ -13,6 +13,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
 import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUtil;
 
+import java.util.Base64;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -28,11 +30,11 @@ public class CrimeApplicationService {
     @Retry(name = SERVICE_NAME)
     public CrimeApplication retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
         log.info("Start - call to Crime Apply datastore with usn {}", usn);
-        log.info("Client Secret - {}", servicesConfiguration.getCrimeApplyApi().getClientSecret());
+        log.info("Client Secret - {}", Base64.getEncoder().encodeToString(servicesConfiguration.getCrimeApplyApi().getClientSecret().getBytes()));
         log.info("Issuer  -{}", servicesConfiguration.getCrimeApplyApi().getIssuer());
         MaatApplication crimeApplyMaatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
-                        servicesConfiguration.getCrimeApplyApi().getClientSecret(),
+                        Base64.getEncoder().encodeToString(servicesConfiguration.getCrimeApplyApi().getClientSecret().getBytes()),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplication);
