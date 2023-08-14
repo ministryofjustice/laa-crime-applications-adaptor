@@ -42,7 +42,7 @@
     "jobSeeker": false,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false,
-    "meansPassport":"on_age_under18"
+    "meansPassport": "on_age_under18"
   },
   "iojBypass": true
 }
