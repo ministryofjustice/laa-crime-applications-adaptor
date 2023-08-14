@@ -7,14 +7,18 @@
   "properties": {
     "id": { "type": "string" },
     "schema_version": { "type": "number" },
-    "application_type": { "type": "string" },
-    "reference": { "type": "number" },
+    "reference": { "type": "integer" },
+    "application_type": { "type": "string", "enum": ["initial"] },
     "submitted_at": { "type": "string", "format": "date-time" },
     "declaration_signed_at": { "type": "string", "format": "date-time" },
     "date_stamp": { "type": "string", "format": "date-time" },
     "ioj_bypass": {
-      "description": "Indicates whether the Interests of Justice was skipped or not",
+      "description": "Indicates whether the Interests of Justice page was skipped or not",
       "type": "boolean"
+    },
+    "means_passport": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["on_age_under18", "on_benefit_check"] }
     },
     "provider_details": {
       "$ref": "#/definitions/provider"
@@ -57,33 +61,31 @@
           ]
         },
         "appeal_maat_id": { "type": ["string", "null"] },
-        "appeal_with_changes_maat_id": { "type": ["string", "null"] },
+        "appeal_lodged_date": { "type": ["string", "null"], "format": "date" },
         "appeal_with_changes_details": { "type": ["string", "null"] },
         "offence_class": { "type": ["string", "null"], "enum": ["A", "K", "G", "B", "I", "J", "D", "C", "H", "F", "E", null] },
         "hearing_court_name": { "type": "string" },
         "hearing_date": { "type": "string", "format": "date" }
       },
       "required": ["case_type", "hearing_court_name", "hearing_date", "offence_class"]
-    },
-    "interests_of_justice": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/ioj" }
     }
   },
   "required": [
     "id",
     "schema_version",
     "reference",
+    "application_type",
     "submitted_at",
     "date_stamp",
+    "declaration_signed_at",
+    "ioj_bypass",
+    "means_passport",
     "provider_details",
     "client_details",
-    "case_details",
-    "declaration_signed_at"
+    "case_details"
   ],
   "definitions": {
     "provider": { "$ref": "general/provider.json" },
-    "address": { "$ref": "general/address.json" },
-    "ioj": { "$ref": "general/ioj.json" }
+    "address": { "$ref": "general/address.json" }
   }
 }
