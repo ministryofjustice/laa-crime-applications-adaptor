@@ -37,10 +37,9 @@ public class CrimeApplyMapper {
 
         maatApplicationInternal.setStatusReason(STATUS_REASON_DEFAULT_CURRENT);
         maatApplicationInternal.setSolicitorName(mapSolicitorName(crimeApplyResponse.getProviderDetails()));
-        maatApplicationInternal.setApplicationType(crimeApplyResponse.getApplicationType());
+        maatApplicationInternal.setApplicationType(String.valueOf(crimeApplyResponse.getApplicationType()));
         maatApplicationInternal.setCaseDetails(caseDetailsMapper.map(crimeApplyResponse.getCaseDetails()));
         maatApplicationInternal.setMagsCourt(mapMagistrateCourt(crimeApplyResponse.getCaseDetails()));
-        maatApplicationInternal.setInterestsOfJustice(mapInterestsOfJustice(crimeApplyResponse.getInterestsOfJustice()));
         maatApplicationInternal.setUsn(mapUsn(crimeApplyResponse));
         maatApplicationInternal.setSolicitorAdminEmail(mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
         maatApplicationInternal.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
@@ -66,7 +65,7 @@ public class CrimeApplyMapper {
     }
 
     private BigDecimal mapUsn(MaatApplicationExternal crimeApplyResponse) {
-        return crimeApplyResponse.getReference();
+        return BigDecimal.valueOf(crimeApplyResponse.getReference());
     }
 
     private String mapSolicitorAdminEmail(Provider crimeApplyProviderDetails) {
@@ -74,19 +73,6 @@ public class CrimeApplyMapper {
             return null;
         }
         return crimeApplyProviderDetails.getProviderEmail();
-    }
-
-    private List<InterestOfJustice> mapInterestsOfJustice(List<Ioj> crimeApplyInterestsOfJustice) {
-        if (crimeApplyInterestsOfJustice == null) {
-            return Collections.emptyList();
-        }
-
-        return crimeApplyInterestsOfJustice.stream()
-                .map(ioj -> {
-                    Ioj.Type crimeApplyType = ioj.getType();
-                    InterestOfJustice.Type iojType = crimeApplyType == null ? null : EnumUtils.getEnum(InterestOfJustice.Type.class, crimeApplyType.name());
-                    return new InterestOfJustice(iojType, ioj.getReason());
-                }).toList();
     }
 
     private MagistrateCourt mapMagistrateCourt(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.

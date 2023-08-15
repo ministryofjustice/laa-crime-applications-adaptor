@@ -76,7 +76,6 @@ class CrimeApplyMapperTest {
     @Test
     void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() throws JSONException {
         MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplicationExternal.setInterestsOfJustice(null);
 
         MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
