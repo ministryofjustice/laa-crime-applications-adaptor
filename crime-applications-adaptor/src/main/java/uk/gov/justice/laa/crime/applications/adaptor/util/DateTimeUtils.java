@@ -51,30 +51,6 @@ public class DateTimeUtils {
         }
     }
 
-    public static Date stringToDate(String dateString, String dateFormat){
-        if(dateString!=null) {
-            try {
-                return DateUtils.parseDate(dateString, dateFormat);
-            } catch (ParseException e) {
-                log.info("Date parsing error - date {} and format {}", dateString, dateFormat);
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
-
-    public static LocalDateTime stringToLocalDateTime(String dateString){
-        if(dateString!=null){
-            try{
-                return LocalDateTime.parse(dateString, START_DATE_FORMAT);
-            }catch(DateTimeParseException e){
-                log.info("Date parsing error - date {} and format {}", dateString, START_DATE_FORMAT);
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
-
     public static String dateToString(Date date) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return df.format(date);
