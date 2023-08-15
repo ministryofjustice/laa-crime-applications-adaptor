@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,9 +20,9 @@ class PassportedMapperTest {
 
     @Test
     void map() {
-        MaatApplication crimeApplyMaatApplication = TestData.getMaatApplication();
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
 
-        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplication);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
 
         assertFalse(actualPassported.getBenefitIncomeSupport());
         assertFalse(actualPassported.getBenefitGuaranteedStatePension());

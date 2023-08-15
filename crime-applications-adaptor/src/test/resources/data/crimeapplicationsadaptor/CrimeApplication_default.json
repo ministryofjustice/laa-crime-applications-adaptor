@@ -18,10 +18,10 @@
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
-  "dateCreated": "2022-10-24T09:50:04.019",
-  "dateStamp": "2022-10-24T09:50:04.019",
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
   "hearingDate": "2024-11-11",
-  "dateOfSignature": "2022-10-24T09:50:04.019",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
   "applicant": {
     "firstName": "Kit",
     "surname": "Pound",
