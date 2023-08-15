@@ -19,13 +19,16 @@ public class DateTimeUtils {
             return Date.from(
                     source.atZone(ZoneId.systemDefault())
                             .toInstant());
-        } else {
-            return null;
         }
+        return null;
+
     }
 
     public static String dateToString(Date date) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        return df.format(date);
+        if (date != null) {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            return df.format(date);
+        }
+        return null;
     }
 }
