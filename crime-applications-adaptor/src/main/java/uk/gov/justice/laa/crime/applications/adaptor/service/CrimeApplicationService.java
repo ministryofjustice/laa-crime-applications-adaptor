@@ -1,6 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.service;
 
 import io.github.resilience4j.retry.annotation.Retry;
+import io.jsonwebtoken.io.Encoders;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class CrimeApplicationService {
         log.info("Start - call to Crime Apply datastore with usn {}", usn);
         MaatApplication crimeApplyMaatApplication = crimeApplyDatastoreClient.getApplicationDetails(usn,
                 CrimeApplicationHttpUtil.getHttpHeaders(
-                        servicesConfiguration.getCrimeApplyApi().getClientSecret(),
+                        Encoders.BASE64.encode(servicesConfiguration.getCrimeApplyApi().getClientSecret().getBytes()),
                         servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
         CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplication);
