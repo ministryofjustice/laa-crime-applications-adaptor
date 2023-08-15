@@ -26,8 +26,8 @@ class PassportedMapper {
         passported.setBenefitClaimedByPartner(CLAIMED_BY_PARTNER_DEFAULT_FALSE);
         passported.setWhoDwpChecked(WHO_DWP_CHECKED_DEFAULT_NULL);
 
-        if(!crimeApplyMaatApplication.getMeansPassport().isEmpty()){
-            passported.setMeansPassport(String.valueOf(crimeApplyMaatApplication.getMeansPassport().get(0)));
+        if(!crimeApplyMaatApplicationExternal.getMeansPassport().isEmpty()){
+            passported.setMeansPassport(String.valueOf(crimeApplyMaatApplicationExternal.getMeansPassport().get(0)));
         }
 
         return passported;
