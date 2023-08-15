@@ -76,7 +76,6 @@ public class DateTimeUtils {
     }
 
     public static String dateToString(Date date) {
-        Date dateInta = new Date();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return df.format(date);
     }
