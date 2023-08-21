@@ -12,8 +12,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreC
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.CrimeApplyMapper;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CrimeApplicationServiceTest {
+class MaatApplicationExternalInternalServiceTest {
 
     @Mock
     private CrimeApplyDatastoreClient crimeApplyDatastoreClient;
@@ -39,19 +39,19 @@ class CrimeApplicationServiceTest {
 
     @Test
     void givenValidParams_whenCrimeApplyDatastoreServiceIsInvoked_thenReturnApplicationData() {
-        MaatApplication maatApplication = TestData.getMaatApplication();
-        CrimeApplication crimeApplication = TestData.getCrimeApplication();
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication();
+        MaatApplicationInternal maatApplicationInternal = TestData.getCrimeApplication();
 
         when(crimeApplyDatastoreClient.getApplicationDetails(anyLong(), anyMap()))
-                .thenReturn(maatApplication);
+                .thenReturn(maatApplicationExternal);
         when(servicesConfiguration.getCrimeApplyApi())
                 .thenReturn(MockServicesConfiguration.getConfiguration().getCrimeApplyApi());
-        when(crimeApplyMapper.mapToCrimeApplication(maatApplication))
-                .thenReturn(crimeApplication);
+        when(crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal))
+                .thenReturn(maatApplicationInternal);
 
-        CrimeApplication response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
+        MaatApplicationInternal response = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
 
-        assertEquals(crimeApplication, response);
+        assertEquals(maatApplicationInternal, response);
     }
 
     @Test

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.CrimeApplication;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplication;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
@@ -26,11 +26,11 @@ class CrimeApplyMapperTest {
 
     @Test
     void shouldMapAllRequiredFieldsFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
-        MaatApplication crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplication_6000308.json");
+        MaatApplicationExternal crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplication_6000308.json");
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
-        String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
+        String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
         String expectedCrimeApplicationJson = JsonUtils.objectToJson(TestData.getCrimeApplication("CrimeApplication_6000308.json"));
 
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
@@ -38,12 +38,12 @@ class CrimeApplyMapperTest {
 
     @Test
     void shouldMapNoHomeAddressFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
-        MaatApplication crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        MaatApplicationExternal crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
 
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
-        String actualCrimeApplicationJson = JsonUtils.objectToJson(crimeApplication);
+        String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
         String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
 
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
@@ -51,85 +51,84 @@ class CrimeApplyMapperTest {
 
     @Test
     void shouldSuccessfullyMapWhenNoProviderDetailsAreAvailable() throws JSONException {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.setProviderDetails(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.setProviderDetails(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        assertNull(crimeApplication.getSolicitorName());
-        assertNull(crimeApplication.getSolicitorAdminEmail());
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getSupplier()), JSONCompareMode.STRICT);
+        assertNull(maatApplicationInternal.getSolicitorName());
+        assertNull(maatApplicationInternal.getSolicitorAdminEmail());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getSupplier()), JSONCompareMode.STRICT);
     }
 
     @Test
     void shouldSuccessfullyMapWhenNoCaseDetailsAreAvailable() throws JSONException {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.setCaseDetails(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.setCaseDetails(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getCaseDetails()), JSONCompareMode.STRICT);
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getMagsCourt()), JSONCompareMode.STRICT);
-        assertNull(crimeApplication.getHearingDate());
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getCaseDetails()), JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getMagsCourt()), JSONCompareMode.STRICT);
+        assertNull(maatApplicationInternal.getHearingDate());
     }
 
     @Test
     void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() throws JSONException {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.setInterestsOfJustice(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        assertThat(crimeApplication.getInterestsOfJustice(), IsEmptyCollection.empty());
+        assertThat(maatApplicationInternal.getInterestsOfJustice(), IsEmptyCollection.empty());
     }
 
     @Test
     void shouldSuccessfullyMapWhenCaseDetailsHaveNullCaseType() {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.getCaseDetails().setCaseType(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.getCaseDetails().setCaseType(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        assertNull(crimeApplication.getCaseDetails().getCaseType());
+        assertNull(maatApplicationInternal.getCaseDetails().getCaseType());
     }
 
     @Test
     void shouldSuccessfullyMapWhenCaseDetailsHaveNullOffenceClass() {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.getCaseDetails().setOffenceClass(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.getCaseDetails().setOffenceClass(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        assertNull(crimeApplication.getCaseDetails().getOffenceClass());
+        assertNull(maatApplicationInternal.getCaseDetails().getOffenceClass());
     }
 
     @Test
     void shouldSuccessfullyMapWhenApplicantCorrespondenceAddressTypeIsNull() {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.getClientDetails().getApplicant().setCorrespondenceAddressType(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.getClientDetails().getApplicant().setCorrespondenceAddressType(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        assertFalse(crimeApplication.getApplicant().getUseSupplierAddressForPost());
+        assertFalse(maatApplicationInternal.getApplicant().getUseSupplierAddressForPost());
     }
 
     @Test
     void shouldSuccessfullyMapWhenClientDetailsAreNull() throws JSONException {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.setClientDetails(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.setClientDetails(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getApplicant()), JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getApplicant()), JSONCompareMode.STRICT);
     }
 
     @Test
     void shouldSuccessfullyMapWhenApplicantIsNull() throws JSONException {
-        MaatApplication maatApplication = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplication.getClientDetails().setApplicant(null);
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
+        maatApplicationExternal.getClientDetails().setApplicant(null);
 
-        CrimeApplication crimeApplication = crimeApplyMapper.mapToCrimeApplication(maatApplication);
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(crimeApplication.getApplicant()), JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getApplicant()), JSONCompareMode.STRICT);
     }
 }
