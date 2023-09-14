@@ -26,7 +26,7 @@ class CaseDetailsMapperTest {
         CaseDetails actualCaseDetails = caseDetailsMapper.map(crimeApplyCaseDetails);
 
         String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
-        JSONAssert.assertEquals("{\"caseType\":\"APPEAL CC\",\"offenceClass\":\"MURDER\"}", actualCaseDetailsJSON, JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{\"caseType\":\"APPEAL CC\",\"offenceClass\":\"MURDER\",\"appealReceivedDate\":\"2021-10-25\"}", actualCaseDetailsJSON, JSONCompareMode.STRICT);
     }
 
     @Test
