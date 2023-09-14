@@ -38,7 +38,8 @@
     "offence_class": "A",
     "appeal_maat_id": null,
     "hearing_court_name": "Cardiff Magistrates' Court",
-    "hearing_date": "2024-11-11"
+    "hearing_date": "2024-11-11",
+    "appeal_lodged_date": "2021-10-25"
   },
   "ioj_bypass": true
 }

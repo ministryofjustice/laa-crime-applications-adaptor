@@ -54,6 +54,10 @@
     "appealWithChangesDetails": {
       "type": "string",
       "nullable": true
+    },
+    "appealReceivedDate": {
+      "type": "string",
+      "nullable": true
     }
   },
   "required": ["caseType", "offenceClass"]
