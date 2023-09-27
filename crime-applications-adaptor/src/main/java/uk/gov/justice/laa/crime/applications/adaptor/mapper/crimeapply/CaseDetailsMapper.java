@@ -23,6 +23,7 @@ class CaseDetailsMapper {
         caseDetails.setOffenceClass(offenceClassMapper.map(crimeApplyCaseDetails.getOffenceClass()));
         caseDetails.setAppealMaatId(crimeApplyCaseDetails.getAppealMaatId());
         caseDetails.setAppealWithChangesDetails(crimeApplyCaseDetails.getAppealWithChangesDetails());
+        caseDetails.setAppealReceivedDate(crimeApplyCaseDetails.getAppealLodgedDate());
 
         return caseDetails;
     }
