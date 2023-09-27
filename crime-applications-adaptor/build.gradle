@@ -14,7 +14,7 @@ def versions = [
 		springdocVersion       : "2.2.0",
 		okhttpVersion          : "4.9.3",
 		mockwebserverVersion   : "4.11.0",
-		pitest                 : "1.14.4",
+		pitest                 : "1.15.0",
 		commonsLang3Version    : "3.13.0",
 		postgresqlVersion      : "42.3.3",
 		springauthserverVersion: "1.0.1",
@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-	implementation platform("io.sentry:sentry-bom:6.28.0")
+	implementation platform("io.sentry:sentry-bom:6.29.0")
 
 	implementation "io.sentry:sentry-spring-boot-starter"
 	implementation "io.sentry:sentry-logback"
