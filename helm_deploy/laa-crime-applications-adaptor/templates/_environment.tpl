@@ -28,7 +28,7 @@ env:
     value: {{ .Values.crimeApplyApi.issuer }}
   - name: CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI
     value: {{ .Values.crimeApplicationAdaptor.issuerUri }}
-  {{- if hasKey .Values.crimeApplyApi "secret" }}
+  {{- if .Values.crimeApplyApi.secret }}
   - name: CRIME_APPLY_API_AUTH_SECRET
       value: {{ .Values.crimeApplyApi.secret }}
   {{- else }}
