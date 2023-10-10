@@ -28,14 +28,14 @@ env:
     value: {{ .Values.crimeApplyApi.issuer }}
   - name: CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI
     value: {{ .Values.crimeApplicationAdaptor.issuerUri }}
-  {{- if hasKey .Values.crimeApplyApi.secret }}
+  {{- if hasKey .Values.crimeApplyApi "secret" }}
   - name: CRIME_APPLY_API_AUTH_SECRET
-      value: {{ .Values.crimeApplyApi.secret }}
+    value: {{ .Values.crimeApplyApi.secret }}
   {{- else }}
   - name: CRIME_APPLY_API_AUTH_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: datastore-api-auth-secret
-          key: secret
+    valueFrom:
+      secretKeyRef:
+        name: datastore-api-auth-secret
+        key: secret
   {{- end }}
 {{- end -}}
