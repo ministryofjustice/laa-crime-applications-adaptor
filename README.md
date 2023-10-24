@@ -42,6 +42,14 @@ Make sure all tests are passed by running following ‘gradle’ Command
 ./gradlew clean test
 ```
 
+When running the application locally you will likely want to disable OAuth request authorisation, this can be done by replacing the `SecurityFilterChain` implementation with:
+```java
+http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()
+.permitAll());
+
+return http.build();
+```
+
 You will need to build the artifacts for the source code, using `gradle`.
 
 ```sh
@@ -53,4 +61,15 @@ docker-compose build
 docker-compose up
 ```
 
-laa-crime-applications-adaptor application will be running on http://localhost:8088
+`laa-crime-applications-adaptor` application will be running on http://localhost:8088
+
+### Metrics and Health Check endpoints
+
+There are a number of out of the box endpoints provided by Spring Boot for verifying application health and various metrics.
+
+These endpoints include:
+* http://localhost:8099/actuator
+* http://localhost:8099/actuator/prometheus
+* http://localhost:8099/actuator/health
+* http://localhost:8099/actuator/info
+* http://localhost:8099/actuator/metrics
