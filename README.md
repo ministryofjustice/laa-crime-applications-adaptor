@@ -65,7 +65,7 @@ docker-compose up
 
 ### Metrics and Health Check endpoints
 
-There are a number of out of the box endpoints provided by Spring Boot for verifying application health and various metrics.
+There are a number of out of the box endpoints provided by Spring Boot for verifying application health and various metrics, some of which are enabled and accessible.
 
 These endpoints include:
 * http://localhost:8099/actuator
@@ -73,3 +73,5 @@ These endpoints include:
 * http://localhost:8099/actuator/health
 * http://localhost:8099/actuator/info
 * http://localhost:8099/actuator/metrics
+
+For a complete list of all out of the box actuator endpoints see [Spring Boot 3.1.5 - Actuator](https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/actuator.html#actuator).
