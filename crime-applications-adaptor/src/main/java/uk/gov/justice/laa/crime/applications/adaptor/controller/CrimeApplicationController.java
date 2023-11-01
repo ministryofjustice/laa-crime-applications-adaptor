@@ -1,5 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.controller;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -47,6 +49,9 @@ public class CrimeApplicationController {
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
+    @Timed(value = "getCrimeApplyData_time_in_nano_seconds", description = "Time taken to complete the execution of getCrimeApplyData in nano-seconds")
+    @Counted(value = "getCrimeApplyData_count", recordFailuresOnly = true,
+            extraTags = {"sample_label", "sample_label_value"}, description = "The number of getCrimeApplyData failures")
     public MaatApplicationInternal getCrimeApplyData(@PathVariable long id) {
         log.info("Get applicant details from Crime Apply datastore");
         MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
