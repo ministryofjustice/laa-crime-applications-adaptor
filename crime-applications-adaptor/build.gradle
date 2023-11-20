@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-	implementation platform("io.sentry:sentry-bom:6.33.0")
+	implementation platform("io.sentry:sentry-bom:6.33.1")
 
 	implementation "io.sentry:sentry-spring-boot-starter"
 	implementation "io.sentry:sentry-logback"
