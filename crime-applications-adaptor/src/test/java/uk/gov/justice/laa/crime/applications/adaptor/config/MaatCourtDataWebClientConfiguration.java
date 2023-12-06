@@ -19,7 +19,7 @@ public class MaatCourtDataWebClientConfiguration {
     @Bean
     MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(maatCourtDataWebClient))
+                HttpServiceProxyFactory.builderFor(WebClientAdapter.create(maatCourtDataWebClient))
                         .build();
         return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
     }

@@ -45,7 +45,7 @@ public class CrimeApplyWebClientConfiguration {
     @Bean
     CrimeApplyDatastoreClient crimeApplyDatastoreClient(WebClient crimeApplyWebClient) {
         HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builder(WebClientAdapter.forClient(crimeApplyWebClient))
+                HttpServiceProxyFactory.builderFor(WebClientAdapter.create(crimeApplyWebClient))
                         .build();
         return httpServiceProxyFactory.createClient(CrimeApplyDatastoreClient.class);
     }
