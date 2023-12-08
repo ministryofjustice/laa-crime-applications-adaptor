@@ -63,3 +63,12 @@ services:
     baseUrl: ${CRIME_APPLY_API_URL}
     clientSecret: ${CRIME_APPLY_API_AUTH_SECRET}
     issuer: ${CRIME_APPLY_AUTH_KEY_ISSUER}
+
+sentry:
+  dsn: ${SENTRY_DSN}
+  environment: ${SENTRY_ENV}
+  release: 0.0.1
+  servername: aws-eks-container
+  send-default-pii: true
+  attach-stacktrace: true
+  sample-rate: ${SENTRY_SAMPLE_RATE}
