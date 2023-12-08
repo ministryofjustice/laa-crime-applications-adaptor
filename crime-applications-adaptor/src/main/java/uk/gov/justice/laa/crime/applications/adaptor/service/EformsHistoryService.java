@@ -1,0 +1,32 @@
+package uk.gov.justice.laa.crime.applications.adaptor.service;
+
+import io.github.resilience4j.retry.annotation.Retry;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformsHistory;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class EformsHistoryService {
+
+    private static final String SERVICE_NAME = "eformsHistoryService";
+    private static final String ACTION = "Get";
+    private static final String DEFAULT_USER = "causer";
+    private final MaatCourtDataApiClient eformHistoryApiClient;
+    private final ObservationRegistry observationRegistry;
+
+    @Retry(name = SERVICE_NAME)
+    public void createEformsHistoryRecord(long usn) {
+        log.info("Start - call to Eforms History API "+ usn);
+        EformsHistory eformsHistory = EformsHistory.builder().usn((int) usn).action(ACTION).userCreated(DEFAULT_USER).build();
+        eformHistoryApiClient.createEformsHistoryRecord(eformsHistory);
+        Observation.createNotStarted(SERVICE_NAME, observationRegistry);
+    }
+}

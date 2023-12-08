@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -16,6 +17,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
+import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.hamcrest.Matchers.is;
@@ -34,6 +36,9 @@ class MaatApplicationExternalInternalControllerTest {
     @MockBean
     private EformStagingService eformStagingService;
 
+    @MockBean
+    private EformsHistoryService eformsHistoryService;
+
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
         MaatApplicationInternal maatApplicationInternal = TestData.getCrimeApplication("CrimeApplication_6000308.json");
@@ -43,6 +48,7 @@ class MaatApplicationExternalInternalControllerTest {
                 .thenReturn(maatApplicationInternal);
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
                 .thenReturn(eformStagingResponse);
+        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
