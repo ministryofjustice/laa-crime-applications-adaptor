@@ -17,6 +17,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
+import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryService;
 
 @Slf4j
 @RestController
@@ -25,8 +26,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService
 @Tag(name = "Crime Applications Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
 public class CrimeApplicationController {
 
-    private CrimeApplicationService crimeApplicationService;
-    private EformStagingService eformStagingService;
+    private final CrimeApplicationService crimeApplicationService;
+    private final EformStagingService eformStagingService;
+    private final EformsHistoryService eformsHistoryService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
@@ -51,6 +53,7 @@ public class CrimeApplicationController {
         log.info("Get applicant details from Crime Apply datastore");
         MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
         EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
+        eformsHistoryService.createEformsHistoryRecord(id);
         Integer maatRef = eformStagingResponse.getMaatRef();
         if (maatRef != null) {
             return maatApplicationInternal

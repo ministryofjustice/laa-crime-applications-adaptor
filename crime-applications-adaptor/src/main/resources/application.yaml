@@ -31,6 +31,8 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.GatewayTimeout
 
     instances:
+      eformsHistoryService:
+        base-config: default
       eformStagingService:
         base-config: default
       callCrimeApplyDatastore:
