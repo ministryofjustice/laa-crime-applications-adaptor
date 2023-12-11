@@ -11,7 +11,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformsHistory;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EformsHistoryServiceTest {
+class EformsHistoryServiceTest {
 
     @Mock
     private MaatCourtDataApiClient eformStagingApiClient;
