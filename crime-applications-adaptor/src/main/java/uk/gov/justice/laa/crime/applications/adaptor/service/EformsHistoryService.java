@@ -23,9 +23,13 @@ public class EformsHistoryService {
 
     @Retry(name = SERVICE_NAME)
     public void createEformsHistoryRecord(long usn) {
-        log.info("Start - call to Create Eforms History API "+ usn);
-        EformsHistory eformsHistory = EformsHistory.builder().usn(Math.toIntExact(usn)).action(ACTION).userCreated(DEFAULT_USER).build();
+        log.info("Start - call to Create Eforms History API {}", usn);
+        EformsHistory eformsHistory = EformsHistory.builder()
+                .usn(Math.toIntExact(usn))
+                .action(ACTION)
+                .userCreated(DEFAULT_USER).build();
         eformHistoryApiClient.createEformsHistoryRecord(eformsHistory);
-        Observation.createNotStarted(SERVICE_NAME, observationRegistry);
+        Observation.createNotStarted(SERVICE_NAME, observationRegistry)
+                .observe(() -> log.info("Eform History Record Created"));
     }
 }
