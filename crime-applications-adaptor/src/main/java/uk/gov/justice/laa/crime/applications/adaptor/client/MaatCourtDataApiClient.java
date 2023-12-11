@@ -13,6 +13,6 @@ public interface MaatCourtDataApiClient {
     EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(@PathVariable long usn);
 
     @PostExchange("/history")
-    EformStagingResponse createEformsHistoryRecord(@RequestBody EformsHistory eformsHistory);
+    void createEformsHistoryRecord(@RequestBody EformsHistory eformsHistory);
 
 }

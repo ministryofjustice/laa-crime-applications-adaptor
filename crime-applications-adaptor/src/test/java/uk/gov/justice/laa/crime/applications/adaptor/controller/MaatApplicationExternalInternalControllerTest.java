@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -59,6 +58,8 @@ class MaatApplicationExternalInternalControllerTest {
                 .andExpect(jsonPath("$.usn", is(6000308)))
                 .andExpect(jsonPath("$.maatRef").doesNotExist());
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
+        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308);
+        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308);
     }
 
     @Test
@@ -69,6 +70,7 @@ class MaatApplicationExternalInternalControllerTest {
         when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
                 .thenReturn(maatApplicationInternal);
+        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
@@ -78,6 +80,8 @@ class MaatApplicationExternalInternalControllerTest {
                 .andExpect(jsonPath("$.usn", is(6000308)))
                 .andExpect(jsonPath("$.maatRef", is(5676399)));
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
+        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308);
+        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308);
     }
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {
