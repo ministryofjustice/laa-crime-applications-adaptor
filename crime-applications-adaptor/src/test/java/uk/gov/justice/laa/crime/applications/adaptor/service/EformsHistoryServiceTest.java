@@ -23,7 +23,7 @@ class EformsHistoryServiceTest {
     void shouldCreateEformsDecisionHistoryRecordForGivenUSN() {
         EformsHistory eformsHistory = EformsHistory.builder().usn(6000308).action("Get").userCreated("causer").build();
         doNothing().when(eformStagingApiClient).createEformsHistoryRecord(eformsHistory);
-        eformsHistoryService.createEformsHistoryRecord(6000308L);
+        eformsHistoryService.createEformsHistoryRecord(6000308L, "causer");
         verify(eformStagingApiClient, times(1)).createEformsHistoryRecord(eformsHistory);
     }
 }

@@ -21,9 +21,9 @@ public class EformStagingService {
     private final ObservationRegistry observationRegistry;
 
     @Retry(name = SERVICE_NAME)
-    public EformStagingResponse retrieveOrInsertDummyUsnRecord(long usn) {
+    public EformStagingResponse retrieveOrInsertDummyUsnRecord(long usn, String userCreated) {
         log.info("Start - call to Eform Staging API ");
-        EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn);
+        EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn, userCreated);
         return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> eformStagingResponse);
     }

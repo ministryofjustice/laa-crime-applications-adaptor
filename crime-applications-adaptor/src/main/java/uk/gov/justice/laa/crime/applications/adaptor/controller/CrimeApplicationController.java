@@ -9,10 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
@@ -49,11 +46,12 @@ public class CrimeApplicationController {
                     schema = @Schema(implementation = ProblemDetail.class)
             )
     )
-    public MaatApplicationInternal getCrimeApplyData(@PathVariable long id) {
+    public MaatApplicationInternal getCrimeApplyData(@PathVariable long id,
+                                                     @RequestParam(name = "userCreated", required = false) String userCreated) {
         log.info("Get applicant details from Crime Apply datastore");
         MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
-        EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id);
-        eformsHistoryService.createEformsHistoryRecord(id);
+        EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id, userCreated);
+        eformsHistoryService.createEformsHistoryRecord(id, userCreated);
         Integer maatRef = eformStagingResponse.getMaatRef();
         if (maatRef != null) {
             return maatApplicationInternal

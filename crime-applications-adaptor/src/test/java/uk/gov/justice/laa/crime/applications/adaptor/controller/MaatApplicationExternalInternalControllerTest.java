@@ -26,6 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers =CrimeApplicationController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 class MaatApplicationExternalInternalControllerTest {
 
+    private static final String DEFAULT_USER = "causer";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,11 +47,11 @@ class MaatApplicationExternalInternalControllerTest {
 
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
                 .thenReturn(maatApplicationInternal);
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308))
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER))
                 .thenReturn(eformStagingResponse);
-        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308);
+        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
@@ -58,8 +60,8 @@ class MaatApplicationExternalInternalControllerTest {
                 .andExpect(jsonPath("$.usn", is(6000308)))
                 .andExpect(jsonPath("$.maatRef").doesNotExist());
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
-        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308);
-        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308);
+        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER);
+        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308, DEFAULT_USER);
     }
 
     @Test
@@ -67,12 +69,12 @@ class MaatApplicationExternalInternalControllerTest {
         MaatApplicationInternal maatApplicationInternal = TestData.getCrimeApplication("CrimeApplication_6000308.json");
         EformStagingResponse eformStagingResponse = TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
 
-        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308)).thenReturn(eformStagingResponse);
+        when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER)).thenReturn(eformStagingResponse);
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
                 .thenReturn(maatApplicationInternal);
-        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308);
+        doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().isOk())
@@ -80,8 +82,8 @@ class MaatApplicationExternalInternalControllerTest {
                 .andExpect(jsonPath("$.usn", is(6000308)))
                 .andExpect(jsonPath("$.maatRef", is(5676399)));
         verify(crimeApplicationService, times(1)).retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
-        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308);
-        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308);
+        verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER);
+        verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308, DEFAULT_USER);
     }
     @Test
     void givenInvalidParams_whenDownstreamServiceIsInvoked_then4xxClientExceptionIsThrown() throws Exception {

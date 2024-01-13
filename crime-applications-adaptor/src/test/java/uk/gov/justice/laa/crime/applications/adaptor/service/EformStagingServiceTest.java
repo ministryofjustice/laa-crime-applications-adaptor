@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class EformStagingServiceTest {
 
+    private static final String DEFAULT_USER = "causer";
     @Mock
     private MaatCourtDataApiClient eformStagingApiClient;
 
@@ -27,19 +28,19 @@ class EformStagingServiceTest {
     void givenValidParams_whenEformStagingServiceIsInvoked_thenEformStagingRecordIsRetrievedForUsn() throws IOException {
         EformStagingResponse retrievedData = EformStagingResponse.builder().maatRef(null).usn(6000308).build();
 
-        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong()))
+        when(eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(anyLong(), anyString()))
                 .thenReturn(retrievedData);
 
         assertDoesNotThrow(invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord());
 
-        verify(eformStagingApiClient, times(1)).retrieveOrInsertDummyUsnRecordInEformStaging(6000308L);
+        verify(eformStagingApiClient, times(1)).retrieveOrInsertDummyUsnRecordInEformStaging(6000308L, DEFAULT_USER);
     }
 
     private Executable invokeEformStagingServiceForRetrieveOrInsertDummyUsnRecord() {
         return new Executable() {
             @Override
             public void execute() throws Throwable {
-                eformStagingService.retrieveOrInsertDummyUsnRecord(6000308L);
+                eformStagingService.retrieveOrInsertDummyUsnRecord(6000308L, DEFAULT_USER);
             }
         };
     }
