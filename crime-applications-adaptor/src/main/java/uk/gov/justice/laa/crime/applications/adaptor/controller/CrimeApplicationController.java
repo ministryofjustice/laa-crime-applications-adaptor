@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryServic
 @RequestMapping("/api/internal/v1/crimeapply")
 @Tag(name = "Crime Applications Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
 public class CrimeApplicationController {
+
+    private static final String DEFAULT_USER = "causer";
 
     private final CrimeApplicationService crimeApplicationService;
     private final EformStagingService eformStagingService;
@@ -49,6 +52,7 @@ public class CrimeApplicationController {
     public MaatApplicationInternal getCrimeApplyData(@PathVariable long id,
                                                      @RequestParam(name = "userCreated", required = false) String userCreated) {
         log.info("Get applicant details from Crime Apply datastore");
+        userCreated = StringUtils.isNotEmpty(userCreated) ? userCreated : DEFAULT_USER;
         MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
         EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id, userCreated);
         eformsHistoryService.createEformsHistoryRecord(id, userCreated);
