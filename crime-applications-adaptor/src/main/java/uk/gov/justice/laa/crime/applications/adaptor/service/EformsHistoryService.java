@@ -16,18 +16,17 @@ public class EformsHistoryService {
 
     private static final String SERVICE_NAME = "eformsHistoryService";
     private static final String ACTION = "Get";
-    private static final String DEFAULT_USER = "causer";
 
     private final MaatCourtDataApiClient eformHistoryApiClient;
     private final ObservationRegistry observationRegistry;
 
     @Retry(name = SERVICE_NAME)
-    public void createEformsHistoryRecord(long usn) {
+    public void createEformsHistoryRecord(long usn, String userCreated) {
         log.info("Start - call to Create Eforms History API {}", usn);
         EformsHistory eformsHistory = EformsHistory.builder()
                 .usn(Math.toIntExact(usn))
                 .action(ACTION)
-                .userCreated(DEFAULT_USER).build();
+                .userCreated(userCreated).build();
         eformHistoryApiClient.createEformsHistoryRecord(eformsHistory);
         Observation.createNotStarted(SERVICE_NAME, observationRegistry)
                 .observe(() -> log.info("Eform History Record Created"));
