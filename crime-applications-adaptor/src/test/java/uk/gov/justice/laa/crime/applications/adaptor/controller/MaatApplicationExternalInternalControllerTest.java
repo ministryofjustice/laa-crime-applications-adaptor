@@ -51,7 +51,7 @@ class MaatApplicationExternalInternalControllerTest {
                 .thenReturn(eformStagingResponse);
         doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
@@ -74,7 +74,7 @@ class MaatApplicationExternalInternalControllerTest {
                 .thenReturn(maatApplicationInternal);
         doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().isOk())
@@ -90,7 +90,7 @@ class MaatApplicationExternalInternalControllerTest {
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(403, "Forbidden", null, null, null));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is4xxClientError())
@@ -104,7 +104,7 @@ class MaatApplicationExternalInternalControllerTest {
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(new WebClientResponseException(503, "SERVICE_UNAVAILABLE", null, null, null));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is5xxServerError())
@@ -118,7 +118,7 @@ class MaatApplicationExternalInternalControllerTest {
         when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(anyLong()))
                 .thenThrow(Mockito.mock(WebClientRequestException.class));
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().is5xxServerError())

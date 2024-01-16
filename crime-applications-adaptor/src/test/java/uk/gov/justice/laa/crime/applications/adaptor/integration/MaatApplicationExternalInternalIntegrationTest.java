@@ -58,7 +58,7 @@ class MaatApplicationExternalInternalIntegrationTest {
 
     @Test
     void givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000308")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request).andExpect(status().isOk())
@@ -72,7 +72,7 @@ class MaatApplicationExternalInternalIntegrationTest {
 
     @Test
     void givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "6000288")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000288")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().isOk())
@@ -82,7 +82,7 @@ class MaatApplicationExternalInternalIntegrationTest {
     }
     @Test
     void givenInvalidParams_whenDownstreamServiceIsCalled_then4xxClientExceptionIsThrown() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "403")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "403")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().is4xxClientError())
@@ -93,7 +93,7 @@ class MaatApplicationExternalInternalIntegrationTest {
 
     @Test
     void whenDownstreamServiceIsUnavailable_then5xxServerExceptionIsThrown() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}?userCreated=causer", "503")
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/internal/v1/crimeapply/{usn}/userCreated/causer", "503")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request).andExpect(status().is5xxServerError())

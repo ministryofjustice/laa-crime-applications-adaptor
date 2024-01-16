@@ -30,7 +30,7 @@ public class CrimeApplicationController {
     private final EformStagingService eformStagingService;
     private final EformsHistoryService eformsHistoryService;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/userCreated/{userCreated}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Retrieve application details from crime apply datastore")
     @ApiResponse(responseCode = "200",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -50,7 +50,7 @@ public class CrimeApplicationController {
             )
     )
     public MaatApplicationInternal getCrimeApplyData(@PathVariable long id,
-                                                     @RequestParam(name = "userCreated", required = false) String userCreated) {
+                                                     @PathVariable String userCreated) {
         log.info("Get applicant details from Crime Apply datastore");
         userCreated = StringUtils.isNotEmpty(userCreated) ? userCreated : DEFAULT_USER;
         MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
