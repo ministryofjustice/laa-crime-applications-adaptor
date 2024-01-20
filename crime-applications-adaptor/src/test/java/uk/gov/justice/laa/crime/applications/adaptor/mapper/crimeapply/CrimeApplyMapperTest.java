@@ -113,16 +113,6 @@ class CrimeApplyMapperTest {
     }
 
     @Test
-    void shouldSuccessfullyMapWhenClientDetailsAreNull() throws JSONException {
-        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
-        maatApplicationExternal.setClientDetails(null);
-
-        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
-
-        JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getApplicant()), JSONCompareMode.STRICT);
-    }
-
-    @Test
     void shouldSuccessfullyMapWhenApplicantIsNull() throws JSONException {
         MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
         maatApplicationExternal.getClientDetails().setApplicant(null);

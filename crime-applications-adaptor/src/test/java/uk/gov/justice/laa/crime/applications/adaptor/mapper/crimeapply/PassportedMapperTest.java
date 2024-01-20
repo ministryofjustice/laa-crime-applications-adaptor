@@ -26,7 +26,7 @@ class PassportedMapperTest {
 
         assertFalse(actualPassported.getBenefitIncomeSupport());
         assertFalse(actualPassported.getBenefitGuaranteedStatePension());
-        assertFalse(actualPassported.getJobSeeker());
+        assertFalse(actualPassported.getBenefitJobSeeker());
         assertFalse(actualPassported.getBenefitEmploymentSupport());
         assertFalse(actualPassported.getBenefitClaimedByPartner());
         assertNull(actualPassported.getWhoDwpChecked());

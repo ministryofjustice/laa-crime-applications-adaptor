@@ -54,7 +54,8 @@
   "passported": {
     "benefitIncomeSupport": false,
     "benefitGuaranteedStatePension": false,
-    "jobSeeker": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": false,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false
   }

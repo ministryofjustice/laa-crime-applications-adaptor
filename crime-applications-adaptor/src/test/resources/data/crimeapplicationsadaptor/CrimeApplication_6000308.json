@@ -39,7 +39,8 @@
   "passported": {
     "benefitIncomeSupport": false,
     "benefitGuaranteedStatePension": false,
-    "jobSeeker": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false,
     "meansPassport": "on_age_under18"
