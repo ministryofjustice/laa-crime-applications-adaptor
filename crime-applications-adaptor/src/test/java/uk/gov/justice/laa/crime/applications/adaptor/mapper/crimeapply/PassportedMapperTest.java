@@ -24,6 +24,7 @@ class PassportedMapperTest {
 
         Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
 
+        assertFalse(actualPassported.getBenefitUniversalCredit());
         assertFalse(actualPassported.getBenefitIncomeSupport());
         assertFalse(actualPassported.getBenefitGuaranteedStatePension());
         assertFalse(actualPassported.getBenefitJobSeeker());
