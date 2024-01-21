@@ -3,11 +3,13 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PassportedMapperTest {
 
@@ -32,4 +34,43 @@ class PassportedMapperTest {
         assertFalse(actualPassported.getBenefitClaimedByPartner());
         assertNull(actualPassported.getWhoDwpChecked());
     }
+
+    @Test
+    void shouldMap_Universal_Credit_BenefitType(){
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+        crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().setBenefitType(Applicant.BenefitType.UNIVERSAL_CREDIT);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+        assertTrue(actualPassported.getBenefitUniversalCredit());
+    }
+    @Test
+    void shouldMap_Guarantee_Pension_BenefitType(){
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+        crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().setBenefitType(Applicant.BenefitType.GUARANTEE_PENSION);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+        assertTrue(actualPassported.getBenefitGuaranteedStatePension());
+    }
+    @Test
+    void shouldMap_Job_Seeker_BenefitType(){
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+        crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().setBenefitType(Applicant.BenefitType.JSA);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+        assertTrue(actualPassported.getBenefitJobSeeker());
+    }
+
+    @Test
+    void shouldMap_Employment_Support_BenefitType(){
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+        crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().setBenefitType(Applicant.BenefitType.ESA);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+        assertTrue(actualPassported.getBenefitEmploymentSupport());
+    }
+
+    @Test
+    void shouldMap_Income_Support_BenefitType(){
+        MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+        crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().setBenefitType(Applicant.BenefitType.INCOME_SUPPORT);
+        Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+        assertTrue(actualPassported.getBenefitIncomeSupport());
+    }
+
 }
