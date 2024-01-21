@@ -1,6 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
@@ -27,12 +26,12 @@ class PassportedMapper {
         passported.setBenefitClaimedByPartner(FALSE);
         passported.setWhoDwpChecked(WHO_DWP_CHECKED_DEFAULT_NULL);
 
-        if(!crimeApplyMaatApplicationExternal.getMeansPassport().isEmpty()){
+        if (!crimeApplyMaatApplicationExternal.getMeansPassport().isEmpty()) {
             passported.setMeansPassport(String.valueOf(crimeApplyMaatApplicationExternal.getMeansPassport().get(0)));
         }
 
-        if(null != crimeApplyMaatApplicationExternal.getClientDetails().getApplicant() &&
-                StringUtils.isNotEmpty(String.valueOf(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().getBenefitType()))) {
+        if (Objects.nonNull(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant()) &&
+                Objects.nonNull(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().getBenefitType())) {
             mapBenefitType(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().getBenefitType(), passported);
         }
 
@@ -40,15 +39,12 @@ class PassportedMapper {
     }
 
     private void mapBenefitType(Applicant.BenefitType benefitType, Passported passported) {
-        if (Objects.nonNull(benefitType)) {
-            switch (benefitType) {
-                case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
-                case GUARANTEE_PENSION -> passported.setBenefitGuaranteedStatePension(TRUE);
-                case JSA -> passported.setBenefitJobSeeker(TRUE);
-                case ESA -> passported.setBenefitEmploymentSupport(TRUE);
-                case INCOME_SUPPORT -> passported.setBenefitIncomeSupport(TRUE);
-            }
+        switch (benefitType) {
+            case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
+            case GUARANTEE_PENSION -> passported.setBenefitGuaranteedStatePension(TRUE);
+            case JSA -> passported.setBenefitJobSeeker(TRUE);
+            case ESA -> passported.setBenefitEmploymentSupport(TRUE);
+            case INCOME_SUPPORT -> passported.setBenefitIncomeSupport(TRUE);
         }
     }
-
 }
