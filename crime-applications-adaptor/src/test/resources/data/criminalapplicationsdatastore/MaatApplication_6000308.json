@@ -18,6 +18,7 @@
     "applicant": {
       "date_of_birth": "1980-01-10",
       "nino": "JA293483A",
+      "benefit_type": "universal_credit",
       "telephone_number": "",
       "correspondence_address_type": "providers_office_address",
       "last_name": "Walker",
