@@ -18,6 +18,7 @@
       "first_name": "Kit",
       "last_name": "Pound",
       "nino": "AJ123456C",
+      "benefit_type": "universal_credit",
       "date_of_birth": "2011-06-09",
       "telephone_number": "07771231231",
       "correspondence_address_type": "providers_office_address",

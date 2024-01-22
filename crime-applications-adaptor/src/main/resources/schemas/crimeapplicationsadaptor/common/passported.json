@@ -11,7 +11,11 @@
       "type": "boolean",
       "description": "Currently has a fixed value of 'false'."
     },
-    "jobSeeker": {
+    "benefitJobSeeker": {
+      "type": "boolean",
+      "description": "Currently has a fixed value of 'false'."
+    },
+    "benefitUniversalCredit": {
       "type": "boolean",
       "description": "Currently has a fixed value of 'false'."
     },
