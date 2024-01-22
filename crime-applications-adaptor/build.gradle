@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'jacoco'
-	id 'org.springframework.boot' version '3.2.1'
+	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id "org.sonarqube" version "4.4.1.3373"
 	id 'info.solidsoft.pitest' version '1.15.0'
@@ -24,7 +24,7 @@ def versions = [
 		validationapiVersion   : '2.0.1.Final',
 		resilience4jVersion    : "2.2.0",
 		commonsioVersion       : '2.11.0',
-		sentryVersion 		   : "7.1.0"
+		sentryVersion 		   : "7.2.0"
 ]
 
 java {
