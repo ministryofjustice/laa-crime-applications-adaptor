@@ -30,21 +30,22 @@ class PassportedMapper {
             passported.setMeansPassport(String.valueOf(crimeApplyMaatApplicationExternal.getMeansPassport().get(0)));
         }
 
-        if (Objects.nonNull(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant()) &&
-                Objects.nonNull(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().getBenefitType())) {
-            mapBenefitType(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant().getBenefitType(), passported);
-        }
+        mapBenefitType(crimeApplyMaatApplicationExternal.getClientDetails().getApplicant(), passported);
 
         return passported;
     }
 
-    private void mapBenefitType(Applicant.BenefitType benefitType, Passported passported) {
-        switch (benefitType) {
-            case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
-            case GUARANTEE_PENSION -> passported.setBenefitGuaranteedStatePension(TRUE);
-            case JSA -> passported.setBenefitJobSeeker(TRUE);
-            case ESA -> passported.setBenefitEmploymentSupport(TRUE);
-            case INCOME_SUPPORT -> passported.setBenefitIncomeSupport(TRUE);
+    private void mapBenefitType(Applicant applicant, Passported passported) {
+        if (Objects.nonNull(applicant) &&
+                Objects.nonNull(applicant.getBenefitType())) {
+            Applicant.BenefitType benefitType = applicant.getBenefitType();
+            switch (benefitType) {
+                case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
+                case GUARANTEE_PENSION -> passported.setBenefitGuaranteedStatePension(TRUE);
+                case JSA -> passported.setBenefitJobSeeker(TRUE);
+                case ESA -> passported.setBenefitEmploymentSupport(TRUE);
+                case INCOME_SUPPORT -> passported.setBenefitIncomeSupport(TRUE);
+            }
         }
     }
 }
