@@ -47,6 +47,13 @@ spec:
                 port:
                   number: {{ $svcPort }}
           {{- end }}
+          - path: {{ $.Values.actuator.health.path }}
+            pathType: "Exact"
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $.Values.actuator.port }}
     {{- end }}
     {{- else if .Values.ingress.externalHosts }}
     {{- range .Values.ingress.externalHosts }}

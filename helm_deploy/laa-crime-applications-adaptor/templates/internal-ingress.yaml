@@ -33,22 +33,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- if .Values.ingress.hosts }}
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
-      http:
-        paths:
-          {{- range .paths }}
-          - path: {{ . }}
-            pathType: "Prefix"
-            backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  number: {{ $svcPort }}
-          {{- end }}
-    {{- end }}
-    {{- else if .Values.ingress.internalHosts }}
+    {{- if .Values.ingress.internalHosts }}
     {{- range .Values.ingress.internalHosts }}
     - host: {{ .host | quote }}
       http:
