@@ -34,20 +34,16 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- if .Values.ingress.internalHosts }}
-    {{- range .Values.ingress.internalHosts }}
-    - host: {{ .host | quote }}
+    {{- if .Values.ingress.internalHost }}
+    - host: {{ $.Values.ingress.internalHost.host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ . }}
+          - path: {{ $.Values.ingress.internalHost.path }}
             pathType: "Prefix"
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-          {{- end }}
-    {{- end }}
     {{- end }}
   {{- end }}
