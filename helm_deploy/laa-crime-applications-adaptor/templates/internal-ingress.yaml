@@ -42,7 +42,7 @@ spec:
             pathType: "Prefix"
             backend:
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-internal
                 port:
                   number: {{ $svcPort }}
     {{- end }}
