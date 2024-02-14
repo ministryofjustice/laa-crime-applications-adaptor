@@ -10,7 +10,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-external
   labels:
     {{- include "laa-crime-applications-adaptor.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
