@@ -42,7 +42,7 @@ spec:
             pathType: "Prefix"
             backend:
               service:
-                name: {{ $fullName }}-external
+                name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
           - path: {{ $.Values.actuator.health.path }}
