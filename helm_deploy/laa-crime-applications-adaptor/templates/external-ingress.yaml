@@ -34,29 +34,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- if .Values.ingress.hosts }}
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
-      http:
-        paths:
-          {{- range .paths }}
-          - path: {{ . }}
-            pathType: "Prefix"
-            backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  number: {{ $svcPort }}
-          {{- end }}
-          - path: {{ $.Values.actuator.health.path }}
-            pathType: "Exact"
-            backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  number: {{ $.Values.actuator.port }}
-    {{- end }}
-    {{- else if .Values.ingress.externalHost }}
+    {{- if .Values.ingress.externalHost }}
     - host: {{ $.Values.ingress.externalHost.host | quote }}
       http:
         paths:
