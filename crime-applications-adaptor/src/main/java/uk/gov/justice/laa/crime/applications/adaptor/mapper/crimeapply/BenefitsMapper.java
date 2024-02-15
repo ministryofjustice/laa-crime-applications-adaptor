@@ -9,21 +9,22 @@ import java.util.List;
 import java.util.Map;
 
 public class BenefitsMapper {
-    private static final Map<String, String> BENEFITS_CODES = new HashMap<>() {{
-        put("child", "CHILD_BEN");
-        put("working_or_child_tax_credit", "TAX_CRED");
-        put("incapacity", "INCAP_BEN");
-        put("industrial_injuries_disablement", "INJ_BEN");
-        put("other", "OTHER_BEN");
-    }};
+    private static final Map<String, String> BENEFITS_CODES = new HashMap<>();
+    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>() {{
-        put("week", 52);
-        put("fortnight", 26);
-        put("four_weeks", 13);
-        put("month", 12);
-        put("annual", 1);
-    }};
+    public BenefitsMapper() {
+        BENEFITS_CODES.put("child", "CHILD_BEN");
+        BENEFITS_CODES.put("working_or_child_tax_credit", "TAX_CRED");
+        BENEFITS_CODES.put("incapacity", "INCAP_BEN");
+        BENEFITS_CODES.put("industrial_injuries_disablement", "INJ_BEN");
+        BENEFITS_CODES.put("other", "OTHER_BEN");
+
+        FREQUENCY.put("week", 52);
+        FREQUENCY.put("fortnight", 26);
+        FREQUENCY.put("four_weeks", 13);
+        FREQUENCY.put("month", 12);
+        FREQUENCY.put("annual", 1);
+    }
 
     public List<IncomeAndExpenditure> mapBenefits(List<Benefit> benefits) {
         List<IncomeAndExpenditure> income = new ArrayList<>();

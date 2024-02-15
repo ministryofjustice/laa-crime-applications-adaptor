@@ -9,21 +9,22 @@ import java.util.List;
 import java.util.Map;
 
 public class OtherIncomeMapper {
-    private static final Map<String, String> OTHER_INCOME_CODES = new HashMap<>() {{
-        put("private_pension", "PRIV_PENS");
-        put("state_pension", "STATE_PEN");
-        put("maintenance", "MAINT_INC");
-        put("interest", "SAVINGS");
-        put("other", "OTHER_INC");
-    }};
+    private static final Map<String, String> OTHER_INCOME_CODES = new HashMap<>();
+    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>() {{
-        put("week", 52);
-        put("fortnight", 26);
-        put("four_weeks", 13);
-        put("month", 12);
-        put("annual", 1);
-    }};
+    public OtherIncomeMapper() {
+        OTHER_INCOME_CODES.put("private_pension", "PRIV_PENS");
+        OTHER_INCOME_CODES.put("state_pension", "STATE_PEN");
+        OTHER_INCOME_CODES.put("maintenance", "MAINT_INC");
+        OTHER_INCOME_CODES.put("interest", "SAVINGS");
+        OTHER_INCOME_CODES.put("other", "OTHER_INC");
+
+        FREQUENCY.put("week", 52);
+        FREQUENCY.put("fortnight", 26);
+        FREQUENCY.put("four_weeks", 13);
+        FREQUENCY.put("month", 12);
+        FREQUENCY.put("annual", 1);
+    }
 
     public List<IncomeAndExpenditure> mapOtherIncome(List<OtherIncome> otherIncome) {
         List<IncomeAndExpenditure> income = new ArrayList<>();

@@ -15,11 +15,12 @@ class ApplicantMapper {
 
     private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
     private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
+    private final Map<String, String> EMPLOYMENT_STATUSES = new HashMap<>();
 
-    private static final Map<String, String> EMPLOYMENT_STATUSES = new HashMap<>() {{
-        put("not_working", "NONPASS");
-        put("passported", "PASSPORTED");
-    }};
+    public ApplicantMapper() {
+        EMPLOYMENT_STATUSES.put("not_working", "NONPASS");
+        EMPLOYMENT_STATUSES.put("passported", "PASSPORTED");
+    }
 
     @NotNull
     Applicant map(MaatApplicationExternal crimeApplyResponse) {

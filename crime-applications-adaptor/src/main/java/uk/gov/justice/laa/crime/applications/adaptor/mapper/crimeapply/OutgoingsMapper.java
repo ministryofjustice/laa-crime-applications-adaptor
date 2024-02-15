@@ -9,26 +9,26 @@ import java.util.List;
 import java.util.Map;
 
 public class OutgoingsMapper {
-    private static final Map<String, String> OUTGOINGS_CODES = new HashMap<>() {{
-        put("council_tax", "COUNCIL");
-        put("childcare", "CHILD_COST");
-        put("maintenance", "MAINT_COST");
-        put("legal_aid", "OTHER_LAC");
-    }};
+    private static final Map<String, String> OUTGOINGS_CODES = new HashMap<>();
+    private static final Map<String, String> HOUSING_CODES = new HashMap<>();
+    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
-    private static final Map<String, String> HOUSING_CODES = new HashMap<>() {{
-        put("board_lodgings", "OTHER_HOUS");
-        put("rent", "RENT_MORT");
-        put("mortgage", "RENT_MORT");
-    }};
+    public OutgoingsMapper() {
+        OUTGOINGS_CODES.put("council_tax", "COUNCIL");
+        OUTGOINGS_CODES.put("childcare", "CHILD_COST");
+        OUTGOINGS_CODES.put("maintenance", "MAINT_COST");
+        OUTGOINGS_CODES.put("legal_aid", "OTHER_LAC");
 
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>() {{
-        put("week", 52);
-        put("fortnight", 26);
-        put("four_weeks", 13);
-        put("month", 12);
-        put("annual", 1);
-    }};
+        HOUSING_CODES.put("board_lodgings", "OTHER_HOUS");
+        HOUSING_CODES.put("rent", "RENT_MORT");
+        HOUSING_CODES.put("mortgage", "RENT_MORT");
+
+        FREQUENCY.put("week", 52);
+        FREQUENCY.put("fortnight", 26);
+        FREQUENCY.put("four_weeks", 13);
+        FREQUENCY.put("month", 12);
+        FREQUENCY.put("annual", 1);
+    }
 
     public List<IncomeAndExpenditure> mapOutgoings(List<Outgoing> outgoings, Object housingPaymentType) {
         List<IncomeAndExpenditure> expenditure = new ArrayList<>();
