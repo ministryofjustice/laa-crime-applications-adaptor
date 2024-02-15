@@ -66,7 +66,7 @@ public class OutgoingsMapper {
     }
 
     public String mapOtherHousingFeesNotes(List<Outgoing> outgoings, Object housingPaymentType) {
-        String otherHousingFeesNotes = "";
+        StringBuilder sb = new StringBuilder();
 
         if (outgoings != null) {
             for (Outgoing outgoing : outgoings) {
@@ -77,13 +77,15 @@ public class OutgoingsMapper {
                     // If board_lodgings, we need to create a field for the notes associated with it
                     if (housingPaymentType != null && housingPaymentType.equals("board_lodgings")) {
                         if (outgoing.getDetails() != null) {
-                            otherHousingFeesNotes += "\nBoard lodgings";
-                            otherHousingFeesNotes += "\n" + outgoing.getDetails();
+                            sb.append("\nBoard lodgings");
+                            sb.append("\n" + outgoing.getDetails());
                         }
                     }
                 }
             }
         }
+
+        String otherHousingFeesNotes = sb.toString();
 
         return otherHousingFeesNotes.trim();
     }

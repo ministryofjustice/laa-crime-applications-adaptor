@@ -52,34 +52,36 @@ public class OtherIncomeMapper {
     }
 
     public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {
-        String otherIncomeNotes = "";
+        StringBuilder sb = new StringBuilder();
 
         if (otherIncome != null) {
             for (OtherIncome other : otherIncome) {
                 String incomeType = other.getType().value();
 
                 if (other.getDetails() != null) {
-                    otherIncomeNotes += "\n" + other.getDetails();
+                    sb.append("\n" + other.getDetails());
                 }
 
                 // We don't have these income types in MAAT, so append them to the notes
                 if (incomeType.equals("student")) {
-                    otherIncomeNotes += "\nStudent";
+                    sb.append("\nStudent");
                 }
 
                 if (incomeType.equals("board_from_family")) {
-                    otherIncomeNotes += "\nBoard from family";
+                    sb.append("\nBoard from family");
                 }
 
                 if (incomeType.equals("rent")) {
-                    otherIncomeNotes += "\nRent";
+                    sb.append("\nRent");
                 }
 
                 if (incomeType.equals("friends_and_family")) {
-                    otherIncomeNotes += "\nFriends and family";
+                    sb.append("\nFriends and family");
                 }
             }
         }
+
+        String otherIncomeNotes = sb.toString();
 
         return otherIncomeNotes.trim();
     }

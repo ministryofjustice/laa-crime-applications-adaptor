@@ -57,25 +57,27 @@ public class BenefitsMapper {
     }
 
     public String mapOtherBenefitNotes(List<Benefit> benefits) {
-        String otherBenefitNotes = "";
+        StringBuilder sb = new StringBuilder();
 
         if (benefits != null) {
             for (Benefit benefit : benefits) {
                 if (benefit.getDetails() != null) {
-                    otherBenefitNotes += "\n" + benefit.getDetails();
+                    sb.append("\n" + benefit.getDetails());
                 }
 
                 // We don't have a universal credit type in MAAT, so append it to the notes
                 if (benefit.getType().value().equals("universal_credit")) {
-                    otherBenefitNotes += "\nUniversal Credit";
+                    sb.append("\nUniversal Credit");
                 }
 
                 // We don't have a jsa type in MAAT, so append it to the notes
                 if (benefit.getType().value().equals("jsa")) {
-                    otherBenefitNotes += "\nJSA";
+                    sb.append("\nJSA");
                 }
             }
         }
+
+        String otherBenefitNotes = sb.toString();
 
         return otherBenefitNotes.trim();
     }
