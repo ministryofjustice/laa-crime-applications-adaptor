@@ -11,7 +11,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
-public class fullMeansAssessmentMapperTest {
+class FullMeansAssessmentMapperTest {
 
     private FullMeansAssessmentMapper fullMeansAssessmentMapper;
 
