@@ -49,7 +49,7 @@ spec:
             pathType: "Exact"
             backend:
               service:
-                name: {{ $fullName }}-external
+                name: {{ $fullName }}
                 port:
                   number: {{ $.Values.actuator.port }}
     {{- end }}
