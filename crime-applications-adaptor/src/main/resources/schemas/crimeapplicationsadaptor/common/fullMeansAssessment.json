@@ -1,0 +1,21 @@
+{
+  "title": "Full Means Assessment",
+  "description": "The full means assessment values",
+  "type":"object",
+  "properties": {
+    "expenditure": {
+      "type": "array",
+      "items": {
+        "$ref": "#definitions/incomeAndExpenditure"
+      }
+    },
+    "otherHousingFeesNotes": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "incomeAndExpenditure": {
+      "$ref": "incomeAndExpenditure.json"
+    }
+  }
+}

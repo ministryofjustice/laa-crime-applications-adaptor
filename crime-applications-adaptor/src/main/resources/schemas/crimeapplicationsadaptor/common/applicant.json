@@ -83,12 +83,15 @@
     "employmentStatus": {
       "type": "object",
       "nullable": true,
-      "description": "Currently not populated.",
+      "description": "The applicant's Employment Status.",
       "properties": {
         "code": {
           "type": "string"
         }
       }
+    },
+    "dependants": {
+      "$ref": "#/definitions/dependants"
     },
     "disabilityStatement": {
       "$ref": "#/definitions/disabilityStatement"
@@ -106,6 +109,9 @@
     },
     "disabilityStatement": {
       "$ref": "disabilityStatement.json"
+    },
+    "dependants": {
+      "$ref": "dependants.json"
     }
   }
 }

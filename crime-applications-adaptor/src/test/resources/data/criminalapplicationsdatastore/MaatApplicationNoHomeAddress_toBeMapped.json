@@ -41,5 +41,63 @@
     "hearing_court_name": "Cardiff Magistrates' Court",
     "hearing_date": "2024-11-11"
   },
+  "means_details": {
+    "income_details": {
+      "benefits": [
+        {
+          "type": "child",
+          "amount": 200,
+          "frequency": "month",
+          "details": "Details about child benefit"
+        },
+        {
+          "type": "incapacity",
+          "amount": 300,
+          "frequency": "fortnight",
+          "details": null
+        },
+        {
+          "type": "universal_credit",
+          "amount": 500,
+          "frequency": "week",
+          "details": null
+        }
+      ],
+      "employment_type": [
+        "not_working"
+      ],
+      "other_income": [
+        {
+          "type": "private_pension",
+          "amount": 13000,
+          "frequency": "annual",
+          "details": "Details about private pension"
+        },
+        {
+          "type": "interest",
+          "amount": 700,
+          "frequency": "four_weeks",
+          "details": null
+        },
+        {
+          "type": "rent",
+          "amount": 635,
+          "frequency": "month",
+          "details": null
+        }
+      ],
+      "dependants": [
+        {
+          "age": 8
+        },
+        {
+          "age": 9
+        },
+        {
+          "age": 17
+        }
+      ]
+    }
+  },
   "ioj_bypass": true
 }

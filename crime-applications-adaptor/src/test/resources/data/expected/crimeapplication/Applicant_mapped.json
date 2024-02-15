@@ -8,6 +8,9 @@
   "useHomeAddress": true,
   "noFixedAbode": false,
   "useSupplierAddressForPost": false,
+  "employmentStatus": {
+    "code": "NONPASS"
+  },
   "partnerContraryInterest": {
     "code": "NOCON"
   },

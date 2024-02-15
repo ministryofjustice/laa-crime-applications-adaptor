@@ -27,6 +27,9 @@
     "useHomeAddress": false,
     "noFixedAbode": true,
     "useSupplierAddressForPost": true,
+    "employmentStatus": {
+      "code": "NONPASS"
+    },
     "partnerContraryInterest": {
       "code": "NOCON"
     },
@@ -52,5 +55,54 @@
     "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false
-  }
+  },
+  "initialMeansAssessment": {
+    "income": [
+      {
+        "maatDetailCode": "CHILD_BEN",
+        "amount": 200,
+        "frequency": 12
+      },
+      {
+        "maatDetailCode": "INCAP_BEN",
+        "amount": 300,
+        "frequency": 26
+      },
+      {
+        "maatDetailCode": "OTHER_BEN",
+        "amount": 500,
+        "frequency": 52
+      },
+      {
+        "maatDetailCode": "PRIV_PENS",
+        "amount": 13000,
+        "frequency": 1
+      },
+      {
+        "maatDetailCode": "SAVINGS",
+        "amount": 700,
+        "frequency": 13
+      },
+      {
+        "maatDetailCode": "OTHER_INC",
+        "amount": 635,
+        "frequency": 12
+      }
+    ],
+    "otherBenefitNotes": "Details about child benefit\nUniversal Credit",
+    "otherIncomeNotes": "Details about private pension\nRent",
+    "dependants": [
+      {
+        "lowerAgeRange": 8,
+        "upperAgeRange": 10,
+        "noOfChildren": 2
+      },
+      {
+        "lowerAgeRange": 16,
+        "upperAgeRange": 18,
+        "noOfChildren": 1
+      }
+    ]
+  },
+  "fullMeansAssessment": {}
 }

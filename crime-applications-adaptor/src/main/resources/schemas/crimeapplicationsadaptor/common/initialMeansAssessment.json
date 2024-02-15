@@ -1,0 +1,33 @@
+{
+  "title": "Initial Means Assessment",
+  "description": "The initial means assessment values",
+  "type":"object",
+  "properties": {
+    "income": {
+      "type": "array",
+      "items": {
+        "$ref": "#definitions/incomeAndExpenditure"
+      }
+    },
+    "otherBenefitNotes": {
+      "type": "string"
+    },
+    "otherIncomeNotes": {
+      "type": "string"
+    },
+    "dependants": {
+      "type": "array",
+      "items": {
+        "$ref": "#definitions/dependants"
+      }
+    }
+  },
+  "definitions": {
+    "incomeAndExpenditure": {
+      "$ref": "incomeAndExpenditure.json"
+    },
+    "dependants": {
+      "$ref": "dependants.json"
+    }
+  }
+}

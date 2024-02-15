@@ -27,6 +27,8 @@ public class CrimeApplyMapper {
     private final CaseDetailsMapper caseDetailsMapper = new CaseDetailsMapper();
     private final ApplicantMapper applicantMapper = new ApplicantMapper();
     private final PassportedMapper passportedMapper = new PassportedMapper();
+    private final InitialMeansAssessmentMapper initialMeansAssessmentMapper = new InitialMeansAssessmentMapper();
+    private final FullMeansAssessmentMapper fullMeansAssessmentMapper = new FullMeansAssessmentMapper();
 
     public MaatApplicationInternal mapToCrimeApplication(MaatApplicationExternal crimeApplyResponse) {
         MaatApplicationInternal maatApplicationInternal = new MaatApplicationInternal();
@@ -43,10 +45,12 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setDateStamp(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDateStamp())));
         maatApplicationInternal.setDateOfSignature(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDeclarationSignedAt())));
         maatApplicationInternal.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
-        maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
+        maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse));
         maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
         maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
+        maatApplicationInternal.setInitialMeansAssessment(initialMeansAssessmentMapper.map(crimeApplyResponse.getMeansDetails().getIncomeDetails()));
+        maatApplicationInternal.setFullMeansAssessment(fullMeansAssessmentMapper.map(crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
 
         return maatApplicationInternal;
     }

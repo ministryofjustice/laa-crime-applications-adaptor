@@ -1,0 +1,30 @@
+{
+  "expenditure": [
+    {
+      "maatDetailCode": "COUNCIL",
+      "amount": 100,
+      "frequency": 1
+    },
+    {
+      "maatDetailCode": "CHILD_COST",
+      "amount": 200,
+      "frequency": 12
+    },
+    {
+      "maatDetailCode": "MAINT_COST",
+      "amount": 400,
+      "frequency": 13
+    },
+    {
+      "maatDetailCode": "OTHER_LAC",
+      "amount": 500,
+      "frequency": 26
+    },
+    {
+      "maatDetailCode": "OTHER_HOUS",
+      "amount": 302,
+      "frequency": 52
+    }
+  ],
+  "otherHousingFeesNotes": "Board lodgings\nDetails about housing"
+}

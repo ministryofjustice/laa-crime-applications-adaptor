@@ -41,12 +41,10 @@ class CrimeApplyMapperTest {
     void shouldMapNoHomeAddressFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
         MaatApplicationExternal crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
 
-
         MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
         String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
         String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
-
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
     }
 

@@ -127,6 +127,12 @@
     "passported": {
       "$ref": "#/definitions/passported"
     },
+    "initialMeansAssessment": {
+      "$ref": "#/definitions/initialMeansAssessment"
+    },
+    "fullMeansAssessment": {
+      "$ref": "#/definitions/fullMeansAssessment"
+    },
     "assessment": {
       "type": "object",
       "nullable": true,
@@ -173,6 +179,12 @@
     },
     "passported": {
       "$ref": "common/passported.json"
+    },
+    "initialMeansAssessment": {
+      "$ref": "common/initialMeansAssessment.json"
+    },
+    "fullMeansAssessment": {
+      "$ref": "common/fullMeansAssessment.json"
     }
   }
 }
