@@ -1,16 +1,16 @@
 {
   "title": "Dependants",
   "description": "The applicant's dependants",
-  "type":"object",
+  "type": "object",
   "properties": {
-    "lowerAgeRange":{
-      "type":"integer"
+    "lowerAgeRange": {
+      "type": "integer"
     },
-    "upperAgeRange":{
-      "type":"integer"
+    "upperAgeRange": {
+      "type": "integer"
     },
-    "noOfChildren":{
-      "type":"integer"
+    "noOfChildren": {
+      "type": "integer"
     }
   }
 }

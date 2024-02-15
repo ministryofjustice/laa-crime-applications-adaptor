@@ -6,7 +6,7 @@
   "submitted_at": "2022-10-24T09:50:04.019Z",
   "date_stamp": "2022-10-24T09:50:04.019Z",
   "declaration_signed_at": "2022-10-24T09:50:04.019Z",
-  "means_passport":[],
+  "means_passport": [],
   "provider_details": {
     "office_code": "1A123B",
     "provider_email": "provider@example.com",
@@ -64,9 +64,7 @@
           "details": null
         }
       ],
-      "employment_type": [
-        "not_working"
-      ],
+      "employment_type": ["not_working"],
       "other_income": [
         {
           "type": "private_pension",
@@ -99,7 +97,7 @@
         }
       ]
     },
-    "outgoings_details" : {
+    "outgoings_details": {
       "outgoings": [
         {
           "type": "council_tax",

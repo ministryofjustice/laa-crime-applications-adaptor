@@ -1,16 +1,16 @@
 {
   "title": "Income and Expenditure",
   "description": "The applicant's income and expenditure",
-  "type":"object",
+  "type": "object",
   "properties": {
-    "maatDetailCode":{
-      "type":"string"
+    "maatDetailCode": {
+      "type": "string"
     },
-    "amount":{
-      "type":"integer"
+    "amount": {
+      "type": "integer"
     },
-    "frequency":{
-      "type":"integer"
+    "frequency": {
+      "type": "integer"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "title": "Full Means Assessment",
   "description": "The full means assessment values",
-  "type":"object",
+  "type": "object",
   "properties": {
     "expenditure": {
       "type": "array",

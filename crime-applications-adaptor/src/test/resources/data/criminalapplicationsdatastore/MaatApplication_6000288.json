@@ -60,9 +60,7 @@
           "details": null
         }
       ],
-      "employment_type": [
-        "not_working"
-      ],
+      "employment_type": ["not_working"],
       "other_income": [
         {
           "type": "private_pension",
