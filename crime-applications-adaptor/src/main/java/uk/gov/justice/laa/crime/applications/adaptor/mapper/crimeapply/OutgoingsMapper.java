@@ -73,8 +73,10 @@ public class OutgoingsMapper {
                 // Check housing payment type - this affects where 'housing' maps to
                 if (outgoingsType.equals("housing") && housingPaymentType != null && housingPaymentType.equals("board_lodgings")) {
                     // If board_lodgings, we need to create a field for the notes associated with it
+                    sb.append("\nBoard lodgings");
+
                     if (outgoing.getDetails() != null) {
-                        sb.append("\nBoard lodgings\n" + outgoing.getDetails());
+                        sb.append("\n" + outgoing.getDetails());
                     }
                 }
             }
