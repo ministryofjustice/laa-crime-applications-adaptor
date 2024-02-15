@@ -44,7 +44,7 @@ public class OutgoingsMapper {
                 if (outgoingsType.equals("housing") && housingPaymentType != null) {
                     maatDetailCode = HOUSING_CODES.get(housingPaymentType);
 
-                    if (maatDetailCode == "OTHER_HOUS") {
+                    if (maatDetailCode.equals("OTHER_HOUS")) {
                         // For other housing, we need to half the value and round to nearest 2
                         Double half = amount / 2.0;
                         Double rounded = Math.ceil(half / 2) * 2;
@@ -71,13 +71,10 @@ public class OutgoingsMapper {
                 String outgoingsType = outgoing.getType().value();
 
                 // Check housing payment type - this affects where 'housing' maps to
-                if (outgoingsType.equals("housing")) {
+                if (outgoingsType.equals("housing") && housingPaymentType != null && housingPaymentType.equals("board_lodgings")) {
                     // If board_lodgings, we need to create a field for the notes associated with it
-                    if (housingPaymentType != null && housingPaymentType.equals("board_lodgings")) {
-                        if (outgoing.getDetails() != null) {
-                            sb.append("\nBoard lodgings");
-                            sb.append("\n" + outgoing.getDetails());
-                        }
+                    if (outgoing.getDetails() != null) {
+                        sb.append("\nBoard lodgings\n" + outgoing.getDetails());
                     }
                 }
             }
