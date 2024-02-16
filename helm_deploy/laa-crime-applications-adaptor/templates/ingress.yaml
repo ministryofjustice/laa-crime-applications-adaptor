@@ -19,6 +19,7 @@ metadata:
   {{- end }}
   {{- if .Values.ingress.internal_whitelist_source_range }}
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ $.Values.ingress.internal_whitelist_source_range }}
+    external-dns.alpha.kubernetes.io/set-identifier: {{ $fullName }}-{{ $.Values.ingress.environmentName}}-green
   {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
