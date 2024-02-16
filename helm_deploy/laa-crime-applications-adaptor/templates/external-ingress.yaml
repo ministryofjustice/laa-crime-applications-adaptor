@@ -19,7 +19,6 @@ metadata:
   {{- end }}
   {{- if .Values.ingress.external_whitelist_source_range }}
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ $.Values.ingress.external_whitelist_source_range }}
-    external-dns.alpha.kubernetes.io/set-identifier: "laa-crime-applications-adaptor-external-laa-crime-applications-adaptor-dev-green"
   {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
