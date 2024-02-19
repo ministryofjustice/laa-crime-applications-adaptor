@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.FullMeansAssessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.OutgoingsDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OutgoingsDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
