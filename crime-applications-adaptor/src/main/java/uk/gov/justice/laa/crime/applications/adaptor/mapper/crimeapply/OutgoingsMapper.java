@@ -37,13 +37,6 @@ public class OutgoingsMapper {
                 // Check housing payment type - this affects where 'housing' maps to
                 if (outgoingsType.equals("housing") && housingPaymentType != null) {
                     maatDetailCode = HOUSING_CODES.get(housingPaymentType);
-
-                    if (maatDetailCode.equals("OTHER_HOUS")) {
-                        // For other housing, we need to half the value and round to nearest 2
-                        Double half = amount / 2.0;
-                        Double rounded = Math.ceil(half / 2) * 2;
-                        amount = rounded.intValue();
-                    }
                 }
 
                 assessmentDetail.setAssessmentDetailCode(maatDetailCode);

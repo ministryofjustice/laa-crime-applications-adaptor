@@ -121,7 +121,7 @@
         },
         {
           "type": "housing",
-          "amount": 601,
+          "amount": 600,
           "frequency": "week",
           "details": "Details about housing"
         }
