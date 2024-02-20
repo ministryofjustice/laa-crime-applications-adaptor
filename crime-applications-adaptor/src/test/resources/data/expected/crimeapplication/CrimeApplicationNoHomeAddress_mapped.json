@@ -56,53 +56,55 @@
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false
   },
-  "initialMeansAssessment": {
-    "income": [
-      {
-        "maatDetailCode": "CHILD_BEN",
-        "amount": 200,
-        "frequency": 12
-      },
-      {
-        "maatDetailCode": "INCAP_BEN",
-        "amount": 300,
-        "frequency": 26
-      },
-      {
-        "maatDetailCode": "OTHER_BEN",
-        "amount": 500,
-        "frequency": 52
-      },
-      {
-        "maatDetailCode": "PRIV_PENS",
-        "amount": 13000,
-        "frequency": 1
-      },
-      {
-        "maatDetailCode": "SAVINGS",
-        "amount": 700,
-        "frequency": 13
-      },
-      {
-        "maatDetailCode": "OTHER_INC",
-        "amount": 635,
-        "frequency": 12
-      }
-    ],
-    "otherBenefitNotes": "Details about child benefit\nUniversal Credit",
-    "otherIncomeNotes": "Details about private pension\nRent",
-    "dependants": [
-      {
-        "lowerAgeRange": 8,
-        "upperAgeRange": 10,
-        "noOfChildren": 2
-      },
-      {
-        "lowerAgeRange": 16,
-        "upperAgeRange": 18,
-        "noOfChildren": 1
-      }
-    ]
-  },
-  "fullMeansAssessment": {}
+  "assessment": {
+    "initialMeansAssessment": {
+      "assessmentDetails": [
+        {
+          "assessmentDetailCode": "CHILD_BEN",
+          "applicantAmount": 200,
+          "applicantFrequency": "MONTHLY"
+        },
+        {
+          "assessmentDetailCode": "INCAP_BEN",
+          "applicantAmount": 300,
+          "applicantFrequency": "2WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "OTHER_BEN",
+          "applicantAmount": 500,
+          "applicantFrequency": "WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "PRIV_PENS",
+          "applicantAmount": 13000,
+          "applicantFrequency": "ANNUALLY"
+        },
+        {
+          "assessmentDetailCode": "SAVINGS",
+          "applicantAmount": 700,
+          "applicantFrequency": "4WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "OTHER_INC",
+          "applicantAmount": 635,
+          "applicantFrequency": "MONTHLY"
+        }
+      ],
+      "otherBenefitNote": "Details about child benefit\nUniversal Credit",
+      "otherIncomeNote": "Details about private pension\nRent",
+      "childWeighting": [
+        {
+          "lowerAgeRange": 8,
+          "upperAgeRange": 10,
+          "noOfChildren": 2
+        },
+        {
+          "lowerAgeRange": 16,
+          "upperAgeRange": 18,
+          "noOfChildren": 1
+        }
+      ]
+    },
+    "fullMeansAssessment": {}
+  }
 }

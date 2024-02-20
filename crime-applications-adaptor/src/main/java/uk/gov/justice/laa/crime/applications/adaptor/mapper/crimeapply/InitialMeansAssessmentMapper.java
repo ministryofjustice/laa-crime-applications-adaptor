@@ -7,7 +7,7 @@ import java.util.*;
 
 class InitialMeansAssessmentMapper {
 
-    private final DependantsMapper dependantsMapper = new DependantsMapper();
+    private final ChildWeightingMapper childWeightingMapper = new ChildWeightingMapper();
     private final BenefitsMapper benefitsMapper = new BenefitsMapper();
     private final OtherIncomeMapper otherIncomeMapper = new OtherIncomeMapper();
 
@@ -21,24 +21,25 @@ class InitialMeansAssessmentMapper {
             return initialMeansAssessment;
         }
 
-        // Benefits and Other Income will be merged into a single ArrayList
-        List<IncomeAndExpenditure> benefits = benefitsMapper.mapBenefits(crimeApplyIncomeDetails.getBenefits());
-        List<IncomeAndExpenditure> otherIncome = otherIncomeMapper.mapOtherIncome(crimeApplyIncomeDetails.getOtherIncome());
-        List<IncomeAndExpenditure> income = mergeBenefitsAndOtherIncome(benefits, otherIncome);
 
-        initialMeansAssessment.setIncome(income);
-        initialMeansAssessment.setOtherBenefitNotes(benefitsMapper.mapOtherBenefitNotes(crimeApplyIncomeDetails.getBenefits()));
-        initialMeansAssessment.setOtherIncomeNotes(otherIncomeMapper.mapOtherIncomeNotes(crimeApplyIncomeDetails.getOtherIncome()));
-        initialMeansAssessment.setDependants(dependantsMapper.mapDependants(crimeApplyIncomeDetails.getDependants()));
+        // Benefits and Other Income will be merged into a single ArrayList
+        List<AssessmentDetail> benefits = benefitsMapper.mapBenefits(crimeApplyIncomeDetails.getBenefits());
+        List<AssessmentDetail> otherIncome = otherIncomeMapper.mapOtherIncome(crimeApplyIncomeDetails.getOtherIncome());
+        List<AssessmentDetail> assessmentDetails = mergeBenefitsAndOtherIncome(benefits, otherIncome);
+
+        initialMeansAssessment.setAssessmentDetails(assessmentDetails);
+        initialMeansAssessment.setOtherBenefitNote(benefitsMapper.mapOtherBenefitNotes(crimeApplyIncomeDetails.getBenefits()));
+        initialMeansAssessment.setOtherIncomeNote(otherIncomeMapper.mapOtherIncomeNotes(crimeApplyIncomeDetails.getOtherIncome()));
+        initialMeansAssessment.setChildWeighting(childWeightingMapper.mapChildWeighting(crimeApplyIncomeDetails.getDependants()));
 
         return initialMeansAssessment;
     }
 
-    private List<IncomeAndExpenditure> mergeBenefitsAndOtherIncome(List<IncomeAndExpenditure> benefits, List<IncomeAndExpenditure> otherIncome) {
-        List<IncomeAndExpenditure> income = new ArrayList<>();
-        income.addAll(benefits);
-        income.addAll(otherIncome);
+    private List<AssessmentDetail> mergeBenefitsAndOtherIncome(List<AssessmentDetail> benefits, List<AssessmentDetail> otherIncome) {
+        List<AssessmentDetail> assessmentDetails = new ArrayList<>();
+        assessmentDetails.addAll(benefits);
+        assessmentDetails.addAll(otherIncome);
 
-        return income;
+        return assessmentDetails;
     }
 }

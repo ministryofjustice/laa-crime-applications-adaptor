@@ -2,11 +2,14 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Assessment;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.IncomeDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OutgoingsDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;
@@ -49,10 +52,17 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
         maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
-        maatApplicationInternal.setInitialMeansAssessment(initialMeansAssessmentMapper.map(crimeApplyResponse.getMeansDetails().getIncomeDetails()));
-        maatApplicationInternal.setFullMeansAssessment(fullMeansAssessmentMapper.map(crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
+        maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails().getIncomeDetails(), crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
 
         return maatApplicationInternal;
+    }
+
+    private Assessment mapAssessment(IncomeDetails incomeDetails, OutgoingsDetails outgoingsDetails) {
+        Assessment assessment = new Assessment();
+        assessment.setInitialMeansAssessment(initialMeansAssessmentMapper.map(incomeDetails));
+        assessment.setFullMeansAssessment(fullMeansAssessmentMapper.map(outgoingsDetails));
+
+        return assessment;
     }
 
     private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.

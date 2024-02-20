@@ -1,33 +1,31 @@
 {
-  "title": "Initial Means Assessment",
-  "description": "The initial means assessment values",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "initialMeansAssessment.json",
   "type": "object",
+  "title": "The Income Evidence schema",
+  "description": "Details of income evidence",
   "properties": {
-    "income": {
+    "otherBenefitNote": {
+      "type": "string",
+      "description": "Other Benefit Note"
+    },
+    "otherIncomeNote": {
+      "type": "string",
+      "description": "Other income note"
+    },
+    "assessmentDetails": {
       "type": "array",
+      "minItems": 1,
       "items": {
-        "$ref": "#definitions/incomeAndExpenditure"
+        "$ref": "assessmentDetail.json"
       }
     },
-    "otherBenefitNotes": {
-      "type": "string"
-    },
-    "otherIncomeNotes": {
-      "type": "string"
-    },
-    "dependants": {
+    "childWeighting": {
       "type": "array",
+      "description": "Child weighting",
       "items": {
-        "$ref": "#definitions/dependants"
+        "$ref": "childWeighting.json"
       }
-    }
-  },
-  "definitions": {
-    "incomeAndExpenditure": {
-      "$ref": "incomeAndExpenditure.json"
-    },
-    "dependants": {
-      "$ref": "dependants.json"
     }
   }
 }

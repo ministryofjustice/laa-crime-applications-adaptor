@@ -1,8 +1,9 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.IncomeAndExpenditure;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.Benefit;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 public class BenefitsMapper {
     private static final Map<String, String> BENEFITS_CODES = new HashMap<>();
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
     public BenefitsMapper() {
         BENEFITS_CODES.put("child", "CHILD_BEN");
@@ -18,20 +18,14 @@ public class BenefitsMapper {
         BENEFITS_CODES.put("incapacity", "INCAP_BEN");
         BENEFITS_CODES.put("industrial_injuries_disablement", "INJ_BEN");
         BENEFITS_CODES.put("other", "OTHER_BEN");
-
-        FREQUENCY.put("week", 52);
-        FREQUENCY.put("fortnight", 26);
-        FREQUENCY.put("four_weeks", 13);
-        FREQUENCY.put("month", 12);
-        FREQUENCY.put("annual", 1);
     }
 
-    public List<IncomeAndExpenditure> mapBenefits(List<Benefit> benefits) {
-        List<IncomeAndExpenditure> income = new ArrayList<>();
+    public List<AssessmentDetail> mapBenefits(List<Benefit> benefits) {
+        List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (benefits != null) {
             for (Benefit benefit : benefits) {
-                IncomeAndExpenditure incomeAndExpenditure = new IncomeAndExpenditure();
+                AssessmentDetail assessmentDetail = new AssessmentDetail();
 
                 String benefitType = benefit.getType().value();
 
@@ -45,15 +39,28 @@ public class BenefitsMapper {
                     benefitType = "other";
                 }
 
-                incomeAndExpenditure.setMaatDetailCode(BENEFITS_CODES.get(benefitType));
-                incomeAndExpenditure.setAmount(benefit.getAmount());
-                incomeAndExpenditure.setFrequency(FREQUENCY.get(benefit.getFrequency().value()));
+                assessmentDetail.setAssessmentDetailCode(BENEFITS_CODES.get(benefitType));
+                assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
+                assessmentDetail.setApplicantFrequency(mapFrequency(benefit.getFrequency()));
 
-                income.add(incomeAndExpenditure);
+                assessmentDetails.add(assessmentDetail);
             }
         }
 
-        return income;
+        return assessmentDetails;
+    }
+
+    public AssessmentDetail.ApplicantFrequency mapFrequency(Benefit.Frequency crimeApplyFrequency) {
+        AssessmentDetail.ApplicantFrequency frequency = null;
+        switch (crimeApplyFrequency) {
+            case WEEK -> frequency = AssessmentDetail.ApplicantFrequency.WEEKLY;
+            case FORTNIGHT -> frequency = AssessmentDetail.ApplicantFrequency._2_WEEKLY;
+            case FOUR_WEEKS -> frequency = AssessmentDetail.ApplicantFrequency._4_WEEKLY;
+            case MONTH -> frequency = AssessmentDetail.ApplicantFrequency.MONTHLY;
+            case ANNUAL -> frequency = AssessmentDetail.ApplicantFrequency.ANNUALLY;
+        }
+
+        return frequency;
     }
 
     public String mapOtherBenefitNotes(List<Benefit> benefits) {

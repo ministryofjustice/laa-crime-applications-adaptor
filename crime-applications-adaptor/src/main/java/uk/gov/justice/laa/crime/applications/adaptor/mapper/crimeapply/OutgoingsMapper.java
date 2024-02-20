@@ -1,8 +1,9 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.IncomeAndExpenditure;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.Outgoing;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Map;
 public class OutgoingsMapper {
     private static final Map<String, String> OUTGOINGS_CODES = new HashMap<>();
     private static final Map<String, String> HOUSING_CODES = new HashMap<>();
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
     public OutgoingsMapper() {
         OUTGOINGS_CODES.put("council_tax", "COUNCIL");
@@ -22,20 +22,14 @@ public class OutgoingsMapper {
         HOUSING_CODES.put("board_lodgings", "OTHER_HOUS");
         HOUSING_CODES.put("rent", "RENT_MORT");
         HOUSING_CODES.put("mortgage", "RENT_MORT");
-
-        FREQUENCY.put("week", 52);
-        FREQUENCY.put("fortnight", 26);
-        FREQUENCY.put("four_weeks", 13);
-        FREQUENCY.put("month", 12);
-        FREQUENCY.put("annual", 1);
     }
 
-    public List<IncomeAndExpenditure> mapOutgoings(List<Outgoing> outgoings, Object housingPaymentType) {
-        List<IncomeAndExpenditure> expenditure = new ArrayList<>();
+    public List<AssessmentDetail> mapOutgoings(List<Outgoing> outgoings, Object housingPaymentType) {
+        List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (outgoings != null) {
             for (Outgoing outgoing : outgoings) {
-                IncomeAndExpenditure incomeAndExpenditure = new IncomeAndExpenditure();
+                AssessmentDetail assessmentDetail = new AssessmentDetail();
                 String outgoingsType = outgoing.getType().value();
                 String maatDetailCode = OUTGOINGS_CODES.get(outgoingsType);
                 Integer amount = outgoing.getAmount();
@@ -52,15 +46,28 @@ public class OutgoingsMapper {
                     }
                 }
 
-                incomeAndExpenditure.setMaatDetailCode(maatDetailCode);
-                incomeAndExpenditure.setAmount(amount);
-                incomeAndExpenditure.setFrequency(FREQUENCY.get(outgoing.getFrequency().value()));
+                assessmentDetail.setAssessmentDetailCode(maatDetailCode);
+                assessmentDetail.setApplicantAmount(new BigDecimal(amount));
+                assessmentDetail.setApplicantFrequency(mapFrequency(outgoing.getFrequency()));
 
-                expenditure.add(incomeAndExpenditure);
+                assessmentDetails.add(assessmentDetail);
             }
         }
 
-        return expenditure;
+        return assessmentDetails;
+    }
+
+    public AssessmentDetail.ApplicantFrequency mapFrequency(Outgoing.Frequency crimeApplyFrequency) {
+        AssessmentDetail.ApplicantFrequency frequency = null;
+        switch (crimeApplyFrequency) {
+            case WEEK -> frequency = AssessmentDetail.ApplicantFrequency.WEEKLY;
+            case FORTNIGHT -> frequency = AssessmentDetail.ApplicantFrequency._2_WEEKLY;
+            case FOUR_WEEKS -> frequency = AssessmentDetail.ApplicantFrequency._4_WEEKLY;
+            case MONTH -> frequency = AssessmentDetail.ApplicantFrequency.MONTHLY;
+            case ANNUAL -> frequency = AssessmentDetail.ApplicantFrequency.ANNUALLY;
+        }
+
+        return frequency;
     }
 
     public String mapOtherHousingFeesNotes(List<Outgoing> outgoings, Object housingPaymentType) {

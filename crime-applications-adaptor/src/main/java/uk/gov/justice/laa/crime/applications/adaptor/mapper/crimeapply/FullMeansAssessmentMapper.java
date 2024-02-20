@@ -1,10 +1,10 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.FullMeansAssessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.IncomeAndExpenditure;
 
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.List;
 
 class FullMeansAssessmentMapper {
 
@@ -20,9 +20,10 @@ class FullMeansAssessmentMapper {
             return fullMeansAssessment;
         }
 
-        List<IncomeAndExpenditure> expenditure = outgoingsMapper.mapOutgoings(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType());
-        fullMeansAssessment.setExpenditure(expenditure);
-        fullMeansAssessment.setOtherHousingFeesNotes(outgoingsMapper.mapOtherHousingFeesNotes(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType()));
+        List<AssessmentDetail> assessmentDetails = outgoingsMapper.mapOutgoings(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType());
+
+        fullMeansAssessment.setAssessmentDetails(assessmentDetails);
+        fullMeansAssessment.setOtherHousingNote(outgoingsMapper.mapOtherHousingFeesNotes(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType()));
 
         return fullMeansAssessment;
     }

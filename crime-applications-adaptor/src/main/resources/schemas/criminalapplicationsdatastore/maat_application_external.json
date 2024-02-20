@@ -84,7 +84,8 @@
     "means_passport",
     "provider_details",
     "client_details",
-    "case_details"
+    "case_details",
+    "means_details"
   ],
   "definitions": {
     "provider": { "$ref": "general/provider.json" },

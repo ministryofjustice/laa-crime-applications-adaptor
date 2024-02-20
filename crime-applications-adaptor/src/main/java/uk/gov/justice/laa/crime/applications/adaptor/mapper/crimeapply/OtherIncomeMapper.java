@@ -1,8 +1,9 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.IncomeAndExpenditure;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OtherIncome;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 public class OtherIncomeMapper {
     private static final Map<String, String> OTHER_INCOME_CODES = new HashMap<>();
-    private static final Map<String, Integer> FREQUENCY = new HashMap<>();
 
     public OtherIncomeMapper() {
         OTHER_INCOME_CODES.put("private_pension", "PRIV_PENS");
@@ -18,16 +18,10 @@ public class OtherIncomeMapper {
         OTHER_INCOME_CODES.put("maintenance", "MAINT_INC");
         OTHER_INCOME_CODES.put("interest", "SAVINGS");
         OTHER_INCOME_CODES.put("other", "OTHER_INC");
-
-        FREQUENCY.put("week", 52);
-        FREQUENCY.put("fortnight", 26);
-        FREQUENCY.put("four_weeks", 13);
-        FREQUENCY.put("month", 12);
-        FREQUENCY.put("annual", 1);
     }
 
-    public List<IncomeAndExpenditure> mapOtherIncome(List<OtherIncome> otherIncome) {
-        List<IncomeAndExpenditure> income = new ArrayList<>();
+    public List<AssessmentDetail> mapOtherIncome(List<OtherIncome> otherIncome) {
+        List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (otherIncome != null) {
             for (OtherIncome other : otherIncome) {
@@ -39,16 +33,29 @@ public class OtherIncomeMapper {
                     incomeType = "other";
                 }
 
-                IncomeAndExpenditure incomeAndExpenditure = new IncomeAndExpenditure();
-                incomeAndExpenditure.setMaatDetailCode(OTHER_INCOME_CODES.get(incomeType));
-                incomeAndExpenditure.setAmount(other.getAmount());
-                incomeAndExpenditure.setFrequency(FREQUENCY.get(other.getFrequency().value()));
+                AssessmentDetail assessmentDetail = new AssessmentDetail();
+                assessmentDetail.setAssessmentDetailCode(OTHER_INCOME_CODES.get(incomeType));
+                assessmentDetail.setApplicantAmount(new BigDecimal(other.getAmount()));
+                assessmentDetail.setApplicantFrequency(mapFrequency(other.getFrequency()));
 
-                income.add(incomeAndExpenditure);
+                assessmentDetails.add(assessmentDetail);
             }
         }
 
-        return income;
+        return assessmentDetails;
+    }
+
+    public AssessmentDetail.ApplicantFrequency mapFrequency(OtherIncome.Frequency crimeApplyFrequency) {
+        AssessmentDetail.ApplicantFrequency frequency = null;
+        switch (crimeApplyFrequency) {
+            case WEEK -> frequency = AssessmentDetail.ApplicantFrequency.WEEKLY;
+            case FORTNIGHT -> frequency = AssessmentDetail.ApplicantFrequency._2_WEEKLY;
+            case FOUR_WEEKS -> frequency = AssessmentDetail.ApplicantFrequency._4_WEEKLY;
+            case MONTH -> frequency = AssessmentDetail.ApplicantFrequency.MONTHLY;
+            case ANNUAL -> frequency = AssessmentDetail.ApplicantFrequency.ANNUALLY;
+        }
+
+        return frequency;
     }
 
     public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {

@@ -1,30 +1,30 @@
 {
-  "expenditure": [
+  "assessmentDetails": [
     {
-      "maatDetailCode": "COUNCIL",
-      "amount": 100,
-      "frequency": 1
+      "assessmentDetailCode": "COUNCIL",
+      "applicantAmount": 100,
+      "applicantFrequency": "ANNUALLY"
     },
     {
-      "maatDetailCode": "CHILD_COST",
-      "amount": 200,
-      "frequency": 12
+      "assessmentDetailCode": "CHILD_COST",
+      "applicantAmount": 200,
+      "applicantFrequency": "MONTHLY"
     },
     {
-      "maatDetailCode": "MAINT_COST",
-      "amount": 400,
-      "frequency": 13
+      "assessmentDetailCode": "MAINT_COST",
+      "applicantAmount": 400,
+      "applicantFrequency": "4WEEKLY"
     },
     {
-      "maatDetailCode": "OTHER_LAC",
-      "amount": 500,
-      "frequency": 26
+      "assessmentDetailCode": "OTHER_LAC",
+      "applicantAmount": 500,
+      "applicantFrequency": "2WEEKLY"
     },
     {
-      "maatDetailCode": "OTHER_HOUS",
-      "amount": 302,
-      "frequency": 52
+      "assessmentDetailCode": "OTHER_HOUS",
+      "applicantAmount": 302,
+      "applicantFrequency": "WEEKLY"
     }
   ],
-  "otherHousingFeesNotes": "Board lodgings\nDetails about housing"
+  "otherHousingNote": "Board lodgings\nDetails about housing"
 }

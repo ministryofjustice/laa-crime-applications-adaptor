@@ -90,9 +90,6 @@
         }
       }
     },
-    "dependants": {
-      "$ref": "#/definitions/dependants"
-    },
     "disabilityStatement": {
       "$ref": "#/definitions/disabilityStatement"
     },
@@ -109,9 +106,6 @@
     },
     "disabilityStatement": {
       "$ref": "disabilityStatement.json"
-    },
-    "dependants": {
-      "$ref": "dependants.json"
     }
   }
 }
