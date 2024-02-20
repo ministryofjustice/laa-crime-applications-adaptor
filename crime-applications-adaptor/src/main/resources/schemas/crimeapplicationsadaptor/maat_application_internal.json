@@ -129,7 +129,6 @@
     },
     "assessment": {
       "type": "object",
-      "nullable": true,
       "description": "Means assessment information",
       "properties": {
         "initialMeansAssessment": {
@@ -161,7 +160,8 @@
     "solicitorAdminEmail",
     "courtCustody",
     "dateCreated",
-    "passported"
+    "passported",
+    "assessment"
   ],
   "definitions": {
     "applicant": {
