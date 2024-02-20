@@ -1,202 +1,165 @@
 {
-  "$schema":"http://json-schema.org/draft-06/schema#",
-  "$id":"means.json",
-  "title":"means details",
-  "description":"Currencies amounts are stored in pence sterling",
-  "type":"object",
-  "properties":{
-    "income_details":{
-      "type":"object",
-      "properties":{
-        "benefits":{
-          "type":"array",
-          "items":{
-            "type":"object",
-            "properties":{
-              "type":{
-                "type":"string",
-                "enum":[
-                  "child",
-                  "working_or_child_tax_credit",
-                  "universal_credit",
-                  "incapacity",
-                  "industrial_injuries_disablement",
-                  "jsa",
-                  "other"
-                ]
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "means.json",
+  "title": "means details",
+  "description": "Currencies amounts are stored in pence sterling",
+  "type": "object",
+  "properties": {
+    "income_details": {
+      "type": "object",
+      "properties": {
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["child", "working_or_child_tax_credit", "universal_credit", "incapacity", "industrial_injuries_disablement", "jsa", "other"]
               },
-              "amount":{
-                "type":"integer"
+              "amount": {
+                "type": "integer"
               },
-              "frequency":{
-                "type":"string",
-                "enum":[
-                  "week",
-                  "fortnight",
-                  "four_weeks",
-                  "month",
-                  "annual"
-                ]
+              "frequency": {
+                "type": "string",
+                "enum": ["week", "fortnight", "four_weeks", "month", "annual"]
               },
-              "details":{
-                "anyOf":[
+              "details": {
+                "anyOf": [
                   {
-                    "type":"null"
+                    "type": "null"
                   },
                   {
-                    "type":"string"
+                    "type": "string"
                   }
                 ]
               }
             },
-            "required":[
-              "type",
-              "amount",
-              "frequency"
-            ]
+            "required": ["type", "amount", "frequency"]
           }
         },
         "employment_type": {
           "type": "array",
           "items": {
             "type": "string",
-            "enum": [
-              "employed", "self-employed", "business_partnership", "director", "shareholder", "not_working"
-            ]
+            "enum": ["employed", "self-employed", "business_partnership", "director", "shareholder", "not_working"]
           }
         },
-        "employment_details":{
-          "type":"object",
-          "properties":{
-            "paye":{
-              "type":"array",
-              "items":{
-                "type":"object",
-                "properties":{
-                  "amount":{
-                    "type":"integer"
+        "employment_details": {
+          "type": "object",
+          "properties": {
+            "paye": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
                   },
-                  "date":{
-                    "type":"string",
-                    "format":"date"
+                  "date": {
+                    "type": "string",
+                    "format": "date"
                   },
-                  "deductions":{
-                    "type":"array",
-                    "items":{
-                      "type":"object",
-                      "properties":{
-                        "type":{
-                          "type":"string"
+                  "deductions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
                         },
-                        "amount":{
-                          "type":"integer"
+                        "amount": {
+                          "type": "integer"
                         }
                       },
-                      "required":[
-                        "type",
-                        "amount"
-                      ]
+                      "required": ["type", "amount"]
                     }
                   }
                 },
-                "required":[
-                  "amount",
-                  "date",
-                  "deductions"
-                ]
+                "required": ["amount", "date", "deductions"]
               }
             },
-            "other":{
-              "type":"object",
-              "properties":{
-                "amount":{
-                  "type":"integer"
+            "other": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
                 },
-                "details":{
-                  "type":"string"
+                "details": {
+                  "type": "string"
                 }
               },
-              "required":[
-                "amount",
-                "details"
-              ]
+              "required": ["amount", "details"]
             },
-            "businesses":{
-              "type":"array",
-              "items":{
-                "type":"object",
-                "properties":{
-                  "name":{
-                    "type":"string"
+            "businesses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
                   },
-                  "address":{
-                    "type":"array",
-                    "items":{
-                      "type":"object",
-                      "properties":{
-                        "lookup_id":{
-                          "anyOf":[
+                  "address": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "lookup_id": {
+                          "anyOf": [
                             {
-                              "type":"null"
+                              "type": "null"
                             },
                             {
-                              "type":"string"
+                              "type": "string"
                             }
                           ]
                         },
-                        "address_line_one":{
-                          "type":"string"
+                        "address_line_one": {
+                          "type": "string"
                         },
-                        "address_line_two":{
-                          "anyOf":[
+                        "address_line_two": {
+                          "anyOf": [
                             {
-                              "type":"null"
+                              "type": "null"
                             },
                             {
-                              "type":"string"
+                              "type": "string"
                             }
                           ]
                         },
-                        "city":{
-                          "type":"string"
+                        "city": {
+                          "type": "string"
                         },
-                        "country":{
-                          "type":"string"
+                        "country": {
+                          "type": "string"
                         },
-                        "postcode":{
-                          "type":"string"
+                        "postcode": {
+                          "type": "string"
                         }
                       },
-                      "required":[
-                        "lookup_id",
-                        "address_line_one",
-                        "address_line_two",
-                        "city",
-                        "country",
-                        "postcode"
-                      ]
+                      "required": ["lookup_id", "address_line_one", "address_line_two", "city", "country", "postcode"]
                     }
                   },
-                  "last_two_years_tax_liability":{
-                    "type":"integer"
+                  "last_two_years_tax_liability": {
+                    "type": "integer"
                   },
-                  "total_turnover":{
-                    "type":"integer"
+                  "total_turnover": {
+                    "type": "integer"
                   },
-                  "total_drawing":{
-                    "type":"integer"
+                  "total_drawing": {
+                    "type": "integer"
                   },
-                  "total_profit":{
-                    "type":"integer"
+                  "total_profit": {
+                    "type": "integer"
                   },
-                  "director_salary":{
-                    "type":"integer"
+                  "director_salary": {
+                    "type": "integer"
                   },
-                  "share":{
-                    "type":"number"
+                  "share": {
+                    "type": "number"
                   }
                 },
-                "required":[
+                "required": [
                   "name",
                   "address",
                   "last_two_years_tax_liability",
@@ -209,18 +172,16 @@
               }
             }
           },
-          "required":[
-            "paye"
-          ]
+          "required": ["paye"]
         },
-        "other_income":{
-          "type":"array",
-          "items":{
-            "type":"object",
-            "properties":{
-              "type":{
-                "type":"string",
-                "enum":[
+        "other_income": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
                   "private_pension",
                   "state_pension",
                   "maintenance",
@@ -232,121 +193,93 @@
                   "other"
                 ]
               },
-              "amount":{
-                "type":"integer"
+              "amount": {
+                "type": "integer"
               },
-              "frequency":{
-                "type":"string",
-                "enum":[
-                  "week",
-                  "fortnight",
-                  "four_weeks",
-                  "month",
-                  "annual"
-                ]
+              "frequency": {
+                "type": "string",
+                "enum": ["week", "fortnight", "four_weeks", "month", "annual"]
               },
-              "details":{
-                "anyOf":[
+              "details": {
+                "anyOf": [
                   {
-                    "type":"null"
+                    "type": "null"
                   },
                   {
-                    "type":"string"
+                    "type": "string"
                   }
                 ]
               }
             },
-            "required":[
-              "type",
-              "amount",
-              "frequency"
-            ]
+            "required": ["type", "amount", "frequency"]
           }
         },
-        "total":{
-          "type":"integer"
+        "total": {
+          "type": "integer"
         },
-        "dependants":{
-          "type":"array",
-          "items":{
-            "type":"object",
-            "properties":{
-              "age":{
-                "type":"integer",
-                "exclusiveMaximum":18
+        "dependants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "age": {
+                "type": "integer",
+                "exclusiveMaximum": 18
               }
             },
-            "required":[
-              "age"
-            ]
+            "required": ["age"]
           }
         }
       },
-      "required":[]
+      "required": []
     },
-    "outgoings_details":{
-      "type":"object",
-      "properties":{
-        "outgoings":{
-          "type":"array",
-          "items":{
-            "type":"object",
-            "properties":{
-              "type":{
-                "type":"string",
-                "enum":[
-                  "housing",
-                  "council_tax",
-                  "childcare",
-                  "maintenance",
-                  "legal_aid"
-                ]
+    "outgoings_details": {
+      "type": "object",
+      "properties": {
+        "outgoings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["housing", "council_tax", "childcare", "maintenance", "legal_aid"]
               },
-              "amount":{
-                "type":"integer"
+              "amount": {
+                "type": "integer"
               },
-              "frequency":{
-                "type":"string",
-                "enum":[
-                  "week",
-                  "fortnight",
-                  "four_weeks",
-                  "month",
-                  "annual"
-                ]
+              "frequency": {
+                "type": "string",
+                "enum": ["week", "fortnight", "four_weeks", "month", "annual"]
               },
-              "details":{
-                "anyOf":[
+              "details": {
+                "anyOf": [
                   {
-                    "type":"null"
+                    "type": "null"
                   },
                   {
-                    "type":"string"
+                    "type": "string"
                   }
                 ]
               }
             },
-            "required":[
-              "type",
-              "amount",
-              "frequency"
-            ]
+            "required": ["type", "amount", "frequency"]
           }
         },
-        "housing_payment_type":{
-          "anyOf":[
+        "housing_payment_type": {
+          "anyOf": [
             {
-              "type":"null"
+              "type": "null"
             },
             {
-              "type":"string",
+              "type": "string",
               "enum": ["rent", "mortgage", "board_lodgings", "none"]
             }
           ]
         }
       },
-      "required":[]
+      "required": []
     }
   },
-  "required":[]
+  "required": []
 }

@@ -11,13 +11,7 @@
     "applicantFrequency": {
       "type": "string",
       "description": "The Frequency of Applicant",
-      "enum": [
-        "WEEKLY",
-        "2WEEKLY",
-        "4WEEKLY",
-        "MONTHLY",
-        "ANNUALLY"
-      ]
+      "enum": ["WEEKLY", "2WEEKLY", "4WEEKLY", "MONTHLY", "ANNUALLY"]
     },
     "assessmentDetailCode": {
       "type": "string",
