@@ -90,6 +90,6 @@
   "definitions": {
     "provider": { "$ref": "general/provider.json" },
     "address": { "$ref": "general/address.json" },
-    "means": { "$ref": "general/means.json"}
+    "means": { "$ref": "general/means.json" }
   }
 }
