@@ -2,6 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
+import uk.gov.justice.laa.crime.applications.adaptor.util.NotesFormatter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 public class BenefitsMapper {
     private static final Map<String, String> ASSESSMENT_BENEFIT_CODES = new HashMap<>();
+    private final List<String> codesNotInMAAT = new ArrayList();
 
     public BenefitsMapper() {
         ASSESSMENT_BENEFIT_CODES.put("child", "CHILD_BEN");
@@ -18,6 +20,9 @@ public class BenefitsMapper {
         ASSESSMENT_BENEFIT_CODES.put("incapacity", "INCAP_BEN");
         ASSESSMENT_BENEFIT_CODES.put("industrial_injuries_disablement", "INJ_BEN");
         ASSESSMENT_BENEFIT_CODES.put("other", "OTHER_BEN");
+
+        codesNotInMAAT.add("universal_credit");
+        codesNotInMAAT.add("jsa");
     }
 
     public List<AssessmentDetail> mapBenefits(List<Benefit> benefits) {
@@ -29,13 +34,8 @@ public class BenefitsMapper {
 
                 String benefitType = benefit.getType().value();
 
-                // We don't have a universal credit type in MAAT, so set it to 'other'
-                if (benefitType.equals("universal_credit")) {
-                    benefitType = "other";
-                }
-
-                // We don't have a jsa type in MAAT, so set it to 'other'
-                if (benefitType.equals("jsa")) {
+                // If the assessment code isn't one we have in MAAT, set it to 'other'
+                if (codesNotInMAAT.contains(benefitType)) {
                     benefitType = "other";
                 }
 
@@ -72,14 +72,12 @@ public class BenefitsMapper {
                     sb.append("\n" + benefit.getDetails());
                 }
 
-                // We don't have a universal credit type in MAAT, so append it to the notes
-                if (benefit.getType().value().equals("universal_credit")) {
-                    sb.append("\nUniversal Credit");
-                }
+                String benefitType = benefit.getType().value();
 
-                // We don't have a jsa type in MAAT, so append it to the notes
-                if (benefit.getType().value().equals("jsa")) {
-                    sb.append("\nJSA");
+                // If the assessment code isn't one we have in MAAT, make it human-readable and append to notes
+                if (codesNotInMAAT.contains(benefitType)) {
+                    String note = NotesFormatter.formatNote(benefitType);
+                    sb.append("\n" + note);
                 }
             }
         }

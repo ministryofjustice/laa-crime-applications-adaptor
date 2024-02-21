@@ -2,6 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OtherIncome;
+import uk.gov.justice.laa.crime.applications.adaptor.util.NotesFormatter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 public class OtherIncomeMapper {
     private static final Map<String, String> OTHER_INCOME_CODES = new HashMap<>();
+    private final List<String> codesNotInMAAT = new ArrayList();
 
     public OtherIncomeMapper() {
         OTHER_INCOME_CODES.put("private_pension", "PRIV_PENS");
@@ -18,6 +20,11 @@ public class OtherIncomeMapper {
         OTHER_INCOME_CODES.put("maintenance", "MAINT_INC");
         OTHER_INCOME_CODES.put("interest", "SAVINGS");
         OTHER_INCOME_CODES.put("other", "OTHER_INC");
+
+        codesNotInMAAT.add("student");
+        codesNotInMAAT.add("board_from_family");
+        codesNotInMAAT.add("rent");
+        codesNotInMAAT.add("friends_and_family");
     }
 
     public List<AssessmentDetail> mapOtherIncome(List<OtherIncome> otherIncome) {
@@ -27,9 +34,8 @@ public class OtherIncomeMapper {
             for (OtherIncome other : otherIncome) {
                 String incomeType = other.getType().value();
 
-                // We don't have these income types in MAAT, so set them to 'other'
-                if (incomeType.equals("student") || incomeType.equals("board_from_family") || incomeType.equals("rent")
-                        || incomeType.equals("friends_and_family")) {
+                // If the assessment code isn't one we have in MAAT, set it to 'other'
+                if (codesNotInMAAT.contains(incomeType)) {
                     incomeType = "other";
                 }
 
@@ -69,21 +75,10 @@ public class OtherIncomeMapper {
                     sb.append("\n" + other.getDetails());
                 }
 
-                // We don't have these income types in MAAT, so append them to the notes
-                if (incomeType.equals("student")) {
-                    sb.append("\nStudent");
-                }
-
-                if (incomeType.equals("board_from_family")) {
-                    sb.append("\nBoard from family");
-                }
-
-                if (incomeType.equals("rent")) {
-                    sb.append("\nRent");
-                }
-
-                if (incomeType.equals("friends_and_family")) {
-                    sb.append("\nFriends and family");
+                // If the assessment code isn't one we have in MAAT, make it human-readable and append to notes
+                if (codesNotInMAAT.contains(incomeType)) {
+                    String note = NotesFormatter.formatNote(incomeType);
+                    sb.append("\n" + note);
                 }
             }
         }
