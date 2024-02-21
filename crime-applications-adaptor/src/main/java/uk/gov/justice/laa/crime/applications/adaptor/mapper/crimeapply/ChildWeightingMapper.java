@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.Dependant;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Dependant;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -12,7 +12,7 @@ class FullMeansAssessmentMapper {
 
     @NotNull
     FullMeansAssessment map(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OutgoingsDetails crimeApplyOutgoingsDetails) {
+            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails crimeApplyOutgoingsDetails) {
 
         FullMeansAssessment fullMeansAssessment = new FullMeansAssessment();
 

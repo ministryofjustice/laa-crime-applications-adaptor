@@ -8,8 +8,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.IncomeDetails;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OutgoingsDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;

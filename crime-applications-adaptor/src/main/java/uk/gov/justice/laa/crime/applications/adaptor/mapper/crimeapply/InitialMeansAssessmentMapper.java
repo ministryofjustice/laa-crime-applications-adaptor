@@ -12,7 +12,7 @@ class InitialMeansAssessmentMapper {
     private final OtherIncomeMapper otherIncomeMapper = new OtherIncomeMapper();
 
     @NotNull
-    InitialMeansAssessment map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.
+    InitialMeansAssessment map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.
                             IncomeDetails crimeApplyIncomeDetails) {
 
         InitialMeansAssessment initialMeansAssessment = new InitialMeansAssessment();

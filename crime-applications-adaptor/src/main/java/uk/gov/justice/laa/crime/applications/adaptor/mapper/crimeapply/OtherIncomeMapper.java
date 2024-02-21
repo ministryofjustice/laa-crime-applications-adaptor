@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.maat.OtherIncome;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OtherIncome;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
