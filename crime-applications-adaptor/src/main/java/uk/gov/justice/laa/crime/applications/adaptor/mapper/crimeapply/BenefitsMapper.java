@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 public class BenefitsMapper {
-    private static final Map<String, String> BENEFITS_CODES = new HashMap<>();
+    private static final Map<String, String> ASSESSMENT_BENEFIT_CODES = new HashMap<>();
 
     public BenefitsMapper() {
-        BENEFITS_CODES.put("child", "CHILD_BEN");
-        BENEFITS_CODES.put("working_or_child_tax_credit", "TAX_CRED");
-        BENEFITS_CODES.put("incapacity", "INCAP_BEN");
-        BENEFITS_CODES.put("industrial_injuries_disablement", "INJ_BEN");
-        BENEFITS_CODES.put("other", "OTHER_BEN");
+        ASSESSMENT_BENEFIT_CODES.put("child", "CHILD_BEN");
+        ASSESSMENT_BENEFIT_CODES.put("working_or_child_tax_credit", "TAX_CRED");
+        ASSESSMENT_BENEFIT_CODES.put("incapacity", "INCAP_BEN");
+        ASSESSMENT_BENEFIT_CODES.put("industrial_injuries_disablement", "INJ_BEN");
+        ASSESSMENT_BENEFIT_CODES.put("other", "OTHER_BEN");
     }
 
     public List<AssessmentDetail> mapBenefits(List<Benefit> benefits) {
@@ -39,7 +39,7 @@ public class BenefitsMapper {
                     benefitType = "other";
                 }
 
-                assessmentDetail.setAssessmentDetailCode(BENEFITS_CODES.get(benefitType));
+                assessmentDetail.setAssessmentDetailCode(ASSESSMENT_BENEFIT_CODES.get(benefitType));
                 assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
                 assessmentDetail.setApplicantFrequency(mapFrequency(benefit.getFrequency()));
 
