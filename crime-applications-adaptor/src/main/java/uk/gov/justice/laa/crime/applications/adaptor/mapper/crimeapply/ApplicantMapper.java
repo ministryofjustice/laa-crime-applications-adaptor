@@ -54,7 +54,20 @@ class ApplicantMapper {
 
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
-        applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType(), crimeApplyResponse.getMeansPassport()));
+
+        String employmentType = "";
+        String meansPassport = "";
+
+        if (!crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
+            // We only ever need to deal with one employmentType in MAAT, so we just take the first
+            employmentType = String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0));
+        }
+        if (!crimeApplyResponse.getMeansPassport().isEmpty()) {
+            // We only ever need to deal with one meansPassport in MAAT, so we just take the first
+            meansPassport = String.valueOf(crimeApplyResponse.getMeansPassport().get(0));
+        }
+
+        applicant.setEmploymentStatus(mapEmploymentStatus(employmentType, meansPassport));
 
         return applicant;
     }
@@ -101,26 +114,19 @@ class ApplicantMapper {
         return address;
     }
 
-    private EmploymentStatus mapEmploymentStatus(List<EmploymentType> crimeApplyEmploymentTypes, List<MeansPassport> meansPassport) {
+    private EmploymentStatus mapEmploymentStatus(String crimeApplyEmploymentType, String meansPassport) {
         EmploymentStatus employmentStatus = new EmploymentStatus();
 
-        // If there is any value in the means passport at all, we disregard any employment types that are sent
-        if (meansPassport != null && !meansPassport.isEmpty()) {
+        // If there is any value in the means passport, we disregard any employment types that are sent
+        if (!meansPassport.isEmpty()) {
             employmentStatus.setCode(EMPLOYMENT_STATUSES.get("passported"));
             return employmentStatus;
         }
 
-        if (crimeApplyEmploymentTypes != null) {
-            for (EmploymentType crimeApplyEmploymentType : crimeApplyEmploymentTypes) {
-                String employmentType = crimeApplyEmploymentType.value();
-
-                // For now, we are only dealing with unemployed. If in future we need to work with other employment types
-                // or additional (crime apply can send through multiple), we will need to rework this.
-                if (employmentType.equals("not_working")) {
-                    employmentStatus.setCode(EMPLOYMENT_STATUSES.get(employmentType));
-                    return employmentStatus;
-                }
-            }
+        if (!crimeApplyEmploymentType.isEmpty() && crimeApplyEmploymentType.equals("not_working")) {
+            // For now, we are only dealing with unemployed. If in future we need to work with other employment types
+            // or additional (crime apply can send through multiple), we will need to rework this.
+            employmentStatus.setCode(EMPLOYMENT_STATUSES.get(crimeApplyEmploymentType));
         }
 
         return employmentStatus;
