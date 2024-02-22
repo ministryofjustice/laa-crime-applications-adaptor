@@ -46,7 +46,7 @@
     "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false,
-    "meansPassport": "on_age_under18"
+    "meansPassport": "on_benefit_check"
   },
   "assessment": {
     "initialMeansAssessment": {
@@ -82,7 +82,7 @@
           "applicantFrequency": "MONTHLY"
         }
       ],
-      "otherBenefitNote": "Details about child benefit\nUniversal credit",
+      "otherBenefitNote": "Details about child benefit\nUniversal Credit",
       "otherIncomeNote": "Details about private pension\nRent",
       "childWeighting": [
         {

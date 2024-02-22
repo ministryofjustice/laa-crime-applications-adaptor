@@ -3,7 +3,7 @@
   "schema_version": 1.0,
   "reference": 6000308,
   "application_type": "initial",
-  "means_passport": ["on_age_under18"],
+  "means_passport": ["on_benefit_check"],
   "submitted_at": "2022-10-24T09:50:04.019Z",
   "date_stamp": "2022-10-24T09:50:04.019Z",
   "declaration_signed_at": "2022-10-24T09:50:04.019Z",

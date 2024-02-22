@@ -22,11 +22,11 @@ public class OutgoingsMapper {
             for (Outgoing outgoing : outgoings) {
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
                 String outgoingsType = outgoing.getType().value();
-                OutgoingDetails outgoingDetail = OutgoingDetails.findByValue(outgoingsType);
                 // If the type is 'housing', we map against the housing codes instead
                 if (outgoingsType.equals(HOUSING) && Objects.nonNull(housingPaymentType)) {
-                    assessmentDetail.setAssessmentDetailCode(String.valueOf(HousingDetails.findByValue((String) housingPaymentType)));
+                    assessmentDetail.setAssessmentDetailCode(String.valueOf(HousingDetails.findByValue((String) housingPaymentType).getCode()));
                 } else {
+                    OutgoingDetails outgoingDetail = OutgoingDetails.findByValue(outgoingsType);
                     assessmentDetail.setAssessmentDetailCode(outgoingDetail.getCode());
                 }
 
@@ -68,6 +68,6 @@ public class OutgoingsMapper {
             }
         }
 
-        return otherHousingFeesNotes.toString();
+        return otherHousingFeesNotes.toString().trim();
     }
 }

@@ -23,7 +23,7 @@ class ApplicantMapper {
     Applicant map(MaatApplicationExternal crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
-        if (Objects.isNull(crimeApplyResponse.getClientDetails())) {
+        if (Objects.isNull(crimeApplyResponse) || Objects.isNull(crimeApplyResponse.getClientDetails())) {
             return applicant;
         }
 
