@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.HousingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class OutgoingsMapper {
     private static final String HOUSING = "housing";

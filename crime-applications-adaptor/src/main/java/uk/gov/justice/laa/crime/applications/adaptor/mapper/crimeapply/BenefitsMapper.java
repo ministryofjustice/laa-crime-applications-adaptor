@@ -47,14 +47,17 @@ public class BenefitsMapper {
         if (Objects.nonNull(benefits)) {
             for (Benefit benefit : benefits) {
                 if (Objects.nonNull(benefit.getDetails())) {
-                    otherNote.append("\n" + benefit.getDetails());
+                    otherNote.append("\n");
+                    otherNote.append(benefit.getDetails().toString());
                 }
 
                 String benefitType = benefit.getType().value();
                 BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
-                switch (benefitDetail){
-                    case UNIVERSAL_CREDIT -> otherNote.append("\n" + UNIVERSAL_CREDIT);
-                    case JSA -> otherNote.append("\n" + JSA);
+                if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
+                    otherNote.append("\n" + UNIVERSAL_CREDIT);
+                }
+                if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
+                    otherNote.append("\n" + JSA);
                 }
             }
         }

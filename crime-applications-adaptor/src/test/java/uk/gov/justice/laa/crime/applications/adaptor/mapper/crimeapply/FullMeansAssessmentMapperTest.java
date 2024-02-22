@@ -71,6 +71,6 @@ class FullMeansAssessmentMapperTest {
         crimeApplyOutgoingsDetails.setOutgoings(outgoings);
         FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
 
-        assertEquals(fullMeansAssessment.getOtherHousingNote(), "Board lodgings\nDetails about housing");
+        assertEquals( "Board lodgings\nDetails about housing", fullMeansAssessment.getOtherHousingNote());
     }
 }

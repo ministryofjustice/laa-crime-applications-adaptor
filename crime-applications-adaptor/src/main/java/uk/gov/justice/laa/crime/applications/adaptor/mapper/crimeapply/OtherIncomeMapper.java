@@ -48,17 +48,22 @@ public class OtherIncomeMapper {
         if (Objects.nonNull(otherIncome)) {
             for (OtherIncome other : otherIncome) {
                 if (Objects.nonNull(other.getDetails())) {
-                    otherNote.append("\n" + other.getDetails());
+                    otherNote.append("\n");
+                    otherNote.append(other.getDetails());
                 }
 
                 String incomeType = other.getType().value();
                 OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
+                String note;
                 switch (otherIncomeDetail){
-                    case STUDENT -> otherNote.append("\n" + STUDENT);
-                    case BOARD_FROM_FAMILY -> otherNote.append("\n" + BOARD_FROM_FAMILY);
-                    case RENT -> otherNote.append("\n" + RENT);
-                    case FRIENDS_AND_FAMILY -> otherNote.append("\n" + FRIENDS_AND_FAMILY);
+                    case STUDENT -> note = "\n" + STUDENT;
+                    case BOARD_FROM_FAMILY -> note = "\n" + BOARD_FROM_FAMILY;
+                    case RENT -> note = "\n" + RENT;
+                    case FRIENDS_AND_FAMILY -> note = "\n" + FRIENDS_AND_FAMILY;
+                    default -> note = "";
                 }
+
+                otherNote.append(note);
             }
         }
 

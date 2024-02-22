@@ -87,7 +87,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "enum": ["YOUTHS-YTH", "YOUTHS-MAGS", "PASSPORTED", "NONPASS", "EMPLOY", "EMPCDS", "EMPLOYED-CASH", "SELF", "SELF-SOT", "SELF-CASH"]
+          "enum": ["PASSPORTED", "NONPASS", "EMPLOY", "SELF"]
         }
       }
     },
