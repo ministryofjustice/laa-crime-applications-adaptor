@@ -11,12 +11,12 @@
     "lowerAgeRange": {
       "type": "integer",
       "description": "Lower age range",
-      "enum": [0,2,5,8,11,13,16]
+      "enum": [0, 2, 5, 8, 11, 13, 16]
     },
     "upperAgeRange": {
       "type": "integer",
       "description": "Upper age range",
-      "enum": [1,4,7,10,12,15,18]
+      "enum": [1, 4, 7, 10, 12, 15, 18]
     }
   },
   "additionalProperties": false,
