@@ -69,7 +69,7 @@ class ApplicantMapperTest {
 
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
-        assertEquals(actualApplicant.getEmploymentStatus().getCode(), EmploymentStatus.Code.EMPLOY);
+        assertEquals(EmploymentStatus.Code.EMPLOY, actualApplicant.getEmploymentStatus().getCode());
 
     }
 
@@ -81,7 +81,7 @@ class ApplicantMapperTest {
 
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
-        assertEquals(actualApplicant.getEmploymentStatus().getCode(), EmploymentStatus.Code.SELF);
+        assertEquals(EmploymentStatus.Code.SELF, actualApplicant.getEmploymentStatus().getCode());
 
     }
 
@@ -93,7 +93,7 @@ class ApplicantMapperTest {
 
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
-        assertEquals(actualApplicant.getEmploymentStatus().getCode(), EmploymentStatus.Code.PASSPORTED);
+        assertEquals(EmploymentStatus.Code.PASSPORTED, actualApplicant.getEmploymentStatus().getCode());
 
     }
 }

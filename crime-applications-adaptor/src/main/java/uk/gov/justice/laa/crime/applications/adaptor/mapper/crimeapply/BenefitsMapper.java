@@ -24,11 +24,9 @@ public class BenefitsMapper {
                 assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
                 assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
                 mapFrequency(assessmentDetail, benefit.getFrequency());
-
                 assessmentDetails.add(assessmentDetail);
             }
         }
-
         return assessmentDetails;
     }
 

@@ -14,6 +14,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The responsibility of this class is to map from a
@@ -52,8 +53,9 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
         maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
-        maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails().getIncomeDetails(), crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
-
+        if(Objects.nonNull(crimeApplyResponse.getMeansDetails())) {
+            maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails().getIncomeDetails(), crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
+        }
         return maatApplicationInternal;
     }
 
