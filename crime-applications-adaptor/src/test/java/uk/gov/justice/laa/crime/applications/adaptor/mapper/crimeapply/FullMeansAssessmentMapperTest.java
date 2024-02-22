@@ -6,10 +6,21 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.FullMeansAssessment;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Passported;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Means;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FullMeansAssessmentMapperTest {
 
@@ -43,4 +54,23 @@ class FullMeansAssessmentMapperTest {
         JSONAssert.assertEquals("{}", actualFullMeansAssessmentJSON, JSONCompareMode.STRICT);
     }
 
+    @Test
+    void shouldMapOtherHousingFeeNotes_whenTypeIsHousingAndHousingPaymentTypeIsBoardLodgings() {
+        OutgoingsDetails crimeApplyOutgoingsDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getOutgoingsDetails();
+
+        crimeApplyOutgoingsDetails.setHousingPaymentType("board_lodgings");
+        Outgoing outgoing = new Outgoing();
+        outgoing.setType(Outgoing.Type.HOUSING);
+        outgoing.setAmount(100);
+        outgoing.setFrequency(Outgoing.Frequency.MONTH);
+        outgoing.setDetails("Details about housing");
+
+        List<Outgoing> outgoings = new ArrayList<>();
+        outgoings.add(outgoing);
+
+        crimeApplyOutgoingsDetails.setOutgoings(outgoings);
+        FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
+
+        assertEquals(fullMeansAssessment.getOtherHousingNote(), "Board lodgings\nDetails about housing");
+    }
 }

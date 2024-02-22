@@ -7,15 +7,18 @@ public enum OtherIncomeDetails {
     STATE_PENSION("state_pension", "STATE_PEN"),
     MAINTENANCE("maintenance", "MAINT_INC"),
     INTEREST("interest", "SAVINGS"),
-    OTHER("other", "OTHER_INC"),
+    OTHER("other", Constants.OTHER_INC),
 
-    STUDENT("student", "OTHER_INC"),
-    BOARD_FROM_FAMILY("board_from_family", "OTHER_INC"),
-    RENT("rent", "OTHER_INC"),
-    FRIENDS_AND_FAMILY("friends_and_family", "OTHER_INC");
+    STUDENT("student", Constants.OTHER_INC),
+    BOARD_FROM_FAMILY("board_from_family", Constants.OTHER_INC),
+    RENT("rent", Constants.OTHER_INC),
+    FRIENDS_AND_FAMILY("friends_and_family", Constants.OTHER_INC);
 
     private final String value;
     private final String code;
+    private static class Constants {
+        private static final String OTHER_INC ="OTHER_INC";
+    }
 
     OtherIncomeDetails(String value, String code) {
         this.value = value;
