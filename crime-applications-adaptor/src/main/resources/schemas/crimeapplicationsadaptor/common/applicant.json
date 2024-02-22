@@ -87,7 +87,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "enum": ["PASSPORTED", "NONPASS", "EMPLOY", "SELF"]
+          "enum": ["PASSPORTED", "NONPASS", "EMPLOY", "SELF", null]
         }
       }
     },
