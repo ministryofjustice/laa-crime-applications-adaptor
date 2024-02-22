@@ -86,7 +86,8 @@
       "description": "The applicant's Employment Status.",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "string",
+          "enum": ["YOUTHS-YTH", "YOUTHS-MAGS", "PASSPORTED", "NONPASS", "EMPLOY", "EMPCDS", "EMPLOYED-CASH", "SELF", "SELF-SOT", "SELF-CASH"]
         }
       }
     },

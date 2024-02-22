@@ -11,29 +11,25 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 class ApplicantMapper {
 
     private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
     private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
-    private final Map<String, String> EMPLOYMENT_STATUSES = new HashMap<>();
-
-    public ApplicantMapper() {
-        EMPLOYMENT_STATUSES.put("not_working", "NONPASS");
-        EMPLOYMENT_STATUSES.put("passported", "PASSPORTED");
-    }
+    public static final String ON_BENEFIT_CHECK = "on_benefit_check";
 
     @NotNull
     Applicant map(MaatApplicationExternal crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
-        if (crimeApplyResponse == null || crimeApplyResponse.getClientDetails() == null) {
+        if (Objects.isNull(crimeApplyResponse.getClientDetails())) {
             return applicant;
         }
 
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
                 crimeApplyResponse.getClientDetails().getApplicant();
-        if (crimeApplyApplicant == null) {
+        if (Objects.isNull(crimeApplyApplicant)) {
             return applicant;
         }
 
@@ -55,21 +51,26 @@ class ApplicantMapper {
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
-        String employmentType = "";
-        String meansPassport = "";
-
-        if (!crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
-            // We only ever need to deal with one employmentType in MAAT, so we just take the first
-            employmentType = String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0));
-        }
-        if (!crimeApplyResponse.getMeansPassport().isEmpty()) {
-            // We only ever need to deal with one meansPassport in MAAT, so we just take the first
-            meansPassport = String.valueOf(crimeApplyResponse.getMeansPassport().get(0));
-        }
-
-        applicant.setEmploymentStatus(mapEmploymentStatus(employmentType, meansPassport));
+        mapEmploymentStatus(applicant ,crimeApplyResponse);
 
         return applicant;
+    }
+
+    private void mapEmploymentStatus(Applicant applicant, MaatApplicationExternal crimeApplyResponse) {
+        EmploymentStatus employmentStatus = new EmploymentStatus();
+        if (!crimeApplyResponse.getMeansPassport().isEmpty() &&
+                String.valueOf(crimeApplyResponse.getMeansPassport().get(0)).equals(ON_BENEFIT_CHECK)) {
+            employmentStatus.setCode(EmploymentStatus.Code.PASSPORTED);
+        } else if (!crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
+            // We only ever need to deal with one employmentType in MAAT, so we just take the first
+            EmploymentType employmentType = EmploymentType.fromValue(String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0)));
+            switch (employmentType) {
+                case NOT_WORKING -> employmentStatus.setCode(EmploymentStatus.Code.NONPASS);
+                case EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.EMPLOY);
+                case SELF_EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.SELF);
+            }
+        }
+        applicant.setEmploymentStatus(employmentStatus);
     }
 
     private PartnerContraryInterest mapPartnerContraryInterest() {
@@ -112,23 +113,5 @@ class ApplicantMapper {
         address.setCountry(crimeApplyAddress.getCountry());
         address.setPostCode(crimeApplyAddress.getPostcode());
         return address;
-    }
-
-    private EmploymentStatus mapEmploymentStatus(String crimeApplyEmploymentType, String meansPassport) {
-        EmploymentStatus employmentStatus = new EmploymentStatus();
-
-        // If there is any value in the means passport, we disregard any employment types that are sent
-        if (!meansPassport.isEmpty()) {
-            employmentStatus.setCode(EMPLOYMENT_STATUSES.get("passported"));
-            return employmentStatus;
-        }
-
-        if (!crimeApplyEmploymentType.isEmpty() && crimeApplyEmploymentType.equals("not_working")) {
-            // For now, we are only dealing with unemployed. If in future we need to work with other employment types
-            // or additional (crime apply can send through multiple), we will need to rework this.
-            employmentStatus.setCode(EMPLOYMENT_STATUSES.get(crimeApplyEmploymentType));
-        }
-
-        return employmentStatus;
     }
 }

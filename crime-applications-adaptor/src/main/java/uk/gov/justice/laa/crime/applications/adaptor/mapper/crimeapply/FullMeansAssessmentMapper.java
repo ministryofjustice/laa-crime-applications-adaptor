@@ -19,9 +19,7 @@ class FullMeansAssessmentMapper {
         if (crimeApplyOutgoingsDetails == null) {
             return fullMeansAssessment;
         }
-
         List<AssessmentDetail> assessmentDetails = outgoingsMapper.mapOutgoings(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType());
-
         fullMeansAssessment.setAssessmentDetails(assessmentDetails);
         fullMeansAssessment.setOtherHousingNote(outgoingsMapper.mapOtherHousingFeesNotes(crimeApplyOutgoingsDetails.getOutgoings(), crimeApplyOutgoingsDetails.getHousingPaymentType()));
 

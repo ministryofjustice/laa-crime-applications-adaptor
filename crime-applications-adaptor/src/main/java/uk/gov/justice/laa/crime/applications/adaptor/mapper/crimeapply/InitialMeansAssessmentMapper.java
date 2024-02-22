@@ -20,8 +20,6 @@ class InitialMeansAssessmentMapper {
         if (crimeApplyIncomeDetails == null) {
             return initialMeansAssessment;
         }
-
-
         // Benefits and Other Income will be merged into a single ArrayList
         List<AssessmentDetail> benefits = benefitsMapper.mapBenefits(crimeApplyIncomeDetails.getBenefits());
         List<AssessmentDetail> otherIncome = otherIncomeMapper.mapOtherIncome(crimeApplyIncomeDetails.getOtherIncome());
