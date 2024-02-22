@@ -65,6 +65,7 @@ class ApplicantMapper {
                 case NOT_WORKING -> employmentStatus.setCode(EmploymentStatus.Code.NONPASS);
                 case EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.EMPLOY);
                 case SELF_EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.SELF);
+                default -> employmentStatus.setCode(EmploymentStatus.Code.NONPASS);
             }
         }
         applicant.setEmploymentStatus(employmentStatus);
