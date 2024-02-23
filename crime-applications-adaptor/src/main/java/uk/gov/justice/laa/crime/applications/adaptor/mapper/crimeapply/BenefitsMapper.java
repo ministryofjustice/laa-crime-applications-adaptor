@@ -54,7 +54,7 @@ public class BenefitsMapper {
                 if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
                     otherNote.append("\n" + UNIVERSAL_CREDIT);
                 }
-                if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
+               else if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
                     otherNote.append("\n" + JSA);
                 }
             }

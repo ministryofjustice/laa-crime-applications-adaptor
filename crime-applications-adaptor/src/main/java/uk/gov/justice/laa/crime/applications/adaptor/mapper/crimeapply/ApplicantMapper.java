@@ -4,7 +4,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Applicant;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.EmploymentStatus;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.PartnerContraryInterest;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.*;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.EmploymentType;
 
 import javax.validation.constraints.NotNull;

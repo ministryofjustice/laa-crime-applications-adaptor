@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "initialMeansAssessment.json",
   "type": "object",
-  "title": "The Income Evidence schema",
-  "description": "Details of income evidence",
+  "title": "The Initial  Means Assessment schema",
+  "description": "Details of Initial Means Assessment",
   "properties": {
     "otherBenefitNote": {
       "type": "string",
