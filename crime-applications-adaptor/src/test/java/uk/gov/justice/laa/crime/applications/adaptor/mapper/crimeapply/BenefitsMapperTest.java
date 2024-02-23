@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BenefitsMapperTest {
+class BenefitsMapperTest {
 
     private BenefitsMapper benefitsMapper;
     private final int AMOUNT = 100;

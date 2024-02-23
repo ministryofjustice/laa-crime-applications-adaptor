@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OtherIncomeMapperTest {
+class OtherIncomeMapperTest {
 
     private OtherIncomeMapper otherIncomeMapper;
     private final String OTHER_INCOME_DETAILS = "Here are some details.";
