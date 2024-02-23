@@ -5,19 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.FullMeansAssessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.InitialMeansAssessment;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.*;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeDetails;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InitialMeansAssessmentMapperTest {
 

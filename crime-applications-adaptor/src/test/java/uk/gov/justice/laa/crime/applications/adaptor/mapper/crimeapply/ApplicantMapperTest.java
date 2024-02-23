@@ -14,10 +14,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApplicantMapperTest {
 
@@ -62,7 +61,18 @@ class ApplicantMapperTest {
     }
 
     @Test
-    void shouldSuccessfullyMapEmploymentStatusIsEmployedToCrimeApplyClientDetailsToAdapterApplicant() throws JSONException {
+    void shouldMapEmploymentTypeNotWorkingToEmploymentStatusNonPass() {
+        MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplication_unemployed.json");
+        List<EmploymentType> employmentType = List.of(EmploymentType.NOT_WORKING);
+        maatApplicationExternal.getMeansDetails().getIncomeDetails().setEmploymentType(employmentType);
+
+        Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
+
+        assertEquals(EmploymentStatus.Code.NONPASS, actualApplicant.getEmploymentStatus().getCode());
+    }
+
+    @Test
+    void shouldMapEmploymentTypeEmployedToEmploymentStatusEmploy() {
         MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplication_unemployed.json");
         List<EmploymentType> employmentType = List.of(EmploymentType.EMPLOYED);
         maatApplicationExternal.getMeansDetails().getIncomeDetails().setEmploymentType(employmentType);
@@ -70,11 +80,10 @@ class ApplicantMapperTest {
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
         assertEquals(EmploymentStatus.Code.EMPLOY, actualApplicant.getEmploymentStatus().getCode());
-
     }
 
     @Test
-    void shouldSuccessfullyMapEmploymentStatusIsSelfEmployedToCrimeApplyClientDetailsToAdapterApplicant() throws JSONException {
+    void shouldMapEmploymentTypeSelfEmployedToEmploymentStatusSelf() {
         MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplication_unemployed.json");
         List<EmploymentType> employmentType = List.of(EmploymentType.SELF_EMPLOYED);
         maatApplicationExternal.getMeansDetails().getIncomeDetails().setEmploymentType(employmentType);
@@ -82,11 +91,10 @@ class ApplicantMapperTest {
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
         assertEquals(EmploymentStatus.Code.SELF, actualApplicant.getEmploymentStatus().getCode());
-
     }
 
     @Test
-    void shouldSuccessfullyMapEmploymentStatusIsPassportedToCrimeApplyClientDetailsToAdapterApplicant() throws JSONException {
+    void shouldMapToPassportedIfMeansPassportIsOnBenefitCheck() {
         MaatApplicationExternal maatApplicationExternal = TestData.getMaatApplication("MaatApplication_unemployed.json");
         List<MeansPassport> meansPassport = List.of(MeansPassport.ON_BENEFIT_CHECK);
         maatApplicationExternal.setMeansPassport(meansPassport);
@@ -94,6 +102,5 @@ class ApplicantMapperTest {
         Applicant actualApplicant = applicantMapper.map(maatApplicationExternal);
 
         assertEquals(EmploymentStatus.Code.PASSPORTED, actualApplicant.getEmploymentStatus().getCode());
-
     }
 }
