@@ -58,7 +58,7 @@ class ApplicantMapper {
         if (!crimeApplyResponse.getMeansPassport().isEmpty() &&
                 String.valueOf(crimeApplyResponse.getMeansPassport().get(0)).equals(ON_BENEFIT_CHECK)) {
             employmentStatus.setCode(EmploymentStatus.Code.PASSPORTED);
-        } else if (!crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
+        } else if (Objects.nonNull(crimeApplyResponse.getMeansDetails()) && !crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
             // We only ever need to deal with one employmentType in MAAT, so we just take the first
             EmploymentType employmentType = EmploymentType.fromValue(String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0)));
             switch (employmentType) {

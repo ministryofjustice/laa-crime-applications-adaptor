@@ -160,8 +160,7 @@
     "solicitorAdminEmail",
     "courtCustody",
     "dateCreated",
-    "passported",
-    "assessment"
+    "passported"
   ],
   "definitions": {
     "applicant": {

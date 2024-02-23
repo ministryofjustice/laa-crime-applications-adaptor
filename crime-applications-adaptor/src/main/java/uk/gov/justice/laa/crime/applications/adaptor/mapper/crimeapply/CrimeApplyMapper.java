@@ -7,6 +7,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadap
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Means;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails;
@@ -54,16 +55,19 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
         if(Objects.nonNull(crimeApplyResponse.getMeansDetails())) {
-            maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails().getIncomeDetails(), crimeApplyResponse.getMeansDetails().getOutgoingsDetails()));
+            maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails()));
         }
         return maatApplicationInternal;
     }
 
-    private Assessment mapAssessment(IncomeDetails incomeDetails, OutgoingsDetails outgoingsDetails) {
+    private Assessment mapAssessment(Means meansDetails) {
         Assessment assessment = new Assessment();
-        assessment.setInitialMeansAssessment(initialMeansAssessmentMapper.map(incomeDetails));
-        assessment.setFullMeansAssessment(fullMeansAssessmentMapper.map(outgoingsDetails));
-
+        if (Objects.nonNull(meansDetails.getIncomeDetails())) {
+            assessment.setInitialMeansAssessment(initialMeansAssessmentMapper.map(meansDetails.getIncomeDetails()));
+        }
+        if (Objects.nonNull(meansDetails.getOutgoingsDetails())) {
+            assessment.setFullMeansAssessment(fullMeansAssessmentMapper.map(meansDetails.getOutgoingsDetails()));
+        }
         return assessment;
     }
 
