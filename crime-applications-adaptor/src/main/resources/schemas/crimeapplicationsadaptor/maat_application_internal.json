@@ -129,8 +129,15 @@
     },
     "assessment": {
       "type": "object",
-      "nullable": true,
-      "description": "Means assessment information - not required for iteration 1"
+      "description": "Means assessment information",
+      "properties": {
+        "initialMeansAssessment": {
+          "$ref": "#/definitions/initialMeansAssessment"
+        },
+        "fullMeansAssessment": {
+          "$ref": "#/definitions/fullMeansAssessment"
+        }
+      }
     },
     "capitalEquity": {
       "type": "object",
@@ -173,6 +180,12 @@
     },
     "passported": {
       "$ref": "common/passported.json"
+    },
+    "initialMeansAssessment": {
+      "$ref": "common/initialMeansAssessment.json"
+    },
+    "fullMeansAssessment": {
+      "$ref": "common/fullMeansAssessment.json"
     }
   }
 }
