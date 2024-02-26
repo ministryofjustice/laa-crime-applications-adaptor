@@ -51,13 +51,16 @@ public class OtherIncomeMapper {
 
             String incomeType = other.getType().value();
             OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
+            String note;
             switch (otherIncomeDetail) {
-                case STUDENT -> otherBenefitNotes.add(STUDENT);
-                case BOARD_FROM_FAMILY -> otherBenefitNotes.add(BOARD_FROM_FAMILY);
-                case RENT -> otherBenefitNotes.add(RENT);
-                case FRIENDS_AND_FAMILY -> otherBenefitNotes.add(FRIENDS_AND_FAMILY);
-                default -> {
-                }
+                case STUDENT -> note =STUDENT;
+                case BOARD_FROM_FAMILY -> note= BOARD_FROM_FAMILY;
+                case RENT -> note = RENT;
+                case FRIENDS_AND_FAMILY -> note = FRIENDS_AND_FAMILY;
+                default -> note = StringUtils.EMPTY;
+            }
+            if(!StringUtils.EMPTY.equals(note)){
+                otherBenefitNotes.add(note);
             }
         }
 
