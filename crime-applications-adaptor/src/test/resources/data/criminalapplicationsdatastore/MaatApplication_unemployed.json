@@ -1,42 +1,46 @@
 {
-  "id": "4267d676-7d7a-4662-8265-ea36b29dcd62",
-  "schema_version": 1.0,
+  "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
+  "schema_version": 1,
+  "reference": 6000001,
   "application_type": "initial",
-  "reference": 6000288,
   "submitted_at": "2022-10-24T09:50:04.019Z",
   "date_stamp": "2022-10-24T09:50:04.019Z",
   "declaration_signed_at": "2022-10-24T09:50:04.019Z",
+  "means_passport": [],
   "provider_details": {
-    "office_code": "1K022G",
-    "provider_email": "acox@smw-law.co.uk",
+    "office_code": "1A123B",
+    "provider_email": "provider@example.com",
     "legal_rep_first_name": "John",
     "legal_rep_last_name": "Doe",
-    "legal_rep_telephone": "1234567890"
+    "legal_rep_telephone": "123456789"
   },
   "client_details": {
     "applicant": {
-      "date_of_birth": "2005-04-21",
-      "telephone_number": "",
+      "first_name": "Kit",
+      "last_name": "Pound",
+      "nino": "AJ123456C",
+      "date_of_birth": "2011-06-09",
+      "telephone_number": "07771231231",
       "correspondence_address_type": "home_address",
       "home_address": {
-        "lookup_id": "23747771",
-        "address_line_one": "10, PRIME MINISTER & FIRST LORD OF THE TREASURY",
-        "address_line_two": "DOWNING STREET",
-        "city": "LONDON",
-        "country": "UNITED KINGDOM",
+        "lookup_id": null,
+        "address_line_one": "1 Road",
+        "address_line_two": "Village",
+        "city": "Some nice city",
+        "country": "United Kingdom",
         "postcode": "SW1A 2AA"
       },
-      "last_name": "Smith",
-      "first_name": "Emma",
-      "other_names": ""
+      "correspondence_address": null
     }
   },
   "case_details": {
     "urn": "",
-    "case_type": "summary_only",
-    "offence_class": "H",
-    "hearing_court_name": "Teesside Magistrates' Court",
-    "hearing_date": "2023-05-10"
+    "case_type": "appeal_to_crown_court",
+    "offence_class": "A",
+    "appeal_maat_id": null,
+    "hearing_court_name": "Cardiff Magistrates' Court",
+    "hearing_date": "2024-11-11",
+    "appeal_lodged_date": "2021-10-25"
   },
   "means_details": {
     "income_details": {
@@ -92,7 +96,38 @@
           "age": 17
         }
       ]
+    },
+    "outgoings_details": {
+      "outgoings": [
+        {
+          "type": "council_tax",
+          "amount": 100,
+          "frequency": "annual"
+        },
+        {
+          "type": "childcare",
+          "amount": 200,
+          "frequency": "month"
+        },
+        {
+          "type": "maintenance",
+          "amount": 400,
+          "frequency": "four_weeks"
+        },
+        {
+          "type": "legal_aid",
+          "amount": 500,
+          "frequency": "fortnight"
+        },
+        {
+          "type": "housing",
+          "amount": 600,
+          "frequency": "week",
+          "details": "Details about housing"
+        }
+      ],
+      "housing_payment_type": "board_lodgings"
     }
   },
-  "ioj_bypass": false
+  "ioj_bypass": true
 }

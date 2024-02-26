@@ -83,10 +83,11 @@
     "employmentStatus": {
       "type": "object",
       "nullable": true,
-      "description": "Currently not populated.",
+      "description": "The applicant's Employment Status.",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "string",
+          "enum": ["PASSPORTED", "NONPASS", "EMPLOY", "SELF", null]
         }
       }
     },

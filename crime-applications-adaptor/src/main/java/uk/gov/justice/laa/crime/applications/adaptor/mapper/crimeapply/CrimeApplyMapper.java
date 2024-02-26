@@ -2,15 +2,18 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Assessment;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Means;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
 import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The responsibility of this class is to map from a
@@ -27,6 +30,8 @@ public class CrimeApplyMapper {
     private final CaseDetailsMapper caseDetailsMapper = new CaseDetailsMapper();
     private final ApplicantMapper applicantMapper = new ApplicantMapper();
     private final PassportedMapper passportedMapper = new PassportedMapper();
+    private final InitialMeansAssessmentMapper initialMeansAssessmentMapper = new InitialMeansAssessmentMapper();
+    private final FullMeansAssessmentMapper fullMeansAssessmentMapper = new FullMeansAssessmentMapper();
 
     public MaatApplicationInternal mapToCrimeApplication(MaatApplicationExternal crimeApplyResponse) {
         MaatApplicationInternal maatApplicationInternal = new MaatApplicationInternal();
@@ -43,12 +48,25 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setDateStamp(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDateStamp())));
         maatApplicationInternal.setDateOfSignature(DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDeclarationSignedAt())));
         maatApplicationInternal.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
-        maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse.getClientDetails()));
+        maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse));
         maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
         maatApplicationInternal.setPassported(passportedMapper.map(crimeApplyResponse));
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
-
+        if(Objects.nonNull(crimeApplyResponse.getMeansDetails())) {
+            maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails()));
+        }
         return maatApplicationInternal;
+    }
+
+    private Assessment mapAssessment(Means meansDetails) {
+        Assessment assessment = new Assessment();
+        if (Objects.nonNull(meansDetails.getIncomeDetails())) {
+            assessment.setInitialMeansAssessment(initialMeansAssessmentMapper.map(meansDetails.getIncomeDetails()));
+        }
+        if (Objects.nonNull(meansDetails.getOutgoingsDetails())) {
+            assessment.setFullMeansAssessment(fullMeansAssessmentMapper.map(meansDetails.getOutgoingsDetails()));
+        }
+        return assessment;
     }
 
     private String mapHearingDate(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.
