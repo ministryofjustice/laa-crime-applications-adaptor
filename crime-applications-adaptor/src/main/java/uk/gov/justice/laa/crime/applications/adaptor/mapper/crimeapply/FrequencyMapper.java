@@ -1,7 +1,10 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail.ApplicantFrequency;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FrequencyMapper {
     private static final String WEEK = "week";
     private static final String FORTNIGHT = "fortnight";
