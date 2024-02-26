@@ -1,11 +1,14 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Dependant;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,16 +19,29 @@ class ChildWeightingMapperTest {
     @BeforeEach
     void setUp() { childWeightingMapper = new ChildWeightingMapper(); }
 
-    @Test
-    void shouldMapDependant0to1ToToAdapterChildWeighting0to1() {
+    private Dependant getDependantObject(Integer age) {
         Dependant dependant = new Dependant();
-        dependant.setAge(1);
+        dependant.setAge(age);
+
+        return dependant;
+    }
+
+    private ChildWeighting getChildWeightingObject(ChildWeighting.LowerAgeRange lowerAgeRange, ChildWeighting.UpperAgeRange upperAgeRange) {
+        ChildWeighting childWeighting = new ChildWeighting();
+        childWeighting.setLowerAgeRange(lowerAgeRange);
+        childWeighting.setUpperAgeRange(upperAgeRange);
+        childWeighting.setNoOfChildren(1);
+
+        return childWeighting;
+    }
+
+    @ParameterizedTest
+    @MethodSource("childWeightingMappingTestData")
+    void shouldMapDependantToAdapterChildWeighting(Integer age, ChildWeighting.LowerAgeRange lowerAgeRange, ChildWeighting.UpperAgeRange upperAgeRange) {
+        Dependant dependant = getDependantObject(age);
         List<Dependant> crimeApplyDependants = List.of(dependant);
 
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._0);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._1);
-        childWeighting.setNoOfChildren(1);
+        ChildWeighting childWeighting = getChildWeightingObject(lowerAgeRange, upperAgeRange);
 
         List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
         List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
@@ -33,105 +49,15 @@ class ChildWeightingMapperTest {
         assertEquals(expectedChildWeightings, actualChildWeightings);
     }
 
-    @Test
-    void shouldMapDependant2to4ToToAdapterChildWeighting2to4() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(2);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._2);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._4);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
-    }
-
-    @Test
-    void shouldMapDependant5to7ToToAdapterChildWeighting5to7() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(5);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._5);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._7);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
-    }
-
-    @Test
-    void shouldMapDependant8to10ToToAdapterChildWeighting8to10() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(8);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._8);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._10);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
-    }
-
-    @Test
-    void shouldMapDependant11to12ToToAdapterChildWeighting11to12() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(11);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._11);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._12);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
-    }
-
-    @Test
-    void shouldMapDependant13to15ToToAdapterChildWeighting13to15() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(13);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._13);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._15);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
-    }
-
-    @Test
-    void shouldMapDependant16to18ToToAdapterChildWeighting16to18() {
-        Dependant dependant = new Dependant();
-        dependant.setAge(16);
-        List<Dependant> crimeApplyDependants = List.of(dependant);
-
-        ChildWeighting childWeighting = new ChildWeighting();
-        childWeighting.setLowerAgeRange(ChildWeighting.LowerAgeRange._16);
-        childWeighting.setUpperAgeRange(ChildWeighting.UpperAgeRange._18);
-        childWeighting.setNoOfChildren(1);
-
-        List<ChildWeighting> expectedChildWeightings = List.of(childWeighting);
-        List<ChildWeighting> actualChildWeightings = childWeightingMapper.mapChildWeighting(crimeApplyDependants);
-
-        assertEquals(expectedChildWeightings, actualChildWeightings);
+    private static Stream<Arguments> childWeightingMappingTestData() {
+        return Stream.of(
+                Arguments.of(1, ChildWeighting.LowerAgeRange._0, ChildWeighting.UpperAgeRange._1),
+                Arguments.of(2, ChildWeighting.LowerAgeRange._2, ChildWeighting.UpperAgeRange._4),
+                Arguments.of(5, ChildWeighting.LowerAgeRange._5, ChildWeighting.UpperAgeRange._7),
+                Arguments.of(8, ChildWeighting.LowerAgeRange._8, ChildWeighting.UpperAgeRange._10),
+                Arguments.of(11, ChildWeighting.LowerAgeRange._11, ChildWeighting.UpperAgeRange._12),
+                Arguments.of(13, ChildWeighting.LowerAgeRange._13, ChildWeighting.UpperAgeRange._15),
+                Arguments.of(16, ChildWeighting.LowerAgeRange._16, ChildWeighting.UpperAgeRange._18)
+        );
     }
 }
