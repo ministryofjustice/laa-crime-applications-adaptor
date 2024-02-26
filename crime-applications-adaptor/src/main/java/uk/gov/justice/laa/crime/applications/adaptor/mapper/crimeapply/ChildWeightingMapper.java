@@ -6,26 +6,61 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
+
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._0;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._11;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._13;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._16;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._2;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._5;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._8;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._1;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._10;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._12;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._15;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._18;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._4;
+import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._7;
 
 public class ChildWeightingMapper {
+
     public List<ChildWeighting> mapChildWeighting(List<Dependant> crimeApplyDependants) {
         List<ChildWeighting> childWeightings = new ArrayList<>();
         if (Objects.nonNull(crimeApplyDependants)) {
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._0, ChildWeighting.UpperAgeRange._1);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._2, ChildWeighting.UpperAgeRange._4);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._5, ChildWeighting.UpperAgeRange._7);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._8, ChildWeighting.UpperAgeRange._10);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._11, ChildWeighting.UpperAgeRange._12);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._13, ChildWeighting.UpperAgeRange._15);
-            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, ChildWeighting.LowerAgeRange._16, ChildWeighting.UpperAgeRange._18);
-
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _0, _1);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _2, _4);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _5, _7);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _8, _10);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _11, _12);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _13, _15);
+            mapChildrenBasedOnAgeRange(crimeApplyDependants, childWeightings, _16, _18);
         }
         return childWeightings;
     }
-    private void mapChildrenBasedOnAgeRange(List<Dependant> crimeApplyDependants, List<ChildWeighting> childWeightings, ChildWeighting.LowerAgeRange lowerAgeRange, ChildWeighting.UpperAgeRange upperAgeRange) {
-        int numberOfChildren = Math.toIntExact(crimeApplyDependants.stream().filter(dependant -> (dependant.getAge() >= lowerAgeRange.value() && dependant.getAge() <= upperAgeRange.value())).count());
+
+    private void mapChildrenBasedOnAgeRange(List<Dependant> crimeApplyDependants,
+                                            List<ChildWeighting> childWeightings,
+                                            ChildWeighting.LowerAgeRange lowerAgeRange,
+                                            ChildWeighting.UpperAgeRange upperAgeRange) {
+        long numberOfChildrenLong = crimeApplyDependants.stream()
+                .filter(ageInsideInclusiveRange(lowerAgeRange, upperAgeRange))
+                .count();
+
+        int numberOfChildren = Math.toIntExact(numberOfChildrenLong);
+
         if (numberOfChildren > 0) {
-            childWeightings.add(new ChildWeighting(numberOfChildren, lowerAgeRange, upperAgeRange));
+            ChildWeighting childWeighting = new ChildWeighting(numberOfChildren, lowerAgeRange, upperAgeRange);
+            childWeightings.add(childWeighting);
         }
+    }
+
+    private static Predicate<Dependant> ageInsideInclusiveRange(ChildWeighting.LowerAgeRange lowerAgeRange,
+                                                                ChildWeighting.UpperAgeRange upperAgeRange) {
+        return dependant -> {
+            Integer dependantAge = dependant.getAge();
+            
+            return dependantAge >= lowerAgeRange.value() && dependantAge <= upperAgeRange.value();
+        };
     }
 }
