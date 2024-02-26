@@ -24,6 +24,9 @@ public enum HousingDetails {
     }
 
     public static HousingDetails findByValue(String value) {
-        return Arrays.stream(values()).filter(housingDetails -> housingDetails.getValue().equalsIgnoreCase(value)).findFirst().orElseThrow(IllegalArgumentException::new);
+        return Arrays.stream(values())
+                .filter(housingDetails -> housingDetails.getValue().equalsIgnoreCase(value))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 }

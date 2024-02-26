@@ -32,6 +32,9 @@ public enum BenefitDetails {
     }
 
     public static BenefitDetails findByValue(String value) {
-        return Arrays.stream(values()).filter(benefitDetails -> benefitDetails.getValue().equalsIgnoreCase(value)).findFirst().orElseThrow(IllegalArgumentException::new);
+        return Arrays.stream(values())
+                .filter(benefitDetails -> benefitDetails.getValue().equalsIgnoreCase(value))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 }

@@ -34,6 +34,9 @@ public enum OtherIncomeDetails {
     }
 
     public static OtherIncomeDetails findByValue(String value) {
-        return Arrays.stream(values()).filter(otherIncomeDetails -> otherIncomeDetails.getValue().equalsIgnoreCase(value)).findFirst().orElseThrow(IllegalArgumentException::new);
+        return Arrays.stream(values())
+                .filter(otherIncomeDetails -> otherIncomeDetails.getValue().equalsIgnoreCase(value))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 }

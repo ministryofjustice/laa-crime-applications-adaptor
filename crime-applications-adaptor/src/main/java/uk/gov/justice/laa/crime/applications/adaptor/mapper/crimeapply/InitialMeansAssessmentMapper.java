@@ -2,6 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.InitialMeansAssessment;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeDetails;
 
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -13,8 +14,7 @@ class InitialMeansAssessmentMapper {
     private final OtherIncomeMapper otherIncomeMapper = new OtherIncomeMapper();
 
     @NotNull
-    InitialMeansAssessment map(uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.
-                            IncomeDetails crimeApplyIncomeDetails) {
+    InitialMeansAssessment map(IncomeDetails crimeApplyIncomeDetails) {
 
         InitialMeansAssessment initialMeansAssessment = new InitialMeansAssessment();
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();

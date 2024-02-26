@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BenefitsMapperTest {
 
     private BenefitsMapper benefitsMapper;
-    private final int AMOUNT = 100;
+    private static final int AMOUNT = 100;
     private final String DETAILS = "Here are some details about the benefit";
 
     @BeforeEach

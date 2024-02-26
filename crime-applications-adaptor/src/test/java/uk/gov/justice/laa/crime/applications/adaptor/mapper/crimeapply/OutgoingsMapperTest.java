@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OutgoingsMapperTest {
     private OutgoingsMapper outgoingsMapper;
-    private final int AMOUNT = 150;
-    private final String DETAILS = "Here are some details about the outgoing.";
-    private final String BOARD_LODGINGS = "Board lodgings";
+    private static final int AMOUNT = 150;
+    private static final String DETAILS = "Here are some details about the outgoing.";
+    private static final String BOARD_LODGINGS = "Board lodgings";
 
     @BeforeEach
     void setUp() { outgoingsMapper = new OutgoingsMapper(); }

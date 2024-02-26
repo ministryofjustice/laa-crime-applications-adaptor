@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OtherIncomeDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OtherIncome;
@@ -34,39 +35,33 @@ public class OtherIncomeMapper {
     }
 
     private void mapFrequency(AssessmentDetail assessmentDetail, OtherIncome.Frequency frequency) {
-        switch (frequency) {
-            case WEEK -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.WEEKLY);
-            case FORTNIGHT -> assessmentDetail.setApplicantFrequency( AssessmentDetail.ApplicantFrequency._2_WEEKLY);
-            case FOUR_WEEKS -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency._4_WEEKLY);
-            case MONTH -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.MONTHLY);
-            case ANNUAL -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.ANNUALLY);
-        }
+        FrequencyMapper frequencyMapper = new FrequencyMapper();
+        frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
     }
     public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {
-        StringBuilder otherNote = new StringBuilder();
+        List<String> otherBenefitNotes = new ArrayList<>();
+        if (Objects.isNull(otherIncome)) {
+            return StringUtils.EMPTY;
+        }
 
-        if (Objects.nonNull(otherIncome)) {
-            for (OtherIncome other : otherIncome) {
-                if (Objects.nonNull(other.getDetails())) {
-                    otherNote.append("\n");
-                    otherNote.append(other.getDetails());
+        for (OtherIncome other : otherIncome) {
+            if (Objects.nonNull(other.getDetails())) {
+                otherBenefitNotes.add(other.getDetails().toString());
+            }
+
+            String incomeType = other.getType().value();
+            OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
+            switch (otherIncomeDetail) {
+                case STUDENT -> otherBenefitNotes.add(STUDENT);
+                case BOARD_FROM_FAMILY -> otherBenefitNotes.add(BOARD_FROM_FAMILY);
+                case RENT -> otherBenefitNotes.add(RENT);
+                case FRIENDS_AND_FAMILY -> otherBenefitNotes.add(FRIENDS_AND_FAMILY);
+                default -> {
                 }
-
-                String incomeType = other.getType().value();
-                OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
-                String note;
-                switch (otherIncomeDetail){
-                    case STUDENT -> note = "\n" + STUDENT;
-                    case BOARD_FROM_FAMILY -> note = "\n" + BOARD_FROM_FAMILY;
-                    case RENT -> note = "\n" + RENT;
-                    case FRIENDS_AND_FAMILY -> note = "\n" + FRIENDS_AND_FAMILY;
-                    default -> note = "";
-                }
-
-                otherNote.append(note);
             }
         }
 
-        return otherNote.toString().trim();
+
+        return String.join("\n", otherBenefitNotes);
     }
 }

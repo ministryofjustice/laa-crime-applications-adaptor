@@ -15,7 +15,7 @@ class OtherIncomeMapperTest {
 
     private OtherIncomeMapper otherIncomeMapper;
     private final String OTHER_INCOME_DETAILS = "Here are some details.";
-    private final int AMOUNT = 100;
+    private static final int AMOUNT = 100;
 
     @BeforeEach
     void setUp() { otherIncomeMapper = new OtherIncomeMapper(); }

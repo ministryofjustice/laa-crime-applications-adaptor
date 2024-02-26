@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
@@ -31,34 +32,31 @@ public class BenefitsMapper {
     }
 
     private void mapFrequency(AssessmentDetail assessmentDetail, Benefit.Frequency frequency) {
-        switch (frequency) {
-            case WEEK -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.WEEKLY);
-            case FORTNIGHT -> assessmentDetail.setApplicantFrequency( AssessmentDetail.ApplicantFrequency._2_WEEKLY);
-            case FOUR_WEEKS -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency._4_WEEKLY);
-            case MONTH -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.MONTHLY);
-            case ANNUAL -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.ANNUALLY);
-        }
+          FrequencyMapper frequencyMapper = new FrequencyMapper();
+          frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
     }
 
     public String mapOtherBenefitNotes(List<Benefit> benefits) {
-        StringBuilder otherNote = new StringBuilder();
-        if (Objects.nonNull(benefits)) {
-            for (Benefit benefit : benefits) {
-                if (Objects.nonNull(benefit.getDetails())) {
-                    otherNote.append("\n");
-                    otherNote.append(benefit.getDetails().toString());
-                }
+        List<String> otherBenefitNotes = new ArrayList<>();
 
-                String benefitType = benefit.getType().value();
-                BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
-                if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
-                    otherNote.append("\n" + UNIVERSAL_CREDIT);
-                }
-               else if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
-                    otherNote.append("\n" + JSA);
-                }
+        if (Objects.isNull(benefits)) {
+            return StringUtils.EMPTY;
+        }
+
+        for (Benefit benefit : benefits) {
+            if (Objects.nonNull(benefit.getDetails())) {
+                otherBenefitNotes.add(benefit.getDetails().toString());
+            }
+
+            String benefitType = benefit.getType().value();
+            BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
+            if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
+                otherBenefitNotes.add(UNIVERSAL_CREDIT);
+            } else if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
+                otherBenefitNotes.add(JSA);
             }
         }
-        return otherNote.toString().trim();
+
+        return String.join("\n", otherBenefitNotes);
     }
 }

@@ -14,7 +14,7 @@ class ApplicantMapper {
 
     private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
     private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
-    public static final String ON_BENEFIT_CHECK = "on_benefit_check";
+    private static final String ON_BENEFIT_CHECK = "on_benefit_check";
 
     @NotNull
     Applicant map(MaatApplicationExternal crimeApplyResponse) {
@@ -48,17 +48,19 @@ class ApplicantMapper {
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
-        mapEmploymentStatus(applicant ,crimeApplyResponse);
+        applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse));
 
         return applicant;
     }
 
-    private void mapEmploymentStatus(Applicant applicant, MaatApplicationExternal crimeApplyResponse) {
+    private EmploymentStatus mapEmploymentStatus( MaatApplicationExternal crimeApplyResponse) {
         EmploymentStatus employmentStatus = new EmploymentStatus();
         if (!crimeApplyResponse.getMeansPassport().isEmpty() &&
                 String.valueOf(crimeApplyResponse.getMeansPassport().get(0)).equals(ON_BENEFIT_CHECK)) {
             employmentStatus.setCode(EmploymentStatus.Code.PASSPORTED);
-        } else if (Objects.nonNull(crimeApplyResponse.getMeansDetails()) && !crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
+        } else if (Objects.nonNull(crimeApplyResponse.getMeansDetails())
+                && Objects.nonNull(crimeApplyResponse.getMeansDetails().getIncomeDetails())
+                && !crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
             // We only ever need to deal with one employmentType in MAAT, so we just take the first
             EmploymentType employmentType = EmploymentType.fromValue(String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0)));
             switch (employmentType) {
@@ -68,7 +70,7 @@ class ApplicantMapper {
                 default -> employmentStatus.setCode(null);
             }
         }
-        applicant.setEmploymentStatus(employmentStatus);
+        return employmentStatus;
     }
 
     private PartnerContraryInterest mapPartnerContraryInterest() {

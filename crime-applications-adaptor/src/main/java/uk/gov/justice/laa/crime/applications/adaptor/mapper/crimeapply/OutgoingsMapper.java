@@ -1,5 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.HousingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
@@ -41,33 +42,30 @@ public class OutgoingsMapper {
     }
 
     private void mapFrequency(AssessmentDetail assessmentDetail, Outgoing.Frequency frequency) {
-        switch (frequency) {
-            case WEEK -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.WEEKLY);
-            case FORTNIGHT -> assessmentDetail.setApplicantFrequency( AssessmentDetail.ApplicantFrequency._2_WEEKLY);
-            case FOUR_WEEKS -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency._4_WEEKLY);
-            case MONTH -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.MONTHLY);
-            case ANNUAL -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.ANNUALLY);
-        }
+        FrequencyMapper frequencyMapper = new FrequencyMapper();
+        frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
     }
 
     public String mapOtherHousingFeesNotes(List<Outgoing> outgoings, Object housingPaymentType) {
-        StringBuilder otherHousingFeesNotes = new StringBuilder();
-        if (Objects.nonNull(outgoings)) {
-            for (Outgoing outgoing : outgoings) {
-                String outgoingsType = outgoing.getType().value();
+        List<String> otherBenefitNotes = new ArrayList<>();
+        if (Objects.isNull(outgoings)) {
+            return StringUtils.EMPTY;
+        }
 
-                // Check housing payment type - this affects where 'housing' maps to
-                if (outgoingsType.equals(HOUSING) && Objects.nonNull(housingPaymentType) && housingPaymentType.equals(BOARD_LODGINGS_TYPE)) {
-                    // If board_lodgings, we need to create a field for the notes associated with it
-                    otherHousingFeesNotes.append("\n" + BOARD_LODGINGS);
+        for (Outgoing outgoing : outgoings) {
+            String outgoingsType = outgoing.getType().value();
 
-                    if (Objects.nonNull(outgoing.getDetails())) {
-                        otherHousingFeesNotes.append("\n" + outgoing.getDetails());
-                    }
+            // Check housing payment type - this affects where 'housing' maps to
+            if (HOUSING.equals(outgoingsType) && Objects.nonNull(housingPaymentType) && housingPaymentType.equals(BOARD_LODGINGS_TYPE)) {
+                // If board_lodgings, we need to create a field for the notes associated with it
+                otherBenefitNotes.add(BOARD_LODGINGS);
+
+                if (Objects.nonNull(outgoing.getDetails())) {
+                    otherBenefitNotes.add(outgoing.getDetails().toString());
                 }
             }
         }
 
-        return otherHousingFeesNotes.toString().trim();
+        return String.join("\n", otherBenefitNotes);
     }
 }
