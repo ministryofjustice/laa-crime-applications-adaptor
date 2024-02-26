@@ -59,7 +59,6 @@ public class ChildWeightingMapper {
                                                                 ChildWeighting.UpperAgeRange upperAgeRange) {
         return dependant -> {
             Integer dependantAge = dependant.getAge();
-            
             return dependantAge >= lowerAgeRange.value() && dependantAge <= upperAgeRange.value();
         };
     }
