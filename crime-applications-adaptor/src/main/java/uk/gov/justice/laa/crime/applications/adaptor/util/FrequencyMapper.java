@@ -1,10 +1,9 @@
-package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
+package uk.gov.justice.laa.crime.applications.adaptor.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail.ApplicantFrequency;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class FrequencyMapper {
     private static final String WEEK = "week";
     private static final String FORTNIGHT = "fortnight";
@@ -12,7 +11,7 @@ public class FrequencyMapper {
     private static final String MONTH = "month";
     private static final String ANNUAL = "annual";
 
-    public static ApplicantFrequency mapFrequency(String frequency) {
+    public ApplicantFrequency mapFrequency(String frequency) {
 
         switch (frequency) {
             case WEEK -> {

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
+import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

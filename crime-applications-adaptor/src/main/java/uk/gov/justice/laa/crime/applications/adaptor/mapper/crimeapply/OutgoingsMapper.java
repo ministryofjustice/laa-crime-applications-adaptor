@@ -5,6 +5,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.enums.HousingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
+import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
