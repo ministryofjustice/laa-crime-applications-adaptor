@@ -41,12 +41,10 @@ class CrimeApplyMapperTest {
     void shouldMapNoHomeAddressFromMaatApplicationResponse_to_CrimeApplication() throws JSONException {
         MaatApplicationExternal crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
 
-
         MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
         String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
         String expectedCrimeApplicationJson = FileUtils.readFileToString("data/expected/crimeapplication/CrimeApplicationNoHomeAddress_mapped.json");
-
         JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
     }
 
@@ -121,5 +119,17 @@ class CrimeApplyMapperTest {
         MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(maatApplicationExternal);
 
         JSONAssert.assertEquals("{}", JsonUtils.objectToJson(maatApplicationInternal.getApplicant()), JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void shouldMapAllRequiredFieldsFromMaatApplicationResponseWithUnEmployment_to_CrimeApplication() throws JSONException {
+        MaatApplicationExternal crimeApplyApplicationDetails = TestData.getMaatApplication("MaatApplication_unemployed.json");
+
+        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
+
+        String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
+        String expectedCrimeApplicationJson = JsonUtils.objectToJson(TestData.getCrimeApplication("CrimeApplication_unemployed.json"));
+
+        JSONAssert.assertEquals(expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
     }
 }

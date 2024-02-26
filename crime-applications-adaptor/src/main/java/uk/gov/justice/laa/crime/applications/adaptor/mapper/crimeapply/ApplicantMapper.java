@@ -2,27 +2,31 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Applicant;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.EmploymentStatus;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.PartnerContraryInterest;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.ClientDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.EmploymentType;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 class ApplicantMapper {
 
     private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
     private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
+    private static final String ON_BENEFIT_CHECK = "on_benefit_check";
 
     @NotNull
-    Applicant map(ClientDetails crimeApplyClientDetails) {
+    Applicant map(MaatApplicationExternal crimeApplyResponse) {
         Applicant applicant = new Applicant();
 
-        if (crimeApplyClientDetails == null) {
+        if (Objects.isNull(crimeApplyResponse) || Objects.isNull(crimeApplyResponse.getClientDetails())) {
             return applicant;
         }
 
         uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant crimeApplyApplicant =
-                crimeApplyClientDetails.getApplicant();
-        if (crimeApplyApplicant == null) {
+                crimeApplyResponse.getClientDetails().getApplicant();
+        if (Objects.isNull(crimeApplyApplicant)) {
             return applicant;
         }
 
@@ -44,7 +48,29 @@ class ApplicantMapper {
         applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
         applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
 
+        applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse));
+
         return applicant;
+    }
+
+    private EmploymentStatus mapEmploymentStatus( MaatApplicationExternal crimeApplyResponse) {
+        EmploymentStatus employmentStatus = new EmploymentStatus();
+        if (!crimeApplyResponse.getMeansPassport().isEmpty() &&
+                String.valueOf(crimeApplyResponse.getMeansPassport().get(0)).equals(ON_BENEFIT_CHECK)) {
+            employmentStatus.setCode(EmploymentStatus.Code.PASSPORTED);
+        } else if (Objects.nonNull(crimeApplyResponse.getMeansDetails())
+                && Objects.nonNull(crimeApplyResponse.getMeansDetails().getIncomeDetails())
+                && !crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().isEmpty()) {
+            // We only ever need to deal with one employmentType in MAAT, so we just take the first
+            EmploymentType employmentType = EmploymentType.fromValue(String.valueOf(crimeApplyResponse.getMeansDetails().getIncomeDetails().getEmploymentType().get(0)));
+            switch (employmentType) {
+                case NOT_WORKING -> employmentStatus.setCode(EmploymentStatus.Code.NONPASS);
+                case EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.EMPLOY);
+                case SELF_EMPLOYED -> employmentStatus.setCode(EmploymentStatus.Code.SELF);
+                default -> employmentStatus.setCode(null);
+            }
+        }
+        return employmentStatus;
     }
 
     private PartnerContraryInterest mapPartnerContraryInterest() {
