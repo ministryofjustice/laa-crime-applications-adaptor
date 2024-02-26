@@ -26,7 +26,7 @@ public class OtherIncomeMapper {
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
                 assessmentDetail.setAssessmentDetailCode(otherIncomeDetail.getCode());
                 assessmentDetail.setApplicantAmount(new BigDecimal(other.getAmount()));
-                mapFrequency(assessmentDetail, other.getFrequency());
+                assessmentDetail.setApplicantFrequency(FrequencyMapper.mapFrequency(other.getFrequency().value()));
                 assessmentDetails.add(assessmentDetail);
             }
         }
@@ -34,10 +34,6 @@ public class OtherIncomeMapper {
         return assessmentDetails;
     }
 
-    private void mapFrequency(AssessmentDetail assessmentDetail, OtherIncome.Frequency frequency) {
-        FrequencyMapper frequencyMapper = new FrequencyMapper();
-        frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
-    }
     public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {
         List<String> otherBenefitNotes = new ArrayList<>();
         if (Objects.isNull(otherIncome)) {
@@ -53,18 +49,16 @@ public class OtherIncomeMapper {
             OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
             String note;
             switch (otherIncomeDetail) {
-                case STUDENT -> note =STUDENT;
-                case BOARD_FROM_FAMILY -> note= BOARD_FROM_FAMILY;
+                case STUDENT -> note = STUDENT;
+                case BOARD_FROM_FAMILY -> note = BOARD_FROM_FAMILY;
                 case RENT -> note = RENT;
                 case FRIENDS_AND_FAMILY -> note = FRIENDS_AND_FAMILY;
                 default -> note = StringUtils.EMPTY;
             }
-            if(!StringUtils.EMPTY.equals(note)){
+            if (!StringUtils.EMPTY.equals(note)) {
                 otherBenefitNotes.add(note);
             }
         }
-
-
         return String.join("\n", otherBenefitNotes);
     }
 }

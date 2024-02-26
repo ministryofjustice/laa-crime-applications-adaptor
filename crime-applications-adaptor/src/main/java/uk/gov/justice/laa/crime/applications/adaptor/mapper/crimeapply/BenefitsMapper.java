@@ -14,6 +14,7 @@ public class BenefitsMapper {
 
     private static final String UNIVERSAL_CREDIT = "Universal Credit";
     private static final String JSA = "JSA";
+
     public List<AssessmentDetail> mapBenefits(List<Benefit> benefits) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
@@ -24,16 +25,11 @@ public class BenefitsMapper {
                 BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
                 assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
                 assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
-                mapFrequency(assessmentDetail, benefit.getFrequency());
+                assessmentDetail.setApplicantFrequency(FrequencyMapper.mapFrequency(benefit.getFrequency().value()));
                 assessmentDetails.add(assessmentDetail);
             }
         }
         return assessmentDetails;
-    }
-
-    private void mapFrequency(AssessmentDetail assessmentDetail, Benefit.Frequency frequency) {
-          FrequencyMapper frequencyMapper = new FrequencyMapper();
-          frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
     }
 
     public String mapOtherBenefitNotes(List<Benefit> benefits) {

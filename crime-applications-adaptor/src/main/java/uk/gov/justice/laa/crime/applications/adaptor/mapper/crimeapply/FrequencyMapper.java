@@ -1,6 +1,6 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail.ApplicantFrequency;
 
 public class FrequencyMapper {
     private static final String WEEK = "week";
@@ -9,15 +9,27 @@ public class FrequencyMapper {
     private static final String MONTH = "month";
     private static final String ANNUAL = "annual";
 
-    public void mapFrequency(String frequency, AssessmentDetail assessmentDetail){
+    public static ApplicantFrequency mapFrequency(String frequency) {
 
-        switch (frequency){
-            case WEEK -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.WEEKLY);
-            case FORTNIGHT -> assessmentDetail.setApplicantFrequency( AssessmentDetail.ApplicantFrequency._2_WEEKLY);
-            case FOUR_WEEKS -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency._4_WEEKLY);
-            case MONTH -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.MONTHLY);
-            case ANNUAL -> assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.ANNUALLY);
-            default -> assessmentDetail.setApplicantFrequency(null);
+        switch (frequency) {
+            case WEEK -> {
+                return ApplicantFrequency.WEEKLY;
+            }
+            case FORTNIGHT -> {
+                return ApplicantFrequency._2_WEEKLY;
+            }
+            case FOUR_WEEKS -> {
+                return ApplicantFrequency._4_WEEKLY;
+            }
+            case MONTH -> {
+                return ApplicantFrequency.MONTHLY;
+            }
+            case ANNUAL -> {
+                return ApplicantFrequency.ANNUALLY;
+            }
+            default -> {
+                return null;
+            }
         }
     }
 }

@@ -32,18 +32,13 @@ public class OutgoingsMapper {
                 }
 
                 assessmentDetail.setApplicantAmount(new BigDecimal(outgoing.getAmount()));
-                mapFrequency(assessmentDetail, outgoing.getFrequency());
+                assessmentDetail.setApplicantFrequency(FrequencyMapper.mapFrequency(outgoing.getFrequency().value()));
 
                 assessmentDetails.add(assessmentDetail);
             }
         }
 
         return assessmentDetails;
-    }
-
-    private void mapFrequency(AssessmentDetail assessmentDetail, Outgoing.Frequency frequency) {
-        FrequencyMapper frequencyMapper = new FrequencyMapper();
-        frequencyMapper.mapFrequency(frequency.value(), assessmentDetail);
     }
 
     public String mapOtherHousingFeesNotes(List<Outgoing> outgoings, Object housingPaymentType) {
