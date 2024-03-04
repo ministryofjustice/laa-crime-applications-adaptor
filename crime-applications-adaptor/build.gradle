@@ -24,7 +24,7 @@ def versions = [
 		validationapiVersion   : '2.0.1.Final',
 		resilience4jVersion    : "2.2.0",
 		commonsioVersion       : '2.11.0',
-		sentryVersion 		   : "7.4.0"
+		sentryVersion 		   : "7.5.0"
 ]
 
 java {
