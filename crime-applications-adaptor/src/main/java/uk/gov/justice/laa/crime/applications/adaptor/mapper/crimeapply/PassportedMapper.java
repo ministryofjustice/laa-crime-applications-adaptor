@@ -39,7 +39,7 @@ class PassportedMapper {
     private void mapBenefitType(Applicant applicant, Passported passported) {
         if (Objects.nonNull(applicant) &&
                 Objects.nonNull(applicant.getBenefitType()) &&
-                !applicant.getBenefitType().equals(NONE_VALUE)) {
+                !applicant.getBenefitType().value().equals(NONE_VALUE)) {
             Applicant.BenefitType benefitType = applicant.getBenefitType();
             switch (benefitType) {
                 case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
