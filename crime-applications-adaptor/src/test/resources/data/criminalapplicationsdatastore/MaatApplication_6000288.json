@@ -16,6 +16,7 @@
   "client_details": {
     "applicant": {
       "date_of_birth": "2005-04-21",
+      "benefit_type": "none",
       "telephone_number": "",
       "correspondence_address_type": "home_address",
       "home_address": {
