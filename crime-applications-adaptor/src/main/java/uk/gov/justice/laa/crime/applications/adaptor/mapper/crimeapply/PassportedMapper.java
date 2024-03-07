@@ -12,6 +12,7 @@ class PassportedMapper {
     private static final boolean FALSE = false;
     private static final boolean TRUE = true;
     private static final Passported.WhoDwpChecked WHO_DWP_CHECKED_DEFAULT_NULL = null;
+    private static final String NONE_VALUE = "none";
 
     @NotNull
     Passported map(MaatApplicationExternal crimeApplyMaatApplicationExternal) {
@@ -37,7 +38,8 @@ class PassportedMapper {
 
     private void mapBenefitType(Applicant applicant, Passported passported) {
         if (Objects.nonNull(applicant) &&
-                Objects.nonNull(applicant.getBenefitType())) {
+                Objects.nonNull(applicant.getBenefitType()) &&
+                !applicant.getBenefitType().equals(NONE_VALUE)) {
             Applicant.BenefitType benefitType = applicant.getBenefitType();
             switch (benefitType) {
                 case UNIVERSAL_CREDIT -> passported.setBenefitUniversalCredit(TRUE);
