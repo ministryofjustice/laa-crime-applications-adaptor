@@ -12,23 +12,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class ResourceServer {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/token/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/api-docs/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer((oauth2ResourceServer) ->
-                        oauth2ResourceServer
-                                .jwt(Customizer.withDefaults())
-                );
+    http.authorizeHttpRequests(
+            authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers("/token/**")
+                    .permitAll()
+                    .requestMatchers("/swagger-ui/**")
+                    .permitAll()
+                    .requestMatchers("/api-docs/**")
+                    .permitAll()
+                    .requestMatchers("/actuator/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .oauth2ResourceServer(
+            (oauth2ResourceServer) -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
 
-        return http.build();
-    }
+    return http.build();
+  }
 }

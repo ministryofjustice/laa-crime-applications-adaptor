@@ -19,24 +19,28 @@ import uk.gov.justice.laa.crime.applications.adaptor.util.CrimeApplicationHttpUt
 @Slf4j
 public class CrimeApplicationService {
 
-    private static final String SERVICE_NAME = "callCrimeApplyDatastore";
+  private static final String SERVICE_NAME = "callCrimeApplyDatastore";
 
-    private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
-    private final ServicesConfiguration servicesConfiguration;
-    private final ObservationRegistry observationRegistry;
-    private final CrimeApplyMapper crimeApplyMapper;
+  private final CrimeApplyDatastoreClient crimeApplyDatastoreClient;
+  private final ServicesConfiguration servicesConfiguration;
+  private final ObservationRegistry observationRegistry;
+  private final CrimeApplyMapper crimeApplyMapper;
 
-    @Retry(name = SERVICE_NAME)
-    public MaatApplicationInternal retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
-        log.info("Start - call to Crime Apply datastore with usn {}", usn);
-        MaatApplicationExternal crimeApplyMaatApplicationExternal = crimeApplyDatastoreClient.getApplicationDetails(usn,
-                CrimeApplicationHttpUtil.getHttpHeaders(
-                        Encoders.BASE64.encode(servicesConfiguration.getCrimeApplyApi().getClientSecret().getBytes()),
-                        servicesConfiguration.getCrimeApplyApi().getIssuer()));
+  @Retry(name = SERVICE_NAME)
+  public MaatApplicationInternal retrieveApplicationDetailsFromCrimeApplyDatastore(long usn) {
+    log.info("Start - call to Crime Apply datastore with usn {}", usn);
+    MaatApplicationExternal crimeApplyMaatApplicationExternal =
+        crimeApplyDatastoreClient.getApplicationDetails(
+            usn,
+            CrimeApplicationHttpUtil.getHttpHeaders(
+                Encoders.BASE64.encode(
+                    servicesConfiguration.getCrimeApplyApi().getClientSecret().getBytes()),
+                servicesConfiguration.getCrimeApplyApi().getIssuer()));
 
-        MaatApplicationInternal maatApplicationInternal = crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplicationExternal);
+    MaatApplicationInternal maatApplicationInternal =
+        crimeApplyMapper.mapToCrimeApplication(crimeApplyMaatApplicationExternal);
 
-        return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> maatApplicationInternal);
-    }
+    return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
+        .observe(() -> maatApplicationInternal);
+  }
 }

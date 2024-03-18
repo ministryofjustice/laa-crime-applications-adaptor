@@ -14,18 +14,18 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingRes
 @Slf4j
 public class EformStagingService {
 
-    private static final String SERVICE_NAME = "eformStagingService";
+  private static final String SERVICE_NAME = "eformStagingService";
 
-    private final MaatCourtDataApiClient eformStagingApiClient;
+  private final MaatCourtDataApiClient eformStagingApiClient;
 
-    private final ObservationRegistry observationRegistry;
+  private final ObservationRegistry observationRegistry;
 
-    @Retry(name = SERVICE_NAME)
-    public EformStagingResponse retrieveOrInsertDummyUsnRecord(long usn, String userCreated) {
-        log.info("Start - call to Eform Staging API ");
-        EformStagingResponse eformStagingResponse = eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn, userCreated);
-        return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> eformStagingResponse);
-    }
+  @Retry(name = SERVICE_NAME)
+  public EformStagingResponse retrieveOrInsertDummyUsnRecord(long usn, String userCreated) {
+    log.info("Start - call to Eform Staging API ");
+    EformStagingResponse eformStagingResponse =
+        eformStagingApiClient.retrieveOrInsertDummyUsnRecordInEformStaging(usn, userCreated);
+    return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
+        .observe(() -> eformStagingResponse);
+  }
 }
-

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @TestConfiguration
 @EnableWebSecurity
 public class ResourceServer {
-    public void configure(HttpSecurity http) throws Exception {
-        http.build();
-    }
+  public void configure(HttpSecurity http) throws Exception {
+    http.build();
+  }
 }

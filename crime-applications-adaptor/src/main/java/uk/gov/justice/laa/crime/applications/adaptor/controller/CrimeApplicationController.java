@@ -21,46 +21,54 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryServic
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/internal/v1/crimeapply")
-@Tag(name = "Crime Applications Adaptor", description = "Rest API to retrieve application details from crime apply datastore")
+@Tag(
+    name = "Crime Applications Adaptor",
+    description = "Rest API to retrieve application details from crime apply datastore")
 public class CrimeApplicationController {
 
-    private static final String DEFAULT_USER = "causer";
+  private static final String DEFAULT_USER = "causer";
 
-    private final CrimeApplicationService crimeApplicationService;
-    private final EformStagingService eformStagingService;
-    private final EformsHistoryService eformsHistoryService;
+  private final CrimeApplicationService crimeApplicationService;
+  private final EformStagingService eformStagingService;
+  private final EformsHistoryService eformsHistoryService;
 
-    @GetMapping(value = "/{id}/userCreated/{userCreated}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(description = "Retrieve application details from crime apply datastore")
-    @ApiResponse(responseCode = "200",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = MaatApplicationInternal.class)
-            )
-    )
-    @ApiResponse(responseCode = "400",
-            description = "Bad request.",
-            content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
-                    schema = @Schema(implementation = ProblemDetail.class)
-            )
-    )
-    @ApiResponse(responseCode = "500",
-            description = "Server Error.",
-            content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
-                    schema = @Schema(implementation = ProblemDetail.class)
-            )
-    )
-    public MaatApplicationInternal getCrimeApplyData(@PathVariable long id,
-                                                     @PathVariable String userCreated) {
-        log.info("Get applicant details from Crime Apply datastore");
-        userCreated = StringUtils.isNotEmpty(userCreated) ? userCreated : DEFAULT_USER;
-        MaatApplicationInternal maatApplicationInternal = crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
-        EformStagingResponse eformStagingResponse = eformStagingService.retrieveOrInsertDummyUsnRecord(id, userCreated);
-        eformsHistoryService.createEformsHistoryRecord(id, userCreated);
-        Integer maatRef = eformStagingResponse.getMaatRef();
-        if (maatRef != null) {
-            return maatApplicationInternal
-                    .withMaatRef(maatRef);
-        }
-        return maatApplicationInternal;
+  @GetMapping(
+      value = "/{id}/userCreated/{userCreated}",
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description = "Retrieve application details from crime apply datastore")
+  @ApiResponse(
+      responseCode = "200",
+      content =
+          @Content(
+              mediaType = MediaType.APPLICATION_JSON_VALUE,
+              schema = @Schema(implementation = MaatApplicationInternal.class)))
+  @ApiResponse(
+      responseCode = "400",
+      description = "Bad request.",
+      content =
+          @Content(
+              mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+              schema = @Schema(implementation = ProblemDetail.class)))
+  @ApiResponse(
+      responseCode = "500",
+      description = "Server Error.",
+      content =
+          @Content(
+              mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+              schema = @Schema(implementation = ProblemDetail.class)))
+  public MaatApplicationInternal getCrimeApplyData(
+      @PathVariable long id, @PathVariable String userCreated) {
+    log.info("Get applicant details from Crime Apply datastore");
+    userCreated = StringUtils.isNotEmpty(userCreated) ? userCreated : DEFAULT_USER;
+    MaatApplicationInternal maatApplicationInternal =
+        crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(id);
+    EformStagingResponse eformStagingResponse =
+        eformStagingService.retrieveOrInsertDummyUsnRecord(id, userCreated);
+    eformsHistoryService.createEformsHistoryRecord(id, userCreated);
+    Integer maatRef = eformStagingResponse.getMaatRef();
+    if (maatRef != null) {
+      return maatApplicationInternal.withMaatRef(maatRef);
     }
+    return maatApplicationInternal;
+  }
 }

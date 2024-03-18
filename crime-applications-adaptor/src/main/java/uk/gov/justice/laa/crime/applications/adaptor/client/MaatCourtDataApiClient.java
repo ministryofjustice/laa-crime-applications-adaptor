@@ -10,10 +10,10 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformsHistory;
 
 @HttpExchange()
 public interface MaatCourtDataApiClient {
-    @PostExchange("/initialise/{usn}")
-    EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(@PathVariable long usn, @RequestParam String userCreated);
+  @PostExchange("/initialise/{usn}")
+  EformStagingResponse retrieveOrInsertDummyUsnRecordInEformStaging(
+      @PathVariable long usn, @RequestParam String userCreated);
 
-    @PostExchange("/history")
-    void createEformsHistoryRecord(@RequestBody EformsHistory eformsHistory);
-
+  @PostExchange("/history")
+  void createEformsHistoryRecord(@RequestBody EformsHistory eformsHistory);
 }

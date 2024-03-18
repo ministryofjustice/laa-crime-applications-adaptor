@@ -9,18 +9,17 @@ import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClie
 
 @TestConfiguration
 public class MaatCourtDataWebClientConfiguration {
-    @Bean
-    WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration) {
-        return WebClient.builder()
-                .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
-                .build();
-    }
+  @Bean
+  WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration) {
+    return WebClient.builder()
+        .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
+        .build();
+  }
 
-    @Bean
-    MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
-        HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builderFor(WebClientAdapter.create(maatCourtDataWebClient))
-                        .build();
-        return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
-    }
+  @Bean
+  MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
+    HttpServiceProxyFactory httpServiceProxyFactory =
+        HttpServiceProxyFactory.builderFor(WebClientAdapter.create(maatCourtDataWebClient)).build();
+    return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
+  }
 }

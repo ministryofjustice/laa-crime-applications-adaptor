@@ -12,21 +12,24 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(WebClientResponseException.class)
-    public ProblemDetail onRuntimeException(WebClientResponseException exception){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(exception.getStatusCode(), exception.getMessage());
-        return problemDetail;
-    }
+  @ExceptionHandler(WebClientResponseException.class)
+  public ProblemDetail onRuntimeException(WebClientResponseException exception) {
+    ProblemDetail problemDetail =
+        ProblemDetail.forStatusAndDetail(exception.getStatusCode(), exception.getMessage());
+    return problemDetail;
+  }
 
-    @ExceptionHandler(WebClientRequestException.class)
-    public ProblemDetail onRuntimeException(WebClientRequestException exception){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
-        return problemDetail;
-    }
+  @ExceptionHandler(WebClientRequestException.class)
+  public ProblemDetail onRuntimeException(WebClientRequestException exception) {
+    ProblemDetail problemDetail =
+        ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    return problemDetail;
+  }
 
-    @ExceptionHandler(CrimeApplicationException.class)
-    public ProblemDetail onRuntimeException(CrimeApplicationException exception){
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(exception.getHttpResponseCode(), exception.getMessage());
-        return problemDetail;
-    }
+  @ExceptionHandler(CrimeApplicationException.class)
+  public ProblemDetail onRuntimeException(CrimeApplicationException exception) {
+    ProblemDetail problemDetail =
+        ProblemDetail.forStatusAndDetail(exception.getHttpResponseCode(), exception.getMessage());
+    return problemDetail;
+  }
 }
