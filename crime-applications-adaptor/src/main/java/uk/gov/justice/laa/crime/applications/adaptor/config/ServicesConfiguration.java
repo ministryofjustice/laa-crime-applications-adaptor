@@ -12,36 +12,29 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "services")
 public class ServicesConfiguration {
 
-    @NotNull
-    private CrimeApplyApi crimeApplyApi;
+  @NotNull private CrimeApplyApi crimeApplyApi;
 
-    @NotNull
-    private EformStagingApi eformStagingApi;
+  @NotNull private EformStagingApi eformStagingApi;
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class CrimeApplyApi {
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class CrimeApplyApi {
 
-        @NotNull
-        private String baseUrl;
+    @NotNull private String baseUrl;
 
-        @NotNull
-        private String clientSecret;
+    @NotNull private String clientSecret;
 
-        @NotNull
-        private String issuer;
-    }
+    @NotNull private String issuer;
+  }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class EformStagingApi {
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class EformStagingApi {
 
-        @NotNull
-        private String baseUrl;
+    @NotNull private String baseUrl;
 
-        @NotNull
-        private String registrationId;
-    }
+    @NotNull private String registrationId;
+  }
 }

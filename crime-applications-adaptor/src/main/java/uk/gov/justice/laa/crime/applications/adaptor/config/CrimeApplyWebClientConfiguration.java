@@ -1,6 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.config;
 
 import io.netty.resolver.DefaultAddressResolverGroup;
+import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -13,40 +14,36 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
 import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreClient;
 
-import java.time.Duration;
-
 @Configuration
 @AllArgsConstructor
 @Slf4j
 public class CrimeApplyWebClientConfiguration {
-    @Bean
-    WebClient crimeApplyWebClient(ServicesConfiguration servicesConfiguration) {
-        ConnectionProvider provider =
-                ConnectionProvider.builder("custom")
-                        .maxConnections(500)
-                        .maxIdleTime(Duration.ofSeconds(20))
-                        .maxLifeTime(Duration.ofSeconds(60))
-                        .pendingAcquireTimeout(Duration.ofSeconds(60))
-                        .evictInBackground(Duration.ofSeconds(120))
-                        .build();
+  @Bean
+  WebClient crimeApplyWebClient(ServicesConfiguration servicesConfiguration) {
+    ConnectionProvider provider =
+        ConnectionProvider.builder("custom")
+            .maxConnections(500)
+            .maxIdleTime(Duration.ofSeconds(20))
+            .maxLifeTime(Duration.ofSeconds(60))
+            .pendingAcquireTimeout(Duration.ofSeconds(60))
+            .evictInBackground(Duration.ofSeconds(120))
+            .build();
 
-        return WebClient.builder()
-                .baseUrl(servicesConfiguration.getCrimeApplyApi().getBaseUrl())
-                .clientConnector(new ReactorClientHttpConnector(
-                                HttpClient.create(provider)
-                                        .resolver(DefaultAddressResolverGroup.INSTANCE)
-                                        .compress(true)
-                                        .responseTimeout(Duration.ofSeconds(30))
-                        )
-                )
-                .build();
-    }
+    return WebClient.builder()
+        .baseUrl(servicesConfiguration.getCrimeApplyApi().getBaseUrl())
+        .clientConnector(
+            new ReactorClientHttpConnector(
+                HttpClient.create(provider)
+                    .resolver(DefaultAddressResolverGroup.INSTANCE)
+                    .compress(true)
+                    .responseTimeout(Duration.ofSeconds(30))))
+        .build();
+  }
 
-    @Bean
-    CrimeApplyDatastoreClient crimeApplyDatastoreClient(WebClient crimeApplyWebClient) {
-        HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builderFor(WebClientAdapter.create(crimeApplyWebClient))
-                        .build();
-        return httpServiceProxyFactory.createClient(CrimeApplyDatastoreClient.class);
-    }
+  @Bean
+  CrimeApplyDatastoreClient crimeApplyDatastoreClient(WebClient crimeApplyWebClient) {
+    HttpServiceProxyFactory httpServiceProxyFactory =
+        HttpServiceProxyFactory.builderFor(WebClientAdapter.create(crimeApplyWebClient)).build();
+    return httpServiceProxyFactory.createClient(CrimeApplyDatastoreClient.class);
+  }
 }
