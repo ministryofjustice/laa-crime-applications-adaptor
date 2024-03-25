@@ -120,13 +120,12 @@
           "frequency": "fortnight"
         },
         {
-          "payment_type": "housing",
+          "payment_type": "board_and_lodging",
           "amount": 600,
           "frequency": "week",
           "details": "Details about housing"
         }
-      ],
-      "housing_payment_type": "board_lodgings"
+      ]
     }
   },
   "ioj_bypass": true

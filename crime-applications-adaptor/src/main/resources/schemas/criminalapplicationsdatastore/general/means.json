@@ -243,7 +243,7 @@
             "properties": {
               "payment_type": {
                 "type": "string",
-                "enum": ["housing", "council_tax", "childcare", "maintenance", "legal_aid_contribution"]
+                "enum": ["rent", "mortgage", "board_and_lodging", "council_tax", "childcare", "maintenance", "legal_aid_contribution"]
               },
               "amount": {
                 "type": "integer"
@@ -265,17 +265,6 @@
             },
             "required": ["type", "amount", "frequency"]
           }
-        },
-        "housing_payment_type": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "enum": ["rent", "mortgage", "board_lodgings", "none"]
-            }
-          ]
         }
       },
       "required": []

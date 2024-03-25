@@ -15,7 +15,7 @@ class OutgoingsMapperTest {
     private OutgoingsMapper outgoingsMapper;
     private static final int AMOUNT = 150;
     private static final String DETAILS = "Here are some details about the outgoing.";
-    private static final String BOARD_LODGINGS = "Board lodgings";
+    private static final String BOARD_AND_LODGING = "Board and lodging";
 
     @BeforeEach
     void setUp() { outgoingsMapper = new OutgoingsMapper(); }
@@ -46,7 +46,7 @@ class OutgoingsMapperTest {
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
 
         List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
-        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings, null);
+        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings);
 
         assertEquals(expectedAssessmentDetail, actualAssessmentDetail);
     }
@@ -61,7 +61,7 @@ class OutgoingsMapperTest {
         assessmentDetail.setAssessmentDetailCode(OutgoingDetails.CHILDCARE.getCode());
 
         List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
-        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings, null);
+        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings);
 
         assertEquals(expectedAssessmentDetail, actualAssessmentDetail);
     }
@@ -76,7 +76,7 @@ class OutgoingsMapperTest {
         assessmentDetail.setAssessmentDetailCode(OutgoingDetails.MAINTENANCE.getCode());
 
         List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
-        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings, null);
+        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings);
 
         assertEquals(expectedAssessmentDetail, actualAssessmentDetail);
     }
@@ -91,7 +91,7 @@ class OutgoingsMapperTest {
         assessmentDetail.setAssessmentDetailCode(OutgoingDetails.LEGAL_AID_CONTRIBUTION.getCode());
 
         List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
-        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings, null);
+        List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings);
 
         assertEquals(expectedAssessmentDetail, actualAssessmentDetail);
     }
@@ -99,13 +99,12 @@ class OutgoingsMapperTest {
     @Test
     void shouldAddHousingTypeBoardLodgingsToOtherHousingFeesNotes() {
         Outgoing outgoing = getOutgoingObject();
-        outgoing.setPaymentType(Outgoing.PaymentType.HOUSING);
+        outgoing.setPaymentType(Outgoing.PaymentType.BOARD_AND_LODGING);
         outgoing.setDetails(DETAILS);
         List<Outgoing> outgoings = List.of(outgoing);
-        Object housingPaymentType = "board_lodgings";
 
-        String expectedOutgoingsNotes = BOARD_LODGINGS + "\n" + DETAILS;
-        String actualOutgoingsNotes = outgoingsMapper.mapOtherHousingFeesNotes(outgoings, housingPaymentType);
+        String expectedOutgoingsNotes = BOARD_AND_LODGING + "\n" + DETAILS;
+        String actualOutgoingsNotes = outgoingsMapper.mapOtherHousingFeesNotes(outgoings);
 
         assertEquals(expectedOutgoingsNotes, actualOutgoingsNotes);
     }
