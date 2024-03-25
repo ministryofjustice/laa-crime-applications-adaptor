@@ -8,12 +8,12 @@
     "income_details": {
       "type": "object",
       "properties": {
-        "benefits": {
+        "income_benefits": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "payment_type": {
                 "type": "string",
                 "enum": ["child", "working_or_child_tax_credit", "universal_credit", "incapacity", "industrial_injuries_disablement", "jsa", "other"]
               },
@@ -174,12 +174,12 @@
           },
           "required": ["paye"]
         },
-        "other_income": {
+        "income_payments": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "payment_type": {
                 "type": "string",
                 "enum": [
                   "private_pension",
@@ -211,7 +211,7 @@
                 ]
               }
             },
-            "required": ["type", "amount", "frequency"]
+            "required": ["payment_type", "amount", "frequency"]
           }
         },
         "total": {
@@ -241,9 +241,9 @@
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "payment_type": {
                 "type": "string",
-                "enum": ["housing", "council_tax", "childcare", "maintenance", "legal_aid"]
+                "enum": ["housing", "council_tax", "childcare", "maintenance", "legal_aid_contribution"]
               },
               "amount": {
                 "type": "integer"

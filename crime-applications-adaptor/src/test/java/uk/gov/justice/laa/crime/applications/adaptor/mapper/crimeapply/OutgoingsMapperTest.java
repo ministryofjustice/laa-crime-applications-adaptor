@@ -23,7 +23,7 @@ class OutgoingsMapperTest {
     private Outgoing getOutgoingObject() {
         Outgoing outgoing = new Outgoing();
         outgoing.setAmount(AMOUNT);
-        outgoing.setType(Outgoing.Type.COUNCIL_TAX);
+        outgoing.setPaymentType(Outgoing.PaymentType.COUNCIL_TAX);
         outgoing.setFrequency(Outgoing.Frequency.MONTH);
 
         return outgoing;
@@ -54,7 +54,7 @@ class OutgoingsMapperTest {
     @Test
     void shouldMapChildcareToChildCost() {
         Outgoing outgoing = getOutgoingObject();
-        outgoing.setType(Outgoing.Type.CHILDCARE);
+        outgoing.setPaymentType(Outgoing.PaymentType.CHILDCARE);
         List<Outgoing> outgoings = List.of(outgoing);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
@@ -69,7 +69,7 @@ class OutgoingsMapperTest {
     @Test
     void shouldMapMaintenanceToMaintCost() {
         Outgoing outgoing = getOutgoingObject();
-        outgoing.setType(Outgoing.Type.MAINTENANCE);
+        outgoing.setPaymentType(Outgoing.PaymentType.MAINTENANCE);
         List<Outgoing> outgoings = List.of(outgoing);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
@@ -84,11 +84,11 @@ class OutgoingsMapperTest {
     @Test
     void shouldMapLegalAidToOtherLac() {
         Outgoing outgoing = getOutgoingObject();
-        outgoing.setType(Outgoing.Type.LEGAL_AID);
+        outgoing.setPaymentType(Outgoing.PaymentType.LEGAL_AID_CONTRIBUTION);
         List<Outgoing> outgoings = List.of(outgoing);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
-        assessmentDetail.setAssessmentDetailCode(OutgoingDetails.LEGAL_AID.getCode());
+        assessmentDetail.setAssessmentDetailCode(OutgoingDetails.LEGAL_AID_CONTRIBUTION.getCode());
 
         List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
         List<AssessmentDetail> actualAssessmentDetail = outgoingsMapper.mapOutgoings(outgoings, null);
@@ -99,7 +99,7 @@ class OutgoingsMapperTest {
     @Test
     void shouldAddHousingTypeBoardLodgingsToOtherHousingFeesNotes() {
         Outgoing outgoing = getOutgoingObject();
-        outgoing.setType(Outgoing.Type.HOUSING);
+        outgoing.setPaymentType(Outgoing.PaymentType.HOUSING);
         outgoing.setDetails(DETAILS);
         List<Outgoing> outgoings = List.of(outgoing);
         Object housingPaymentType = "board_lodgings";

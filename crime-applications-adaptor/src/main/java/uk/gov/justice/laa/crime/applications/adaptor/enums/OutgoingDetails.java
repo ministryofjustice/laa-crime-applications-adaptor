@@ -6,7 +6,7 @@ public enum OutgoingDetails {
     COUNCIL_TAX("council_tax", "COUNCIL"),
     CHILDCARE("childcare", "CHILD_COST"),
     MAINTENANCE("maintenance", "MAINT_COST"),
-    LEGAL_AID("legal_aid", "OTHER_LAC");
+    LEGAL_AID_CONTRIBUTION("legal_aid_contribution", "OTHER_LAC");
 
     private final String value;
     private final String code;

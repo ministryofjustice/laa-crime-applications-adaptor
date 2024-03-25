@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeBenefit;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 import java.math.BigDecimal;
@@ -16,13 +16,13 @@ public class BenefitsMapper {
     private static final String UNIVERSAL_CREDIT = "Universal Credit";
     private static final String JSA = "JSA";
 
-    public List<AssessmentDetail> mapBenefits(List<Benefit> benefits) {
+    public List<AssessmentDetail> mapBenefits(List<IncomeBenefit> benefits) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (Objects.nonNull(benefits)) {
-            for (Benefit benefit : benefits) {
+            for (IncomeBenefit benefit : benefits) {
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
-                String benefitType = benefit.getType().value();
+                String benefitType = benefit.getPaymentType().value();
                 BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
                 assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
                 assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
@@ -33,19 +33,19 @@ public class BenefitsMapper {
         return assessmentDetails;
     }
 
-    public String mapOtherBenefitNotes(List<Benefit> benefits) {
+    public String mapOtherBenefitNotes(List<IncomeBenefit> benefits) {
         List<String> otherBenefitNotes = new ArrayList<>();
 
         if (Objects.isNull(benefits)) {
             return StringUtils.EMPTY;
         }
 
-        for (Benefit benefit : benefits) {
+        for (IncomeBenefit benefit : benefits) {
             if (Objects.nonNull(benefit.getDetails())) {
                 otherBenefitNotes.add(benefit.getDetails().toString());
             }
 
-            String benefitType = benefit.getType().value();
+            String benefitType = benefit.getPaymentType().value();
             BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
             if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
                 otherBenefitNotes.add(UNIVERSAL_CREDIT);

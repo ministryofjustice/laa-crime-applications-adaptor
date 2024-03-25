@@ -35,8 +35,8 @@ class InitialMeansAssessmentMapperTest {
     void shouldSuccessfullyMapNullCrimeApplyIncomeDetailsToEmptyAdapterInitialMeansAssessment() throws JSONException {
         IncomeDetails crimeApplyIncomeDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getIncomeDetails();
 
-        crimeApplyIncomeDetails.setBenefits(null);
-        crimeApplyIncomeDetails.setOtherIncome(null);
+        crimeApplyIncomeDetails.setIncomeBenefits(null);
+        crimeApplyIncomeDetails.setIncomePayments(null);
         crimeApplyIncomeDetails.setDependants(null);
 
         InitialMeansAssessment initialMeansAssessment = initialMeansAssessmentMapper.map(crimeApplyIncomeDetails);

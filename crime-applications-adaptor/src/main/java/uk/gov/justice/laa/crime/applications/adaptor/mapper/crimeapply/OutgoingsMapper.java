@@ -23,7 +23,7 @@ public class OutgoingsMapper {
         if (Objects.nonNull(outgoings)) {
             for (Outgoing outgoing : outgoings) {
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
-                String outgoingsType = outgoing.getType().value();
+                String outgoingsType = outgoing.getPaymentType().value();
                 // If the type is 'housing', we map against the housing codes instead
                 if (outgoingsType.equals(HOUSING) && Objects.nonNull(housingPaymentType)) {
                     assessmentDetail.setAssessmentDetailCode(String.valueOf(HousingDetails.findByValue((String) housingPaymentType).getCode()));
@@ -49,7 +49,7 @@ public class OutgoingsMapper {
         }
 
         for (Outgoing outgoing : outgoings) {
-            String outgoingsType = outgoing.getType().value();
+            String outgoingsType = outgoing.getPaymentType().value();
 
             // Check housing payment type - this affects where 'housing' maps to
             if (HOUSING.equals(outgoingsType) && Objects.nonNull(housingPaymentType) && housingPaymentType.equals(BOARD_LODGINGS_TYPE)) {

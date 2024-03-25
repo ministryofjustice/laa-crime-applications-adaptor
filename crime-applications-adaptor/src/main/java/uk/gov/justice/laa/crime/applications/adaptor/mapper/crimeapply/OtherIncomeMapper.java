@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OtherIncomeDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OtherIncome;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomePayment;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 import java.math.BigDecimal;
@@ -17,12 +17,12 @@ public class OtherIncomeMapper {
     private static final String RENT = "Rent";
     private static final String FRIENDS_AND_FAMILY = "Friends and Family";
 
-    public List<AssessmentDetail> mapOtherIncome(List<OtherIncome> otherIncome) {
+    public List<AssessmentDetail> mapOtherIncome(List<IncomePayment> otherIncome) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (Objects.nonNull(otherIncome)) {
-            for (OtherIncome other : otherIncome) {
-                String incomeType = other.getType().value();
+            for (IncomePayment other : otherIncome) {
+                String incomeType = other.getPaymentType().value();
                 OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
                 assessmentDetail.setAssessmentDetailCode(otherIncomeDetail.getCode());
@@ -35,18 +35,18 @@ public class OtherIncomeMapper {
         return assessmentDetails;
     }
 
-    public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {
+    public String mapOtherIncomeNotes(List<IncomePayment> otherIncome) {
         List<String> otherBenefitNotes = new ArrayList<>();
         if (Objects.isNull(otherIncome)) {
             return StringUtils.EMPTY;
         }
 
-        for (OtherIncome other : otherIncome) {
+        for (IncomePayment other : otherIncome) {
             if (Objects.nonNull(other.getDetails())) {
                 otherBenefitNotes.add(other.getDetails().toString());
             }
 
-            String incomeType = other.getType().value();
+            String incomeType = other.getPaymentType().value();
             OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
             String note;
             switch (otherIncomeDetail) {

@@ -55,7 +55,7 @@ class FullMeansAssessmentMapperTest {
 
         crimeApplyOutgoingsDetails.setHousingPaymentType("board_lodgings");
         Outgoing outgoing = new Outgoing();
-        outgoing.setType(Outgoing.Type.HOUSING);
+        outgoing.setPaymentType(Outgoing.PaymentType.HOUSING);
         outgoing.setAmount(100);
         outgoing.setFrequency(Outgoing.Frequency.MONTH);
         outgoing.setDetails("Details about housing");
