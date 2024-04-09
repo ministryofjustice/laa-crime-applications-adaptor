@@ -140,7 +140,7 @@
       }
     },
     "capitalEquity": {
-      "ref": "#/definitions/capitalEquity"
+      "$ref": "#/definitions/capitalEquity"
     },
     "iojBypass": {
       "description": "Indicates whether the Interests of Justice was skipped or not",
@@ -186,7 +186,7 @@
       "$ref": "common/fullMeansAssessment.json"
     },
     "capitalEquity": {
-      "#ref": "common/capitalEquity.json"
+      "$ref": "common/capitalEquity.json"
     }
   }
 }

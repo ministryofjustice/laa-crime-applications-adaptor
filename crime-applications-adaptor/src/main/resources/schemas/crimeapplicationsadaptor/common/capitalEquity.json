@@ -1,6 +1,6 @@
 {
-  "title": "CapitalOther",
-  "description": "Some other capital.",
+  "title": "CapitalEquity",
+  "description": "Capital and Equity object",
   "type": "object",
   "properties": {
     "equity": {
