@@ -7,6 +7,8 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
+import org.apache.commons.configuration2.interpol.InterpolatorSpecification;
 
 public class TestConfiguration {
 
@@ -36,7 +38,6 @@ public class TestConfiguration {
     try {
       configuration = builder.getConfiguration();
     } catch (ConfigurationException e) {
-      //log.error(e.getMessage());
       throw new RuntimeException("Could not load properties file", e);
     }
   }
