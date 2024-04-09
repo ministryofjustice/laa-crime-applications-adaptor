@@ -6,7 +6,6 @@ plugins {
     id "org.sonarqube" version "5.0.0.4638"
     id 'info.solidsoft.pitest' version '1.15.0'
     id 'org.jsonschema2dataclass' version '6.0.0'
-    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.0.46'
 }
 
 group = 'uk.gov.justice.laa.crime'
@@ -188,14 +187,10 @@ jsonSchema2Pojo {
     }
 
     task functionalApiTest(type: Test) {
+        description = "Runs functional API tests"
         useJUnitPlatform()
-        failFast = true
-        testLogging {
-            exceptionFormat = 'full'
-        }
         testClassesDirs = sourceSets.functionalApiTest.output.classesDirs
         classpath = sourceSets.functionalApiTest.runtimeClasspath
-        dependsOn('clearReports', 'clean')
-        finalizedBy aggregate
+        dependsOn('compileJava')
     }
 }
