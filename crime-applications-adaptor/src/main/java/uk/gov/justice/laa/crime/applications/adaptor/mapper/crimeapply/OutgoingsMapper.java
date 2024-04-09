@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class OutgoingsMapper {
-    private static final String HOUSING = "housing";
     private static final String BOARD_AND_LODGING_TYPE = "board_and_lodging";
     private static final String BOARD_AND_LODGING = "Board and lodging";
 
