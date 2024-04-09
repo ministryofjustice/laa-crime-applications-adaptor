@@ -105,6 +105,6 @@ that the tests is being deployed and run via helm.
 
 The API tests can be run through IntelliJ or using the following gradle command.
 
-```./gradlew clean functionalApiTest```
+`./gradlew clean functionalApiTest`
 
 This command will compile the main java sources in order for the tests to re-use the schema files.
