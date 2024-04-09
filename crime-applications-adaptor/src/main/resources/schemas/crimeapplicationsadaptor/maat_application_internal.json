@@ -142,7 +142,8 @@
     "capitalEquity": {
       "type": "object",
       "nullable": true,
-      "description": "Capital equity information - not required for Iteration 1"
+      "description": "Capital equity information - not required for Iteration 1",
+      "ref": "#/definitions/capitalEquity"
     },
     "iojBypass": {
       "description": "Indicates whether the Interests of Justice was skipped or not",
@@ -186,6 +187,9 @@
     },
     "fullMeansAssessment": {
       "$ref": "common/fullMeansAssessment.json"
+    },
+    "capitalEquity": {
+      "#ref": "common/capitalEquity.json"
     }
   }
 }
