@@ -95,8 +95,11 @@ provide environment
 variable substitution. This is designed for use on the CI/CD pipeline where secrets will be injected
 by environment variable.
 When running locally create a copy of the properties file and name is `local.config.properties` and
-populate it with the required
-values. This file is included in the `.gitignore` to avoid accidental commits.
+populate it with the required values. This file is included in the `.gitignore` to avoid accidental
+commits.
+The trigger for using the `config.properties` is the presence of the `CHART_NAME` environment
+variable which indicates
+that the tests is being deployed and run via helm.
 
 #### Running the API Tests
 
