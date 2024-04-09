@@ -14,7 +14,7 @@ import java.util.Objects;
 public class BenefitsMapper {
 
     private static final String UNIVERSAL_CREDIT = "Universal Credit";
-    private static final String JSA = "JSA";
+    private static final String JSA = "Contribution-based Jobseeker Allowance";
 
     public List<AssessmentDetail> mapBenefits(List<IncomeBenefit> benefits) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();

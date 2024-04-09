@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class OtherIncomeMapper {
-    private static final String STUDENT_LOAN_GRANT = "Student loan grant";
-    private static final String BOARD_FROM_FAMILY = "Board from family";
-    private static final String RENT = "Rent";
-    private static final String FROM_FRIENDS_RELATIVES = "From Friends and Relatives";
-    private static final String FINANCIAL_SUPPORT_WITH_ACCESS = "Financial support with access";
+    private static final String STUDENT_LOAN_GRANT = "Student grant or loan";
+    private static final String BOARD_FROM_FAMILY = "Board from family members living with your client";
+    private static final String RENT = "Rent from a tenant";
+    private static final String FROM_FRIENDS_RELATIVES = "Money from friends or family";
+    private static final String FINANCIAL_SUPPORT_WITH_ACCESS = "Financial support from someone who allows your client access to their assets or money";
 
     public List<AssessmentDetail> mapOtherIncome(List<IncomePayment> otherIncome) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();

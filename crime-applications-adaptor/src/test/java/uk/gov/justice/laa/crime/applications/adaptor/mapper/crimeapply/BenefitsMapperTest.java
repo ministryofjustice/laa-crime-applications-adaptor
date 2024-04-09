@@ -170,7 +170,7 @@ class BenefitsMapperTest {
         benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
         List<IncomeBenefit> benefits = List.of(benefit);
 
-        String expectedBenefitNotes = DETAILS + "\nJSA";
+        String expectedBenefitNotes = DETAILS + "\nContribution-based Jobseeker Allowance";
         String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
         assertEquals(expectedBenefitNotes, actualBenefitNotes);

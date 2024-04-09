@@ -68,7 +68,7 @@ class OtherIncomeMapperTest {
         otherIncome.setPaymentType(IncomePayment.PaymentType.STUDENT_LOAN_GRANT);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nStudent loan grant";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nStudent grant or loan";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);
@@ -80,7 +80,7 @@ class OtherIncomeMapperTest {
         otherIncome.setPaymentType(IncomePayment.PaymentType.BOARD_FROM_FAMILY);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nBoard from family";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nBoard from family members living with your client";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);
@@ -92,7 +92,7 @@ class OtherIncomeMapperTest {
         otherIncome.setPaymentType(IncomePayment.PaymentType.RENT);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nRent";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nRent from a tenant";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);
@@ -104,7 +104,7 @@ class OtherIncomeMapperTest {
         otherIncome.setPaymentType(IncomePayment.PaymentType.FROM_FRIENDS_RELATIVES);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nFrom Friends and Relatives";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nMoney from friends or family";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);
