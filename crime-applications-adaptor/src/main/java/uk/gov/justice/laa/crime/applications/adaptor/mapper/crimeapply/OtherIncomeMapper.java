@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class OtherIncomeMapper {
-    private static final String STUDENT = "Student";
+    private static final String STUDENT_LOAN_GRANT = "Student loan grant";
     private static final String BOARD_FROM_FAMILY = "Board from family";
     private static final String RENT = "Rent";
-    private static final String FRIENDS_AND_FAMILY = "Friends and Family";
+    private static final String FROM_FRIENDS_RELATIVES = "From Friends and Relatives";
+    private static final String FINANCIAL_SUPPORT_WITH_ACCESS = "Financial support with access";
 
     public List<AssessmentDetail> mapOtherIncome(List<IncomePayment> otherIncome) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();
@@ -50,10 +51,11 @@ public class OtherIncomeMapper {
             OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
             String note;
             switch (otherIncomeDetail) {
-                case STUDENT -> note = STUDENT;
+                case STUDENT_LOAN_GRANT -> note = STUDENT_LOAN_GRANT;
                 case BOARD_FROM_FAMILY -> note = BOARD_FROM_FAMILY;
                 case RENT -> note = RENT;
-                case FRIENDS_AND_FAMILY -> note = FRIENDS_AND_FAMILY;
+                case FROM_FRIENDS_RELATIVES -> note = FROM_FRIENDS_RELATIVES;
+                case FINANCIAL_SUPPORT_WITH_ACCESS -> note = FINANCIAL_SUPPORT_WITH_ACCESS;
                 default -> note = StringUtils.EMPTY;
             }
             if (!StringUtils.EMPTY.equals(note)) {

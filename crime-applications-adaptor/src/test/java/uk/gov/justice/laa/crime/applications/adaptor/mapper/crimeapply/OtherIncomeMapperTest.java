@@ -65,10 +65,10 @@ class OtherIncomeMapperTest {
     @Test
     void shouldAddOtherIncomeStudentToNotes() {
         IncomePayment otherIncome = getOtherIncomeObject();
-        otherIncome.setPaymentType(IncomePayment.PaymentType.STUDENT);
+        otherIncome.setPaymentType(IncomePayment.PaymentType.STUDENT_LOAN_GRANT);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nStudent";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nStudent loan grant";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);
@@ -101,10 +101,10 @@ class OtherIncomeMapperTest {
     @Test
     void shouldAddOtherIncomeFriendsAndFamilyToNotes() {
         IncomePayment otherIncome = getOtherIncomeObject();
-        otherIncome.setPaymentType(IncomePayment.PaymentType.FRIENDS_AND_FAMILY);
+        otherIncome.setPaymentType(IncomePayment.PaymentType.FROM_FRIENDS_RELATIVES);
         List<IncomePayment> income = List.of(otherIncome);
 
-        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nFriends and Family";
+        String expectedOtherIncomeNotes = OTHER_INCOME_DETAILS + "\nFrom Friends and Relatives";
         String actualOtherIncomeNotes = otherIncomeMapper.mapOtherIncomeNotes(income);
 
         assertEquals(expectedOtherIncomeNotes, actualOtherIncomeNotes);

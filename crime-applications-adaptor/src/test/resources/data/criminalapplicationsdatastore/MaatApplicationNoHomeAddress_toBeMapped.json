@@ -72,7 +72,7 @@
           "details": "Details about private pension"
         },
         {
-          "payment_type": "interest",
+          "payment_type": "interest_investment",
           "amount": 700,
           "frequency": "four_weeks",
           "details": null
