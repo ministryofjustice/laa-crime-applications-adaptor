@@ -41,3 +41,4 @@ out/
 ### Serenity Tests ###
 crime-applications-adaptor/target/**
 crime-applications-adaptor/src/functionalApiTest/resources/local.config.properties
+/crime-applications-adaptor/target
