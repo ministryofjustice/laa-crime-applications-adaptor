@@ -26,8 +26,8 @@ def versions = [
         resilience4jVersion      : "2.2.0",
         commonsioVersion         : '2.11.0',
         sentryVersion            : "7.6.0",
-        serenityVersion          : "4.1.4",
-        jUnitPlatformSuiteVersion: "1.10.0",
+        serenityVersion          : "4.1.6",
+        jUnitPlatformSuiteVersion: "1.10.2",
         cucumberEngineVersion    : "7.16.1",
         junitBOMVersion          : "5.9.1"
 ]
@@ -42,9 +42,9 @@ configurations {
         extendsFrom annotationProcessor
     }
 
-    functionalApiTestImplementation.extendsFrom implementation
+    functionalApiTestImplementation.extendsFrom testImplementation
     functionalApiTestCompileOnly.extendsFrom testCompileOnly
-    functionalApiTestAnnotationProcessor.extendsFrom annotationProcessor
+    functionalApiTestAnnotationProcessor.extendsFrom testAnnotationProcessor
 }
 
 repositories {
@@ -53,8 +53,7 @@ repositories {
 
 sourceSets {
     functionalApiTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
+        java.srcDir "src/functionalApiTest/java"
     }
 }
 
@@ -99,13 +98,15 @@ dependencies {
 
     functionalApiTestImplementation platform("org.junit:junit-bom:$versions.junitBOMVersion")
     functionalApiTestImplementation "org.junit.jupiter:junit-jupiter"
-    functionalApiTestImplementation "org.junit.platform:junit-platform-suite:$versions.jUnitPlatformSuiteVersion"
-    functionalApiTestImplementation "org.junit.platform:junit-platform-launcher:$versions.jUnitPlatformSuiteVersion"
-    functionalApiTestImplementation "org.junit.platform:junit-platform-engine:$versions.jUnitPlatformSuiteVersion"
-    functionalApiTestImplementation "org.junit.platform:junit-platform-suite-engine:$versions.jUnitPlatformSuiteVersion"
-
+    functionalApiTestImplementation "org.junit.platform:junit-platform-suite"
+    functionalApiTestImplementation "org.junit.vintage:junit-vintage-engine"
     functionalApiTestImplementation "io.cucumber:cucumber-junit-platform-engine:$versions.cucumberEngineVersion"
+
     functionalApiTestImplementation "io.rest-assured:json-schema-validator:5.4.0"
+
+    functionalApiTestImplementation "io.jsonwebtoken:jjwt-api:$versions.jjwtVersion"
+    functionalApiTestImplementation "io.jsonwebtoken:jjwt-impl:$versions.jjwtVersion"
+    functionalApiTestImplementation "io.jsonwebtoken:jjwt-jackson:$versions.jjwtVersion"
 
     functionalApiTestImplementation "net.serenity-bdd:serenity-junit5:$versions.serenityVersion"
     functionalApiTestImplementation "net.serenity-bdd:serenity-core:$versions.serenityVersion"
@@ -125,8 +126,8 @@ jacoco {
 tasks.named('test') {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
-
 }
+
 jacocoTestReport {
     dependsOn test
     reports {
@@ -184,11 +185,15 @@ jsonSchema2Pojo {
         }
     }
 
-
     task functionalApiTest(type: Test) {
         useJUnitPlatform()
-        // Set the classpath for integration tests
+        failFast = true
+        testLogging {
+            exceptionFormat = 'full'
+        }
         testClassesDirs = sourceSets.functionalApiTest.output.classesDirs
         classpath = sourceSets.functionalApiTest.runtimeClasspath
+        dependsOn('clearReports', 'clean')
+        finalizedBy aggregate
     }
 }
