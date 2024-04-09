@@ -53,6 +53,8 @@ repositories {
 
 sourceSets {
     functionalApiTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
         java.srcDir "src/functionalApiTest/java"
     }
 }
