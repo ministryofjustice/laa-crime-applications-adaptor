@@ -20,7 +20,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .issuer(issuer)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 60000))
+                .expiration(new Date(System.currentTimeMillis() + 60_000))
                 .signWith(Keys.hmacShaKeyFor(clientSecret.getBytes()), SIG.HS256)
                 .compact();
     }
