@@ -117,4 +117,3 @@ The API tests can be run through IntelliJ or using the following gradle command.
 ```
 ./gradlew api-tests:test
 ```
-
