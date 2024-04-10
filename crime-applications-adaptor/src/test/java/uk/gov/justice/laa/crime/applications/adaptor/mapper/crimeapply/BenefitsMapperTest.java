@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Benefit;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeBenefit;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,12 +20,12 @@ class BenefitsMapperTest {
     @BeforeEach
     void setUp() { benefitsMapper = new BenefitsMapper(); }
 
-    private Benefit getBenefitObject() {
-        Benefit benefit = new Benefit();
+    private IncomeBenefit getBenefitObject() {
+        IncomeBenefit benefit = new IncomeBenefit();
         benefit.setAmount(AMOUNT);
         benefit.setDetails(DETAILS);
-        benefit.setType(Benefit.Type.CHILD);
-        benefit.setFrequency(Benefit.Frequency.ANNUAL);
+        benefit.setPaymentType(IncomeBenefit.PaymentType.CHILD);
+        benefit.setFrequency(IncomeBenefit.Frequency.ANNUAL);
 
         return benefit;
     }
@@ -41,8 +41,8 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapChildToChildBen() {
-        Benefit benefit = getBenefitObject();
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
 
@@ -54,9 +54,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapWorkingOrChildTaxCreditToTaxCred() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.WORKING_OR_CHILD_TAX_CREDIT);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.WORKING_OR_CHILD_TAX_CREDIT);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.WORKING_OR_CHILD_TAX_CREDIT.getCode());
@@ -69,9 +69,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapIncapacityToIncapBen() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.INCAPACITY);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.INCAPACITY);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.INCAPACITY.getCode());
@@ -84,9 +84,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapIndustryInjuriesDisabledToInjBen() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.INDUSTRIAL_INJURIES_DISABLEMENT);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.INDUSTRIAL_INJURIES_DISABLEMENT);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.INDUSTRIAL_INJURIES_DISABLEMENT.getCode());
@@ -99,9 +99,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapOtherToOtherBen() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.OTHER);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.OTHER);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.OTHER.getCode());
@@ -114,9 +114,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapUniversalCreditToOtherBen() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.UNIVERSAL_CREDIT);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.UNIVERSAL_CREDIT);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.OTHER.getCode());
@@ -129,9 +129,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldMapJsaToOtherBen() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.JSA);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         AssessmentDetail assessmentDetail = getAssessmentDetailObject();
         assessmentDetail.setAssessmentDetailCode(BenefitDetails.OTHER.getCode());
@@ -144,8 +144,8 @@ class BenefitsMapperTest {
 
     @Test
     void shouldAddBenefitDetailsToNotes() {
-        Benefit benefit = getBenefitObject();
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
@@ -154,9 +154,9 @@ class BenefitsMapperTest {
 
     @Test
     void shouldAddUniversalCreditToNotes() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.UNIVERSAL_CREDIT);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.UNIVERSAL_CREDIT);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
         String expectedBenefitNotes = DETAILS + "\nUniversal Credit";
         String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
@@ -166,11 +166,11 @@ class BenefitsMapperTest {
 
     @Test
     void shouldAddJsaToNotes() {
-        Benefit benefit = getBenefitObject();
-        benefit.setType(Benefit.Type.JSA);
-        List<Benefit> benefits = List.of(benefit);
+        IncomeBenefit benefit = getBenefitObject();
+        benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
+        List<IncomeBenefit> benefits = List.of(benefit);
 
-        String expectedBenefitNotes = DETAILS + "\nJSA";
+        String expectedBenefitNotes = DETAILS + "\nContribution-based Jobseeker Allowance";
         String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
         assertEquals(expectedBenefitNotes, actualBenefitNotes);

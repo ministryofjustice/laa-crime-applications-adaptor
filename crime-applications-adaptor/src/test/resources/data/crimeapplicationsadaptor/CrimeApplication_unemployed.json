@@ -59,7 +59,7 @@
   "assessment": {
     "initialMeansAssessment": {
       "otherBenefitNote": "Details about child benefit\nUniversal Credit",
-      "otherIncomeNote": "Details about private pension\nRent",
+      "otherIncomeNote": "Details about private pension\nRent from a tenant",
       "assessmentDetails": [
         {
           "applicantAmount": 200,
@@ -106,7 +106,7 @@
       ]
     },
     "fullMeansAssessment": {
-      "otherHousingNote": "Board lodgings\nDetails about housing",
+      "otherHousingNote": "Board and lodging\nDetails about housing",
       "assessmentDetails": [
         {
           "applicantAmount": 100,
