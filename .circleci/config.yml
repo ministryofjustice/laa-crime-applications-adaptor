@@ -84,7 +84,7 @@ jobs:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
           name: Install Dependencies
-          command: ./gradlew build -x test
+          command: ./gradlew application:build -x test
       - run:
           name: Run SonarQube
           command: ./gradlew sonarqube -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.organization=${SONAR_ORG}
@@ -99,7 +99,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build
+            - application/build
 
   scan_app:
     docker:
@@ -131,21 +131,21 @@ jobs:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
           name: Run tests
-          command: ./gradlew test
+          command: ./gradlew application:test
       - run:
           name: Generate code coverage report
-          command: ./gradlew jacocoTestReport
+          command: ./gradlew application:jacocoTestReport
       - store_test_results:
-          path: build/test-results/test
+          path: application/build/test-results/test
       - store_artifacts:
-          path: build/test-results/test
+          path: application/build/test-results/test
       - store_artifacts:
-          path: build/reports/jacoco/test/html
+          path: application/build/reports/jacoco/test/html
       - run:
           name: Assemble JAR
-          command: ./gradlew assemble
+          command: ./gradlew application:assemble
       - store_artifacts:
-          path: build/libs
+          path: application/build/libs
 
   build_and_scan_image:
     docker:
