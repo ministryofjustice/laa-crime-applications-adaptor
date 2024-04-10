@@ -1,0 +1,98 @@
+{
+  "id": "4267d676-7d7a-4662-8265-ea36b29dcd62",
+  "schema_version": 1.0,
+  "application_type": "initial",
+  "reference": 6000288,
+  "submitted_at": "2022-10-24T09:50:04.019Z",
+  "date_stamp": "2022-10-24T09:50:04.019Z",
+  "declaration_signed_at": "2022-10-24T09:50:04.019Z",
+  "provider_details": {
+    "office_code": "1K022G",
+    "provider_email": "acox@smw-law.co.uk",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "1234567890"
+  },
+  "client_details": {
+    "applicant": {
+      "date_of_birth": "2005-04-21",
+      "telephone_number": "",
+      "correspondence_address_type": "home_address",
+      "home_address": {
+        "lookup_id": "23747771",
+        "address_line_one": "10, PRIME MINISTER & FIRST LORD OF THE TREASURY",
+        "address_line_two": "DOWNING STREET",
+        "city": "LONDON",
+        "country": "UNITED KINGDOM",
+        "postcode": "SW1A 2AA"
+      },
+      "last_name": "Smith",
+      "first_name": "Emma",
+      "other_names": ""
+    }
+  },
+  "case_details": {
+    "urn": "",
+    "case_type": "summary_only",
+    "offence_class": "H",
+    "hearing_court_name": "Teesside Magistrates' Court",
+    "hearing_date": "2023-05-10"
+  },
+  "means_details": {
+    "income_details": {
+      "income_benefits": [
+        {
+          "payment_type": "child",
+          "amount": 200,
+          "frequency": "month",
+          "details": "Details about child benefit"
+        },
+        {
+          "payment_type": "incapacity",
+          "amount": 300,
+          "frequency": "fortnight",
+          "details": null
+        },
+        {
+          "payment_type": "universal_credit",
+          "amount": 500,
+          "frequency": "week",
+          "details": null
+        }
+      ],
+      "employment_type": ["not_working"],
+      "income_payments": [
+        {
+          "payment_type": "private_pension",
+          "amount": 13000,
+          "frequency": "annual",
+          "details": "Details about private pension"
+        },
+        {
+          "payment_type": "interest_investment",
+          "amount": 700,
+          "frequency": "four_weeks",
+          "details": null
+        },
+        {
+          "payment_type": "rent",
+          "amount": 635,
+          "frequency": "month",
+          "details": null
+        }
+      ],
+      "dependants": [
+        {
+          "age": 8
+        },
+        {
+          "age": 9
+        },
+        {
+          "age": 17
+        }
+      ]
+    }
+  },
+  "ioj_bypass": false
+}

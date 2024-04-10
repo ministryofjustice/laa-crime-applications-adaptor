@@ -1,0 +1,140 @@
+{
+  "statusReason": "current",
+  "solicitorName": "John Doe",
+  "applicationType": "initial",
+  "caseDetails": {
+    "caseType": "APPEAL CC",
+    "offenceClass": "MURDER",
+    "appealReceivedDate": "2021-10-25"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "usn": 6000001,
+  "solicitorAdminEmail": "provider@example.com",
+  "courtCustody": false,
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
+  "hearingDate": "2024-11-11",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
+  "applicant": {
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
+    "hasPartner": false,
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "useHomeAddress": true,
+    "noFixedAbode": false,
+    "useSupplierAddressForPost": false,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    },
+    "employmentStatus": {
+      "code": "NONPASS"
+    },
+    "homeAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
+    }
+  },
+  "supplier": {
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
+    "firstName": "John",
+    "surname": "Doe"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": false,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false
+  },
+  "assessment": {
+    "initialMeansAssessment": {
+      "otherBenefitNote": "Details about child benefit\nUniversal Credit",
+      "otherIncomeNote": "Details about private pension\nRent from a tenant",
+      "assessmentDetails": [
+        {
+          "applicantAmount": 200,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "CHILD_BEN"
+        },
+        {
+          "applicantAmount": 300,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "INCAP_BEN"
+        },
+        {
+          "applicantAmount": 500,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "applicantAmount": 13000,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "PRIV_PENS"
+        },
+        {
+          "applicantAmount": 700,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "SAVINGS"
+        },
+        {
+          "applicantAmount": 635,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        }
+      ],
+      "childWeighting": [
+        {
+          "noOfChildren": 2,
+          "lowerAgeRange": 8,
+          "upperAgeRange": 10
+        },
+        {
+          "noOfChildren": 1,
+          "lowerAgeRange": 16,
+          "upperAgeRange": 18
+        }
+      ]
+    },
+    "fullMeansAssessment": {
+      "otherHousingNote": "Board and lodging\nDetails about housing",
+      "assessmentDetails": [
+        {
+          "applicantAmount": 100,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "COUNCIL"
+        },
+        {
+          "applicantAmount": 200,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "CHILD_COST"
+        },
+        {
+          "applicantAmount": 400,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "MAINT_COST"
+        },
+        {
+          "applicantAmount": 500,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "OTHER_LAC"
+        },
+        {
+          "applicantAmount": 600,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "OTHER_HOUS"
+        }
+      ]
+    }
+  },
+  "iojBypass": true
+}

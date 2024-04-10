@@ -1,0 +1,102 @@
+{
+  "statusReason": "current",
+  "solicitorName": "Karl Kent",
+  "applicationType": "initial",
+  "caseDetails": {
+    "caseType": "SUMMARY ONLY",
+    "offenceClass": "OTHER"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "usn": 6000308,
+  "solicitorAdminEmail": "abenn@quinn-melville.co.uk",
+  "courtCustody": false,
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
+  "hearingDate": "2024-09-27",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
+  "applicant": {
+    "firstName": "Pat",
+    "surname": "Walker",
+    "dateOfBirth": "1980-01-10",
+    "hasPartner": false,
+    "niNumber": "JA293483A",
+    "useHomeAddress": false,
+    "noFixedAbode": true,
+    "useSupplierAddressForPost": true,
+    "employmentStatus": {
+      "code": "PASSPORTED"
+    },
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    }
+  },
+  "supplier": {
+    "officeCode": "0Z981E",
+    "email": "abenn@quinn-melville.co.uk",
+    "telephone": "07712345678",
+    "firstName": "Karl",
+    "surname": "Kent"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": true,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false,
+    "meansPassport": "on_benefit_check"
+  },
+  "assessment": {
+    "initialMeansAssessment": {
+      "assessmentDetails": [
+        {
+          "assessmentDetailCode": "CHILD_BEN",
+          "applicantAmount": 200,
+          "applicantFrequency": "MONTHLY"
+        },
+        {
+          "assessmentDetailCode": "INCAP_BEN",
+          "applicantAmount": 300,
+          "applicantFrequency": "2WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "OTHER_BEN",
+          "applicantAmount": 500,
+          "applicantFrequency": "WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "PRIV_PENS",
+          "applicantAmount": 13000,
+          "applicantFrequency": "ANNUALLY"
+        },
+        {
+          "assessmentDetailCode": "SAVINGS",
+          "applicantAmount": 700,
+          "applicantFrequency": "4WEEKLY"
+        },
+        {
+          "assessmentDetailCode": "OTHER_INC",
+          "applicantAmount": 635,
+          "applicantFrequency": "MONTHLY"
+        }
+      ],
+      "otherBenefitNote": "Details about child benefit\nUniversal Credit",
+      "otherIncomeNote": "Details about private pension\nRent from a tenant",
+      "childWeighting": [
+        {
+          "lowerAgeRange": 8,
+          "upperAgeRange": 10,
+          "noOfChildren": 2
+        },
+        {
+          "lowerAgeRange": 16,
+          "upperAgeRange": 18,
+          "noOfChildren": 1
+        }
+      ]
+    }
+  },
+  "iojBypass": true
+}
