@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class CrimeApplyMockAPI {
 
-    private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/functionalApiTest/resources/testdata/crimeapply/";
+    private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/test/resources/testdata/crimeapply/";
     private static final String CAM_PUT_URI = "api/v1/maat/applications/{usn}";
 
     public void createNewMockCrimeApplication(int usn) {

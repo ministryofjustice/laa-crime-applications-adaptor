@@ -19,7 +19,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeApply
  */
 public class APITestSteps {
 
-  private static final String EXPECTED_RESPONSE_FILE_PATH_BASE = "src/functionalApiTest/resources/testdata/expectedresponses/";
+  private static final String EXPECTED_RESPONSE_FILE_PATH_BASE = "src/test/resources/testdata/expectedresponses/";
   @Steps
   CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
 
