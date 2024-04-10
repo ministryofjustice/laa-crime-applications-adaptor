@@ -1,0 +1,49 @@
+def versions = [
+        jjwtVersion              : '0.12.5',
+        sentryVersion            : "7.6.0",
+        serenityVersion          : "4.1.6",
+        jUnitPlatformSuiteVersion: "1.10.2",
+        cucumberEngineVersion    : "7.16.1",
+        junitBOMVersion          : "5.9.1"
+]
+
+sourceSets {
+    commonSchemas.resources {
+        srcDir "${project(':application').projectDir}/src/main/resources"
+        include 'schemas/**'
+    }
+
+    test {
+
+        resources {
+            srcDirs += [commonSchemas.resources]
+        }
+    }
+}
+
+
+dependencies {
+    testImplementation platform("org.junit:junit-bom:$versions.junitBOMVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.junit.platform:junit-platform-suite"
+    testImplementation "org.junit.vintage:junit-vintage-engine"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:$versions.cucumberEngineVersion"
+    testImplementation 'org.skyscreamer:jsonassert:1.5.1'
+
+    testImplementation "io.rest-assured:json-schema-validator:5.4.0"
+    testImplementation "io.jsonwebtoken:jjwt-api:$versions.jjwtVersion"
+    testImplementation "io.jsonwebtoken:jjwt-impl:$versions.jjwtVersion"
+    testImplementation "io.jsonwebtoken:jjwt-jackson:$versions.jjwtVersion"
+
+    testImplementation "net.serenity-bdd:serenity-junit5:$versions.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-core:$versions.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-rest-assured:$versions.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-cucumber:$versions.serenityVersion"
+
+    testImplementation "org.apache.commons:commons-configuration2:2.10.1"
+    testImplementation "commons-beanutils:commons-beanutils:1.9.4"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
