@@ -44,42 +44,42 @@
   },
   "means_details": {
     "income_details": {
-      "benefits": [
+      "income_benefits": [
         {
-          "type": "child",
+          "payment_type": "child",
           "amount": 200,
           "frequency": "month",
           "details": "Details about child benefit"
         },
         {
-          "type": "incapacity",
+          "payment_type": "incapacity",
           "amount": 300,
           "frequency": "fortnight",
           "details": null
         },
         {
-          "type": "universal_credit",
+          "payment_type": "universal_credit",
           "amount": 500,
           "frequency": "week",
           "details": null
         }
       ],
       "employment_type": ["not_working"],
-      "other_income": [
+      "income_payments": [
         {
-          "type": "private_pension",
+          "payment_type": "private_pension",
           "amount": 13000,
           "frequency": "annual",
           "details": "Details about private pension"
         },
         {
-          "type": "interest",
+          "payment_type": "interest_investment",
           "amount": 700,
           "frequency": "four_weeks",
           "details": null
         },
         {
-          "type": "rent",
+          "payment_type": "rent",
           "amount": 635,
           "frequency": "month",
           "details": null
@@ -100,33 +100,32 @@
     "outgoings_details": {
       "outgoings": [
         {
-          "type": "council_tax",
+          "payment_type": "council_tax",
           "amount": 100,
           "frequency": "annual"
         },
         {
-          "type": "childcare",
+          "payment_type": "childcare",
           "amount": 200,
           "frequency": "month"
         },
         {
-          "type": "maintenance",
+          "payment_type": "maintenance",
           "amount": 400,
           "frequency": "four_weeks"
         },
         {
-          "type": "legal_aid",
+          "payment_type": "legal_aid_contribution",
           "amount": 500,
           "frequency": "fortnight"
         },
         {
-          "type": "housing",
+          "payment_type": "board_and_lodging",
           "amount": 600,
           "frequency": "week",
           "details": "Details about housing"
         }
-      ],
-      "housing_payment_type": "board_lodgings"
+      ]
     }
   },
   "ioj_bypass": true

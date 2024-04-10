@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OtherIncomeDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OtherIncome;
+import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomePayment;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 import java.math.BigDecimal;
@@ -12,17 +12,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class OtherIncomeMapper {
-    private static final String STUDENT = "Student";
-    private static final String BOARD_FROM_FAMILY = "Board from family";
-    private static final String RENT = "Rent";
-    private static final String FRIENDS_AND_FAMILY = "Friends and Family";
+    private static final String STUDENT_LOAN_GRANT = "Student grant or loan";
+    private static final String BOARD_FROM_FAMILY = "Board from family members living with your client";
+    private static final String RENT = "Rent from a tenant";
+    private static final String FROM_FRIENDS_RELATIVES = "Money from friends or family";
+    private static final String FINANCIAL_SUPPORT_WITH_ACCESS = "Financial support from someone who allows your client access to their assets or money";
 
-    public List<AssessmentDetail> mapOtherIncome(List<OtherIncome> otherIncome) {
+    public List<AssessmentDetail> mapOtherIncome(List<IncomePayment> otherIncome) {
         List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
         if (Objects.nonNull(otherIncome)) {
-            for (OtherIncome other : otherIncome) {
-                String incomeType = other.getType().value();
+            for (IncomePayment other : otherIncome) {
+                String incomeType = other.getPaymentType().value();
                 OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
                 AssessmentDetail assessmentDetail = new AssessmentDetail();
                 assessmentDetail.setAssessmentDetailCode(otherIncomeDetail.getCode());
@@ -35,25 +36,26 @@ public class OtherIncomeMapper {
         return assessmentDetails;
     }
 
-    public String mapOtherIncomeNotes(List<OtherIncome> otherIncome) {
+    public String mapOtherIncomeNotes(List<IncomePayment> otherIncome) {
         List<String> otherBenefitNotes = new ArrayList<>();
         if (Objects.isNull(otherIncome)) {
             return StringUtils.EMPTY;
         }
 
-        for (OtherIncome other : otherIncome) {
+        for (IncomePayment other : otherIncome) {
             if (Objects.nonNull(other.getDetails())) {
                 otherBenefitNotes.add(other.getDetails().toString());
             }
 
-            String incomeType = other.getType().value();
+            String incomeType = other.getPaymentType().value();
             OtherIncomeDetails otherIncomeDetail = OtherIncomeDetails.findByValue(incomeType);
             String note;
             switch (otherIncomeDetail) {
-                case STUDENT -> note = STUDENT;
+                case STUDENT_LOAN_GRANT -> note = STUDENT_LOAN_GRANT;
                 case BOARD_FROM_FAMILY -> note = BOARD_FROM_FAMILY;
                 case RENT -> note = RENT;
-                case FRIENDS_AND_FAMILY -> note = FRIENDS_AND_FAMILY;
+                case FROM_FRIENDS_RELATIVES -> note = FROM_FRIENDS_RELATIVES;
+                case FINANCIAL_SUPPORT_WITH_ACCESS -> note = FINANCIAL_SUPPORT_WITH_ACCESS;
                 default -> note = StringUtils.EMPTY;
             }
             if (!StringUtils.EMPTY.equals(note)) {

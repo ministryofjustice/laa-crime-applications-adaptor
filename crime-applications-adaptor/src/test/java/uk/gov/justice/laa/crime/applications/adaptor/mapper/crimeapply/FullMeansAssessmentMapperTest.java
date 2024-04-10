@@ -53,9 +53,8 @@ class FullMeansAssessmentMapperTest {
     void shouldMapOtherHousingFeeNotes_whenTypeIsHousingAndHousingPaymentTypeIsBoardLodgings() {
         OutgoingsDetails crimeApplyOutgoingsDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getOutgoingsDetails();
 
-        crimeApplyOutgoingsDetails.setHousingPaymentType("board_lodgings");
         Outgoing outgoing = new Outgoing();
-        outgoing.setType(Outgoing.Type.HOUSING);
+        outgoing.setPaymentType(Outgoing.PaymentType.BOARD_AND_LODGING);
         outgoing.setAmount(100);
         outgoing.setFrequency(Outgoing.Frequency.MONTH);
         outgoing.setDetails("Details about housing");
@@ -66,6 +65,6 @@ class FullMeansAssessmentMapperTest {
         crimeApplyOutgoingsDetails.setOutgoings(outgoings);
         FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
 
-        assertEquals( "Board lodgings\nDetails about housing", fullMeansAssessment.getOtherHousingNote());
+        assertEquals( "Board and lodging\nDetails about housing", fullMeansAssessment.getOtherHousingNote());
     }
 }
