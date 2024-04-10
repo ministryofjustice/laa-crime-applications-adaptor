@@ -39,7 +39,7 @@ cd crime-applications-adaptor
 Make sure all tests are passed by running following ‘gradle’ Command
 
 ```sh
-./gradlew clean test
+./gradlew clean application:test
 ```
 
 When running the application locally you will likely want to disable OAuth request authorisation, this can be done by replacing the `SecurityFilterChain` implementation with:
@@ -54,7 +54,7 @@ return http.build();
 You will need to build the artifacts for the source code, using `gradle`.
 
 ```sh
-./gradlew clean build
+./gradlew clean application:build
 ```
 
 ```sh
@@ -81,12 +81,21 @@ For a complete list of all out of the box actuator endpoints see [Spring Boot 3.
 
 ### Functional API Tests
 
-A test module `functionalApiTest` has been added to hold API tests written use Serenity, Cucumber
-and RestAssured. There tests
-are designed to be run against a deployed version of the application in DEV or TEST and will not be
-run automatically as part of
-the gradle build. A separate gradle task , `functionalApiTest`, has been created in order to run
-these tests in isolation.
+The project has been split into two sub module, `application` and `api-tests`. `api-tests` has been added to hold API tests written use Serenity, Cucumber and RestAssured. These tests
+are designed to be run against a deployed version of the application in DEV or TEST. They will be run automatically as part of the gradle build unless the `application` module is specified.
+
+For example:
+
+```
+// This command will build and test both modules
+./gradlew clean build
+
+// This command will run only the application module tests
+./gradlew application:test
+
+// This command will run only the api-tests tests
+./gradlew api-tests:test
+```
 
 #### Test Configuration
 
@@ -105,6 +114,7 @@ that the tests is being deployed and run via helm.
 
 The API tests can be run through IntelliJ or using the following gradle command.
 
-`./gradlew clean functionalApiTest`
+```
+./gradlew api-tests:test
+```
 
-This command will compile the main java sources in order for the tests to re-use the schema files.
