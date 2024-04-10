@@ -39,5 +39,5 @@ out/
 *.java-version
 
 ### Serenity Tests ###
-crime-applications-adaptor/src/functionalApiTest/resources/local.config.properties
+crime-applications-adaptor/api-tests/src/test/resources/local.config.properties
 /crime-applications-adaptor/target/
