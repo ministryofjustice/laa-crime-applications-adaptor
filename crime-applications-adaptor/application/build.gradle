@@ -7,6 +7,8 @@ plugins {
     id 'org.jsonschema2dataclass' version '6.0.0'
 }
 
+archivesBaseName = 'crime-applications-adaptor'
+
 def versions = [
         springdocVersion       : "2.5.0",
         okhttpVersion          : "4.9.3",
