@@ -11,13 +11,11 @@ import java.io.File;
  */
 public class CrimeApplyMockAPI {
 
-    private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/test/resources/testdata/crimeapply/";
     private static final String CAM_PUT_URI = "api/v1/maat/applications/{usn}";
 
-    public void createNewMockCrimeApplication(int usn) {
-        String crimeApplyJsonPath = String.format("%scrimeapplytestdata%s.json", CRIME_APPLY_RESOURCE_LOCATION, usn);
+    public void createNewMockCrimeApplication(int usn, String jsonBodyFilePath) {
         given().spec(RequestSpecificationBuilder.getCAMReqSpec())
-            .body(new File(crimeApplyJsonPath))
+            .body(new File(jsonBodyFilePath))
             .pathParam("usn", usn)
             .put(CAM_PUT_URI)
             .then()

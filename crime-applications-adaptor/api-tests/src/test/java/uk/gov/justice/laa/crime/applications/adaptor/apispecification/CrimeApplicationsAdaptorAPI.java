@@ -11,9 +11,8 @@ import io.restassured.response.Response;
 public class CrimeApplicationsAdaptorAPI {
 
   private static final String CAA_GET_URI = "api/internal/v1/crimeapply/{usn}/userCreated/{user}";
-  private static final String CAA_APPLICATION_SCHEMA = "schemas/crimeapplicationsadaptor/maat_application_internal.json";
 
-  public Response getApplicationByUsn(int usn, String user) {
+  public Response getApplicationByUsn(int usn, String user, String responseSchemaPath) {
     return given().spec(RequestSpecificationBuilder.getCAAReqSpec())
         .pathParam("usn", usn)
         .pathParam("user", user)
@@ -22,7 +21,7 @@ public class CrimeApplicationsAdaptorAPI {
         .log().all()
         .assertThat()
         .statusCode(200)
-        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(CAA_APPLICATION_SCHEMA))
+        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(responseSchemaPath))
         .extract()
         .response();
   }

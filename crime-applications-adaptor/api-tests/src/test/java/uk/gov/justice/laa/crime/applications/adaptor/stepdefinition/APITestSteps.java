@@ -18,6 +18,8 @@ import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeApply
  */
 public class APITestSteps {
 
+  private static final String CAA_APPLICATION_SCHEMA = "schemas/crimeapplicationsadaptor/maat_application_internal.json";
+  private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/test/resources/testdata/crimeapply/";
   private static final String EXPECTED_RESPONSE_FILE_PATH_BASE = "src/test/resources/testdata/expectedresponses/";
   @Steps
   CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
@@ -29,12 +31,15 @@ public class APITestSteps {
 
   @Given("an application with usn {int} exists in the datastore")
   public void theFollowingApplicationExistsInTheDatastore(int usn) {
-    crimeApplyMockAPI.createNewMockCrimeApplication(usn);
+    String crimeApplyJsonPath = String.format("%scrimeapplytestdata%s.json",
+        CRIME_APPLY_RESOURCE_LOCATION, usn);
+    crimeApplyMockAPI.createNewMockCrimeApplication(usn, crimeApplyJsonPath);
   }
 
   @When("the GET internal V1 crimeapply endpoint is called with usn {int} and user {string}")
   public void theGetCrimeApplyEndpointIsCalledWith(int usn, String user) {
-    caaResponse = crimeApplicationsAdaptorAPI.getApplicationByUsn(usn, user);
+    caaResponse = crimeApplicationsAdaptorAPI.getApplicationByUsn(usn, user,
+        CAA_APPLICATION_SCHEMA);
   }
 
   @Then("the returned response should match the contents of {string}")
