@@ -1,0 +1,27 @@
+plugins {
+    id 'org.jsonschema2dataclass' version '6.0.0'
+}
+
+def versions = [
+        springJsonVersion   : "3.2.4",
+        validationapiVersion: '2.0.1.Final'
+]
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-json:$versions.springJsonVersion"
+    implementation "javax.validation:validation-api:$versions.validationapiVersion"
+}
+
+jsonSchema2Pojo {
+    executions {
+        main {
+            io.source.setFrom files("${project.rootDir}/schemas/src/main/resources/schemas")
+            klass.targetPackage = 'uk.gov.justice.laa.crime.applications.adaptor.model'
+            klass.jackson2InclusionLevel = "NON_EMPTY"
+            methods.builders = true
+            methods.annotateJsr303 = true
+            fields.floatUseBigDecimal = true
+            dateTime.dateTimeType = "java.time.LocalDateTime"
+        }
+    }
+}
