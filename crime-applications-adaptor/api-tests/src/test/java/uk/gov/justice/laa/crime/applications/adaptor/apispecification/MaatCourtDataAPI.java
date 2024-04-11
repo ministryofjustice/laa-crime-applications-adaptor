@@ -2,10 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.apispecification;
 
 import static net.serenitybdd.rest.SerenityRest.given;
 
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
-import java.util.Arrays;
-import org.eclipse.jetty.http.HttpStatus;
 
 public class MaatCourtDataAPI {
 
@@ -14,34 +11,42 @@ public class MaatCourtDataAPI {
   private static final String EFORM_HISTORY_URI = "api/eform/history/{usn}";
 
   public void deleteEFormStagingByUsn(Integer usn) {
-    given().spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
+    given()
+        .spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
         .pathParam("usn", usn)
         .delete(EFORM_STAGING_URI)
         .then()
-        .log().all();
+        .log()
+        .all();
   }
 
   public ValidatableResponse getEFormStatingByUsn(Integer usn) {
-    return given().spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
+    return given()
+        .spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
         .pathParam("usn", usn)
         .get(EFORM_STAGING_URI)
         .then()
-        .log().all();
+        .log()
+        .all();
   }
 
   public void deleteEFormHistoryByUsn(Integer usn) {
-    given().spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
+    given()
+        .spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
         .pathParam("usn", usn)
         .delete(EFORM_HISTORY_URI)
         .then()
-        .log().all();
+        .log()
+        .all();
   }
 
   public ValidatableResponse getEFormHistoryByUsn(Integer usn) {
-    return given().spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
+    return given()
+        .spec(RequestSpecificationBuilder.getMaatAPICrimeApplyReqSpec())
         .pathParam("usn", usn)
         .get(EFORM_HISTORY_URI)
         .then()
-        .log().all();
+        .log()
+        .all();
   }
 }
