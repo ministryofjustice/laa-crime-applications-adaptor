@@ -7,8 +7,6 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
-import org.apache.commons.configuration2.interpol.InterpolatorSpecification;
 
 public class TestConfiguration {
 
@@ -25,8 +23,10 @@ public class TestConfiguration {
   }
 
   public static void initConfig() {
-    String propertyFileName = System.getenv("CHART_NAME") == null ?
-        LOCAL_PROPERTIES_PREFIX + BASE_PROPERTIES_FILENAME : BASE_PROPERTIES_FILENAME;
+    String propertyFileName =
+        System.getenv("CHART_NAME") == null
+            ? LOCAL_PROPERTIES_PREFIX + BASE_PROPERTIES_FILENAME
+            : BASE_PROPERTIES_FILENAME;
 
     Parameters params = new Parameters();
     File propertiesFile = new File(propertyFileName);

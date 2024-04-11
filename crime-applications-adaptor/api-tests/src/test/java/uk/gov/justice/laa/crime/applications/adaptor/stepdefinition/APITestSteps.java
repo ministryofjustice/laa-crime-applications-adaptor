@@ -24,30 +24,28 @@ import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeAppli
 import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeApplyMockAPI;
 import uk.gov.justice.laa.crime.applications.adaptor.apispecification.MaatCourtDataAPI;
 
-/**
- * This class holds the test steps (e.g. given, when, then) for the test scenarios.
- */
+/** This class holds the test steps (e.g. given, when, then) for the test scenarios. */
 public class APITestSteps {
 
   private static final String RESPONSE_KEY = "caaResponse";
   private static final String USN_KEY = "usn";
-  private static final String CAA_APPLICATION_SCHEMA = "schemas/crimeapplicationsadaptor/maat_application_internal.json";
-  private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/test/resources/testdata/crimeapply/";
-  private static final String EXPECTED_RESPONSE_FILE_PATH_BASE = "src/test/resources/testdata/expectedresponses/";
+  private static final String CAA_APPLICATION_SCHEMA =
+      "schemas/crimeapplicationsadaptor/maat_application_internal.json";
+  private static final String CRIME_APPLY_RESOURCE_LOCATION =
+      "src/test/resources/testdata/crimeapply/";
+  private static final String EXPECTED_RESPONSE_FILE_PATH_BASE =
+      "src/test/resources/testdata/expectedresponses/";
 
-  @Steps
-  CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
+  @Steps CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
 
-  @Steps
-  CrimeApplyMockAPI crimeApplyMockAPI;
+  @Steps CrimeApplyMockAPI crimeApplyMockAPI;
 
-  @Steps
-  MaatCourtDataAPI maatCourtDataAPI;
+  @Steps MaatCourtDataAPI maatCourtDataAPI;
 
   @Given("an application with usn {int} exists in the datastore")
   public void theFollowingApplicationExistsInTheDatastore(int usn) {
-    String crimeApplyJsonPath = String.format("%scrimeapplytestdata%s.json",
-        CRIME_APPLY_RESOURCE_LOCATION, usn);
+    String crimeApplyJsonPath =
+        String.format("%scrimeapplytestdata%s.json", CRIME_APPLY_RESOURCE_LOCATION, usn);
     crimeApplyMockAPI.createNewMockCrimeApplication(usn, crimeApplyJsonPath);
   }
 
@@ -62,22 +60,22 @@ public class APITestSteps {
 
   @Then("the returned response should match the contents of {string}")
   public void theFollowingDataShouldBeReturned(String expectedResponseFile) throws JSONException {
-    JsonPath expectedJson = new JsonPath(
-        new File(EXPECTED_RESPONSE_FILE_PATH_BASE + expectedResponseFile));
+    JsonPath expectedJson =
+        new JsonPath(new File(EXPECTED_RESPONSE_FILE_PATH_BASE + expectedResponseFile));
 
-    ValidatableResponse validatableResponse = (ValidatableResponse) Serenity.getCurrentSession()
-        .get(RESPONSE_KEY);
+    ValidatableResponse validatableResponse =
+        (ValidatableResponse) Serenity.getCurrentSession().get(RESPONSE_KEY);
 
-    Response response = validatableResponse
-        .assertThat()
-        .statusCode(200)
-        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(CAA_APPLICATION_SCHEMA))
-        .extract()
-        .response();
+    Response response =
+        validatableResponse
+            .assertThat()
+            .statusCode(200)
+            .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(CAA_APPLICATION_SCHEMA))
+            .extract()
+            .response();
 
-    JSONAssert.assertEquals(expectedJson.prettify(),
-        response.body().asPrettyString(),
-        JSONCompareMode.LENIENT);
+    JSONAssert.assertEquals(
+        expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
   }
 
   @Given("an application with usn {int} does not exists in the datastore")
@@ -89,11 +87,8 @@ public class APITestSteps {
   public void theReturnedResponseShouldIndicateTheApplicationIsNotFound() {
     ValidatableResponse validatableResponse = getSessionResponseData();
 
-    Response response = validatableResponse
-        .assertThat()
-        .statusCode(HttpStatus.NOT_FOUND_404)
-        .extract()
-        .response();
+    Response response =
+        validatableResponse.assertThat().statusCode(HttpStatus.NOT_FOUND_404).extract().response();
 
     JsonPath responseJsonPath = response.jsonPath();
     assertThat(responseJsonPath.getString("title"), equalTo("Not Found"));
@@ -108,7 +103,8 @@ public class APITestSteps {
     JsonPath responseJsonPath = validatableResponse.extract().body().jsonPath();
 
     assertThat(responseJsonPath.getString("code"), equalTo("NOT_FOUND"));
-    assertThat(responseJsonPath.getString("message"),
+    assertThat(
+        responseJsonPath.getString("message"),
         equalTo(String.format("The USN [%d] does not exist in the data store.", usn)));
   }
 

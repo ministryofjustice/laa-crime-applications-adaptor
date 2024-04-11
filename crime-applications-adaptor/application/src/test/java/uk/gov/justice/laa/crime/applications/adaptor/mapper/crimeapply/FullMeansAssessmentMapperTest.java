@@ -1,5 +1,9 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,59 +16,71 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class FullMeansAssessmentMapperTest {
 
-    private FullMeansAssessmentMapper fullMeansAssessmentMapper;
+  private FullMeansAssessmentMapper fullMeansAssessmentMapper;
 
-    @BeforeEach
-    void setUp() {
-        fullMeansAssessmentMapper = new FullMeansAssessmentMapper();
-    }
+  @BeforeEach
+  void setUp() {
+    fullMeansAssessmentMapper = new FullMeansAssessmentMapper();
+  }
 
-    @Test
-    void shouldSuccessfullyMapCrimeApplyOutgoingsDetailsToFullMeansAssessment() throws JSONException {
-        OutgoingsDetails crimeApplyOutgoingsDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getOutgoingsDetails();
+  @Test
+  void shouldSuccessfullyMapCrimeApplyOutgoingsDetailsToFullMeansAssessment() throws JSONException {
+    OutgoingsDetails crimeApplyOutgoingsDetails =
+        TestData.getMaatApplication("MaatApplication_unemployed.json")
+            .getMeansDetails()
+            .getOutgoingsDetails();
 
-        FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
+    FullMeansAssessment fullMeansAssessment =
+        fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
 
-        String actualFullMeansAssessmentJSON = JsonUtils.objectToJson(fullMeansAssessment);
-        String expectedFullMeansAssessmentJSON = FileUtils.readFileToString("data/expected/crimeapplication/FullMeansAssessment_mapped.json");
-        JSONAssert.assertEquals(expectedFullMeansAssessmentJSON, actualFullMeansAssessmentJSON, JSONCompareMode.STRICT);
-    }
+    String actualFullMeansAssessmentJSON = JsonUtils.objectToJson(fullMeansAssessment);
+    String expectedFullMeansAssessmentJSON =
+        FileUtils.readFileToString(
+            "data/expected/crimeapplication/FullMeansAssessment_mapped.json");
+    JSONAssert.assertEquals(
+        expectedFullMeansAssessmentJSON, actualFullMeansAssessmentJSON, JSONCompareMode.STRICT);
+  }
 
-    @Test
-    void shouldSuccessfullyMapNullCrimeApplyOutgoingsDetailsToEmptyAdapterFullMeansAssessment() throws JSONException {
-        OutgoingsDetails crimeApplyOutgoingsDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getOutgoingsDetails();
+  @Test
+  void shouldSuccessfullyMapNullCrimeApplyOutgoingsDetailsToEmptyAdapterFullMeansAssessment()
+      throws JSONException {
+    OutgoingsDetails crimeApplyOutgoingsDetails =
+        TestData.getMaatApplication("MaatApplication_unemployed.json")
+            .getMeansDetails()
+            .getOutgoingsDetails();
 
-        crimeApplyOutgoingsDetails.setOutgoings(null);
+    crimeApplyOutgoingsDetails.setOutgoings(null);
 
-        FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
+    FullMeansAssessment fullMeansAssessment =
+        fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
 
-        String actualFullMeansAssessmentJSON = JsonUtils.objectToJson(fullMeansAssessment);
-        JSONAssert.assertEquals("{}", actualFullMeansAssessmentJSON, JSONCompareMode.STRICT);
-    }
+    String actualFullMeansAssessmentJSON = JsonUtils.objectToJson(fullMeansAssessment);
+    JSONAssert.assertEquals("{}", actualFullMeansAssessmentJSON, JSONCompareMode.STRICT);
+  }
 
-    @Test
-    void shouldMapOtherHousingFeeNotes_whenTypeIsHousingAndHousingPaymentTypeIsBoardLodgings() {
-        OutgoingsDetails crimeApplyOutgoingsDetails = TestData.getMaatApplication("MaatApplication_unemployed.json").getMeansDetails().getOutgoingsDetails();
+  @Test
+  void shouldMapOtherHousingFeeNotes_whenTypeIsHousingAndHousingPaymentTypeIsBoardLodgings() {
+    OutgoingsDetails crimeApplyOutgoingsDetails =
+        TestData.getMaatApplication("MaatApplication_unemployed.json")
+            .getMeansDetails()
+            .getOutgoingsDetails();
 
-        Outgoing outgoing = new Outgoing();
-        outgoing.setPaymentType(Outgoing.PaymentType.BOARD_AND_LODGING);
-        outgoing.setAmount(100);
-        outgoing.setFrequency(Outgoing.Frequency.MONTH);
-        outgoing.setDetails("Details about housing");
+    Outgoing outgoing = new Outgoing();
+    outgoing.setPaymentType(Outgoing.PaymentType.BOARD_AND_LODGING);
+    outgoing.setAmount(100);
+    outgoing.setFrequency(Outgoing.Frequency.MONTH);
+    outgoing.setDetails("Details about housing");
 
-        List<Outgoing> outgoings = new ArrayList<>();
-        outgoings.add(outgoing);
+    List<Outgoing> outgoings = new ArrayList<>();
+    outgoings.add(outgoing);
 
-        crimeApplyOutgoingsDetails.setOutgoings(outgoings);
-        FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
+    crimeApplyOutgoingsDetails.setOutgoings(outgoings);
+    FullMeansAssessment fullMeansAssessment =
+        fullMeansAssessmentMapper.map(crimeApplyOutgoingsDetails);
 
-        assertEquals( "Board and lodging\nDetails about housing", fullMeansAssessment.getOtherHousingNote());
-    }
+    assertEquals(
+        "Board and lodging\nDetails about housing", fullMeansAssessment.getOtherHousingNote());
+  }
 }
