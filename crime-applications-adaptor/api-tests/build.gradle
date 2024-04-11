@@ -1,3 +1,7 @@
+plugins {
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
 def versions = [
         jjwtVersion              : '0.12.5',
         sentryVersion            : "7.6.0",
@@ -46,4 +50,18 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+spotless {
+    java {
+        target project.fileTree(project.rootDir) {
+            include "api-tests/src/main/java/**/*.java", "api-tests/src/test/java/**/*.java"
+            exclude "api-tests/**/build/**"
+        }
+        importOrder()
+        removeUnusedImports()
+        cleanthat().sourceCompatibility('17')
+        googleJavaFormat()
+        formatAnnotations()
+    }
 }
