@@ -13,8 +13,8 @@ Feature: Retrieve application data from the Crime Apply Datastore.
     Given an application with usn <usn> does not exists in the datastore
     When the GET internal V1 crimeapply endpoint is called with usn <usn> and user "<user>"
     Then the returned response should indicate the application is not found
-    And no entry for usn <usn> should be present in the eforms staging table
-    And no entry for usn <usn> should be present in the eforms history table
+    And no entry for usn <usn> should be present in the EFORMS_STAGING table
+    And no entry for usn <usn> should be present in the EFORMS_HISTORY table
 
     Examples:
       | scnNo | usn      | user |

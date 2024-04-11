@@ -100,7 +100,7 @@ public class APITestSteps {
     assertThat(responseJsonPath.getString("detail"), containsString("404 Not Found from GET"));
   }
 
-  @And("no entry for usn {int} should be present in the eforms staging table")
+  @And("no entry for usn {int} should be present in the EFORMS_STAGING table")
   public void noEntryForTheApplicationShouldBePresentInTheEformsStagingTable(int usn) {
     ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormStatingByUsn(usn);
     validatableResponse.assertThat().statusCode(HttpStatus.NOT_FOUND_404);
@@ -112,7 +112,7 @@ public class APITestSteps {
         equalTo(String.format("The USN [%d] does not exist in the data store.", usn)));
   }
 
-  @And("no entry for usn {int} should be present in the eforms history table")
+  @And("no entry for usn {int} should be present in the EFORMS_HISTORY table")
   public void noEntryForTheApplicationShouldBePresentInTheEformsHistoryTable(int usn) {
     ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormHistoryByUsn(usn);
     validatableResponse.assertThat().statusCode(HttpStatus.OK_200).body(equalTo("[]"));
