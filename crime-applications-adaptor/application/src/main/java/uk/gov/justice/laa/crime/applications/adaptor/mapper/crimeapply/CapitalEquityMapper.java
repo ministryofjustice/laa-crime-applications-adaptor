@@ -9,6 +9,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.*;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +24,7 @@ public class CapitalEquityMapper {
     private static final String BEDROOMS_ERROR = "There was an issue obtaining number of bedrooms.";
     private static final String SIX_PLUS_BEDROOMS = "6+";
     private static final String NO_PROPERTY_OWNER_TYPE_FOUND = "No property owner type found.";
+    private static final String FAILED_TO_READ_ADDRESS_OBJECT = "Failed to read address object.";
 
     CapitalEquity map(MaatApplicationExternal crimeApplyResponse) {
         CapitalEquity capitalEquity = new CapitalEquity();
@@ -361,8 +363,21 @@ public class CapitalEquityMapper {
                 && IS_HOME_PROPERTY.equals(crimeApplyDataStoreProperty.getIsHomeAddress().toString());
     }
 
-    Address mapAddress(Object address) {
-        // TODO
+    Address mapAddress(Object crimeApplyAddress) {
+        if (Objects.nonNull(crimeApplyAddress)) {
+            try {
+                LinkedHashMap mappedAddress = (LinkedHashMap) crimeApplyAddress;
+                Address address = new Address();
+                address.setLine1(mappedAddress.get("address_line_one").toString());
+                address.setLine2(mappedAddress.get("address_line_two").toString());
+                address.setCity(mappedAddress.get("city").toString());
+                address.setCountry(mappedAddress.get("country").toString());
+                address.setPostCode(mappedAddress.get("postcode").toString());
+                return address;
+            } catch (Exception e) {
+                log.error(FAILED_TO_READ_ADDRESS_OBJECT);
+            }
+        }
         return null;
     }
 
