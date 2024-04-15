@@ -5,17 +5,7 @@
   "properties": {
     "propertyType": {
       "type": "string",
-      "enum": [
-        "TERRACE",
-        "DETACHED",
-        "SEMI",
-        "FLAT",
-        "MAISONETTE",
-        "BUNGALOW",
-        "COMMERCIAL",
-        "LAND",
-        "OTHER"
-      ]
+      "enum": ["TERRACE", "DETACHED", "SEMI", "FLAT", "MAISONETTE", "BUNGALOW", "COMMERCIAL", "LAND", "OTHER"]
     },
     "bedrooms": {
       "type": "string",

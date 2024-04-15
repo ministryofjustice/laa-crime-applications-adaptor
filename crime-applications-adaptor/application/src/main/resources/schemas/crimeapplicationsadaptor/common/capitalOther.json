@@ -5,18 +5,7 @@
   "properties": {
     "capitalType": {
       "type": "string",
-      "enum": [
-        "SAVINGS",
-        "CASH ISA",
-        "PREMIUM BONDS",
-        "TRUST FUND",
-        "SHARES",
-        "PEPS",
-        "SHARE ISA",
-        "STOCKS",
-        "INVESTMENT",
-        "OTHER"
-      ]
+      "enum": ["SAVINGS", "CASH ISA", "PREMIUM BONDS", "TRUST FUND", "SHARES", "PEPS", "SHARE ISA", "STOCKS", "INVESTMENT", "OTHER"]
     },
     "assetAmount": {
       "type": "number",
@@ -36,11 +25,7 @@
     },
     "accountOwner": {
       "type": "string",
-      "enum": [
-        "APPLICANT",
-        "JOINT",
-        "PARTNER"
-      ]
+      "enum": ["APPLICANT", "JOINT", "PARTNER"]
     }
   }
 }
