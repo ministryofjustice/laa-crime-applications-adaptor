@@ -4,7 +4,7 @@ def versions = [
         serenityVersion          : "4.1.6",
         jUnitPlatformSuiteVersion: "1.10.2",
         cucumberEngineVersion    : "7.16.1",
-        junitBOMVersion          : "5.9.1"
+        junitBOMVersion          : "5.10.2"
 ]
 
 sourceSets {
