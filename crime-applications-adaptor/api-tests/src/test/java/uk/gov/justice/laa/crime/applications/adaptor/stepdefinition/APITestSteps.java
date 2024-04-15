@@ -34,6 +34,8 @@ public class APITestSteps {
   private static final String CAA_APPLICATION_SCHEMA = "schemas/crimeapplicationsadaptor/maat_application_internal.json";
   private static final String CRIME_APPLY_RESOURCE_LOCATION = "src/test/resources/testdata/crimeapply/";
   private static final String EXPECTED_RESPONSE_FILE_PATH_BASE = "src/test/resources/testdata/expectedresponses/";
+  private static final String EXPECTED_EFORMS_STAGING_FILE_END = "_eforms_staging.json";
+  private static final String EXPECTED_EFORMS_HISTORY_FILE_END = "_eforms_history.json";
 
   @Steps
   CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
@@ -78,6 +80,59 @@ public class APITestSteps {
     JSONAssert.assertEquals(expectedJson.prettify(),
         response.body().asPrettyString(),
         JSONCompareMode.LENIENT);
+  }
+
+  private Response getEformsStagingResponse(int usn) {
+    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormStatingByUsn(usn);
+    validatableResponse.assertThat().statusCode(HttpStatus.OK_200);
+
+     return validatableResponse
+            .assertThat()
+            .statusCode(200)
+            .extract()
+            .response();
+  }
+
+  @And("an entry for usn {int} should have been created in the EFORMS_STAGING table")
+  public void anEntryForTheApplicationShouldBePresentInTheEformsStagingTable(int usn) throws JSONException {
+    JsonPath expectedJson = new JsonPath(
+            new File(EXPECTED_RESPONSE_FILE_PATH_BASE + usn + EXPECTED_EFORMS_STAGING_FILE_END));
+
+    Response response = getEformsStagingResponse(usn);
+
+    JSONAssert.assertEquals(expectedJson.prettify(),
+            response.body().asPrettyString(),
+            JSONCompareMode.LENIENT);
+  }
+
+  @And("the entry in the EFORMS_STAGING table for usn {int} should have no maatRef")
+  public void theEntryInTheEformsStagingTableShouldHaveNoMaatRef(int usn) throws JSONException {
+    JsonPath expectedJson = JsonPath.given("{\"maatRef\": null}");
+
+    Response response = getEformsStagingResponse(usn);
+
+    JSONAssert.assertEquals(expectedJson.prettify(),
+            response.body().asPrettyString(),
+            JSONCompareMode.LENIENT);
+  }
+
+  @And("an entry for usn {int} should have been created in the EFORMS_HISTORY table")
+  public void anEntryForTheApplicationShouldBePresentInTheEformsHistoryTable(int usn) throws JSONException {
+    JsonPath expectedJson = new JsonPath(
+            new File(EXPECTED_RESPONSE_FILE_PATH_BASE + usn + EXPECTED_EFORMS_HISTORY_FILE_END));
+
+    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormHistoryByUsn(usn);
+    validatableResponse.assertThat().statusCode(HttpStatus.OK_200);
+
+    Response response = validatableResponse
+            .assertThat()
+            .statusCode(200)
+            .extract()
+            .response();
+
+    JSONAssert.assertEquals(expectedJson.prettify(),
+            response.body().asPrettyString(),
+            JSONCompareMode.LENIENT);
   }
 
   @Given("an application with usn {int} does not exists in the datastore")

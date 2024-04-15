@@ -17,7 +17,7 @@ public class CrimeApplyMockAPI {
 
 
     public void createNewMockCrimeApplication(int usn, String jsonBodyFilePath) {
-        given().spec(RequestSpecificationBuilder.getCAMReqSpec())
+        given().spec(RequestSpecificationBuilder.getCAMCrimeApplyReqSpec())
             .body(new File(jsonBodyFilePath))
             .pathParam("usn", usn)
             .put(CAM_URI)
@@ -30,7 +30,7 @@ public class CrimeApplyMockAPI {
     }
 
     public void getCrimeApplyMockApplicationByUsn(int usn, int statusCode) {
-        given().spec(RequestSpecificationBuilder.getCAMReqSpec())
+        given().spec(RequestSpecificationBuilder.getCAMCrimeApplyReqSpec())
             .pathParam("usn", usn)
             .get(CAM_URI)
             .then()
