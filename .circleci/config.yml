@@ -88,7 +88,7 @@ commands:
           name: Run API tests and fetch results
           command: |
             export NAMESPACE=laa-crime-applications-adaptor-<< parameters.environment >>
-            export POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l "app.kubernetes.io/name=caa-api-tests,app.kubernetes.io/instance=caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
+            export POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l "app.kubernetes.io/name=laa-caa-api-tests,app.kubernetes.io/instance=laa-caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
             kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n ${NAMESPACE}
             kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
             mkdir -p ./api-test-results/reports
@@ -257,7 +257,8 @@ jobs:
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
-      - push-api-test-image
+      - push-api-test-image:
+          name: Push API tests image
 
   deploy-dev:
     executor: cloud-platform-executor
