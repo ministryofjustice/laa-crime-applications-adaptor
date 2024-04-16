@@ -17,7 +17,7 @@ public class SavingMapper {
     CapitalOther map(Saving saving) {
         CapitalOther capitalOther = new CapitalOther();
 
-        capitalOther.setCapitalType(mapSavingsTypeToCapitalType(saving));
+        capitalOther.setCapitalType(mapSavingsTypeToCapitalType(saving.getSavingType()));
         capitalOther.setAssetAmount(BigDecimal.valueOf(saving.getAccountBalance()));
         capitalOther.setBankName(saving.getProviderName());
         capitalOther.setBranchSortCode(saving.getSortCode());
@@ -26,11 +26,11 @@ public class SavingMapper {
         return capitalOther;
     }
 
-    CapitalOther.CapitalType mapSavingsTypeToCapitalType(Saving saving) {
-        if (Objects.isNull(saving)) {
+    CapitalOther.CapitalType mapSavingsTypeToCapitalType(Saving.SavingType savingType) {
+        if (Objects.isNull(savingType)) {
             log.debug(REQUIRED_CAPITAL_TYPE_NULL);
             return CapitalOther.CapitalType.SAVINGS;
-        } else if (Saving.SavingType.CASH_ISA.equals(saving.getSavingType())) {
+        } else if (Saving.SavingType.CASH_ISA.equals(savingType)) {
             return CapitalOther.CapitalType.CASH_ISA;
         } else {
             return CapitalOther.CapitalType.SAVINGS;
