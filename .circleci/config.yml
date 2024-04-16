@@ -72,7 +72,7 @@ commands:
         description: CircleCI Service account token
         type: string
     steps:
-      - authenticate_kubernetes:
+      - setup-kubectl:
           environment: << parameters.environment >>
           token: << parameters.token >>
       - run:
