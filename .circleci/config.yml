@@ -89,7 +89,7 @@ commands:
         type: string
     steps:
       - checkout_and_decrypt
-      - authenticate_kubernetes:
+      - kubernetes_authentication:
           environment: << parameters.environment >>
           token: << parameters.token >>
       - helm/upgrade-helm-chart:
