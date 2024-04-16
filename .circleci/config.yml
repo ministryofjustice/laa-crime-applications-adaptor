@@ -232,7 +232,7 @@ jobs:
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
       - aws-ecr/build-image:
-          path: ./Dockerfile.api-tests
+          dockerfile: Dockerfile.api-tests
           push-image: true
           tag: api-tests-${CIRCLE_SHA1}
           region: $ECR_REGION
