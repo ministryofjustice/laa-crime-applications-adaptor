@@ -32,7 +32,8 @@ public class SavingMapperTest {
                 Arguments.of(Saving.SavingType.BANK, CapitalOther.CapitalType.SAVINGS),
                 Arguments.of(Saving.SavingType.BUILDING_SOCIETY, CapitalOther.CapitalType.SAVINGS),
                 Arguments.of(Saving.SavingType.NATIONAL_SAVINGS_OR_POST_OFFICE, CapitalOther.CapitalType.SAVINGS),
-                Arguments.of(Saving.SavingType.OTHER, CapitalOther.CapitalType.SAVINGS)
+                Arguments.of(Saving.SavingType.OTHER, CapitalOther.CapitalType.SAVINGS),
+                Arguments.of(null, CapitalOther.CapitalType.SAVINGS)
         );
     }
 
