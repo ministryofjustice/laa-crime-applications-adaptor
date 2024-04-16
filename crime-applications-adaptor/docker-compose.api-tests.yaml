@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  api-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.api-tests
+    env_file:
+      - .env
