@@ -54,6 +54,8 @@ commands:
             kubectl --namespace=laa-crime-applications-adaptor-<< parameters.environment >> get pods
 
   push-api-test-image:
+    description: >
+      Push API tests image
     steps:
       - aws-ecr/build-image:
           dockerfile: Dockerfile.api-tests
