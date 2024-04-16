@@ -258,7 +258,6 @@ jobs:
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
       - push-api-test-image:
-          name: Push API tests image
 
   deploy-dev:
     executor: cloud-platform-executor
