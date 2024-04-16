@@ -75,6 +75,13 @@ commands:
       - setup-kubectl:
           environment: << parameters.environment >>
           token: << parameters.token >>
+      - helm/upgrade-helm-chart:
+          namespace: laa-crime-applications-adaptor-<< parameters.environment >>
+          update-repositories: false
+          chart: ./helm_deploy/laa-caa-api-tests/
+          release-name: laa-caa-api-tests
+          values: ./helm_deploy/laa-caa-api-tests/values-<< parameters.environment >>.yaml
+          values-to-override: image.tag=api-tests-${CIRCLE_SHA1}
       - run:
           name: Run API tests and fetch results
           command: |
