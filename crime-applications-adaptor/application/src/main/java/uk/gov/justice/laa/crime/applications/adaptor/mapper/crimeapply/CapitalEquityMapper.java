@@ -28,7 +28,7 @@ public class CapitalEquityMapper {
         return capitalEquity;
     }
 
-    void mapOtherCapitalToCapitalEquity(MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
+    private void mapOtherCapitalToCapitalEquity(MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
         if (hasInvestments(crimeApplyResponse)) {
             mapInvestmentsToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails().getInvestments(),
                     capitalEquity);
@@ -55,17 +55,17 @@ public class CapitalEquityMapper {
         }
     }
 
-    void mapTrustFundToCapitalEquity(Object trustFundAmountHeld, CapitalEquity capitalEquity) {
+    private void mapTrustFundToCapitalEquity(Object trustFundAmountHeld, CapitalEquity capitalEquity) {
         CapitalOther trustFund = trustFundMapper.map((Integer) trustFundAmountHeld);
         capitalEquity.getCapital().add(trustFund);
     }
 
-    void mapPremiumBondsToCapitalEquity(Object premiumBondsTotalValue, CapitalEquity capitalEquity) {
+    private void mapPremiumBondsToCapitalEquity(Object premiumBondsTotalValue, CapitalEquity capitalEquity) {
         CapitalOther premiumBonds = premiumBondMapper.map((Integer) premiumBondsTotalValue);
         capitalEquity.getCapital().add(premiumBonds);
     }
 
-    void mapNationalSavingsCertificatesToCapitalEquity(List<NationalSavingsCertificate> nationalSavingsCertificates, CapitalEquity capitalEquity) {
+    private void mapNationalSavingsCertificatesToCapitalEquity(List<NationalSavingsCertificate> nationalSavingsCertificates, CapitalEquity capitalEquity) {
         for (NationalSavingsCertificate certificate : nationalSavingsCertificates) {
             if (Objects.nonNull(certificate)) {
                 CapitalOther nationalSavingsCertificate = nationalSavingsCertificateMapper.map(certificate);
@@ -74,53 +74,53 @@ public class CapitalEquityMapper {
         }
     }
 
-    void mapSavingsToCapitalEquity(List<Saving> savings, CapitalEquity capitalEquity) {
+    private void mapSavingsToCapitalEquity(List<Saving> savings, CapitalEquity capitalEquity) {
         for (Saving saving : savings) {
             CapitalOther capitalOther = savingMapper.map(saving);
             capitalEquity.getCapital().add(capitalOther);
         }
     }
 
-    void mapInvestmentsToCapitalEquity(List<Investment> investments, CapitalEquity capitalEquity) {
+    private void mapInvestmentsToCapitalEquity(List<Investment> investments, CapitalEquity capitalEquity) {
         for (Investment investment : investments) {
             CapitalOther capitalOther = investmentMapper.map(investment);
             capitalEquity.getCapital().add(capitalOther);
         }
     }
 
-    boolean hasTrustFund(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasTrustFund(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld())
                 && crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld() instanceof Integer;
     }
 
-    boolean hasPremiumBonds(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasPremiumBonds(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails().getPremiumBondsTotalValue())
                 && crimeApplyResponse.getMeansDetails().getCapitalDetails()
                 .getPremiumBondsTotalValue() instanceof Integer;
     }
 
-    boolean hasNationalSavingsCertificates(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasNationalSavingsCertificates(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails()
                 .getNationalSavingsCertificates())
                 && !crimeApplyResponse.getMeansDetails().getCapitalDetails().getNationalSavingsCertificates().isEmpty();
     }
 
-    boolean hasSavings(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasSavings(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails().getSavings())
                 && !crimeApplyResponse.getMeansDetails().getCapitalDetails().getSavings().isEmpty();
     }
 
-    boolean hasInvestments(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasInvestments(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails().getInvestments())
                 && !crimeApplyResponse.getMeansDetails().getCapitalDetails().getInvestments().isEmpty();
     }
 
-    boolean hasProperties(MaatApplicationExternal crimeApplyResponse) {
+    private boolean hasProperties(MaatApplicationExternal crimeApplyResponse) {
         return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails().getProperties())
                 && !crimeApplyResponse.getMeansDetails().getCapitalDetails().getProperties().isEmpty();
     }
 
-    void mapPropertiesToCapitalEquity(MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
+    private void mapPropertiesToCapitalEquity(MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
         if (hasProperties(crimeApplyResponse)) {
             for (Property crimeApplyDataStoreProperty: crimeApplyResponse.getMeansDetails().getCapitalDetails().getProperties()) {
                 if (isHomeProperty(crimeApplyDataStoreProperty)) {
@@ -132,17 +132,17 @@ public class CapitalEquityMapper {
         }
     }
 
-    void mapPropertyToCapitalProperty(Property crimeApplyDataStoreProperty, List<uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property> capitalProperty) {
+    private void mapPropertyToCapitalProperty(Property crimeApplyDataStoreProperty, List<uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property> capitalProperty) {
         uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property property = propertyMapper.map(crimeApplyDataStoreProperty);
         capitalProperty.add(property);
     }
 
-    void mapPropertyToEquity(Property crimeApplyDataStoreProperty, List<uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property> equity) {
+    private void mapPropertyToEquity(Property crimeApplyDataStoreProperty, List<uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property> equity) {
         uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property property = propertyMapper.map(crimeApplyDataStoreProperty);
         equity.add(property);
     }
 
-    boolean isHomeProperty(Property crimeApplyDataStoreProperty) {
+    private boolean isHomeProperty(Property crimeApplyDataStoreProperty) {
         return Objects.nonNull(crimeApplyDataStoreProperty)
                 && Objects.nonNull(crimeApplyDataStoreProperty.getIsHomeAddress())
                 && crimeApplyDataStoreProperty.getIsHomeAddress() instanceof String
