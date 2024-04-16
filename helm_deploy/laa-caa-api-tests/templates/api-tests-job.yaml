@@ -7,27 +7,27 @@ metadata:
 spec:
   {{- with .Values.imagePullSecrets }}
   imagePullSecrets:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   securityContext:
-    {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- toYaml .Values.podSecurityContext | nindent 4 }}
   containers:
     - name: {{ .Chart.Name }}
       stdin: True
       tty: True
       securityContext:
-        {{- toYaml .Values.securityContext | nindent 12 }}
+        {{- toYaml .Values.securityContext | nindent 8 }}
       image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
       imagePullPolicy: {{ .Values.image.pullPolicy }}
-      {{ include "laa-caa-api-test.env-vars" . | nindent 10 }}
+      {{ include "laa-caa-api-test.env-vars" . | nindent 6 }}
       resources:
-        {{- toYaml .Values.resources | nindent 12 }}
+        {{- toYaml .Values.resources | nindent 8 }}
   restartPolicy: Never
   {{- with .Values.affinity }}
   affinity:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.tolerations }}
   tolerations:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
