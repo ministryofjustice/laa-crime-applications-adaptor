@@ -29,29 +29,27 @@ public class CapitalEquityMapper {
     }
 
     private void mapOtherCapitalToCapitalEquity(MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
+        CapitalDetails capitalDetails = crimeApplyResponse.getMeansDetails().getCapitalDetails();
+
         if (hasInvestments(crimeApplyResponse)) {
-            mapInvestmentsToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails().getInvestments(),
-                    capitalEquity);
+            mapInvestmentsToCapitalEquity(capitalDetails.getInvestments(), capitalEquity);
         }
 
         if (hasSavings(crimeApplyResponse)) {
-            mapSavingsToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails().getSavings(),
-                    capitalEquity);
+            mapSavingsToCapitalEquity(capitalDetails.getSavings(), capitalEquity);
         }
 
         if (hasNationalSavingsCertificates(crimeApplyResponse)) {
-            mapNationalSavingsCertificatesToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails()
-                    .getNationalSavingsCertificates(), capitalEquity);
+            mapNationalSavingsCertificatesToCapitalEquity(capitalDetails.getNationalSavingsCertificates(),
+                    capitalEquity);
         }
 
         if (hasPremiumBonds(crimeApplyResponse)) {
-            mapPremiumBondsToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails()
-                    .getPremiumBondsTotalValue(), capitalEquity);
+            mapPremiumBondsToCapitalEquity(capitalDetails.getPremiumBondsTotalValue(), capitalEquity);
         }
 
         if (hasTrustFund(crimeApplyResponse)) {
-            mapTrustFundToCapitalEquity(crimeApplyResponse.getMeansDetails().getCapitalDetails()
-                    .getTrustFundAmountHeld(), capitalEquity);
+            mapTrustFundToCapitalEquity(capitalDetails.getTrustFundAmountHeld(), capitalEquity);
         }
     }
 
