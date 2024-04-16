@@ -50,8 +50,14 @@ public class PropertyMapperTest {
                         Property.HouseType.SEMIDETACHED,
                         uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.SEMI),
                 Arguments.of(Property.PropertyType.RESIDENTIAL,
+                        Property.HouseType.TERRACED,
+                        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.TERRACE),
+                Arguments.of(Property.PropertyType.RESIDENTIAL,
                         Property.HouseType.OTHER,
-                        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.OTHER)
+                        uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.OTHER),
+                Arguments.of(Property.PropertyType.RESIDENTIAL,
+                        null,
+                        null)
 
         );
     }
