@@ -85,12 +85,15 @@ commands:
           values: ./helm_deploy/laa-caa-api-tests/values-<< parameters.environment >>.yaml
           values-to-override: image.tag=api-tests-${CIRCLE_SHA1}
       - run:
-          name: Run API tests and fetch results
+          name: Run API tests
           command: |
             export NAMESPACE=laa-crime-applications-adaptor-<< parameters.environment >>
             export POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l "app.kubernetes.io/name=laa-caa-api-tests,app.kubernetes.io/instance=laa-caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
             kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n ${NAMESPACE}
             kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
+      - run:
+          name: Fetch API test results
+          command:
             mkdir -p ./api-test-results/reports
             mkdir -p ./api-test-results/test-results
             kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
