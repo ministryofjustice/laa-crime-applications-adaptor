@@ -92,7 +92,7 @@ commands:
           path: ./api-test-results/reports/tests/test
       - store_artifacts:
           path: ./api-test-results/test-results/test
-      - helm/delete_helm_release:
+      - helm/delete-helm-release:
           release_name: caa-api-tests
           timeout: 60s
   deploy-to:
