@@ -227,13 +227,11 @@ jobs:
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - aws-ecr/build-image:
-          name: Build and push Application Image.
           push-image: true
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
       - aws-ecr/build-image:
-          name: Build and push API Test Image
           path: ./Dockerfile.api-tests
           push-image: true
           tag: api-tests-${CIRCLE_SHA1}
