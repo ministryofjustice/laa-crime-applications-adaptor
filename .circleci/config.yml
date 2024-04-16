@@ -33,8 +33,7 @@ commands:
       - checkout
       - run: echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
       - run: git-crypt unlock git-crypt.key
-
-  kubernetes_authentication:
+  setup-kubectl:
     description: >
       Authenticate with kubernetes cluster
     parameters:
@@ -54,7 +53,15 @@ commands:
             kubectl config use-context ${K8S_CLUSTER_NAME}
             kubectl --namespace=laa-crime-applications-adaptor-<< parameters.environment >> get pods
 
-  run_api_tests:
+  push-api-test-image:
+    steps:
+      - aws-ecr/build-image:
+          dockerfile: Dockerfile.api-tests
+          push-image: true
+          tag: api-tests-${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
+  run-api-tests:
     description: >
       Run API Tests against deployed application
     parameters:
@@ -69,14 +76,25 @@ commands:
           environment: << parameters.environment >>
           token: << parameters.token >>
       - run:
+          name: Run API tests and fetch results
           command: |
-            export POD_NAME=$(kubectl get pods --namespace laa-crime-applications-adaptor-<< parameters.environment >> -l "app.kubernetes.io/name=caa-api-tests,app.kubernetes.io/instance=caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
-            kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n laa-crime-applications-adaptor-<< parameters.environment >>
-            kubectl exec -n laa-crime-applications-adaptor-<< parameters.environment >> ${POD_NAME} -- ./gradlew api-tests:test
+            export NAMESPACE=laa-crime-applications-adaptor-<< parameters.environment >>
+            export POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l "app.kubernetes.io/name=caa-api-tests,app.kubernetes.io/instance=caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
+            kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n ${NAMESPACE}
+            kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
+            mkdir -p ./api-test-results/reports
+            mkdir -p ./api-test-results/test-results
+            kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
+            kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/test-results ./api-test-results/test-results
+      - store_test_results:
+          path: ./api-test-results/test-results/test
+      - store_artifacts:
+          path: ./api-test-results/reports/tests/test
+      - store_artifacts:
+          path: ./api-test-results/test-results/test
       - helm/delete_helm_release:
           release_name: caa-api-tests
           timeout: 60s
-
   deploy-to:
     description: >
       Deploy image to the specified environment
@@ -89,7 +107,7 @@ commands:
         type: string
     steps:
       - checkout_and_decrypt
-      - kubernetes_authentication:
+      - setup-kubectl:
           environment: << parameters.environment >>
           token: << parameters.token >>
       - helm/upgrade-helm-chart:
@@ -99,7 +117,6 @@ commands:
           release-name: laa-crime-applications-adaptor
           values: ./helm_deploy/laa-crime-applications-adaptor/values-<< parameters.environment >>.yaml
           values-to-override: image.tag=${CIRCLE_SHA1}
-
 
 # ------------------
 # JOBS
@@ -231,17 +248,15 @@ jobs:
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
-      - aws-ecr/build-image:
-          dockerfile: Dockerfile.api-tests
-          push-image: true
-          tag: api-tests-${CIRCLE_SHA1}
-          region: $ECR_REGION
-          repo: $ECR_REPOSITORY
+      - push-api-test-image
 
   deploy-dev:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
+          environment: dev
+          token: ${CIRCLE_CI_TOKEN_DEV}
+      - run-api-tests:
           environment: dev
           token: ${CIRCLE_CI_TOKEN_DEV}
 
