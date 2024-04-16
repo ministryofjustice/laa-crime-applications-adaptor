@@ -1,6 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import lombok.extern.slf4j.Slf4j;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalEquity;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
@@ -9,7 +8,6 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 import java.util.List;
 import java.util.Objects;
 
-@Slf4j
 public class CapitalEquityMapper {
 
     private static final String IS_HOME_PROPERTY = "yes";
