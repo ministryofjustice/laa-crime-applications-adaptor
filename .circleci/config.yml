@@ -93,6 +93,7 @@ commands:
             kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
       - run:
           name: Fetch API test results
+          when: always
           command:
             mkdir -p ./api-test-results/reports
             mkdir -p ./api-test-results/test-results
