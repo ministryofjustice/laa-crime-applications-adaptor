@@ -58,7 +58,7 @@ public class RequestSpecificationBuilder {
                                                    String authClientId, String authClientSecret, String authTokenUri) {
     RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(baseUrl);
     requestSpecBuilder.addHeader(
-        "Authorization", "Bearer " + OAuthTokenUtil.getAccessToken(
+        "Authorization", "Bearer " + getOauthAccessToken(
                     authUrl, authClientId, authClientSecret, authTokenUri));
     return requestSpecBuilder.build();
   }
@@ -72,9 +72,14 @@ public class RequestSpecificationBuilder {
       String authClientId, String authClientSecret, String authTokenUri) {
     RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(baseUrl);
     requestSpecBuilder.addHeader(
-        "Authorization", "Bearer " + OAuthTokenUtil.getAccessToken(
+        "Authorization", "Bearer " + getOauthAccessToken(
             authUrl, authClientId, authClientSecret, authTokenUri));
     return requestSpecBuilder.build();
+  }
+
+  private static String getOauthAccessToken(String authUrl, String authClientId, String authClientSecret,
+                                            String authTokenUri) {
+    return OAuthTokenUtil.getAccessToken(authUrl, authClientId, authClientSecret, authTokenUri);
   }
 
   private static RequestSpecBuilder setUpRequestSpecBuilder(String baseUrl) {
