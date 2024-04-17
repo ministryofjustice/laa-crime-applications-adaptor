@@ -12,21 +12,23 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 class CapitalEquityMapperTest {
 
-    private CapitalEquityMapper capitalEquityMapper;
+  private CapitalEquityMapper capitalEquityMapper;
 
-    @BeforeEach
-    void setUp() {
-        capitalEquityMapper = new CapitalEquityMapper();
-    }
+  @BeforeEach
+  void setUp() {
+    capitalEquityMapper = new CapitalEquityMapper();
+  }
 
-    @Test
-    void shouldSuccessfullyMapCrimeApplyCapitalDetailsToAdapterCapitalDetails() throws JSONException {
-        MaatApplicationExternal crimeApplyWithCapitalDetails = TestData.getMaatApplicationWithCapitalDetails();
-        
-        CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
+  @Test
+  void shouldSuccessfullyMapCrimeApplyCapitalDetailsToAdapterCapitalDetails() throws JSONException {
+    MaatApplicationExternal crimeApplyWithCapitalDetails =
+        TestData.getMaatApplicationWithCapitalDetails();
 
-        String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
-        JSONAssert.assertEquals("""
+    CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
+
+    String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
+    JSONAssert.assertEquals(
+        """
             {
               "capitalProperty": [
                 {
@@ -122,7 +124,7 @@ class CapitalEquityMapperTest {
               ]
             }
             """,
-                actualCaseDetailsJSON, JSONCompareMode.STRICT);
-    }
-
+        actualCaseDetailsJSON,
+        JSONCompareMode.STRICT);
+  }
 }
