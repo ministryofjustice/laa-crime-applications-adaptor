@@ -94,7 +94,7 @@ commands:
       - run:
           name: Fetch API test results
           when: always
-          command:
+          command: |
             mkdir -p ./api-test-results/reports
             mkdir -p ./api-test-results/test-results
             kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
