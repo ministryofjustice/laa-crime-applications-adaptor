@@ -32,6 +32,7 @@ public class CrimeApplyMapper {
     private final PassportedMapper passportedMapper = new PassportedMapper();
     private final InitialMeansAssessmentMapper initialMeansAssessmentMapper = new InitialMeansAssessmentMapper();
     private final FullMeansAssessmentMapper fullMeansAssessmentMapper = new FullMeansAssessmentMapper();
+    private final CapitalEquityMapper capitalEquityMapper = new CapitalEquityMapper();
 
     public MaatApplicationInternal mapToCrimeApplication(MaatApplicationExternal crimeApplyResponse) {
         MaatApplicationInternal maatApplicationInternal = new MaatApplicationInternal();
@@ -54,8 +55,19 @@ public class CrimeApplyMapper {
         maatApplicationInternal.setIojBypass(crimeApplyResponse.getIojBypass());
         if(Objects.nonNull(crimeApplyResponse.getMeansDetails())) {
             maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails()));
+            mapCapitalAndEquity(maatApplicationInternal, crimeApplyResponse);
         }
         return maatApplicationInternal;
+    }
+
+    void mapCapitalAndEquity(MaatApplicationInternal maatApplicationInternal, MaatApplicationExternal crimeApplyResponse) {
+        if (hasCapitalAndEquity(crimeApplyResponse)) {
+            maatApplicationInternal.setCapitalEquity(capitalEquityMapper.map(crimeApplyResponse));
+        }
+    }
+
+    boolean hasCapitalAndEquity(MaatApplicationExternal crimeApplyResponse) {
+        return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails());
     }
 
     private Assessment mapAssessment(Means meansDetails) {
