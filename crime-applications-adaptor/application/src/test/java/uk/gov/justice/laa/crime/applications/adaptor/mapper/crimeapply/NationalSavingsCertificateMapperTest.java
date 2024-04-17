@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NationalSavingsCertificateMapperTest {
+class NationalSavingsCertificateMapperTest {
     private NationalSavingsCertificateMapper nationalSavingsCertificateMapper;
 
     @BeforeEach()

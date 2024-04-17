@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SavingMapperTest {
+class SavingMapperTest {
     private SavingMapper savingMapper;
 
     @BeforeEach()

@@ -45,10 +45,8 @@ public class PropertyMapper {
                 return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.LAND;
             } else if (Property.PropertyType.COMMERCIAL.equals(crimeApplyDataStorePropertyType)) {
                 return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property.PropertyType.COMMERCIAL;
-            } else if (Property.PropertyType.RESIDENTIAL.equals(crimeApplyDataStorePropertyType)) {
-                if (Objects.nonNull(houseType)) {
-                    return getHouseType(houseType);
-                }
+            } else if (Property.PropertyType.RESIDENTIAL.equals(crimeApplyDataStorePropertyType) && Objects.nonNull(houseType)) {
+                return getHouseType(houseType);
             }
         }
 
@@ -80,10 +78,10 @@ public class PropertyMapper {
 
     BigDecimal getPercentagePartnerOwned(Object percentagePartnerOwned) {
         if (Objects.nonNull(percentagePartnerOwned)) {
-            if (percentagePartnerOwned instanceof Integer) {
-                return BigDecimal.valueOf((Integer) percentagePartnerOwned);
-            } else if (percentagePartnerOwned instanceof BigDecimal) {
-                return (BigDecimal) percentagePartnerOwned;
+            if (percentagePartnerOwned instanceof Integer integerPercentagePartnerOwned) {
+                return BigDecimal.valueOf(integerPercentagePartnerOwned);
+            } else if (percentagePartnerOwned instanceof BigDecimal bigDecimalPercentagePartnerOwned) {
+                return bigDecimalPercentagePartnerOwned;
             } else {
                 return BigDecimal.ZERO;
             }
@@ -93,10 +91,9 @@ public class PropertyMapper {
     }
 
     String getBedrooms(Object bedrooms) {
-        if (Objects.nonNull(bedrooms) && bedrooms instanceof Integer) {
-            Integer bedroomsValue = (Integer) bedrooms;
-            if (bedroomsValue < 7) {
-                return bedroomsValue.toString();
+        if (Objects.nonNull(bedrooms) && bedrooms instanceof Integer integerBedrooms) {
+            if (integerBedrooms < 7) {
+                return integerBedrooms.toString();
             } else {
                 return SIX_PLUS_BEDROOMS;
             }
@@ -109,13 +106,13 @@ public class PropertyMapper {
     Address mapAddress(Object crimeApplyAddress) {
         if (Objects.nonNull(crimeApplyAddress)) {
             try {
-                LinkedHashMap mappedAddress = (LinkedHashMap) crimeApplyAddress;
+                LinkedHashMap<String, String> mappedAddress = (LinkedHashMap) crimeApplyAddress;
                 Address address = new Address();
-                address.setLine1(mappedAddress.get("address_line_one").toString());
-                address.setLine2(mappedAddress.get("address_line_two").toString());
-                address.setCity(mappedAddress.get("city").toString());
-                address.setCountry(mappedAddress.get("country").toString());
-                address.setPostCode(mappedAddress.get("postcode").toString());
+                address.setLine1(mappedAddress.get("address_line_one"));
+                address.setLine2(mappedAddress.get("address_line_two"));
+                address.setCity(mappedAddress.get("city"));
+                address.setCountry(mappedAddress.get("country"));
+                address.setPostCode(mappedAddress.get("postcode"));
                 return address;
             } catch (Exception e) {
                 log.error(FAILED_TO_READ_ADDRESS_OBJECT);
@@ -143,8 +140,8 @@ public class PropertyMapper {
     }
 
     String mapOtherRelation(Object otherRelationship) {
-        if (Objects.nonNull(otherRelationship) && otherRelationship instanceof String) {
-            return (String) otherRelationship;
+        if (Objects.nonNull(otherRelationship) && otherRelationship instanceof String stringOtherRelationship) {
+            return stringOtherRelationship;
         } else {
             return null;
         }
