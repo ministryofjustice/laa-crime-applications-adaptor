@@ -145,6 +145,7 @@ MAAT_CD_AUTH_CAA_CLIENT_SECRET=<INSERT>
 MAAT_CD_AUTH_TOKEN_URI=oauth2/token
 CHART_NAME=laa-caa-api-tests
 ```
+
 ### Code Formatting
 
 This project has been set up to use the Spotless Gradle pluging to detect and fix code formatting
