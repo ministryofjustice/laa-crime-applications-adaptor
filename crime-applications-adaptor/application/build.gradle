@@ -5,6 +5,7 @@ plugins {
     id "org.sonarqube" version "5.0.0.4638"
     id 'info.solidsoft.pitest' version '1.15.0'
     id 'org.jsonschema2dataclass' version '6.0.0'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 archivesBaseName = 'crime-applications-adaptor'
@@ -130,5 +131,19 @@ jsonSchema2Pojo {
             fields.floatUseBigDecimal = true
             dateTime.dateTimeType = "java.time.LocalDateTime"
         }
+    }
+}
+
+spotless {
+    java {
+        target project.fileTree(project.rootDir) {
+            include "application/src/main/java/**/*.java", "application/src/test/java/**/*.java"
+            exclude "application/**/build/**"
+        }
+        importOrder()
+        removeUnusedImports()
+        cleanthat().sourceCompatibility('17')
+        googleJavaFormat()
+        formatAnnotations()
     }
 }
