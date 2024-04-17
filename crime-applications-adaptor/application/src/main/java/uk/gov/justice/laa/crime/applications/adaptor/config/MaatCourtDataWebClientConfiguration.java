@@ -1,6 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.config;
 
 import io.netty.resolver.DefaultAddressResolverGroup;
+import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -16,49 +17,45 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
 import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
 
-import java.time.Duration;
-
 @Configuration
 @AllArgsConstructor
 @Slf4j
 public class MaatCourtDataWebClientConfiguration {
-    @Bean
-    WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration, ClientRegistrationRepository clientRegistrations,
-                                     OAuth2AuthorizedClientRepository authorizedClients) {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
-                new ServletOAuth2AuthorizedClientExchangeFilterFunction(
-                        clientRegistrations, authorizedClients
-                );
-        oauth.setDefaultClientRegistrationId(servicesConfiguration.getEformStagingApi().getRegistrationId());
-        ConnectionProvider provider =
-                ConnectionProvider.builder("custom")
-                        .maxConnections(500)
-                        .maxIdleTime(Duration.ofSeconds(20))
-                        .maxLifeTime(Duration.ofSeconds(60))
-                        .pendingAcquireTimeout(Duration.ofSeconds(60))
-                        .evictInBackground(Duration.ofSeconds(120))
-                        .build();
+  @Bean
+  WebClient maatCourtDataWebClient(
+      ServicesConfiguration servicesConfiguration,
+      ClientRegistrationRepository clientRegistrations,
+      OAuth2AuthorizedClientRepository authorizedClients) {
+    ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
+        new ServletOAuth2AuthorizedClientExchangeFilterFunction(
+            clientRegistrations, authorizedClients);
+    oauth.setDefaultClientRegistrationId(
+        servicesConfiguration.getEformStagingApi().getRegistrationId());
+    ConnectionProvider provider =
+        ConnectionProvider.builder("custom")
+            .maxConnections(500)
+            .maxIdleTime(Duration.ofSeconds(20))
+            .maxLifeTime(Duration.ofSeconds(60))
+            .pendingAcquireTimeout(Duration.ofSeconds(60))
+            .evictInBackground(Duration.ofSeconds(120))
+            .build();
 
-        return WebClient.builder()
-                .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
-                .clientConnector(new ReactorClientHttpConnector(
-                                HttpClient.create(provider)
-                                        .resolver(DefaultAddressResolverGroup.INSTANCE)
-                                        .compress(true)
-                                        .responseTimeout(Duration.ofSeconds(30))
-                        )
-                )
-                .filter(oauth)
-                .build();
-    }
+    return WebClient.builder()
+        .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
+        .clientConnector(
+            new ReactorClientHttpConnector(
+                HttpClient.create(provider)
+                    .resolver(DefaultAddressResolverGroup.INSTANCE)
+                    .compress(true)
+                    .responseTimeout(Duration.ofSeconds(30))))
+        .filter(oauth)
+        .build();
+  }
 
-    @Bean
-    MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
-        HttpServiceProxyFactory httpServiceProxyFactory =
-                HttpServiceProxyFactory.builderFor(WebClientAdapter.create(maatCourtDataWebClient))
-                        .build();
-        return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
-    }
-
-
+  @Bean
+  MaatCourtDataApiClient maatCourtDataApiClient(WebClient maatCourtDataWebClient) {
+    HttpServiceProxyFactory httpServiceProxyFactory =
+        HttpServiceProxyFactory.builderFor(WebClientAdapter.create(maatCourtDataWebClient)).build();
+    return httpServiceProxyFactory.createClient(MaatCourtDataApiClient.class);
+  }
 }
