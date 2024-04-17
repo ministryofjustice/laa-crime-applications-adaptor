@@ -95,6 +95,9 @@ commands:
           name: Fetch API test results
           when: always
           command: |
+            echo Copying API test date from Pod:${NAMESPACE} in Namespace:${POD_NAME}
+            ls
+            pwd
             mkdir -p ./api-test-results/reports
             mkdir -p ./api-test-results/test-results
             kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
