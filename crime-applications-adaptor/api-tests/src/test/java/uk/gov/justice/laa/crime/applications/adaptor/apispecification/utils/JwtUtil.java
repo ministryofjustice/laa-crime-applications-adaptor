@@ -2,9 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.apispecification.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.SIG;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import java.util.Date;
 
 /**
@@ -13,15 +11,14 @@ import java.util.Date;
  */
 public class JwtUtil {
 
-    private JwtUtil() {
-    }
+  private JwtUtil() {}
 
-    public static String generateJwt(String issuer, String clientSecret) {
-        return Jwts.builder()
-                .issuer(issuer)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 60_000))
-                .signWith(Keys.hmacShaKeyFor(clientSecret.getBytes()), SIG.HS256)
-                .compact();
-    }
+  public static String generateJwt(String issuer, String clientSecret) {
+    return Jwts.builder()
+        .issuer(issuer)
+        .issuedAt(new Date(System.currentTimeMillis()))
+        .expiration(new Date(System.currentTimeMillis() + 60_000))
+        .signWith(Keys.hmacShaKeyFor(clientSecret.getBytes()), SIG.HS256)
+        .compact();
+  }
 }

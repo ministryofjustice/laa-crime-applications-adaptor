@@ -14,21 +14,23 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformsHistory;
 @Slf4j
 public class EformsHistoryService {
 
-    private static final String SERVICE_NAME = "eformsHistoryService";
-    private static final String ACTION = "Get";
+  private static final String SERVICE_NAME = "eformsHistoryService";
+  private static final String ACTION = "Get";
 
-    private final MaatCourtDataApiClient eformHistoryApiClient;
-    private final ObservationRegistry observationRegistry;
+  private final MaatCourtDataApiClient eformHistoryApiClient;
+  private final ObservationRegistry observationRegistry;
 
-    @Retry(name = SERVICE_NAME)
-    public void createEformsHistoryRecord(long usn, String userCreated) {
-        log.info("Start - call to Create Eforms History API {}", usn);
-        EformsHistory eformsHistory = EformsHistory.builder()
-                .usn(Math.toIntExact(usn))
-                .action(ACTION)
-                .userCreated(userCreated).build();
-        eformHistoryApiClient.createEformsHistoryRecord(eformsHistory);
-        Observation.createNotStarted(SERVICE_NAME, observationRegistry)
-                .observe(() -> log.info("Eform History Record Created"));
-    }
+  @Retry(name = SERVICE_NAME)
+  public void createEformsHistoryRecord(long usn, String userCreated) {
+    log.info("Start - call to Create Eforms History API {}", usn);
+    EformsHistory eformsHistory =
+        EformsHistory.builder()
+            .usn(Math.toIntExact(usn))
+            .action(ACTION)
+            .userCreated(userCreated)
+            .build();
+    eformHistoryApiClient.createEformsHistoryRecord(eformsHistory);
+    Observation.createNotStarted(SERVICE_NAME, observationRegistry)
+        .observe(() -> log.info("Eform History Record Created"));
+  }
 }
