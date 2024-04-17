@@ -1,0 +1,70 @@
+{
+  "application": {
+    "id": "3e2ba49a-0cd7-4b74-99e9-788a88e717fe",
+    "parent_id": null,
+    "reference": 10000988,
+    "created_at": "2023-07-17T08:17:37.346Z",
+    "date_stamp": "2023-07-17T08:20:36.998Z",
+    "case_details": {
+      "urn": "",
+      "offences": [
+        {
+          "name": "Drive a motor vehicle otherwise than in accordance with a licence",
+          "dates": [
+            {
+              "date_to": null,
+              "date_from": "2023-01-10"
+            }
+          ],
+          "offence_class": "H",
+          "slipstreamable": false
+        }
+      ],
+      "case_type": "indictable",
+      "codefendants": [],
+      "hearing_date": "2023-12-10",
+      "appeal_maat_id": null,
+      "appeal_lodged_date": null,
+      "hearing_court_name": "Caernarfon Crown Court",
+      "appeal_with_changes_details": null
+    },
+    "ioj_passport": [],
+    "submitted_at": "2023-07-17T08:20:36.998Z",
+    "client_details": {
+      "applicant": {
+        "nino": "JA293483A",
+        "last_name": "Walker",
+        "first_name": "DO NOT MODIFY John",
+        "other_names": "Edelweiss",
+        "home_address": {
+          "city": "LONDON",
+          "country": "UNITED KINGDOM",
+          "postcode": "W2 1AD",
+          "lookup_id": "25762865",
+          "address_line_one": "2",
+          "address_line_two": "GILPIN CLOSE"
+        },
+        "date_of_birth": "1980-01-10",
+        "telephone_number": "07812345678",
+        "correspondence_address": null,
+        "correspondence_address_type": "home_address"
+      }
+    },
+    "means_passport": [],
+    "schema_version": 1,
+    "application_type": "initial",
+    "provider_details": {
+      "office_code": "1K022G",
+      "provider_email": "acox@smw-law.co.uk",
+      "legal_rep_last_name": "Johnson",
+      "legal_rep_telephone": "07800888888",
+      "legal_rep_first_name": "Gary"
+    },
+    "interests_of_justice": [
+      {
+        "type": "loss_of_liberty",
+        "reason": "An example"
+      }
+    ]
+  }
+}

@@ -2,8 +2,6 @@ package uk.gov.justice.laa.crime.applications.adaptor.apispecification;
 
 import static io.restassured.RestAssured.given;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 /**
@@ -14,7 +12,8 @@ public class CrimeApplicationsAdaptorAPI {
   private static final String CAA_GET_URI = "api/internal/v1/crimeapply/{usn}/userCreated/{user}";
 
   public ValidatableResponse getApplicationByUsn(int usn, String user) {
-    return given().spec(RequestSpecificationBuilder.getCAAReqSpec())
+    return given()
+        .spec(RequestSpecificationBuilder.getCAACrimeApplyReqSpec())
         .pathParam("usn", usn)
         .pathParam("user", user)
         .get(CAA_GET_URI)

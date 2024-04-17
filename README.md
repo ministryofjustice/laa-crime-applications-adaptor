@@ -145,3 +145,10 @@ MAAT_CD_AUTH_CAA_CLIENT_SECRET=<INSERT>
 MAAT_CD_AUTH_TOKEN_URI=oauth2/token
 CHART_NAME=laa-caa-api-tests
 ```
+### Code Formatting
+
+This project has been set up to use the Spotless Gradle pluging to detect and fix code formatting
+issues. The plugin will run as part fo the `./gradlew clean build` task
+and corrections can be applied using the `./gradlew spotlessApply` task. For more information see
+the confleunce
+page [here](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/4778786826/Common+Java+Code+Style+settings).

@@ -23,48 +23,79 @@ public class RequestSpecificationBuilder {
   private static final String CAA_OAUTH_BASE_URL = TestConfiguration.get("caa.oauth.base.url");
   private static final String CAA_OAUTH_TOKEN_URI = TestConfiguration.get("caa.oauth.token.uri");
   private static final String CAA_OAUTH_CLIENT_ID = TestConfiguration.get("caa.oauth.client.id");
-  private static final String CAA_OAUTH_CLIENT_SECRET = TestConfiguration.get(
-      "caa.oauth.client.secret");
+  private static final String CAA_OAUTH_CLIENT_SECRET =
+      TestConfiguration.get("caa.oauth.client.secret");
   private static final String MAAT_CD_BASE_URL = TestConfiguration.get("maat.api.base.url");
-  private static final String MAAT_CD_AUTH_BASE_URL = TestConfiguration.get(
-      "maat.api.oauth.base.url");
-  private static final String MAAT_CD_AUTH_CAA_CLIENT_ID = TestConfiguration.get(
-      "maat.api.oauth.client.id");
-  private static final String MAAT_CD_AUTH_CAA_CLIENT_SECRET = TestConfiguration.get(
-      "maat.api.oauth.client.secret");
-  private static final String MAAT_CD_AUTH_TOKEN_URI = TestConfiguration.get(
-      "maat.api.oauth.token.uri");
+  private static final String MAAT_CD_AUTH_BASE_URL =
+      TestConfiguration.get("maat.api.oauth.base.url");
+  private static final String MAAT_CD_AUTH_CAA_CLIENT_ID =
+      TestConfiguration.get("maat.api.oauth.client.id");
+  private static final String MAAT_CD_AUTH_CAA_CLIENT_SECRET =
+      TestConfiguration.get("maat.api.oauth.client.secret");
+  private static final String MAAT_CD_AUTH_TOKEN_URI =
+      TestConfiguration.get("maat.api.oauth.token.uri");
 
-  private RequestSpecificationBuilder() {
+  private RequestSpecificationBuilder() {}
+
+  public static RequestSpecification getCAMCrimeApplyReqSpec() {
+    return getCAMReqSpec(CAM_BASE_URL, CAM_JWT_ISSUER, CAM_JWT_SECRET);
   }
 
-  public static RequestSpecification getCAMReqSpec() {
-    RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(CAM_BASE_URL);
-    requestSpecBuilder.addHeader("Authorization",
-        "Bearer " + JwtUtil.generateJwt(CAM_JWT_ISSUER, CAM_JWT_SECRET));
+  public static RequestSpecification getCAMReqSpec(
+      String baseUrl, String jwtIssuer, String jwtSecret) {
+    RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(baseUrl);
+    requestSpecBuilder.addHeader(
+        "Authorization", "Bearer " + JwtUtil.generateJwt(jwtIssuer, jwtSecret));
     return requestSpecBuilder.build();
   }
 
-  public static RequestSpecification getCAAReqSpec() {
-    RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(CAA_BASE_URL);
+  public static RequestSpecification getCAACrimeApplyReqSpec() {
+    return getCAAReqSpec(
+        CAA_BASE_URL,
+        CAA_OAUTH_BASE_URL,
+        CAA_OAUTH_CLIENT_ID,
+        CAA_OAUTH_CLIENT_SECRET,
+        CAA_OAUTH_TOKEN_URI);
+  }
+
+  public static RequestSpecification getCAAReqSpec(
+      String baseUrl,
+      String authUrl,
+      String authClientId,
+      String authClientSecret,
+      String authTokenUri) {
+    RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(baseUrl);
     requestSpecBuilder.addHeader(
-        "Authorization", "Bearer " + OAuthTokenUtil.getAccessToken(
-            CAA_OAUTH_BASE_URL, CAA_OAUTH_CLIENT_ID, CAA_OAUTH_CLIENT_SECRET, CAA_OAUTH_TOKEN_URI));
+        "Authorization",
+        "Bearer " + getOauthAccessToken(authUrl, authClientId, authClientSecret, authTokenUri));
     return requestSpecBuilder.build();
   }
 
   public static RequestSpecification getMaatAPICrimeApplyReqSpec() {
-    return getMaatApiReqSpec(MAAT_CD_BASE_URL, MAAT_CD_AUTH_BASE_URL, MAAT_CD_AUTH_CAA_CLIENT_ID,
-        MAAT_CD_AUTH_CAA_CLIENT_SECRET, MAAT_CD_AUTH_TOKEN_URI);
+    return getMaatApiReqSpec(
+        MAAT_CD_BASE_URL,
+        MAAT_CD_AUTH_BASE_URL,
+        MAAT_CD_AUTH_CAA_CLIENT_ID,
+        MAAT_CD_AUTH_CAA_CLIENT_SECRET,
+        MAAT_CD_AUTH_TOKEN_URI);
   }
 
-  private static RequestSpecification getMaatApiReqSpec(String baseUrl, String authUrl,
-      String authClientId, String authClientSecret, String authTokenUri) {
+  private static RequestSpecification getMaatApiReqSpec(
+      String baseUrl,
+      String authUrl,
+      String authClientId,
+      String authClientSecret,
+      String authTokenUri) {
     RequestSpecBuilder requestSpecBuilder = setUpRequestSpecBuilder(baseUrl);
     requestSpecBuilder.addHeader(
-        "Authorization", "Bearer " + OAuthTokenUtil.getAccessToken(
-            authUrl, authClientId, authClientSecret, authTokenUri));
+        "Authorization",
+        "Bearer " + getOauthAccessToken(authUrl, authClientId, authClientSecret, authTokenUri));
     return requestSpecBuilder.build();
+  }
+
+  private static String getOauthAccessToken(
+      String authUrl, String authClientId, String authClientSecret, String authTokenUri) {
+    return OAuthTokenUtil.getAccessToken(authUrl, authClientId, authClientSecret, authTokenUri);
   }
 
   private static RequestSpecBuilder setUpRequestSpecBuilder(String baseUrl) {
