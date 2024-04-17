@@ -11,9 +11,9 @@ Feature: Retrieve application data from the Crime Apply Datastore.
     And an entry for usn <usn> should have been created in the EFORMS_HISTORY table
 
     Examples:
-      | scnNo | usn      | user    | expectedResponseFile |
-      | 00    | 10000987 | test-a1 | 10000987.json        |
-      | 01    | 10000988 | test-a1 | 10000988.json        |
+      | scnNo | usn      | user    | expectedResponseFile         |
+      | 00    | 10000987 | test-a1 | 10000987_passported.json     |
+      | 01    | 10000988 | test-a1 | 10000988_non_passported.json |
 
   Scenario Outline: Retrieve application data that does not exist in the Crime Apply Datastore.
     Given an application with usn <usn> does not exists in the datastore
