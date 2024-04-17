@@ -97,7 +97,6 @@ commands:
           command: |
             kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n ${NAMESPACE}
             kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
-          continue: true
       - run:
           name: Fetch API test results
           command: |
@@ -106,16 +105,19 @@ commands:
             mkdir -p ./api-test-results/test-results
             kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
             kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/test-results ./api-test-results/test-results
-          continue: true
+          when: always
+      - run:
+          name: Uninstall API test release
+          command: |
+            helm uninstall laa-caa-api-tests -n ${NAMESPACE}
+          when: always
       - store_test_results:
           path: ./api-test-results/test-results/test
       - store_artifacts:
           path: ./api-test-results/reports/tests/test
       - store_artifacts:
           path: ./api-test-results/test-results/test
-      - helm/delete-helm-release:
-          release-name: caa-api-tests
-          timeout: 60s
+
   deploy-to:
     description: >
       Deploy image to the specified environment
