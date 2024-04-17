@@ -123,7 +123,7 @@ to do this you will need to create a `.env` file alongside the `docker-compose.a
 and populate it will the required parameters and then run the following command.
 
 ```shell
-cd crime-applications-adaptor 
+cd crime-applications-adaptor
 docker-compose --file ./docker-compose.api-tests.yaml up --build
 ```
 
@@ -145,4 +145,3 @@ MAAT_CD_AUTH_CAA_CLIENT_SECRET=<INSERT>
 MAAT_CD_AUTH_TOKEN_URI=oauth2/token
 CHART_NAME=laa-caa-api-tests
 ```
-

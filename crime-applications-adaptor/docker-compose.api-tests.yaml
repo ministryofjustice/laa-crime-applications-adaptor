@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile.api-tests
     env_file:
       - .env
-    command: [ "./gradlew", "api-tests:test" ]
+    command: ["./gradlew", "api-tests:test"]
