@@ -22,6 +22,10 @@ public class TestData {
         return getMaatApplication("MaatApplication_default.json");
     }
 
+    public static MaatApplicationExternal getMaatApplicationWithCapitalDetails() {
+        return getMaatApplication("MaatApplication_10000331.json");
+    }
+
     public static EformStagingResponse getEformStagingResponse(String stubDataFileName) {
         String eformStagingResponseJson = FileUtils.readFileToString("data/eformstaging/" + stubDataFileName);
         return JsonUtils.jsonToObject(eformStagingResponseJson, EformStagingResponse.class);
