@@ -29,13 +29,10 @@ public class SavingMapper {
     if (Objects.isNull(savingType)) {
       log.debug(REQUIRED_CAPITAL_TYPE_NULL);
       return CapitalOther.CapitalType.SAVINGS;
-    }
-
-    switch (savingType) {
-      case CASH_ISA:
-        return CapitalOther.CapitalType.CASH_ISA;
-      default:
-        return CapitalOther.CapitalType.SAVINGS;
+    } else if (Saving.SavingType.CASH_ISA.equals(savingType)) {
+      return CapitalOther.CapitalType.CASH_ISA;
+    } else {
+      return CapitalOther.CapitalType.SAVINGS;
     }
   }
 
