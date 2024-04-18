@@ -29,10 +29,13 @@ public class SavingMapper {
     if (Objects.isNull(savingType)) {
       log.debug(REQUIRED_CAPITAL_TYPE_NULL);
       return CapitalOther.CapitalType.SAVINGS;
-    } else if (Saving.SavingType.CASH_ISA.equals(savingType)) {
-      return CapitalOther.CapitalType.CASH_ISA;
-    } else {
-      return CapitalOther.CapitalType.SAVINGS;
+    }
+
+    switch (savingType) {
+      case CASH_ISA:
+        return CapitalOther.CapitalType.CASH_ISA;
+      default:
+        return CapitalOther.CapitalType.SAVINGS;
     }
   }
 
@@ -41,15 +44,18 @@ public class SavingMapper {
     if (Objects.isNull(ownershipType)) {
       log.debug(NULL_OWNERSHIP_TYPE);
       return null;
-    } else if (Saving.OwnershipType.APPLICANT.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.APPLICANT;
-    } else if (Saving.OwnershipType.PARTNER.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.PARTNER;
-    } else if (Saving.OwnershipType.APPLICANT_AND_PARTNER.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.JOINT;
-    } else {
-      log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
-      return null;
+    }
+
+    switch (ownershipType) {
+      case APPLICANT:
+        return CapitalOther.AccountOwner.APPLICANT;
+      case PARTNER:
+        return CapitalOther.AccountOwner.PARTNER;
+      case APPLICANT_AND_PARTNER:
+        return CapitalOther.AccountOwner.JOINT;
+      default:
+        log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
+        return null;
     }
   }
 }

@@ -28,13 +28,16 @@ public class NationalSavingsCertificateMapper {
     if (Objects.isNull(ownershipType)) {
       log.debug(NULL_OWNERSHIP_TYPE);
       return null;
-    } else if (NationalSavingsCertificate.OwnershipType.APPLICANT.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.APPLICANT;
-    } else if (NationalSavingsCertificate.OwnershipType.PARTNER.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.PARTNER;
-    } else {
-      log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
-      return null;
+    }
+
+    switch (ownershipType) {
+      case APPLICANT:
+        return CapitalOther.AccountOwner.APPLICANT;
+      case PARTNER:
+        return CapitalOther.AccountOwner.PARTNER;
+      default:
+        log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
+        return null;
     }
   }
 }
