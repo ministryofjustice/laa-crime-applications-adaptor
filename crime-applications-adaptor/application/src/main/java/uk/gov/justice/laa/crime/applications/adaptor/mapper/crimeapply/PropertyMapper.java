@@ -98,7 +98,7 @@ public class PropertyMapper {
     }
   }
 
-  BigDecimal getPercentagePartnerOwned(Object percentagePartnerOwned) {
+  private BigDecimal getPercentagePartnerOwned(Object percentagePartnerOwned) {
     if (Objects.nonNull(percentagePartnerOwned)) {
       if (percentagePartnerOwned instanceof Integer integerPercentagePartnerOwned) {
         return BigDecimal.valueOf(integerPercentagePartnerOwned);
@@ -112,7 +112,7 @@ public class PropertyMapper {
     }
   }
 
-  String getBedrooms(Object bedrooms) {
+  private String getBedrooms(Object bedrooms) {
     if (Objects.nonNull(bedrooms) && bedrooms instanceof Integer integerBedrooms) {
       if (integerBedrooms < 7) {
         return integerBedrooms.toString();
@@ -125,7 +125,7 @@ public class PropertyMapper {
     }
   }
 
-  Address mapAddress(Object crimeApplyAddress) {
+  private Address mapAddress(Object crimeApplyAddress) {
     if (Objects.nonNull(crimeApplyAddress)) {
       try {
         LinkedHashMap<String, String> mappedAddress = (LinkedHashMap) crimeApplyAddress;
@@ -143,11 +143,11 @@ public class PropertyMapper {
     return null;
   }
 
-  boolean hasThirdPartyOwners(List<PropertyOwner> thirdPartyPropertyOwners) {
+  private boolean hasThirdPartyOwners(List<PropertyOwner> thirdPartyPropertyOwners) {
     return Objects.nonNull(thirdPartyPropertyOwners) && !thirdPartyPropertyOwners.isEmpty();
   }
 
-  void mapThirdPartyOwners(
+  private void mapThirdPartyOwners(
       uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property
           property,
       List<PropertyOwner> propertyOwners) {
@@ -164,7 +164,7 @@ public class PropertyMapper {
     }
   }
 
-  String mapOtherRelation(Object otherRelationship) {
+  private String mapOtherRelation(Object otherRelationship) {
     if (Objects.nonNull(otherRelationship)
         && otherRelationship instanceof String stringOtherRelationship) {
       return stringOtherRelationship;

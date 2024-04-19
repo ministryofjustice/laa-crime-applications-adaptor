@@ -68,14 +68,14 @@ public class CrimeApplyMapper {
     return maatApplicationInternal;
   }
 
-  void mapCapitalAndEquity(
+  private void mapCapitalAndEquity(
       MaatApplicationInternal maatApplicationInternal, MaatApplicationExternal crimeApplyResponse) {
     if (hasCapitalAndEquity(crimeApplyResponse)) {
       maatApplicationInternal.setCapitalEquity(capitalEquityMapper.map(crimeApplyResponse));
     }
   }
 
-  boolean hasCapitalAndEquity(MaatApplicationExternal crimeApplyResponse) {
+  private boolean hasCapitalAndEquity(MaatApplicationExternal crimeApplyResponse) {
     return Objects.nonNull(crimeApplyResponse.getMeansDetails().getCapitalDetails());
   }
 
