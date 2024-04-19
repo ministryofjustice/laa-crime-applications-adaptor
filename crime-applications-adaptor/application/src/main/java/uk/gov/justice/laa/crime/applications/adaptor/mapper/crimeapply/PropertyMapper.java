@@ -52,49 +52,55 @@ public class PropertyMapper {
       mapPropertyType(
           Property.PropertyType crimeApplyDataStorePropertyType, Property.HouseType houseType) {
     if (Objects.nonNull(crimeApplyDataStorePropertyType)) {
-      if (Property.PropertyType.LAND.equals(crimeApplyDataStorePropertyType)) {
-        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-            .Property.PropertyType.LAND;
-      } else if (Property.PropertyType.COMMERCIAL.equals(crimeApplyDataStorePropertyType)) {
-        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-            .Property.PropertyType.COMMERCIAL;
-      } else if (Property.PropertyType.RESIDENTIAL.equals(crimeApplyDataStorePropertyType)
-          && Objects.nonNull(houseType)) {
-        return getHouseType(houseType);
+      switch (crimeApplyDataStorePropertyType) {
+        case LAND:
+          return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+              .Property.PropertyType.LAND;
+        case COMMERCIAL:
+          return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+              .Property.PropertyType.COMMERCIAL;
+        case RESIDENTIAL:
+          if (Objects.nonNull(houseType)) {
+            return getHouseType(houseType);
+          }
+          break; // This break only executes if houseType is null
       }
     }
 
+    // This check is moved outside to still handle the houseType if crimeApplyDataStorePropertyType
+    // is null or not matched.
     if (Objects.nonNull(houseType)) {
       return getHouseType(houseType);
     }
 
-    return null;
+    return null; // Default return if no condition is met
   }
 
   uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property
           .PropertyType
       getHouseType(Property.HouseType houseType) {
-    if (Property.HouseType.OTHER.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.OTHER;
-    } else if (Property.HouseType.BUNGALOW.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.BUNGALOW;
-    } else if (Property.HouseType.DETACHED.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.DETACHED;
-    } else if (Property.HouseType.FLAT_OR_MAISONETTE.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.FLAT;
-    } else if (Property.HouseType.SEMIDETACHED.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.SEMI;
-    } else if (Property.HouseType.TERRACED.equals(houseType)) {
-      return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-          .Property.PropertyType.TERRACE;
-    } else {
-      log.debug(NO_PROPERTY_TYPE_FOUND);
-      return null;
+    switch (houseType) {
+      case OTHER:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.OTHER;
+      case BUNGALOW:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.BUNGALOW;
+      case DETACHED:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.DETACHED;
+      case FLAT_OR_MAISONETTE:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.FLAT;
+      case SEMIDETACHED:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.SEMI;
+      case TERRACED:
+        return uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
+            .Property.PropertyType.TERRACE;
+      default:
+        log.debug(NO_PROPERTY_TYPE_FOUND);
+        return null;
     }
   }
 
@@ -175,32 +181,34 @@ public class PropertyMapper {
 
   ThirdPartyOwner.OwnerRelation mapOwnerRelation(PropertyOwner.Relationship relationship) {
     if (Objects.nonNull(relationship)) {
-      if (PropertyOwner.Relationship.OTHER.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.OTHER;
-      } else if (PropertyOwner.Relationship.EX_PARTNER.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.EX_PARTNER;
-      } else if (PropertyOwner.Relationship.BUSINESS_ASSOCIATES.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.BUSINESS;
-      } else if (PropertyOwner.Relationship.FAMILY_MEMBERS.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.FAMILY;
-      } else if (PropertyOwner.Relationship.FRIENDS.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.FRIENDS;
-      } else if (PropertyOwner.Relationship.HOUSE_BUILDER.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.BUILDER;
-      } else if (PropertyOwner.Relationship.HOUSING_ASSOCIATION.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.HOUSING_ASSOC;
-      } else if (PropertyOwner.Relationship.LOCAL_AUTHORITY.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.LOCAL_AUTH;
-      } else if (PropertyOwner.Relationship.PROPERTY_COMPANY.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.PPROPERTY_CO;
-      } else if (PropertyOwner.Relationship.PARTNER_WITH_A_CONTRARY_INTEREST.equals(relationship)) {
-        return ThirdPartyOwner.OwnerRelation.PARTNER_CONT;
+      switch (relationship) {
+        case OTHER:
+          return ThirdPartyOwner.OwnerRelation.OTHER;
+        case EX_PARTNER:
+          return ThirdPartyOwner.OwnerRelation.EX_PARTNER;
+        case BUSINESS_ASSOCIATES:
+          return ThirdPartyOwner.OwnerRelation.BUSINESS;
+        case FAMILY_MEMBERS:
+          return ThirdPartyOwner.OwnerRelation.FAMILY;
+        case FRIENDS:
+          return ThirdPartyOwner.OwnerRelation.FRIENDS;
+        case HOUSE_BUILDER:
+          return ThirdPartyOwner.OwnerRelation.BUILDER;
+        case HOUSING_ASSOCIATION:
+          return ThirdPartyOwner.OwnerRelation.HOUSING_ASSOC;
+        case LOCAL_AUTHORITY:
+          return ThirdPartyOwner.OwnerRelation.LOCAL_AUTH;
+        case PROPERTY_COMPANY:
+          return ThirdPartyOwner.OwnerRelation.PPROPERTY_CO;
+        case PARTNER_WITH_A_CONTRARY_INTEREST:
+          return ThirdPartyOwner.OwnerRelation.PARTNER_CONT;
+        default:
+          log.debug(NO_PROPERTY_OWNER_TYPE_FOUND);
+          return null;
       }
     } else {
       log.debug(NULL_OWNERSHIP_TYPE);
       return null;
     }
-    log.debug(NO_PROPERTY_OWNER_TYPE_FOUND);
-    return null;
   }
 }
