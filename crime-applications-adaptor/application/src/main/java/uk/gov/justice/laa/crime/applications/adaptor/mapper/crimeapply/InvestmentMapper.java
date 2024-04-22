@@ -28,18 +28,21 @@ public class InvestmentMapper {
     if (Objects.isNull(investmentType)) {
       log.debug(REQUIRED_CAPITAL_TYPE_NULL);
       return CapitalOther.CapitalType.INVESTMENT;
-    } else if (Investment.InvestmentType.PEP.equals(investmentType)) {
-      return CapitalOther.CapitalType.PEPS;
-    } else if (Investment.InvestmentType.SHARE.equals(investmentType)) {
-      return CapitalOther.CapitalType.SHARES;
-    } else if (Investment.InvestmentType.STOCK.equals(investmentType)) {
-      return CapitalOther.CapitalType.STOCKS;
-    } else if (Investment.InvestmentType.SHARE_ISA.equals(investmentType)) {
-      return CapitalOther.CapitalType.SHARE_ISA;
-    } else if (Investment.InvestmentType.UNIT_TRUST.equals(investmentType)) {
-      return CapitalOther.CapitalType.OTHER;
-    } else {
-      return CapitalOther.CapitalType.INVESTMENT;
+    }
+
+    switch (investmentType) {
+      case PEP:
+        return CapitalOther.CapitalType.PEPS;
+      case SHARE:
+        return CapitalOther.CapitalType.SHARES;
+      case STOCK:
+        return CapitalOther.CapitalType.STOCKS;
+      case SHARE_ISA:
+        return CapitalOther.CapitalType.SHARE_ISA;
+      case UNIT_TRUST:
+        return CapitalOther.CapitalType.OTHER;
+      default:
+        return CapitalOther.CapitalType.INVESTMENT;
     }
   }
 
@@ -48,15 +51,18 @@ public class InvestmentMapper {
     if (Objects.isNull(ownershipType)) {
       log.debug(NULL_OWNERSHIP_TYPE);
       return null;
-    } else if (Investment.OwnershipType.PARTNER.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.PARTNER;
-    } else if (Investment.OwnershipType.APPLICANT.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.APPLICANT;
-    } else if (Investment.OwnershipType.APPLICANT_AND_PARTNER.equals(ownershipType)) {
-      return CapitalOther.AccountOwner.JOINT;
-    } else {
-      log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
-      return null;
+    }
+
+    switch (ownershipType) {
+      case PARTNER:
+        return CapitalOther.AccountOwner.PARTNER;
+      case APPLICANT:
+        return CapitalOther.AccountOwner.APPLICANT;
+      case APPLICANT_AND_PARTNER:
+        return CapitalOther.AccountOwner.JOINT;
+      default:
+        log.debug(UNKNOWN_OWNERSHIP_TYPE, ownershipType);
+        return null;
     }
   }
 }
