@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.util;
 
 import lombok.experimental.UtilityClass;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail.ApplicantFrequency;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail.ApplicantFrequency;
 
 @UtilityClass
 public class FrequencyMapper {

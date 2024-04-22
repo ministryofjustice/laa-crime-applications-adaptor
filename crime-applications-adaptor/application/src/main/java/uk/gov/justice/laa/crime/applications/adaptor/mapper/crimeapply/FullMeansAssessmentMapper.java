@@ -2,9 +2,9 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.List;
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.FullMeansAssessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.OutgoingsDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.FullMeansAssessment;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.OutgoingsDetails;
 
 class FullMeansAssessmentMapper {
 

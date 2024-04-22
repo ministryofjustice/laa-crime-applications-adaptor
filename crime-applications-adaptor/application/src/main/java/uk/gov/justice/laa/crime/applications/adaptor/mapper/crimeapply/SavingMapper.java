@@ -3,8 +3,8 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Saving;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CapitalOther;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Saving;
 
 @Slf4j
 public class SavingMapper {

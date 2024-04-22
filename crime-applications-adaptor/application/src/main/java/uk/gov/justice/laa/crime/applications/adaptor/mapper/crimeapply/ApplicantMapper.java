@@ -2,12 +2,12 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Address;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Applicant;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.EmploymentStatus;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.PartnerContraryInterest;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.EmploymentType;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Address;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Applicant;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.EmploymentStatus;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.PartnerContraryInterest;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
 
 class ApplicantMapper {
 
@@ -23,7 +23,7 @@ class ApplicantMapper {
       return applicant;
     }
 
-    uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
         crimeApplyApplicant = crimeApplyResponse.getClientDetails().getApplicant();
     if (Objects.isNull(crimeApplyApplicant)) {
       return applicant;
@@ -37,7 +37,7 @@ class ApplicantMapper {
     applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
     applicant.setNiNumber(crimeApplyApplicant.getNino());
 
-    uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
             .CorrespondenceAddressType
         crimeApplyAddressType = crimeApplyApplicant.getCorrespondenceAddressType();
     applicant.setUseHomeAddress(mapUseHomeAddress(crimeApplyAddressType));
@@ -87,34 +87,34 @@ class ApplicantMapper {
   }
 
   private boolean mapUseHomeAddress(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
               .CorrespondenceAddressType
           crimeApplyAddressType) {
 
-    return uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
+    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore
         .Applicant.CorrespondenceAddressType.HOME_ADDRESS
         .equals(crimeApplyAddressType);
   }
 
   private boolean mapUseSupplierAddressForPost(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.Applicant
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
               .CorrespondenceAddressType
           crimeApplyAddressType) {
 
-    return uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
+    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore
         .Applicant.CorrespondenceAddressType.PROVIDERS_OFFICE_ADDRESS
         .equals(crimeApplyAddressType);
   }
 
   private boolean mapNoFixedAbode(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general
               .Address
           crimeApplyAddress) {
     return crimeApplyAddress == null;
   }
 
   private Address mapAddress(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general
               .Address
           crimeApplyAddress) {
     if (crimeApplyAddress == null) {

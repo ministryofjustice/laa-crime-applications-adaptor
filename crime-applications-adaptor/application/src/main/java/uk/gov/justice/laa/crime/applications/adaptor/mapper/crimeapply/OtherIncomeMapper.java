@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OtherIncomeDetails;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomePayment;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.IncomePayment;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 public class OtherIncomeMapper {

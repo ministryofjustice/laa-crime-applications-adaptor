@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.math.BigDecimal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CapitalOther;
 
 public class PremiumBondMapper {
 

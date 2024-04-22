@@ -1,12 +1,12 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CaseDetails;
 
 class OffenceClassMapper {
 
   CaseDetails.OffenceClass map(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
               .OffenceClass
           crimeApplyOffenceClass) {
     if (Objects.nonNull(crimeApplyOffenceClass)) {

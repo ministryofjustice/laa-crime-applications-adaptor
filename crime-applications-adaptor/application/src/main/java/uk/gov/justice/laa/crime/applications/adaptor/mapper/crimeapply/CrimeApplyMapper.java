@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Assessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Means;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.Assessment;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.MagistrateCourt;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Supplier;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Means;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Provider;
 import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 /**
@@ -93,7 +93,7 @@ public class CrimeApplyMapper {
   }
 
   private String mapHearingDate(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
           crimeApplyCaseDetails) {
     if (crimeApplyCaseDetails == null) {
       return null;
@@ -114,7 +114,7 @@ public class CrimeApplyMapper {
   }
 
   private MagistrateCourt mapMagistrateCourt(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
           crimeApplyCaseDetails) {
     MagistrateCourt magistrateCourt = new MagistrateCourt();
 
