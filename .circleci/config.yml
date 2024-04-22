@@ -289,6 +289,9 @@ jobs:
       - deploy-to:
           environment: test
           token: ${CIRCLE_CI_TOKEN_TEST}
+      - run-api-tests:
+          environment: test
+          token: ${CIRCLE_CI_TOKEN_TEST}
 
   deploy-uat:
     executor: cloud-platform-executor
