@@ -24,11 +24,9 @@ class PropertyMapperTest {
   void shouldMapFromCrimeApplyPropertyTypeToCrimeApplicationsPropertyType(
       Property.PropertyType inputCrimeApplyPropertyType,
       Property.HouseType inputCrimeApplyHouseType,
-      uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-              .PropertyType
+      uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property.PropertyType
           expectedPropertyType) {
-    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-            .PropertyType
+    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property.PropertyType
         actualPropertyType =
             propertyMapper.mapPropertyType(inputCrimeApplyPropertyType, inputCrimeApplyHouseType);
 
@@ -40,43 +38,43 @@ class PropertyMapperTest {
         Arguments.of(
             Property.PropertyType.LAND,
             null,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.LAND),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.LAND),
         Arguments.of(
             Property.PropertyType.COMMERCIAL,
             null,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.COMMERCIAL),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.COMMERCIAL),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.BUNGALOW,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.BUNGALOW),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.BUNGALOW),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.DETACHED,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.DETACHED),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.DETACHED),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.FLAT_OR_MAISONETTE,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.FLAT),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.FLAT),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.SEMIDETACHED,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.SEMI),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.SEMI),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.TERRACED,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.TERRACE),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.TERRACE),
         Arguments.of(
             Property.PropertyType.RESIDENTIAL,
             Property.HouseType.OTHER,
-            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property.PropertyType.OTHER),
+            uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+                .PropertyType.OTHER),
         Arguments.of(Property.PropertyType.RESIDENTIAL, null, null));
   }
 

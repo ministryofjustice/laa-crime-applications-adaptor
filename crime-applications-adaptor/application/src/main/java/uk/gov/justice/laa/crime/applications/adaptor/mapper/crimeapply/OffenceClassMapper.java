@@ -6,8 +6,7 @@ import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Cas
 class OffenceClassMapper {
 
   CaseDetails.OffenceClass map(
-      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
-              .OffenceClass
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.OffenceClass
           crimeApplyOffenceClass) {
     if (Objects.nonNull(crimeApplyOffenceClass)) {
       switch (crimeApplyOffenceClass) {

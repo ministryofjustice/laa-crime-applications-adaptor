@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.IncomeBenefit;
-import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
 
 public class BenefitsMapper {
 

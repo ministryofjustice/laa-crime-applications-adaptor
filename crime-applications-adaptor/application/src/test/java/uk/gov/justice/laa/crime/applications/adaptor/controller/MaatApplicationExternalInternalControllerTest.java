@@ -16,12 +16,12 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
+import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
 
 @WebMvcTest(
     controllers = CrimeApplicationController.class,

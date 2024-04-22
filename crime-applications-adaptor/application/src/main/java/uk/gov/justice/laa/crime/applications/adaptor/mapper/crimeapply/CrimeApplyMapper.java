@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.Assessment;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.MagistrateCourt;
@@ -12,7 +13,6 @@ import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Sup
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Means;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Provider;
-import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
 
 /**
  * The responsibility of this class is to map from a "Criminal Applications Datastore" response to a

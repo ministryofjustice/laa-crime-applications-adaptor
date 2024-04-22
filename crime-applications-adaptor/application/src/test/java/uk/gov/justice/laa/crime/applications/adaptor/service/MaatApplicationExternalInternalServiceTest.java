@@ -18,9 +18,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.client.CrimeApplyDatastoreC
 import uk.gov.justice.laa.crime.applications.adaptor.config.MockServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.config.ServicesConfiguration;
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.CrimeApplyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 
 @ExtendWith(MockitoExtension.class)
 class MaatApplicationExternalInternalServiceTest {

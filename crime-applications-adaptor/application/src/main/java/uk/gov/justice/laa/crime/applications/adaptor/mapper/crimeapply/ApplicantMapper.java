@@ -91,8 +91,8 @@ class ApplicantMapper {
               .CorrespondenceAddressType
           crimeApplyAddressType) {
 
-    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore
-        .Applicant.CorrespondenceAddressType.HOME_ADDRESS
+    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+        .CorrespondenceAddressType.HOME_ADDRESS
         .equals(crimeApplyAddressType);
   }
 
@@ -101,21 +101,19 @@ class ApplicantMapper {
               .CorrespondenceAddressType
           crimeApplyAddressType) {
 
-    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore
-        .Applicant.CorrespondenceAddressType.PROVIDERS_OFFICE_ADDRESS
+    return uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+        .CorrespondenceAddressType.PROVIDERS_OFFICE_ADDRESS
         .equals(crimeApplyAddressType);
   }
 
   private boolean mapNoFixedAbode(
-      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general
-              .Address
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address
           crimeApplyAddress) {
     return crimeApplyAddress == null;
   }
 
   private Address mapAddress(
-      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general
-              .Address
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address
           crimeApplyAddress) {
     if (crimeApplyAddress == null) {
       return null;

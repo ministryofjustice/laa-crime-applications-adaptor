@@ -151,23 +151,18 @@ public class CapitalEquityMapper {
 
   private void mapPropertyToCapitalProperty(
       Property crimeApplyDataStoreProperty,
-      List<
-          uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                  .Property>
+      List<uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property>
           capitalProperty) {
-    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-        property = propertyMapper.map(crimeApplyDataStoreProperty);
+    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property property =
+        propertyMapper.map(crimeApplyDataStoreProperty);
     capitalProperty.add(property);
   }
 
   private void mapPropertyToEquity(
       Property crimeApplyDataStoreProperty,
-      List<
-          uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                  .Property>
-          equity) {
-    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-        property = propertyMapper.map(crimeApplyDataStoreProperty);
+      List<uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property> equity) {
+    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property property =
+        propertyMapper.map(crimeApplyDataStoreProperty);
     equity.add(property);
   }
 

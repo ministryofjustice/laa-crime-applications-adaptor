@@ -6,8 +6,7 @@ import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Cas
 class CaseTypeMapper {
 
   CaseDetails.CaseType map(
-      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
-              .CaseType
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
           crimeApplyCaseType) {
     CaseDetails.CaseType caseType = null;
 

@@ -22,10 +22,8 @@ public class PropertyMapper {
 
   uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property map(
       Property crimeApplyDataStoreProperty) {
-    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-        property =
-        new uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-                .Property();
+    uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property property =
+        new uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property();
 
     property.setPropertyType(
         mapPropertyType(
@@ -47,18 +45,17 @@ public class PropertyMapper {
     return property;
   }
 
-  uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-          .PropertyType
+  uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property.PropertyType
       mapPropertyType(
           Property.PropertyType crimeApplyDataStorePropertyType, Property.HouseType houseType) {
     if (Objects.nonNull(crimeApplyDataStorePropertyType)) {
       switch (crimeApplyDataStorePropertyType) {
         case LAND:
-          return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-              .Property.PropertyType.LAND;
+          return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+              .PropertyType.LAND;
         case COMMERCIAL:
-          return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-              .Property.PropertyType.COMMERCIAL;
+          return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+              .PropertyType.COMMERCIAL;
         case RESIDENTIAL:
           if (Objects.nonNull(houseType)) {
             return getHouseType(houseType);
@@ -76,28 +73,27 @@ public class PropertyMapper {
     return null; // Default return if no condition is met
   }
 
-  uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-          .PropertyType
+  uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property.PropertyType
       getHouseType(Property.HouseType houseType) {
     switch (houseType) {
       case OTHER:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.OTHER;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.OTHER;
       case BUNGALOW:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.BUNGALOW;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.BUNGALOW;
       case DETACHED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.DETACHED;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.DETACHED;
       case FLAT_OR_MAISONETTE:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.FLAT;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.FLAT;
       case SEMIDETACHED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.SEMI;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.SEMI;
       case TERRACED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common
-            .Property.PropertyType.TERRACE;
+        return uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
+            .PropertyType.TERRACE;
       default:
         log.debug(NO_PROPERTY_TYPE_FOUND);
         return null;
@@ -154,8 +150,7 @@ public class PropertyMapper {
   }
 
   private void mapThirdPartyOwners(
-      uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property
-          property,
+      uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Property property,
       List<PropertyOwner> propertyOwners) {
     for (PropertyOwner propertyOwner : propertyOwners) {
       if (Objects.nonNull(propertyOwner)) {

@@ -1,8 +1,8 @@
 package uk.gov.justice.laa.crime.applications.adaptor.testutils;
 
+import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 
 public class TestData {
 
