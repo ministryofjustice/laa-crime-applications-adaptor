@@ -36,12 +36,12 @@ env:
     valueFrom:
       secretKeyRef:
         name: caa-cognito-client-secret-output
-        key: client_id
+        key: maat_client_id
   - name: CAA_OAUTH_CLIENT_SECRET
     valueFrom:
       secretKeyRef:
         name: caa-cognito-client-secret-output
-        key: client_secret
+        key: maat_client_secret
   - name: CHART_NAME
     value: {{ .Release.Name }}
 {{- end -}}
