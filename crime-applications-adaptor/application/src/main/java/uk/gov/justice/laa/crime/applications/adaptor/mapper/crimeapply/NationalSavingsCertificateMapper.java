@@ -16,7 +16,8 @@ public class NationalSavingsCertificateMapper {
     CapitalOther nationalSavingsCertificate = new CapitalOther();
 
     nationalSavingsCertificate.setCapitalType(CapitalOther.CapitalType.PREMIUM_BONDS);
-    nationalSavingsCertificate.setAssetAmount(PoundSterling.ofPennies(certificate.getValue()).toPounds());
+    nationalSavingsCertificate.setAssetAmount(
+        PoundSterling.ofPennies(certificate.getValue()).toPounds());
     nationalSavingsCertificate.setAccountOwner(
         mapOwnershipTypeToAccountOwner(certificate.getOwnershipType()));
 

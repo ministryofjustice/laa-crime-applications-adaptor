@@ -24,7 +24,8 @@ public class OutgoingsMapper {
         OutgoingDetails outgoingDetail = OutgoingDetails.findByValue(outgoingsType);
         assessmentDetail.setAssessmentDetailCode(outgoingDetail.getCode());
 
-        assessmentDetail.setApplicantAmount(PoundSterling.ofPennies(outgoing.getAmount()).toPounds());
+        assessmentDetail.setApplicantAmount(
+            PoundSterling.ofPennies(outgoing.getAmount()).toPounds());
         assessmentDetail.setApplicantFrequency(
             FrequencyMapper.mapFrequency(outgoing.getFrequency().value()));
 

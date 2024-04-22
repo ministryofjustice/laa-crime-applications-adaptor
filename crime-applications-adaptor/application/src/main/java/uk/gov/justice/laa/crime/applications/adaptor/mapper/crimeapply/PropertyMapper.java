@@ -34,8 +34,9 @@ public class PropertyMapper {
             crimeApplyDataStoreProperty.getHouseType()));
     property.setBedrooms(getBedrooms(crimeApplyDataStoreProperty.getBedrooms()));
     property.setDeclaredMortgageCharges(
-            PoundSterling.ofPennies(crimeApplyDataStoreProperty.getOutstandingMortgage()).toPounds());
-    property.setDeclaredMarketValue(PoundSterling.ofPennies(crimeApplyDataStoreProperty.getValue()).toPounds());
+        PoundSterling.ofPennies(crimeApplyDataStoreProperty.getOutstandingMortgage()).toPounds());
+    property.setDeclaredMarketValue(
+        PoundSterling.ofPennies(crimeApplyDataStoreProperty.getValue()).toPounds());
     property.setPercentageOwnedApplicant(crimeApplyDataStoreProperty.getPercentageApplicantOwned());
     property.setPercentageOwnedPartner(
         getPercentagePartnerOwned(crimeApplyDataStoreProperty.getPercentagePartnerOwned()));

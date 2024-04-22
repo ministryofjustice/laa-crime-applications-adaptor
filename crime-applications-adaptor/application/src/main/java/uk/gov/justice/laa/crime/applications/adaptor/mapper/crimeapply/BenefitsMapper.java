@@ -24,7 +24,8 @@ public class BenefitsMapper {
         String benefitType = benefit.getPaymentType().value();
         BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
         assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
-        assessmentDetail.setApplicantAmount(PoundSterling.ofPennies(benefit.getAmount()).toPounds());
+        assessmentDetail.setApplicantAmount(
+            PoundSterling.ofPennies(benefit.getAmount()).toPounds());
         assessmentDetail.setApplicantFrequency(
             FrequencyMapper.mapFrequency(benefit.getFrequency().value()));
         assessmentDetails.add(assessmentDetail);
