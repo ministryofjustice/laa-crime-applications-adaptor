@@ -1,11 +1,11 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.IncomeBenefit;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
@@ -24,7 +24,7 @@ public class BenefitsMapper {
         String benefitType = benefit.getPaymentType().value();
         BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
         assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
-        assessmentDetail.setApplicantAmount(new BigDecimal(benefit.getAmount()));
+        assessmentDetail.setApplicantAmount(PoundSterling.ofPennies(benefit.getAmount()).toPounds());
         assessmentDetail.setApplicantFrequency(
             FrequencyMapper.mapFrequency(benefit.getFrequency().value()));
         assessmentDetails.add(assessmentDetail);
