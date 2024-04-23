@@ -15,8 +15,8 @@ public class PoundSterling {
   }
 
   public BigDecimal toPounds() {
-    BigDecimal pennies = new BigDecimal(String.valueOf(this.pennies));
-    BigDecimal pounds = pennies.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+    BigDecimal penniesToConvert = new BigDecimal(String.valueOf(this.pennies));
+    BigDecimal pounds = penniesToConvert.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     return pounds.setScale(2);
   }
 }
