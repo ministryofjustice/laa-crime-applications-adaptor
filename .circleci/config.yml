@@ -33,6 +33,90 @@ commands:
       - checkout
       - run: echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
       - run: git-crypt unlock git-crypt.key
+  setup-kubectl:
+    description: >
+      Authenticate with kubernetes cluster
+    parameters:
+      environment:
+        description: Destination environment
+        type: string
+      token:
+        description: CircleCI Service account token
+        type: string
+    steps:
+      - run:
+          command: |
+            echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
+            kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
+            kubectl config set-credentials circleci --token=<< parameters.token >>
+            kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=laa-crime-applications-adaptor-<< parameters.environment >>
+            kubectl config use-context ${K8S_CLUSTER_NAME}
+            kubectl --namespace=laa-crime-applications-adaptor-<< parameters.environment >> get pods
+
+  push-api-test-image:
+    description: >
+      Push API tests image
+    steps:
+      - aws-ecr/build-image:
+          dockerfile: Dockerfile.api-tests
+          push-image: true
+          tag: api-tests-${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
+  run-api-tests:
+    description: >
+      Run API Tests against deployed application
+    parameters:
+      environment:
+        description: Destination environment
+        type: string
+      token:
+        description: CircleCI Service account token
+        type: string
+    steps:
+      - setup-kubectl:
+          environment: << parameters.environment >>
+          token: << parameters.token >>
+      - helm/upgrade-helm-chart:
+          namespace: laa-crime-applications-adaptor-<< parameters.environment >>
+          update-repositories: false
+          chart: ./helm_deploy/laa-caa-api-tests/
+          release-name: laa-caa-api-tests
+          values: ./helm_deploy/laa-caa-api-tests/values-<< parameters.environment >>.yaml
+          values-to-override: image.tag=api-tests-${CIRCLE_SHA1}
+      - run:
+          name: Setup environment variables
+          command: |
+            export NAMESPACE=laa-crime-applications-adaptor-<< parameters.environment >>
+            export POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l "app.kubernetes.io/name=laa-caa-api-tests,app.kubernetes.io/instance=laa-caa-api-tests" -o jsonpath="{.items[0].metadata.name}")
+
+            echo "export NAMESPACE=\"$NAMESPACE\"" >> "$BASH_ENV"
+            echo "export POD_NAME=\"$POD_NAME\"" >> "$BASH_ENV"
+      - run:
+          name: Run API tests
+          command: |
+            kubectl wait --for=condition=ready pod/${POD_NAME} --timeout=60s -n ${NAMESPACE}
+            kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ./gradlew api-tests:test
+      - run:
+          name: Fetch API test results
+          command: |
+            echo Copying API test date from Pod:${NAMESPACE} in Namespace:${POD_NAME}
+            mkdir -p ./api-test-results/reports
+            mkdir -p ./api-test-results/test-results
+            kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/reports ./api-test-results/reports
+            kubectl cp ${NAMESPACE}/${POD_NAME}:/home/api-test-suite/api-tests/build/test-results ./api-test-results/test-results
+          when: always
+      - run:
+          name: Uninstall API test release
+          command: |
+            helm uninstall laa-caa-api-tests -n ${NAMESPACE}
+          when: always
+      - store_test_results:
+          path: ./api-test-results/test-results/test
+      - store_artifacts:
+          path: ./api-test-results/reports/tests/test
+      - store_artifacts:
+          path: ./api-test-results/test-results/test
 
   deploy-to:
     description: >
@@ -46,15 +130,9 @@ commands:
         type: string
     steps:
       - checkout_and_decrypt
-      - run:
-          name: Authenticate with cluster
-          command: |
-            echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
-            kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
-            kubectl config set-credentials circleci --token=<< parameters.token >>
-            kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=laa-crime-applications-adaptor-<< parameters.environment >>
-            kubectl config use-context ${K8S_CLUSTER_NAME}
-            kubectl --namespace=laa-crime-applications-adaptor-<< parameters.environment >> get pods
+      - setup-kubectl:
+          environment: << parameters.environment >>
+          token: << parameters.token >>
       - helm/upgrade-helm-chart:
           namespace: laa-crime-applications-adaptor-<< parameters.environment >>
           update-repositories: false
@@ -193,6 +271,7 @@ jobs:
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
+      - push-api-test-image
 
   deploy-dev:
     executor: cloud-platform-executor
@@ -200,11 +279,17 @@ jobs:
       - deploy-to:
           environment: dev
           token: ${CIRCLE_CI_TOKEN_DEV}
+      - run-api-tests:
+          environment: dev
+          token: ${CIRCLE_CI_TOKEN_DEV}
 
   deploy-test:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
+          environment: test
+          token: ${CIRCLE_CI_TOKEN_TEST}
+      - run-api-tests:
           environment: test
           token: ${CIRCLE_CI_TOKEN_TEST}
 

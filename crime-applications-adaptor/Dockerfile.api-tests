@@ -1,0 +1,17 @@
+FROM amazoncorretto:17-alpine
+RUN mkdir -p /home/api-test-suite/
+WORKDIR /home/api-test-suite/
+
+COPY api-tests /home/api-test-suite/api-tests
+COPY application /home/api-test-suite/application
+COPY build.gradle /home/api-test-suite/
+COPY settings.gradle /home/api-test-suite/
+COPY gradlew /home/api-test-suite/
+COPY gradlew.bat /home/api-test-suite/
+COPY gradle /home/api-test-suite/gradle
+
+RUN addgroup -S appgroup && adduser -u 1001 -S appuser -G appgroup
+RUN chmod -R 777 /home/api-test-suite/
+USER 1001
+
+ENTRYPOINT ["/bin/sh"]
