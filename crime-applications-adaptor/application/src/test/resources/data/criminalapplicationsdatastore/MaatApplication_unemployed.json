@@ -47,19 +47,19 @@
       "income_benefits": [
         {
           "payment_type": "child",
-          "amount": 200,
+          "amount": 20000,
           "frequency": "month",
           "details": "Details about child benefit"
         },
         {
           "payment_type": "incapacity",
-          "amount": 300,
+          "amount": 30000,
           "frequency": "fortnight",
           "details": null
         },
         {
           "payment_type": "universal_credit",
-          "amount": 500,
+          "amount": 50000,
           "frequency": "week",
           "details": null
         }
@@ -68,19 +68,19 @@
       "income_payments": [
         {
           "payment_type": "private_pension",
-          "amount": 13000,
+          "amount": 1300000,
           "frequency": "annual",
           "details": "Details about private pension"
         },
         {
           "payment_type": "interest_investment",
-          "amount": 700,
+          "amount": 70000,
           "frequency": "four_weeks",
           "details": null
         },
         {
           "payment_type": "rent",
-          "amount": 635,
+          "amount": 63500,
           "frequency": "month",
           "details": null
         }
@@ -101,27 +101,27 @@
       "outgoings": [
         {
           "payment_type": "council_tax",
-          "amount": 100,
+          "amount": 10000,
           "frequency": "annual"
         },
         {
           "payment_type": "childcare",
-          "amount": 200,
+          "amount": 20000,
           "frequency": "month"
         },
         {
           "payment_type": "maintenance",
-          "amount": 400,
+          "amount": 40000,
           "frequency": "four_weeks"
         },
         {
           "payment_type": "legal_aid_contribution",
-          "amount": 500,
+          "amount": 50000,
           "frequency": "fortnight"
         },
         {
           "payment_type": "board_and_lodging",
-          "amount": 600,
+          "amount": 60000,
           "frequency": "week",
           "details": "Details about housing"
         }

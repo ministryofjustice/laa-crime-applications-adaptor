@@ -1,8 +1,8 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Saving;
 
@@ -17,7 +17,7 @@ public class SavingMapper {
     CapitalOther capitalOther = new CapitalOther();
 
     capitalOther.setCapitalType(mapSavingsTypeToCapitalType(saving.getSavingType()));
-    capitalOther.setAssetAmount(BigDecimal.valueOf(saving.getAccountBalance()));
+    capitalOther.setAssetAmount(PoundSterling.ofPennies(saving.getAccountBalance()).toPounds());
     capitalOther.setBankName(saving.getProviderName());
     capitalOther.setBranchSortCode(saving.getSortCode());
     capitalOther.setAccountOwner(mapSavingOwnershipTypeToAccountOwner(saving.getOwnershipType()));
