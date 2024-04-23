@@ -51,11 +51,11 @@ public class PropertyMapper {
     if (Objects.nonNull(crimeApplyDataStorePropertyType)) {
       switch (crimeApplyDataStorePropertyType) {
         case LAND:
-          return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-              .PropertyType.LAND;
+          return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+              .LAND;
         case COMMERCIAL:
-          return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-              .PropertyType.COMMERCIAL;
+          return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+              .COMMERCIAL;
         case RESIDENTIAL:
           if (Objects.nonNull(houseType)) {
             return getHouseType(houseType);
@@ -73,27 +73,27 @@ public class PropertyMapper {
     return null; // Default return if no condition is met
   }
 
-  uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
-      getHouseType(Property.HouseType houseType) {
+  uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType getHouseType(
+      Property.HouseType houseType) {
     switch (houseType) {
       case OTHER:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.OTHER;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .OTHER;
       case BUNGALOW:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.BUNGALOW;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .BUNGALOW;
       case DETACHED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.DETACHED;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .DETACHED;
       case FLAT_OR_MAISONETTE:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.FLAT;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .FLAT;
       case SEMIDETACHED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.SEMI;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .SEMI;
       case TERRACED:
-        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property
-            .PropertyType.TERRACE;
+        return uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property.PropertyType
+            .TERRACE;
       default:
         log.debug(NO_PROPERTY_TYPE_FOUND);
         return null;
