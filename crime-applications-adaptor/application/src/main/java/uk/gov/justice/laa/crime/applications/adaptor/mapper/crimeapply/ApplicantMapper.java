@@ -2,10 +2,10 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Address;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.Applicant;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.EmploymentStatus;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.PartnerContraryInterest;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Address;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.PartnerContraryInterest;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
 

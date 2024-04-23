@@ -21,7 +21,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationSer
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.MaatApplicationInternal;
 
 @WebMvcTest(
     controllers = CrimeApplicationController.class,

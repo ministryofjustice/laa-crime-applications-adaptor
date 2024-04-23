@@ -7,7 +7,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CapitalEquity;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalEquity;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 
 class CapitalEquityMapperTest {

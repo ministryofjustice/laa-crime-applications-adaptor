@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CaseDetails;
 
 class CaseTypeMapperTest {
 

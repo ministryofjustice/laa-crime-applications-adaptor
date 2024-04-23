@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Outgoing;
 
 class OutgoingsMapperTest {

@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CaseDetails;
 
 class OffenceClassMapper {
 

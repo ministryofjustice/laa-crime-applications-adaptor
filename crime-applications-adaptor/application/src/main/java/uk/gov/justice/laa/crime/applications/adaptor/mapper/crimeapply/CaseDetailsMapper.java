@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CaseDetails;
 
 class CaseDetailsMapper {
 

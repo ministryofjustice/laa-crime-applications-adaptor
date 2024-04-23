@@ -12,7 +12,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.FullMeansAssessment;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.FullMeansAssessment;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Outgoing;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.OutgoingsDetails;
 

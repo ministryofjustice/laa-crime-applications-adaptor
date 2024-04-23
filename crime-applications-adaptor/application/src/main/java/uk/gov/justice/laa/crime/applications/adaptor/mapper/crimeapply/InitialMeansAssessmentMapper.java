@@ -2,8 +2,8 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.*;
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.model.common.crimeapplicationsadaptor.common.InitialMeansAssessment;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.InitialMeansAssessment;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.IncomeDetails;
 
 class InitialMeansAssessmentMapper {
