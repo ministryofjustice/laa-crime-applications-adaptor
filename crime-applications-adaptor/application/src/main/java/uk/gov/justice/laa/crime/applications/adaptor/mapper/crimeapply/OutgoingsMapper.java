@@ -1,11 +1,11 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
@@ -24,7 +24,8 @@ public class OutgoingsMapper {
         OutgoingDetails outgoingDetail = OutgoingDetails.findByValue(outgoingsType);
         assessmentDetail.setAssessmentDetailCode(outgoingDetail.getCode());
 
-        assessmentDetail.setApplicantAmount(new BigDecimal(outgoing.getAmount()));
+        assessmentDetail.setApplicantAmount(
+            PoundSterling.ofPennies(outgoing.getAmount()).toPounds());
         assessmentDetail.setApplicantFrequency(
             FrequencyMapper.mapFrequency(outgoing.getFrequency().value()));
 
