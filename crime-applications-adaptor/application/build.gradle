@@ -58,7 +58,7 @@ dependencies {
 
     implementation "io.micrometer:micrometer-registry-prometheus"
 
-    implementation 'uk.gov.justice.service.laa-crime:crime-commons-schemas:0.2.0-SNAPSHOT'
+    implementation 'uk.gov.justice.service.laa-crime:crime-commons-schemas:0.6.0'
 
     testImplementation "org.pitest:pitest:$versions.pitest"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
