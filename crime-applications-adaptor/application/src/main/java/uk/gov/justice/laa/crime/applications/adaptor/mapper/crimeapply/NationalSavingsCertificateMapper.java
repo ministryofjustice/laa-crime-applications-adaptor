@@ -1,8 +1,8 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalOther;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.NationalSavingsCertificate;
 
@@ -16,7 +16,8 @@ public class NationalSavingsCertificateMapper {
     CapitalOther nationalSavingsCertificate = new CapitalOther();
 
     nationalSavingsCertificate.setCapitalType(CapitalOther.CapitalType.PREMIUM_BONDS);
-    nationalSavingsCertificate.setAssetAmount(BigDecimal.valueOf(certificate.getValue()));
+    nationalSavingsCertificate.setAssetAmount(
+        PoundSterling.ofPennies(certificate.getValue()).toPounds());
     nationalSavingsCertificate.setAccountOwner(
         mapOwnershipTypeToAccountOwner(certificate.getOwnershipType()));
 

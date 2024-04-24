@@ -12,7 +12,9 @@ import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.gener
 
 class OutgoingsMapperTest {
   private OutgoingsMapper outgoingsMapper;
-  private static final int AMOUNT = 150;
+  private static final int AMOUNT = 15000;
+  // We receive the amount in pence, and need to convert it to pounds for MAAT.
+  private static final BigDecimal OUTPUT_AMOUNT = new BigDecimal("150.00");
   private static final String DETAILS = "Here are some details about the outgoing.";
   private static final String BOARD_AND_LODGING = "Board and lodging";
 
@@ -34,7 +36,7 @@ class OutgoingsMapperTest {
     AssessmentDetail assessmentDetail = new AssessmentDetail();
     assessmentDetail.setAssessmentDetailCode(OutgoingDetails.COUNCIL_TAX.getCode());
     assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.MONTHLY);
-    assessmentDetail.setApplicantAmount(new BigDecimal(AMOUNT));
+    assessmentDetail.setApplicantAmount(OUTPUT_AMOUNT);
 
     return assessmentDetail;
   }
