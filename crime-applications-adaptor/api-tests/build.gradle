@@ -5,7 +5,7 @@ plugins {
 def versions = [
         jjwtVersion              : '0.12.5',
         sentryVersion            : "7.6.0",
-        serenityVersion          : "4.1.6",
+        serenityVersion          : "4.1.10",
         jUnitPlatformSuiteVersion: "1.10.2",
         cucumberEngineVersion    : "7.16.1",
         junitBOMVersion          : "5.10.2"
