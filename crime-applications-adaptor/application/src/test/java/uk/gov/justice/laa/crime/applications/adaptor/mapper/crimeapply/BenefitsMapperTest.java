@@ -13,7 +13,9 @@ import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsd
 class BenefitsMapperTest {
 
   private BenefitsMapper benefitsMapper;
-  private static final int AMOUNT = 100;
+  private static final int AMOUNT = 12550;
+  // We receive the amount in pence, and need to convert it to pounds for MAAT.
+  private static final BigDecimal OUTPUT_AMOUNT = new BigDecimal("125.50");
   private final String DETAILS = "Here are some details about the benefit";
 
   @BeforeEach
@@ -35,7 +37,7 @@ class BenefitsMapperTest {
     AssessmentDetail assessmentDetail = new AssessmentDetail();
     assessmentDetail.setAssessmentDetailCode(BenefitDetails.CHILD.getCode());
     assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency.ANNUALLY);
-    assessmentDetail.setApplicantAmount(new BigDecimal(AMOUNT));
+    assessmentDetail.setApplicantAmount(OUTPUT_AMOUNT);
 
     return assessmentDetail;
   }
