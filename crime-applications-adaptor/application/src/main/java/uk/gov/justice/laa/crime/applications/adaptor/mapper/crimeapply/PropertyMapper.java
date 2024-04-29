@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Address;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ThirdPartyOwner;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Property;
@@ -33,8 +34,9 @@ public class PropertyMapper {
             crimeApplyDataStoreProperty.getHouseType()));
     property.setBedrooms(getBedrooms(crimeApplyDataStoreProperty.getBedrooms()));
     property.setDeclaredMortgageCharges(
-        BigDecimal.valueOf(crimeApplyDataStoreProperty.getOutstandingMortgage()));
-    property.setDeclaredMarketValue(BigDecimal.valueOf(crimeApplyDataStoreProperty.getValue()));
+        PoundSterling.ofPennies(crimeApplyDataStoreProperty.getOutstandingMortgage()).toPounds());
+    property.setDeclaredMarketValue(
+        PoundSterling.ofPennies(crimeApplyDataStoreProperty.getValue()).toPounds());
     property.setPercentageOwnedApplicant(crimeApplyDataStoreProperty.getPercentageApplicantOwned());
     property.setPercentageOwnedPartner(
         getPercentagePartnerOwned(crimeApplyDataStoreProperty.getPercentagePartnerOwned()));
