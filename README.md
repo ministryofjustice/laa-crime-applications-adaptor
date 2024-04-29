@@ -118,6 +118,34 @@ The API tests can be run through IntelliJ or using the following gradle command.
 ./gradlew api-tests:test
 ```
 
+The test can also in run in the same manner as the CI/CD pipeline using the docker compose. In order
+to do this you will need to create a `.env` file alongside the `docker-compose.api-tests.yaml` file
+and populate it will the required parameters and then run the following command.
+
+```shell
+cd crime-applications-adaptor
+docker-compose --file ./docker-compose.api-tests.yaml up --build
+```
+
+Example `.env` contents:
+
+```shell
+CAM_BASE_URL=https://laa-crime-apply-mock-api-<ENV>.apps.live.cloud-platform.service.justice.gov.uk/
+CAM_JWT_SECRET=<INSERT>
+CAM_JWT_ISSUER=maat-adapter-<ENV>
+CAA_BASE_URL=https://laa-crime-applications-adaptor-<ENV>.apps.live.cloud-platform.service.justice.gov.uk
+CAA_OAUTH_BASE_URL=https://caa-api-<ENV>.auth.eu-west-2.amazoncognito.com/
+CAA_OAUTH_TOKEN_URI=oauth2/token
+CAA_OAUTH_CLIENT_ID=<INSERT>
+CAA_OAUTH_CLIENT_SECRET=<INSERT>
+MAAT_CD_BASE_URL=https://maat-cd-api.<ENV>.legalservices.gov.uk/
+MAAT_CD_AUTH_BASE_URL=https://maat-cd-api-<ENV>.auth.eu-west-2.amazoncognito.com/
+MAAT_CD_AUTH_CAA_CLIENT_ID=<INSERT>
+MAAT_CD_AUTH_CAA_CLIENT_SECRET=<INSERT>
+MAAT_CD_AUTH_TOKEN_URI=oauth2/token
+CHART_NAME=laa-caa-api-tests
+```
+
 ### Code Formatting
 
 This project has been set up to use the Spotless Gradle pluging to detect and fix code formatting

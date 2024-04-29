@@ -14,7 +14,9 @@ class OtherIncomeMapperTest {
 
   private OtherIncomeMapper otherIncomeMapper;
   private final String OTHER_INCOME_DETAILS = "Here are some details.";
-  private static final int AMOUNT = 100;
+  private static final int AMOUNT = 10000;
+  // We receive the amount in pence, and need to convert it to pounds for MAAT.
+  private static final BigDecimal OUTPUT_AMOUNT = new BigDecimal("100.00");
 
   @BeforeEach
   void setUp() {
@@ -35,7 +37,7 @@ class OtherIncomeMapperTest {
     AssessmentDetail assessmentDetail = new AssessmentDetail();
     assessmentDetail.setAssessmentDetailCode(OtherIncomeDetails.MAINTENANCE.getCode());
     assessmentDetail.setApplicantFrequency(AssessmentDetail.ApplicantFrequency._2_WEEKLY);
-    assessmentDetail.setApplicantAmount(new BigDecimal(AMOUNT));
+    assessmentDetail.setApplicantAmount(OUTPUT_AMOUNT);
 
     return assessmentDetail;
   }

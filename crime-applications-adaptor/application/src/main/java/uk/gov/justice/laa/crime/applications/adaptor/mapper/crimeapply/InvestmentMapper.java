@@ -1,8 +1,8 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
 import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
 import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Investment;
 
@@ -17,7 +17,7 @@ public class InvestmentMapper {
     CapitalOther capitalOther = new CapitalOther();
 
     capitalOther.setCapitalType(mapInvestmentTypeToCapitalType(investment.getInvestmentType()));
-    capitalOther.setAssetAmount(BigDecimal.valueOf(investment.getValue()));
+    capitalOther.setAssetAmount(PoundSterling.ofPennies(investment.getValue()).toPounds());
     capitalOther.setAccountOwner(mapInvestmentOwnerToAccountOwner(investment.getOwnershipType()));
     capitalOther.setOtherDescription(investment.getDescription());
     return capitalOther;

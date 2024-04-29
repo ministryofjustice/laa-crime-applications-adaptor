@@ -34,8 +34,8 @@ class CapitalEquityMapperTest {
                 {
                   "propertyType": "SEMI",
                   "bedrooms": "3",
-                  "declaredMortgageCharges": 39000,
-                  "declaredMarketValue": 4800000,
+                  "declaredMortgageCharges": 390,
+                  "declaredMarketValue": 48000,
                   "percentageOwnedApplicant": 62.0,
                   "percentageOwnedPartner": 0,
                   "address": {
@@ -55,7 +55,7 @@ class CapitalEquityMapperTest {
                 {
                   "propertyType": "COMMERCIAL",
                   "declaredMortgageCharges": 0,
-                  "declaredMarketValue": 880000,
+                  "declaredMarketValue": 8800,
                   "percentageOwnedApplicant": 100.0,
                   "percentageOwnedPartner": 0,
                   "address": {
@@ -68,8 +68,8 @@ class CapitalEquityMapperTest {
                 },
                 {
                   "propertyType": "LAND",
-                  "declaredMortgageCharges": 22000,
-                  "declaredMarketValue": 720000,
+                  "declaredMortgageCharges": 220,
+                  "declaredMarketValue": 7200,
                   "percentageOwnedApplicant": 100.0,
                   "percentageOwnedPartner": 0,
                   "address": {
@@ -84,42 +84,42 @@ class CapitalEquityMapperTest {
               "capital": [
                 {
                   "capitalType": "PEPS",
-                  "assetAmount": 50000,
+                  "assetAmount": 500,
                   "otherDescription": "Private equity plan",
                   "accountOwner": "APPLICANT"
                 },
                 {
                   "capitalType": "SHARES",
-                  "assetAmount": 10000,
+                  "assetAmount": 100,
                   "otherDescription": "500 Shares in Acme Ltd",
                   "accountOwner": "APPLICANT"
                 },
                 {
                   "capitalType": "SAVINGS",
-                  "assetAmount": 10000,
+                  "assetAmount": 100,
                   "bankName": "Lloyds Bank",
                   "branchSortCode": "12-23-45",
                   "accountOwner": "APPLICANT"
                 },
                 {
                   "capitalType": "CASH ISA",
-                  "assetAmount": 10000,
+                  "assetAmount": 100,
                   "bankName": "Lloyds Bank",
                   "branchSortCode": "12-23-45",
                   "accountOwner": "APPLICANT"
                 },
                 {
                   "capitalType": "PREMIUM BONDS",
-                  "assetAmount": 2000,
+                  "assetAmount": 20,
                   "accountOwner": "APPLICANT"
                 },
                 {
                   "capitalType": "PREMIUM BONDS",
-                  "assetAmount": 100000000
+                  "assetAmount": 1000000
                 },
                 {
                   "capitalType": "TRUST FUND",
-                  "assetAmount": 500000
+                  "assetAmount": 5000
                 }
               ]
             }

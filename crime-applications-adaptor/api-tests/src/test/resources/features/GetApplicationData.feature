@@ -14,6 +14,7 @@ Feature: Retrieve application data from the Crime Apply Datastore.
       | scnNo | usn      | user    | expectedResponseFile         |
       | 00    | 10000987 | test-a1 | 10000987_passported.json     |
       | 01    | 10000988 | test-a1 | 10000988_non_passported.json |
+      | 02    | 10000340 | test-a1 | 10000340_capital_equity.json |
 
   Scenario Outline: Retrieve application data that does not exist in the Crime Apply Datastore.
     Given an application with usn <usn> does not exists in the datastore
