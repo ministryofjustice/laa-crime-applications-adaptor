@@ -6,9 +6,9 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
 import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.AssessmentDetail;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Outgoing;
 import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Outgoing;
 
 public class OutgoingsMapper {
   private static final String BOARD_AND_LODGING_TYPE = "board_and_lodging";

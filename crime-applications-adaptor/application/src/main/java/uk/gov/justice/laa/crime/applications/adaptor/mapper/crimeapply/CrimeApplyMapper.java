@@ -1,18 +1,18 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.Assessment;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.MaatApplicationInternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.MagistrateCourt;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Supplier;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Means;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Provider;
-import uk.gov.justice.laa.crime.applications.adaptor.util.DateTimeUtils;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.Assessment;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.MagistrateCourt;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Supplier;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Means;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Provider;
 
 /**
  * The responsibility of this class is to map from a "Criminal Applications Datastore" response to a
@@ -49,13 +49,9 @@ public class CrimeApplyMapper {
     maatApplicationInternal.setSolicitorAdminEmail(
         mapSolicitorAdminEmail(crimeApplyResponse.getProviderDetails()));
     maatApplicationInternal.setCourtCustody(COURT_CUSTODY_DEFAULT_FALSE);
-    maatApplicationInternal.setDateCreated(
-        DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getSubmittedAt())));
-    maatApplicationInternal.setDateStamp(
-        DateTimeUtils.dateToString(DateTimeUtils.toDate(crimeApplyResponse.getDateStamp())));
-    maatApplicationInternal.setDateOfSignature(
-        DateTimeUtils.dateToString(
-            DateTimeUtils.toDate(crimeApplyResponse.getDeclarationSignedAt())));
+    maatApplicationInternal.setDateCreated(crimeApplyResponse.getSubmittedAt());
+    maatApplicationInternal.setDateStamp(crimeApplyResponse.getDateStamp());
+    maatApplicationInternal.setDateOfSignature(crimeApplyResponse.getDeclarationSignedAt());
     maatApplicationInternal.setHearingDate(mapHearingDate(crimeApplyResponse.getCaseDetails()));
     maatApplicationInternal.setApplicant(applicantMapper.map(crimeApplyResponse));
     maatApplicationInternal.setSupplier(mapSupplier(crimeApplyResponse.getProviderDetails()));
@@ -92,8 +88,8 @@ public class CrimeApplyMapper {
     return assessment;
   }
 
-  private String mapHearingDate(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+  private LocalDate mapHearingDate(
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
           crimeApplyCaseDetails) {
     if (crimeApplyCaseDetails == null) {
       return null;
@@ -114,7 +110,7 @@ public class CrimeApplyMapper {
   }
 
   private MagistrateCourt mapMagistrateCourt(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
           crimeApplyCaseDetails) {
     MagistrateCourt magistrateCourt = new MagistrateCourt();
 

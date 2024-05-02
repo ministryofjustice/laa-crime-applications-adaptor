@@ -2,10 +2,10 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.List;
 import java.util.Objects;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalEquity;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.MaatApplicationExternal;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.*;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalEquity;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalOther;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.*;
 
 public class CapitalEquityMapper {
 
@@ -151,23 +151,18 @@ public class CapitalEquityMapper {
 
   private void mapPropertyToCapitalProperty(
       Property crimeApplyDataStoreProperty,
-      List<
-              uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-                  .Property>
+      List<uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property>
           capitalProperty) {
-    uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property
-        property = propertyMapper.map(crimeApplyDataStoreProperty);
+    uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property property =
+        propertyMapper.map(crimeApplyDataStoreProperty);
     capitalProperty.add(property);
   }
 
   private void mapPropertyToEquity(
       Property crimeApplyDataStoreProperty,
-      List<
-              uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common
-                  .Property>
-          equity) {
-    uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.Property
-        property = propertyMapper.map(crimeApplyDataStoreProperty);
+      List<uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property> equity) {
+    uk.gov.justice.laa.crime.model.common.crimeapplication.common.Property property =
+        propertyMapper.map(crimeApplyDataStoreProperty);
     equity.add(property);
   }
 

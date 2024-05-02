@@ -3,8 +3,8 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CapitalOther;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.NationalSavingsCertificate;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalOther;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.NationalSavingsCertificate;
 
 @Slf4j
 public class NationalSavingsCertificateMapper {

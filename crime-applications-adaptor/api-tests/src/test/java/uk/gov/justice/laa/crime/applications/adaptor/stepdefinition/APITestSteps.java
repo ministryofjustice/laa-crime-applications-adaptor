@@ -30,7 +30,7 @@ public class APITestSteps {
   private static final String RESPONSE_KEY = "caaResponse";
   private static final String USN_KEY = "usn";
   private static final String CAA_APPLICATION_SCHEMA =
-      "schemas/crimeapplicationsadaptor/maat_application_internal.json";
+      "schemas/crimeapplication/maat_application_internal.json";
   private static final String CRIME_APPLY_RESOURCE_LOCATION =
       "src/test/resources/testdata/crimeapply/";
   private static final String EXPECTED_RESPONSE_FILE_PATH_BASE =

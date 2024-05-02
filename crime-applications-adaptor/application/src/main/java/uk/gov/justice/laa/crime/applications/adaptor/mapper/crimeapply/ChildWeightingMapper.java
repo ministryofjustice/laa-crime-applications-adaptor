@@ -1,26 +1,26 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._0;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._11;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._13;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._16;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._2;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._5;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.LowerAgeRange._8;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._1;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._10;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._12;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._15;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._18;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._4;
-import static uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting.UpperAgeRange._7;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._0;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._11;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._13;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._16;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._2;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._5;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.LowerAgeRange._8;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._1;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._10;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._12;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._15;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._18;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._4;
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting.UpperAgeRange._7;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Dependant;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Dependant;
 
 public class ChildWeightingMapper {
 

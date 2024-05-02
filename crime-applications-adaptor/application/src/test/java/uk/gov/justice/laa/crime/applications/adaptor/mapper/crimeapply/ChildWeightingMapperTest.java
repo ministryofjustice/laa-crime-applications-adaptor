@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.ChildWeighting;
-import uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.general.Dependant;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.ChildWeighting;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Dependant;
 
 class ChildWeightingMapperTest {
 

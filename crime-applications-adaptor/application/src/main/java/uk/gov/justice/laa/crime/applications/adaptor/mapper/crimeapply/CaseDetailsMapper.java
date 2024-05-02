@@ -1,7 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import javax.validation.constraints.NotNull;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CaseDetails;
 
 class CaseDetailsMapper {
 
@@ -9,7 +9,7 @@ class CaseDetailsMapper {
   private final OffenceClassMapper offenceClassMapper = new OffenceClassMapper();
 
   @NotNull CaseDetails map(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails
           crimeApplyCaseDetails) {
 
     CaseDetails caseDetails = new CaseDetails();

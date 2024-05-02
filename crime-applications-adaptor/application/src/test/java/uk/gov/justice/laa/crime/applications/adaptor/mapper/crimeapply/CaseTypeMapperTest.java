@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import uk.gov.justice.laa.crime.applications.adaptor.model.crimeapplicationsadaptor.common.CaseDetails;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CaseDetails;
 
 class CaseTypeMapperTest {
 
@@ -21,8 +21,7 @@ class CaseTypeMapperTest {
   @ParameterizedTest
   @MethodSource("caseTypeMappingTestData")
   void shouldMapFromCrimeApplyCaseTypeToCrimeApplicationsCaseType(
-      uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore.CaseDetails
-              .CaseType
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
           inputCrimeApplyCaseType,
       CaseDetails.CaseType expectedCaseType) {
     CaseDetails.CaseType actualCaseType = caseTypeMapper.map(inputCrimeApplyCaseType);
@@ -34,32 +33,32 @@ class CaseTypeMapperTest {
     return Stream.of(
         Arguments.of(null, null),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.SUMMARY_ONLY,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .SUMMARY_ONLY,
             CaseDetails.CaseType.SUMMARY_ONLY),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.EITHER_WAY,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .EITHER_WAY,
             CaseDetails.CaseType.EITHER_WAY),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.INDICTABLE,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .INDICTABLE,
             CaseDetails.CaseType.INDICTABLE),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.ALREADY_IN_CROWN_COURT,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .ALREADY_IN_CROWN_COURT,
             CaseDetails.CaseType.CC_ALREADY),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.COMMITTAL,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .COMMITTAL,
             CaseDetails.CaseType.COMMITAL),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.APPEAL_TO_CROWN_COURT,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .APPEAL_TO_CROWN_COURT,
             CaseDetails.CaseType.APPEAL_CC),
         Arguments.of(
-            uk.gov.justice.laa.crime.applications.adaptor.model.criminalapplicationsdatastore
-                .CaseDetails.CaseType.APPEAL_TO_CROWN_COURT_WITH_CHANGES,
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.CaseDetails.CaseType
+                .APPEAL_TO_CROWN_COURT_WITH_CHANGES,
             CaseDetails.CaseType.APPEAL_CC));
   }
 }
