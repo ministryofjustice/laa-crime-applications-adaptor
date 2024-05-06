@@ -18,7 +18,7 @@ dependencies {
     testImplementation "org.junit.vintage:junit-vintage-engine"
     testImplementation "io.cucumber:cucumber-junit-platform-engine:$versions.cucumberEngineVersion"
     testImplementation 'org.skyscreamer:jsonassert:1.5.1'
-    testImplementation 'uk.gov.justice.service.laa-crime:crime-commons-schemas:0.10.0'
+    testImplementation 'uk.gov.justice.service.laa-crime:crime-commons-schemas:0.12.0'
 
     testImplementation "io.rest-assured:json-schema-validator:5.4.0"
     testImplementation "io.jsonwebtoken:jjwt-api:$versions.jjwtVersion"
