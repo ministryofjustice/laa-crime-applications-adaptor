@@ -480,20 +480,17 @@ class CapitalEquityMapperTest {
 
   @Test
   void
-  shouldSuccessfullyMapCrimeApplyCapitalDetailsWithNullResidentialStatusToAdapterCapitalDetails()
+      shouldSuccessfullyMapCrimeApplyCapitalDetailsWithNullResidentialStatusToAdapterCapitalDetails()
           throws JSONException {
     MaatApplicationExternal crimeApplyWithCapitalDetails =
-            TestData.getMaatApplicationWithCapitalDetails();
-    crimeApplyWithCapitalDetails
-            .getClientDetails()
-            .getApplicant()
-            .setResidenceType(null);
+        TestData.getMaatApplicationWithCapitalDetails();
+    crimeApplyWithCapitalDetails.getClientDetails().getApplicant().setResidenceType(null);
 
     CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
 
     String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
     JSONAssert.assertEquals(
-            """
+        """
                     {
                       "capitalProperty": [
                         {
@@ -589,7 +586,7 @@ class CapitalEquityMapperTest {
                       ]
                     }
                     """,
-            actualCaseDetailsJSON,
-            JSONCompareMode.STRICT);
+        actualCaseDetailsJSON,
+        JSONCompareMode.STRICT);
   }
 }
