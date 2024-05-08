@@ -38,8 +38,8 @@ public class CapitalEquityMapper {
       MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
     if (Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant().getResidenceType())) {
       capitalEquity.setResidentialStatus(
-              mapResidenceTypeToResidentialStatus(
-                      crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
+          mapResidenceTypeToResidentialStatus(
+              crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
     }
   }
 
