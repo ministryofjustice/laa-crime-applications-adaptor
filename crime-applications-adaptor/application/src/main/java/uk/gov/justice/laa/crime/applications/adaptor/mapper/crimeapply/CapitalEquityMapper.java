@@ -36,13 +36,9 @@ public class CapitalEquityMapper {
 
   private void mapResidentialStatusToCapitalEquity(
       MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
-    if (hasResidentialStatus(crimeApplyResponse)) {
-      capitalEquity.setResidentialStatus(
-          mapResidenceTypeToResidentialStatus(
-              crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
-    } else {
-      log.debug("No capital equity residential status.");
-    }
+    capitalEquity.setResidentialStatus(
+        mapResidenceTypeToResidentialStatus(
+            crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
   }
 
   private CapitalEquity.ResidentialStatus mapResidenceTypeToResidentialStatus(
@@ -58,12 +54,6 @@ public class CapitalEquityMapper {
     }
 
     return residentialStatus;
-  }
-
-  private boolean hasResidentialStatus(MaatApplicationExternal crimeApplyResponse) {
-    return Objects.nonNull(crimeApplyResponse.getClientDetails())
-        && Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant())
-        && Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant().getResidenceType());
   }
 
   private void mapOtherCapitalToCapitalEquity(
