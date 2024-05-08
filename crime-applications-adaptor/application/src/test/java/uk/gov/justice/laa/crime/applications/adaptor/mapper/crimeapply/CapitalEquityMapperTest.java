@@ -131,16 +131,21 @@ class CapitalEquityMapperTest {
   }
 
   @Test
-  void shouldSuccessfullyMapCrimeApplyCapitalDetailsWithTenantResidentialStatusToAdapterCapitalDetails() throws JSONException {
+  void
+      shouldSuccessfullyMapCrimeApplyCapitalDetailsWithTenantResidentialStatusToAdapterCapitalDetails()
+          throws JSONException {
     MaatApplicationExternal crimeApplyWithCapitalDetails =
-            TestData.getMaatApplicationWithCapitalDetails();
-    crimeApplyWithCapitalDetails.getClientDetails().getApplicant().setResidenceType(Applicant.ResidenceType.RENTED);
+        TestData.getMaatApplicationWithCapitalDetails();
+    crimeApplyWithCapitalDetails
+        .getClientDetails()
+        .getApplicant()
+        .setResidenceType(Applicant.ResidenceType.RENTED);
 
     CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
 
     String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
     JSONAssert.assertEquals(
-            """
+        """
                 {
                   "capitalProperty": [
                     {
@@ -237,21 +242,26 @@ class CapitalEquityMapperTest {
                   "residentialStatus": "TENANT"
                 }
                 """,
-            actualCaseDetailsJSON,
-            JSONCompareMode.STRICT);
+        actualCaseDetailsJSON,
+        JSONCompareMode.STRICT);
   }
 
   @Test
-  void shouldSuccessfullyMapCrimeApplyCapitalDetailsWithTempResidentialStatusToAdapterCapitalDetails() throws JSONException {
+  void
+      shouldSuccessfullyMapCrimeApplyCapitalDetailsWithTempResidentialStatusToAdapterCapitalDetails()
+          throws JSONException {
     MaatApplicationExternal crimeApplyWithCapitalDetails =
-            TestData.getMaatApplicationWithCapitalDetails();
-    crimeApplyWithCapitalDetails.getClientDetails().getApplicant().setResidenceType(Applicant.ResidenceType.TEMPORARY);
+        TestData.getMaatApplicationWithCapitalDetails();
+    crimeApplyWithCapitalDetails
+        .getClientDetails()
+        .getApplicant()
+        .setResidenceType(Applicant.ResidenceType.TEMPORARY);
 
     CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
 
     String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
     JSONAssert.assertEquals(
-            """
+        """
                 {
                   "capitalProperty": [
                     {
@@ -348,21 +358,26 @@ class CapitalEquityMapperTest {
                   "residentialStatus": "TEMP"
                 }
                 """,
-            actualCaseDetailsJSON,
-            JSONCompareMode.STRICT);
+        actualCaseDetailsJSON,
+        JSONCompareMode.STRICT);
   }
 
   @Test
-  void shouldSuccessfullyMapCrimeApplyCapitalDetailsWithParentsResidentialStatusToAdapterCapitalDetails() throws JSONException {
+  void
+      shouldSuccessfullyMapCrimeApplyCapitalDetailsWithParentsResidentialStatusToAdapterCapitalDetails()
+          throws JSONException {
     MaatApplicationExternal crimeApplyWithCapitalDetails =
-            TestData.getMaatApplicationWithCapitalDetails();
-    crimeApplyWithCapitalDetails.getClientDetails().getApplicant().setResidenceType(Applicant.ResidenceType.PARENTS);
+        TestData.getMaatApplicationWithCapitalDetails();
+    crimeApplyWithCapitalDetails
+        .getClientDetails()
+        .getApplicant()
+        .setResidenceType(Applicant.ResidenceType.PARENTS);
 
     CapitalEquity actualCaseDetails = capitalEquityMapper.map(crimeApplyWithCapitalDetails);
 
     String actualCaseDetailsJSON = JsonUtils.objectToJson(actualCaseDetails);
     JSONAssert.assertEquals(
-            """
+        """
                 {
                   "capitalProperty": [
                     {
@@ -459,7 +474,7 @@ class CapitalEquityMapperTest {
                   "residentialStatus": "PARENTS"
                 }
                 """,
-            actualCaseDetailsJSON,
-            JSONCompareMode.STRICT);
+        actualCaseDetailsJSON,
+        JSONCompareMode.STRICT);
   }
 }
