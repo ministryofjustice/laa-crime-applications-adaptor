@@ -36,9 +36,11 @@ public class CapitalEquityMapper {
 
   private void mapResidentialStatusToCapitalEquity(
       MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
-    capitalEquity.setResidentialStatus(
-        mapResidenceTypeToResidentialStatus(
-            crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
+    if (Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant().getResidenceType())) {
+      capitalEquity.setResidentialStatus(
+              mapResidenceTypeToResidentialStatus(
+                      crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
+    }
   }
 
   private CapitalEquity.ResidentialStatus mapResidenceTypeToResidentialStatus(
