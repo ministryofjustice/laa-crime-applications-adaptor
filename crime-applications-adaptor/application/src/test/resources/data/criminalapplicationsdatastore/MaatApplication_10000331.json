@@ -22,7 +22,8 @@
       "date_of_birth": "1980-01-10",
       "nino": "JA293483A",
       "benefit_type": "universal_credit",
-      "correspondence_address_type": "providers_office_address"
+      "correspondence_address_type": "providers_office_address",
+      "residence_type": "applicant_owned"
     }
   },
   "case_details": { "case_type": "summary_only", "offence_class": "H", "hearing_court_name": "Cardiff Crown Court", "hearing_date": "2023-12-10" },

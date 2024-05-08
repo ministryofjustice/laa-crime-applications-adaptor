@@ -121,7 +121,8 @@ class CapitalEquityMapperTest {
                   "capitalType": "TRUST FUND",
                   "assetAmount": 5000
                 }
-              ]
+              ],
+              "residentialStatus": "OWNER"
             }
             """,
         actualCaseDetailsJSON,
