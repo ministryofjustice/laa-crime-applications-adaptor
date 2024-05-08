@@ -8,7 +8,8 @@ def versions = [
         serenityVersion          : "4.1.10",
         jUnitPlatformSuiteVersion: "1.10.2",
         cucumberEngineVersion    : "7.17.0",
-        junitBOMVersion          : "5.10.2"
+        junitBOMVersion          : "5.10.2",
+        commonsVersion           : "0.12.0"
 ]
 
 dependencies {
@@ -18,7 +19,7 @@ dependencies {
     testImplementation "org.junit.vintage:junit-vintage-engine"
     testImplementation "io.cucumber:cucumber-junit-platform-engine:$versions.cucumberEngineVersion"
     testImplementation 'org.skyscreamer:jsonassert:1.5.1'
-    testImplementation 'uk.gov.justice.service.laa-crime:crime-commons-schemas:0.10.0'
+    testImplementation "uk.gov.justice.service.laa-crime:crime-commons-schemas:$versions.commonsVersion"
 
     testImplementation "io.rest-assured:json-schema-validator:5.4.0"
     testImplementation "io.jsonwebtoken:jjwt-api:$versions.jjwtVersion"

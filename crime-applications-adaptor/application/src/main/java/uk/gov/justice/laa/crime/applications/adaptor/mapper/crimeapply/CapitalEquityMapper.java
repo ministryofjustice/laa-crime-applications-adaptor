@@ -1,12 +1,17 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalEquity.ResidentialStatus.*;
+
 import java.util.List;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalEquity;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.CapitalOther;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.*;
 
+@Slf4j
 public class CapitalEquityMapper {
 
   private static final String IS_HOME_PROPERTY = "yes";
@@ -24,8 +29,33 @@ public class CapitalEquityMapper {
 
     mapPropertiesToCapitalEquity(crimeApplyResponse, capitalEquity);
     mapOtherCapitalToCapitalEquity(crimeApplyResponse, capitalEquity);
+    mapResidentialStatusToCapitalEquity(crimeApplyResponse, capitalEquity);
 
     return capitalEquity;
+  }
+
+  private void mapResidentialStatusToCapitalEquity(
+      MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
+    if (Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant().getResidenceType())) {
+      capitalEquity.setResidentialStatus(
+          mapResidenceTypeToResidentialStatus(
+              crimeApplyResponse.getClientDetails().getApplicant().getResidenceType()));
+    }
+  }
+
+  private CapitalEquity.ResidentialStatus mapResidenceTypeToResidentialStatus(
+      Applicant.ResidenceType residenceType) {
+    CapitalEquity.ResidentialStatus residentialStatus;
+
+    switch (residenceType) {
+      case APPLICANT_OWNED, PARTNER_OWNED, JOINT_OWNED -> residentialStatus = OWNER;
+      case RENTED -> residentialStatus = TENANT;
+      case TEMPORARY -> residentialStatus = TEMP;
+      case PARENTS -> residentialStatus = PARENTS;
+      default -> residentialStatus = null;
+    }
+
+    return residentialStatus;
   }
 
   private void mapOtherCapitalToCapitalEquity(
