@@ -64,6 +64,7 @@ class PassportedMapper {
       case JSA -> passported.setBenefitJobSeeker(TRUE);
       case ESA -> passported.setBenefitEmploymentSupport(TRUE);
       case INCOME_SUPPORT -> passported.setBenefitIncomeSupport(TRUE);
+      default -> passported.setBenefitIncomeSupport(FALSE);
     }
   }
 
