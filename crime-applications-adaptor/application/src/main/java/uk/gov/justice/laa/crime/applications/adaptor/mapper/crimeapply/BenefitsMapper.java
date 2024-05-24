@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.BenefitDetails;
-import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
-import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.util.AssessmentDetailMapperUtil;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.IncomeBenefit;
 
@@ -14,20 +13,25 @@ public class BenefitsMapper {
 
   private static final String UNIVERSAL_CREDIT = "Universal Credit";
   private static final String JSA = "Contribution-based Jobseeker Allowance";
+  protected static final String DEFAULT_OWNERSHIP_TYPE = "applicant";
 
   public List<AssessmentDetail> mapBenefits(List<IncomeBenefit> benefits) {
     List<AssessmentDetail> assessmentDetails = new ArrayList<>();
 
     if (Objects.nonNull(benefits)) {
       for (IncomeBenefit benefit : benefits) {
-        AssessmentDetail assessmentDetail = new AssessmentDetail();
+        String ownershipType =
+            Objects.nonNull(benefit.getOwnershipType())
+                ? benefit.getOwnershipType().value()
+                : DEFAULT_OWNERSHIP_TYPE;
         String benefitType = benefit.getPaymentType().value();
         BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
-        assessmentDetail.setAssessmentDetailCode(benefitDetail.getCode());
-        assessmentDetail.setApplicantAmount(
-            PoundSterling.ofPennies(benefit.getAmount()).toPounds());
-        assessmentDetail.setApplicantFrequency(
-            FrequencyMapper.mapFrequency(benefit.getFrequency().value()));
+        AssessmentDetail assessmentDetail =
+            AssessmentDetailMapperUtil.mapMeansAssessmentDetails(
+                ownershipType,
+                benefitDetail.getCode(),
+                benefit.getAmount(),
+                benefit.getFrequency().value());
         assessmentDetails.add(assessmentDetail);
       }
     }
