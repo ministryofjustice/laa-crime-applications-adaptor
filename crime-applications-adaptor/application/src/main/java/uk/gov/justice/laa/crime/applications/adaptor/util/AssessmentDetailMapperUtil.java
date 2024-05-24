@@ -14,19 +14,19 @@ public class AssessmentDetailMapperUtil {
       String ownershipType,
       String assessmentCode,
       Integer assessmentAmount,
-      String AssessmentFrequency) {
+      String assessmentFrequency) {
     AssessmentDetail assessmentDetail = new AssessmentDetail();
     assessmentDetail.setAssessmentDetailCode(assessmentCode);
     switch (ownershipType) {
       case APPLICANT -> {
         assessmentDetail.setApplicantAmount(PoundSterling.ofPennies(assessmentAmount).toPounds());
         assessmentDetail.setApplicantFrequency(
-            FrequencyMapper.mapApplicantFrequency(AssessmentFrequency));
+            FrequencyMapper.mapApplicantFrequency(assessmentFrequency));
       }
       case PARTNER -> {
         assessmentDetail.setPartnerAmount(PoundSterling.ofPennies(assessmentAmount).toPounds());
         assessmentDetail.setPartnerFrequency(
-            FrequencyMapper.mapPartnerFrequency(AssessmentFrequency));
+            FrequencyMapper.mapPartnerFrequency(assessmentFrequency));
       }
     }
     return assessmentDetail;
