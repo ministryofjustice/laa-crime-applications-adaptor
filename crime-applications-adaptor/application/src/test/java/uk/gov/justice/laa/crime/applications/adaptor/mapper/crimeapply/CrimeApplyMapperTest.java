@@ -174,4 +174,22 @@ class CrimeApplyMapperTest {
     JSONAssert.assertEquals(
         expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
   }
+
+  @Test
+  void shouldMapAllRequiredFieldsFromMaatApplicationResponseWithPartnerDetails_to_CrimeApplication()
+      throws JSONException {
+    MaatApplicationExternal crimeApplyApplicationDetails =
+        TestData.getMaatApplication("MaatApplication_partner.json");
+
+    MaatApplicationInternal maatApplicationInternal =
+        crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
+
+    String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
+    String expectedCrimeApplicationJson =
+        JsonUtils.objectToJson(
+            TestData.getCrimeApplication("CrimeApplication_partnerDetails.json"));
+
+    JSONAssert.assertEquals(
+        expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
+  }
 }

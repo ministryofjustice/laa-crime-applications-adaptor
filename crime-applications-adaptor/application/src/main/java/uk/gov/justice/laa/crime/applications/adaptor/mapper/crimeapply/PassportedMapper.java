@@ -2,6 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.PartnerDetails;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Passported;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
@@ -69,10 +70,12 @@ class PassportedMapper {
   }
 
   private void mapPartner(Partner partner, Passported passported) {
-    passported.getPartnerDetails().setFirstName(partner.getFirstName());
-    passported.getPartnerDetails().setLastName(partner.getLastName());
-    passported.getPartnerDetails().setNino(partner.getNino());
-    passported.getPartnerDetails().setDateOfBirth(partner.getDateOfBirth());
+    PartnerDetails partnerDetails = new PartnerDetails();
+    partnerDetails.setFirstName(partner.getFirstName());
+    partnerDetails.setLastName(partner.getLastName());
+    partnerDetails.setNino(partner.getNino());
+    partnerDetails.setDateOfBirth(partner.getDateOfBirth());
+    passported.setPartnerDetails(partnerDetails);
     if (Objects.nonNull(partner.getBenefitType())
         && !partner.getBenefitType().value().equalsIgnoreCase(NONE)) {
       mapPartnerBenefitType(partner.getBenefitType(), passported);
