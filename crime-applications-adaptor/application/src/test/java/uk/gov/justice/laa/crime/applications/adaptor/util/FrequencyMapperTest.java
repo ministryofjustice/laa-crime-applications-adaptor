@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail.ApplicantFrequency;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail.PartnerFrequency;
 
-public class FrequencyMapperTest {
+class FrequencyMapperTest {
 
   @ParameterizedTest
   @MethodSource("applicantFrequency")
