@@ -1,15 +1,19 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Passported;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Passported.WhoDwpChecked;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner;
 
 class PassportedMapperTest {
 
@@ -88,5 +92,18 @@ class PassportedMapperTest {
         .setBenefitType(Applicant.BenefitType.INCOME_SUPPORT);
     Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
     assertTrue(actualPassported.getBenefitIncomeSupport());
+  }
+
+  @Test
+  void shouldMap_Partner_BenefitType() {
+    MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
+    Partner partner = crimeApplyMaatApplicationExternal.getClientDetails().getPartner();
+    partner.setBenefitType(Partner.BenefitType.JSA);
+    partner.setLastJsaAppointmentDate(LocalDate.parse("2020-12-23"));
+    Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+    assertTrue(actualPassported.getBenefitJobSeeker());
+    assertTrue(actualPassported.getBenefitClaimedByPartner());
+    assertEquals(WhoDwpChecked.PARTNER, actualPassported.getWhoDwpChecked());
+    assertEquals(LocalDate.parse("2020-12-23"), actualPassported.getLastJsaAppointmentDate());
   }
 }
