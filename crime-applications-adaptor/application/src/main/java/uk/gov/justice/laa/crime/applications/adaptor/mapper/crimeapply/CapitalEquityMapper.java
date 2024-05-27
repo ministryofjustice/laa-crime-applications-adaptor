@@ -90,7 +90,7 @@ public class CapitalEquityMapper {
                 crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld()
             : 0;
 
-    int PartnerTrustFund =
+    int partnerTrustFund =
         hasPartnerTrustFund(crimeApplyResponse)
             ? (Integer)
                 crimeApplyResponse
@@ -99,7 +99,7 @@ public class CapitalEquityMapper {
                     .getPartnerTrustFundAmountHeld()
             : 0;
 
-    int totalTrustFund = Integer.sum(trustFund, PartnerTrustFund);
+    int totalTrustFund = Integer.sum(trustFund, partnerTrustFund);
     if (totalTrustFund > 0) {
       mapTrustFundToCapitalEquity(totalTrustFund, capitalEquity);
     }
