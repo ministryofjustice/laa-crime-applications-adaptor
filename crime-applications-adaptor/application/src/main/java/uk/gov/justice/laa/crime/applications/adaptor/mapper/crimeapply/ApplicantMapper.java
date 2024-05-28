@@ -91,14 +91,14 @@ class ApplicantMapper {
     PartnerContraryInterest partnerContraryInterest = new PartnerContraryInterest();
     Partner partner = crimeApplyResponse.getClientDetails().getPartner();
     if (Objects.nonNull(partner)) {
-      mapContraryInterest(partner, partnerContraryInterest);
+      mapContraryInterestCode(partner, partnerContraryInterest);
     } else {
       partnerContraryInterest.setCode(PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON);
     }
     return partnerContraryInterest;
   }
 
-  private void mapContraryInterest(
+  private void mapContraryInterestCode(
       Partner partner, PartnerContraryInterest partnerContraryInterest) {
     if (Objects.nonNull(partner.getConflictOfInterest())
         && partner.getConflictOfInterest().equals(YES)) {

@@ -95,12 +95,14 @@ class PassportedMapperTest {
   }
 
   @Test
-  void shouldMap_Partner_BenefitType() {
+  void shouldMap_Partner_BenefitType_JSAWithJSAAppointmentDate() {
     MaatApplicationExternal crimeApplyMaatApplicationExternal = TestData.getMaatApplication();
     Partner partner = crimeApplyMaatApplicationExternal.getClientDetails().getPartner();
     partner.setBenefitType(Partner.BenefitType.JSA);
     partner.setLastJsaAppointmentDate(LocalDate.parse("2020-12-23"));
+
     Passported actualPassported = passportedMapper.map(crimeApplyMaatApplicationExternal);
+
     assertTrue(actualPassported.getBenefitJobSeeker());
     assertTrue(actualPassported.getBenefitClaimedByPartner());
     assertEquals(WhoDwpChecked.PARTNER, actualPassported.getWhoDwpChecked());
