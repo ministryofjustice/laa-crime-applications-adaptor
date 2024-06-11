@@ -1,0 +1,295 @@
+{
+  "statusReason": "current",
+  "solicitorName": "John Doe",
+  "applicationType": "initial",
+  "caseDetails": {
+    "caseType": "SUMMARY ONLY",
+    "offenceClass": "OTHER"
+  },
+  "magsCourt": {
+    "court": "Cardiff Crown Court"
+  },
+  "usn": 10000390,
+  "solicitorAdminEmail": "provider@example.com",
+  "courtCustody": false,
+  "callEform": false,
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
+  "hearingDate": "2023-12-10",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
+  "applicant": {
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
+    "hasPartner": true,
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "useHomeAddress": true,
+    "noFixedAbode": false,
+    "useSupplierAddressForPost": false,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    },
+    "employmentStatus": {
+      "code": "NONPASS"
+    },
+    "homeAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
+    }
+  },
+  "supplier": {
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
+    "firstName": "John",
+    "surname": "Doe"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": false,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false,
+    "partnerDetails": {
+      "first_name": "Jennifer",
+      "last_name": "Holland",
+      "date_of_birth": "2001-12-23",
+      "nino": "AB123456C"
+    }
+  },
+  "assessment": {
+    "initialMeansAssessment": {
+      "otherBenefitNote": "Contribution-based Jobseeker Allowance\nDetails of the other benefit",
+      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
+      "assessmentDetails": [
+        {
+          "applicantAmount": 1.00,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "CHILD_BEN"
+        },
+        {
+          "applicantAmount": 1.60,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "TAX_CRED"
+        },
+        {
+          "applicantAmount": 4.00,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "INCAP_BEN"
+        },
+        {
+          "applicantAmount": 4.00,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "INJ_BEN"
+        },
+        {
+          "applicantAmount": 4.00,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "applicantAmount": 8.00,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "partnerAmount": 15.32,
+          "partnerFrequency": "MONTHLY",
+          "assessmentDetailCode": "TAX_CRED"
+        },
+        {
+          "applicantAmount": 0.10,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "PRIV_PENS"
+        },
+        {
+          "applicantAmount": 3.60,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "STATE_PEN"
+        },
+        {
+          "applicantAmount": 1.00,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "SAVINGS"
+        },
+        {
+          "applicantAmount": 0.55,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 10.00,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 0.50,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 3.10,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 0.80,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 3.90,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 2.50,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "partnerAmount": 1.50,
+          "partnerFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        }
+      ],
+      "childWeighting": [
+        {
+          "noOfChildren": 1,
+          "lowerAgeRange": 13,
+          "upperAgeRange": 15
+        }
+      ]
+    },
+    "fullMeansAssessment": {
+      "assessmentDetails": [
+        {
+          "applicantAmount": 7.00,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "RENT_MORT"
+        },
+        {
+          "applicantAmount": 10.00,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "COUNCIL"
+        },
+        {
+          "applicantAmount": 1.00,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "CHILD_COST"
+        },
+        {
+          "applicantAmount": 2.50,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "MAINT_COST"
+        },
+        {
+          "applicantAmount": 1.00,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_LAC"
+        }
+      ]
+    }
+  },
+  "capitalEquity": {
+    "capitalProperty": [
+      {
+        "propertyType": "SEMI",
+        "bedrooms": "3",
+        "declaredMortgageCharges": 390.00,
+        "declaredMarketValue": 48000.00,
+        "percentageOwnedApplicant": 62.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "296 Oak Court",
+          "line2": "Higham",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "E1 4AD"
+        },
+        "thirdPartyOwner": [
+          {
+            "ownerRelation": "FAMILY",
+            "ownerName": "Freya Brennan"
+          }
+        ]
+      },
+      {
+        "propertyType": "COMMERCIAL",
+        "declaredMortgageCharges": 0.00,
+        "declaredMarketValue": 8800.00,
+        "percentageOwnedApplicant": 100.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "1 Park Road",
+          "line2": "Oldtown",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "E1 2DA"
+        }
+      },
+      {
+        "propertyType": "LAND",
+        "declaredMortgageCharges": 220.00,
+        "declaredMarketValue": 7200.00,
+        "percentageOwnedApplicant": 100.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "1 High Street",
+          "line2": "Newtown",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "SW1A 2AA"
+        }
+      }
+    ],
+    "capital": [
+      {
+        "capitalType": "PEPS",
+        "assetAmount": 500.00,
+        "otherDescription": "Private equity plan",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "SHARES",
+        "assetAmount": 100.00,
+        "otherDescription": "500 Shares in Acme Ltd",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "SAVINGS",
+        "assetAmount": 100.00,
+        "bankName": "Lloyds Bank",
+        "branchSortCode": "12-23-45",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "CASH ISA",
+        "assetAmount": 100.00,
+        "bankName": "Lloyds Bank",
+        "branchSortCode": "12-23-45",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "PREMIUM BONDS",
+        "assetAmount": 20.00,
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "PREMIUM BONDS",
+        "assetAmount": 1000000.00
+      },
+      {
+        "capitalType": "TRUST FUND",
+        "assetAmount": 5000.00
+      }
+    ],
+    "residentialStatus": "OWNER"
+  },
+  "iojBypass": true
+}
