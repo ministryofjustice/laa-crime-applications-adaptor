@@ -66,6 +66,7 @@
     "capital_details": {
       "premium_bonds_total_value": 100000000,
       "trust_fund_amount_held": 500000,
+      "partner_trust_fund_amount_held": 100000,
       "savings": [
         {
           "saving_type": "bank",

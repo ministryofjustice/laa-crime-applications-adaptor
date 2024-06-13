@@ -55,7 +55,8 @@
     "benefitJobSeeker": false,
     "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
-    "benefitClaimedByPartner": false
+    "benefitClaimedByPartner": false,
+    "whoDwpChecked": "APPLICANT"
   },
   "assessment": {
     "initialMeansAssessment": {

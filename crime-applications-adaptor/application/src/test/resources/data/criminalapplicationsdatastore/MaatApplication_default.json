@@ -30,6 +30,17 @@
         "postcode": "SW1A 2AA"
       },
       "correspondence_address": null
+    },
+    "partner": {
+      "first_name": "Jennifer",
+      "last_name": "Holland",
+      "other_names": "Diane",
+      "nino": "AB123456C",
+      "benefit_type": null,
+      "last_jsa_appointment_date": null,
+      "date_of_birth": "2001-12-23",
+      "involvement_in_case": "codefendant",
+      "conflict_of_interest": "no"
     }
   },
   "case_details": {

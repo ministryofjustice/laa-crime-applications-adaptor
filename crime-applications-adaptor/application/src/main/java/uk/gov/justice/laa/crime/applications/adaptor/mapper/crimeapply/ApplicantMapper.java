@@ -7,12 +7,16 @@ import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.PartnerContraryInterest;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
 
 class ApplicantMapper {
 
-  private static final boolean APPLICANT_HAS_PARTNER_DEFAULT_FALSE = false;
+  private static final String YES = "yes";
   private static final String PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON = "NOCON";
+  private static final String PROSECUTION_WITNESS = "PROW";
+  private static final String ALLEGED_VICTIM = "ALLV";
+  private static final String CO_DEFENDANT_WITH_CONFLICT = "COCON";
   private static final String ON_BENEFIT_CHECK = "on_benefit_check";
 
   @NotNull Applicant map(MaatApplicationExternal crimeApplyResponse) {
@@ -33,7 +37,9 @@ class ApplicantMapper {
     applicant.setOtherNames(crimeApplyApplicant.getOtherNames());
     applicant.setSurname(crimeApplyApplicant.getLastName());
     applicant.setDateOfBirth(crimeApplyApplicant.getDateOfBirth());
-    applicant.setHasPartner(APPLICANT_HAS_PARTNER_DEFAULT_FALSE);
+    applicant.setHasPartner(
+        Objects.nonNull(crimeApplyApplicant.getHasPartner())
+            && crimeApplyApplicant.getHasPartner().equals(YES));
     applicant.setTelephone(crimeApplyApplicant.getTelephoneNumber());
     applicant.setNiNumber(crimeApplyApplicant.getNino());
 
@@ -43,7 +49,7 @@ class ApplicantMapper {
     applicant.setUseHomeAddress(mapUseHomeAddress(crimeApplyAddressType));
     applicant.setNoFixedAbode(mapNoFixedAbode(crimeApplyApplicant.getHomeAddress()));
     applicant.setUseSupplierAddressForPost(mapUseSupplierAddressForPost(crimeApplyAddressType));
-    applicant.setPartnerContraryInterest(mapPartnerContraryInterest());
+    applicant.setPartnerContraryInterest(mapPartnerContraryInterest(crimeApplyResponse));
 
     applicant.setHomeAddress(mapAddress(crimeApplyApplicant.getHomeAddress()));
     applicant.setPostalAddress(mapAddress(crimeApplyApplicant.getCorrespondenceAddress()));
@@ -80,10 +86,31 @@ class ApplicantMapper {
     return employmentStatus;
   }
 
-  private PartnerContraryInterest mapPartnerContraryInterest() {
+  private PartnerContraryInterest mapPartnerContraryInterest(
+      MaatApplicationExternal crimeApplyResponse) {
     PartnerContraryInterest partnerContraryInterest = new PartnerContraryInterest();
-    partnerContraryInterest.setCode(PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON);
+    Partner partner = crimeApplyResponse.getClientDetails().getPartner();
+    if (Objects.nonNull(partner)) {
+      mapContraryInterestCode(partner, partnerContraryInterest);
+    } else {
+      partnerContraryInterest.setCode(PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON);
+    }
     return partnerContraryInterest;
+  }
+
+  private void mapContraryInterestCode(
+      Partner partner, PartnerContraryInterest partnerContraryInterest) {
+    if (Objects.nonNull(partner.getConflictOfInterest())
+        && partner.getConflictOfInterest().equals(YES)) {
+      partnerContraryInterest.setCode(CO_DEFENDANT_WITH_CONFLICT);
+    } else if (Objects.nonNull(partner.getInvolvementInCase())) {
+      Partner.InvolvementInCase involvementInCase = partner.getInvolvementInCase();
+      switch (involvementInCase) {
+        case VICTIM -> partnerContraryInterest.setCode(ALLEGED_VICTIM);
+        case PROSECUTION_WITNESS -> partnerContraryInterest.setCode(PROSECUTION_WITNESS);
+        default -> partnerContraryInterest.setCode(PARTNER_CONTRARY_INTEREST_CODE_DEFAULT_NOCON);
+      }
+    }
   }
 
   private boolean mapUseHomeAddress(

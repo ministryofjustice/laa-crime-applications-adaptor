@@ -47,6 +47,7 @@
     "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
     "benefitClaimedByPartner": false,
+    "whoDwpChecked": "APPLICANT",
     "meansPassport": "on_benefit_check"
   },
   "assessment": {
