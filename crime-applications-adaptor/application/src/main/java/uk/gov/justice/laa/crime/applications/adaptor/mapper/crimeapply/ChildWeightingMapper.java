@@ -60,7 +60,7 @@ public class ChildWeightingMapper {
   private static Predicate<Dependant> ageInsideInclusiveRange(
       ChildWeighting.LowerAgeRange lowerAgeRange, ChildWeighting.UpperAgeRange upperAgeRange) {
     return dependant -> {
-      Integer dependantAge = dependant.getAge();
+      int dependantAge = Integer.sum(dependant.getAge(), 1);
       return dependantAge >= lowerAgeRange.value() && dependantAge <= upperAgeRange.value();
     };
   }
