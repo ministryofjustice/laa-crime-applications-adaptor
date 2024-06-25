@@ -161,8 +161,8 @@
       "childWeighting": [
         {
           "noOfChildren": 1,
-          "lowerAgeRange": 13,
-          "upperAgeRange": 15
+          "lowerAgeRange": 16,
+          "upperAgeRange": 18
         }
       ]
     },
