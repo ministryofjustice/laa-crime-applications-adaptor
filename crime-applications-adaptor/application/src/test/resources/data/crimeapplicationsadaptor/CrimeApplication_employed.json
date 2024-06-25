@@ -71,32 +71,32 @@
       "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
       "assessmentDetails": [
         {
-          "applicantAmount": 1.00,
+          "applicantAmount": 1.0,
           "applicantFrequency": "WEEKLY",
           "assessmentDetailCode": "CHILD_BEN"
         },
         {
-          "applicantAmount": 1.60,
+          "applicantAmount": 1.6,
           "applicantFrequency": "2WEEKLY",
           "assessmentDetailCode": "TAX_CRED"
         },
         {
-          "applicantAmount": 4.00,
+          "applicantAmount": 4.0,
           "applicantFrequency": "4WEEKLY",
           "assessmentDetailCode": "INCAP_BEN"
         },
         {
-          "applicantAmount": 4.00,
+          "applicantAmount": 4.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "INJ_BEN"
         },
         {
-          "applicantAmount": 4.00,
+          "applicantAmount": 4.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "OTHER_BEN"
         },
         {
-          "applicantAmount": 8.00,
+          "applicantAmount": 8.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_BEN"
         },
@@ -106,17 +106,17 @@
           "assessmentDetailCode": "TAX_CRED"
         },
         {
-          "applicantAmount": 0.10,
+          "applicantAmount": 0.1,
           "applicantFrequency": "WEEKLY",
           "assessmentDetailCode": "PRIV_PENS"
         },
         {
-          "applicantAmount": 3.60,
+          "applicantAmount": 3.6,
           "applicantFrequency": "2WEEKLY",
           "assessmentDetailCode": "STATE_PEN"
         },
         {
-          "applicantAmount": 1.00,
+          "applicantAmount": 1.0,
           "applicantFrequency": "4WEEKLY",
           "assessmentDetailCode": "SAVINGS"
         },
@@ -126,57 +126,57 @@
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 10.00,
+          "applicantAmount": 10.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 0.50,
+          "applicantAmount": 0.5,
           "applicantFrequency": "WEEKLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 3.10,
+          "applicantAmount": 3.1,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 0.80,
+          "applicantAmount": 0.8,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 3.90,
+          "applicantAmount": 3.9,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 2.50,
+          "applicantAmount": 2.5,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "partnerAmount": 1.50,
+          "partnerAmount": 1.5,
           "partnerFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         },
         {
-          "applicantAmount": 2.50,
+          "applicantAmount": 2.5,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "WORK_BEN"
         },
         {
-          "partnerAmount": 2.50,
+          "partnerAmount": 2.5,
           "partnerFrequency": "ANNUALLY",
           "assessmentDetailCode": "WORK_BEN"
         },
         {
-          "applicantAmount": 500.00,
+          "applicantAmount": 500.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "EMP_INC"
         },
         {
-          "partnerAmount": 600.00,
+          "partnerAmount": 600.0,
           "partnerFrequency": "ANNUALLY",
           "assessmentDetailCode": "EMP_INC"
         }
@@ -192,47 +192,47 @@
     "fullMeansAssessment": {
       "assessmentDetails": [
         {
-          "applicantAmount": 7.00,
+          "applicantAmount": 7.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "RENT_MORT"
         },
         {
-          "applicantAmount": 10.00,
+          "applicantAmount": 10.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "COUNCIL"
         },
         {
-          "applicantAmount": 1.00,
+          "applicantAmount": 1.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "CHILD_COST"
         },
         {
-          "applicantAmount": 2.50,
+          "applicantAmount": 2.5,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "MAINT_COST"
         },
         {
-          "applicantAmount": 1.00,
+          "applicantAmount": 1.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_LAC"
         },
         {
-          "applicantAmount": 20.00,
+          "applicantAmount": 20.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "TAX"
         },
         {
-          "partnerAmount": 20.00,
+          "partnerAmount": 20.0,
           "partnerFrequency": "ANNUALLY",
           "assessmentDetailCode": "TAX"
         },
         {
-          "applicantAmount": 20.00,
+          "applicantAmount": 20.0,
           "applicantFrequency": "ANNUALLY",
           "assessmentDetailCode": "NI"
         },
         {
-          "partnerAmount": 20.00,
+          "partnerAmount": 20.0,
           "partnerFrequency": "ANNUALLY",
           "assessmentDetailCode": "NI"
         }
@@ -244,8 +244,8 @@
       {
         "propertyType": "SEMI",
         "bedrooms": "3",
-        "declaredMortgageCharges": 390.00,
-        "declaredMarketValue": 48000.00,
+        "declaredMortgageCharges": 390.0,
+        "declaredMarketValue": 48000.0,
         "percentageOwnedApplicant": 62.0,
         "percentageOwnedPartner": 0,
         "address": {
@@ -264,8 +264,8 @@
       },
       {
         "propertyType": "COMMERCIAL",
-        "declaredMortgageCharges": 0.00,
-        "declaredMarketValue": 8800.00,
+        "declaredMortgageCharges": 0.0,
+        "declaredMarketValue": 8800.0,
         "percentageOwnedApplicant": 100.0,
         "percentageOwnedPartner": 0,
         "address": {
@@ -278,8 +278,8 @@
       },
       {
         "propertyType": "LAND",
-        "declaredMortgageCharges": 220.00,
-        "declaredMarketValue": 7200.00,
+        "declaredMortgageCharges": 220.0,
+        "declaredMarketValue": 7200.0,
         "percentageOwnedApplicant": 100.0,
         "percentageOwnedPartner": 0,
         "address": {
@@ -294,42 +294,42 @@
     "capital": [
       {
         "capitalType": "PEPS",
-        "assetAmount": 500.00,
+        "assetAmount": 500.0,
         "otherDescription": "Private equity plan",
         "accountOwner": "APPLICANT"
       },
       {
         "capitalType": "SHARES",
-        "assetAmount": 100.00,
+        "assetAmount": 100.0,
         "otherDescription": "500 Shares in Acme Ltd",
         "accountOwner": "APPLICANT"
       },
       {
         "capitalType": "SAVINGS",
-        "assetAmount": 100.00,
+        "assetAmount": 100.0,
         "bankName": "Lloyds Bank",
         "branchSortCode": "12-23-45",
         "accountOwner": "APPLICANT"
       },
       {
         "capitalType": "CASH ISA",
-        "assetAmount": 100.00,
+        "assetAmount": 100.0,
         "bankName": "Lloyds Bank",
         "branchSortCode": "12-23-45",
         "accountOwner": "APPLICANT"
       },
       {
         "capitalType": "PREMIUM BONDS",
-        "assetAmount": 20.00,
+        "assetAmount": 20.0,
         "accountOwner": "APPLICANT"
       },
       {
         "capitalType": "PREMIUM BONDS",
-        "assetAmount": 1000000.00
+        "assetAmount": 1000000.0
       },
       {
         "capitalType": "TRUST FUND",
-        "assetAmount": 5000.00
+        "assetAmount": 5000.0
       }
     ]
   },
