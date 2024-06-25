@@ -141,6 +141,6 @@ class ApplicantMapperTest {
     return Stream.of(
         Arguments.of("MaatApplication_partner.json", InvolvementInCase.VICTIM, "ALLV"),
         Arguments.of("MaatApplication_partner.json", InvolvementInCase.PROSECUTION_WITNESS, "PROW"),
-        Arguments.of("MaatApplication_partner.json", InvolvementInCase.NO_INVOLVEMENT, "NOCON"));
+        Arguments.of("MaatApplication_partner.json", InvolvementInCase.NONE, "NOCON"));
   }
 }

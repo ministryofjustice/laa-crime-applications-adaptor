@@ -57,9 +57,11 @@ class ChildWeightingMapperTest {
 
   private static Stream<Arguments> childWeightingMappingTestData() {
     return Stream.of(
-        Arguments.of(1, ChildWeighting.LowerAgeRange._0, ChildWeighting.UpperAgeRange._1),
-        Arguments.of(2, ChildWeighting.LowerAgeRange._2, ChildWeighting.UpperAgeRange._4),
-        Arguments.of(5, ChildWeighting.LowerAgeRange._5, ChildWeighting.UpperAgeRange._7),
+        Arguments.of(0, ChildWeighting.LowerAgeRange._0, ChildWeighting.UpperAgeRange._1),
+        Arguments.of(1, ChildWeighting.LowerAgeRange._2, ChildWeighting.UpperAgeRange._4),
+        Arguments.of(3, ChildWeighting.LowerAgeRange._2, ChildWeighting.UpperAgeRange._4),
+        Arguments.of(4, ChildWeighting.LowerAgeRange._5, ChildWeighting.UpperAgeRange._7),
+        Arguments.of(6, ChildWeighting.LowerAgeRange._5, ChildWeighting.UpperAgeRange._7),
         Arguments.of(8, ChildWeighting.LowerAgeRange._8, ChildWeighting.UpperAgeRange._10),
         Arguments.of(11, ChildWeighting.LowerAgeRange._11, ChildWeighting.UpperAgeRange._12),
         Arguments.of(13, ChildWeighting.LowerAgeRange._13, ChildWeighting.UpperAgeRange._15),
