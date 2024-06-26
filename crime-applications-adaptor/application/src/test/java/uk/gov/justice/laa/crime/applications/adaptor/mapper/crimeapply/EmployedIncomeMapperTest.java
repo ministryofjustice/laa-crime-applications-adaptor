@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentIncomePayment;
 
-public class EmployedIncomeMapperTest {
+class EmployedIncomeMapperTest {
 
   private EmployedIncomeMapper employedIncomeMapper;
   private static final int AMOUNT = 12550;
