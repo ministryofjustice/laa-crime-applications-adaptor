@@ -67,8 +67,8 @@
   },
   "assessment": {
     "initialMeansAssessment": {
-      "otherBenefitNote": "Contribution-based Jobseeker Allowance\nDetails of the other benefit",
-      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
+      "otherBenefitNote": "Applicant: Contribution-based Jobseeker Allowance\nDetails of the other benefit",
+      "otherIncomeNote": "Applicant: Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nPartner: Rent from a tenant",
       "assessmentDetails": [
         {
           "applicantAmount": 1.0,

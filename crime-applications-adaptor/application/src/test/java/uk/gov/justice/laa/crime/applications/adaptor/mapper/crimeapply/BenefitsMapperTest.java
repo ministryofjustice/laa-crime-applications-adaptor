@@ -153,7 +153,7 @@ class BenefitsMapperTest {
 
     String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
-    assertEquals(DETAILS, actualBenefitNotes);
+    assertEquals("Applicant: " + DETAILS, actualBenefitNotes);
   }
 
   @Test
@@ -162,7 +162,7 @@ class BenefitsMapperTest {
     benefit.setPaymentType(IncomeBenefit.PaymentType.UNIVERSAL_CREDIT);
     List<IncomeBenefit> benefits = List.of(benefit);
 
-    String expectedBenefitNotes = DETAILS + "\nUniversal Credit";
+    String expectedBenefitNotes = "Applicant: " + DETAILS + "\nUniversal Credit";
     String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
     assertEquals(expectedBenefitNotes, actualBenefitNotes);
@@ -174,7 +174,8 @@ class BenefitsMapperTest {
     benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
     List<IncomeBenefit> benefits = List.of(benefit);
 
-    String expectedBenefitNotes = DETAILS + "\nContribution-based Jobseeker Allowance";
+    String expectedBenefitNotes =
+        "Applicant: " + DETAILS + "\nContribution-based Jobseeker Allowance";
     String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
 
     assertEquals(expectedBenefitNotes, actualBenefitNotes);

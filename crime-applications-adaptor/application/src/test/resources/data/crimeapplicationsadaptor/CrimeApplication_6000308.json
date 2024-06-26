@@ -84,8 +84,8 @@
           "applicantFrequency": "MONTHLY"
         }
       ],
-      "otherBenefitNote": "Details about child benefit\nUniversal Credit",
-      "otherIncomeNote": "Details about private pension\nRent from a tenant",
+      "otherBenefitNote": "Applicant: Details about child benefit\nUniversal Credit",
+      "otherIncomeNote": "Applicant: Details about private pension\nRent from a tenant",
       "childWeighting": [
         {
           "lowerAgeRange": 8,
