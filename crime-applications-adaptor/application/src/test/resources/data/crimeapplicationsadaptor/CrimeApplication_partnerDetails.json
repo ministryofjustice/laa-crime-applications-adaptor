@@ -1,45 +1,53 @@
 {
   "statusReason": "current",
-  "solicitorName": "John Sandon",
+  "solicitorName": "John Doe",
   "applicationType": "initial",
   "caseDetails": {
-    "caseType": "SUMMARY ONLY",
-    "offenceClass": "OTHER"
+    "caseType": "APPEAL CC",
+    "offenceClass": "MURDER",
+    "appealReceivedDate": "2021-10-25"
   },
   "magsCourt": {
-    "court": "Cardiff Crown Court"
+    "court": "Cardiff Magistrates' Court"
   },
-  "usn": 10000340,
-  "solicitorAdminEmail": "acox@smw-law.co.uk",
+  "usn": 6000001,
+  "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
   "callEform": false,
-  "dateCreated": "2023-07-17T08:23:15.334Z",
-  "dateStamp": "2023-07-17T08:22:35.997Z",
-  "hearingDate": "2023-12-10",
-  "dateOfSignature": "2023-07-17T08:23:15.334Z",
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
+  "hearingDate": "2024-11-11",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
   "applicant": {
-    "firstName": "DO NOT MODIFY Jane",
-    "otherNames": "Crusher",
-    "surname": "Walker",
-    "dateOfBirth": "1980-01-10",
-    "hasPartner": false,
-    "niNumber": "JA293483A",
-    "useHomeAddress": false,
-    "noFixedAbode": true,
-    "useSupplierAddressForPost": true,
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
+    "hasPartner": true,
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "useHomeAddress": true,
+    "noFixedAbode": false,
+    "useSupplierAddressForPost": false,
     "partnerContraryInterest": {
       "code": "NOCON"
     },
     "employmentStatus": {
-      "code": "NONPASS"
+      "code": "PASSPORTED"
+    },
+    "homeAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
     }
   },
   "supplier": {
-    "officeCode": "1K022G",
-    "email": "acox@smw-law.co.uk",
-    "telephone": "07800888888",
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
     "firstName": "John",
-    "surname": "Sandon"
+    "surname": "Doe"
   },
   "passported": {
     "benefitIncomeSupport": false,
@@ -47,12 +55,20 @@
     "benefitJobSeeker": false,
     "benefitUniversalCredit": true,
     "benefitEmploymentSupport": false,
-    "benefitClaimedByPartner": false
+    "benefitClaimedByPartner": false,
+    "whoDwpChecked": "APPLICANT",
+    "meansPassport": "on_benefit_check",
+    "partnerDetails": {
+      "first_name": "Jennifer",
+      "last_name": "Holland",
+      "date_of_birth": "2001-12-23",
+      "nino": "AB123456C"
+    }
   },
   "assessment": {
     "initialMeansAssessment": {
       "otherBenefitNote": "Contribution-based Jobseeker Allowance\nDetails of the other benefit",
-      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment",
+      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
       "assessmentDetails": [
         {
           "applicantAmount": 1.0,
@@ -83,6 +99,11 @@
           "applicantAmount": 8.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "partnerAmount": 15.32,
+          "partnerFrequency": "MONTHLY",
+          "assessmentDetailCode": "TAX_CRED"
         },
         {
           "applicantAmount": 0.1,
@@ -132,6 +153,11 @@
         {
           "applicantAmount": 2.5,
           "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "partnerAmount": 1.5,
+          "partnerFrequency": "MONTHLY",
           "assessmentDetailCode": "OTHER_INC"
         }
       ],
@@ -267,5 +293,5 @@
       }
     ]
   },
-  "iojBypass": true
+  "iojBypass": false
 }
