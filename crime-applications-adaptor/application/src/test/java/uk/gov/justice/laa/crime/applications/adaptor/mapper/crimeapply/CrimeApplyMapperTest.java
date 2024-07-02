@@ -167,6 +167,7 @@ class CrimeApplyMapperTest {
     return Stream.of(
         Arguments.of("MaatApplication_6000308.json", "CrimeApplication_6000308.json"),
         Arguments.of("MaatApplication_unemployed.json", "CrimeApplication_unemployed.json"),
-        Arguments.of("MaatApplication_partner.json", "CrimeApplication_partnerDetails.json"));
+        Arguments.of("MaatApplication_partner.json", "CrimeApplication_partnerDetails.json"),
+        Arguments.of("MaatApplication_employed.json", "CrimeApplication_employed.json"));
   }
 }

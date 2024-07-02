@@ -1,0 +1,337 @@
+{
+  "statusReason": "current",
+  "solicitorName": "John Doe",
+  "applicationType": "initial",
+  "caseDetails": {
+    "caseType": "APPEAL CC",
+    "offenceClass": "MURDER",
+    "appealReceivedDate": "2021-10-25"
+  },
+  "magsCourt": {
+    "court": "Cardiff Magistrates' Court"
+  },
+  "usn": 6000001,
+  "solicitorAdminEmail": "provider@example.com",
+  "courtCustody": false,
+  "callEform": false,
+  "dateCreated": "2022-10-24T09:50:04.019Z",
+  "dateStamp": "2022-10-24T09:50:04.019Z",
+  "hearingDate": "2024-11-11",
+  "dateOfSignature": "2022-10-24T09:50:04.019Z",
+  "applicant": {
+    "firstName": "Kit",
+    "surname": "Pound",
+    "dateOfBirth": "2011-06-09",
+    "hasPartner": true,
+    "telephone": "07771231231",
+    "niNumber": "AJ123456C",
+    "useHomeAddress": true,
+    "noFixedAbode": false,
+    "useSupplierAddressForPost": false,
+    "partnerContraryInterest": {
+      "code": "NOCON"
+    },
+    "employmentStatus": {
+      "code": "PASSPORTED"
+    },
+    "homeAddress": {
+      "line1": "1 Road",
+      "line2": "Village",
+      "city": "Some nice city",
+      "country": "United Kingdom",
+      "postCode": "SW1A 2AA"
+    }
+  },
+  "supplier": {
+    "officeCode": "1A123B",
+    "email": "provider@example.com",
+    "telephone": "123456789",
+    "firstName": "John",
+    "surname": "Doe"
+  },
+  "passported": {
+    "benefitIncomeSupport": false,
+    "benefitGuaranteedStatePension": false,
+    "benefitJobSeeker": false,
+    "benefitUniversalCredit": true,
+    "benefitEmploymentSupport": false,
+    "benefitClaimedByPartner": false,
+    "whoDwpChecked": "APPLICANT",
+    "meansPassport": "on_benefit_check",
+    "partnerDetails": {
+      "first_name": "Jennifer",
+      "last_name": "Holland",
+      "date_of_birth": "2001-12-23",
+      "nino": "AB123456C"
+    }
+  },
+  "assessment": {
+    "initialMeansAssessment": {
+      "otherBenefitNote": "Contribution-based Jobseeker Allowance\nDetails of the other benefit",
+      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
+      "assessmentDetails": [
+        {
+          "applicantAmount": 1.0,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "CHILD_BEN"
+        },
+        {
+          "applicantAmount": 1.6,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "TAX_CRED"
+        },
+        {
+          "applicantAmount": 4.0,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "INCAP_BEN"
+        },
+        {
+          "applicantAmount": 4.0,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "INJ_BEN"
+        },
+        {
+          "applicantAmount": 4.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "applicantAmount": 8.0,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_BEN"
+        },
+        {
+          "partnerAmount": 15.32,
+          "partnerFrequency": "MONTHLY",
+          "assessmentDetailCode": "TAX_CRED"
+        },
+        {
+          "applicantAmount": 0.1,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "PRIV_PENS"
+        },
+        {
+          "applicantAmount": 3.6,
+          "applicantFrequency": "2WEEKLY",
+          "assessmentDetailCode": "STATE_PEN"
+        },
+        {
+          "applicantAmount": 1.0,
+          "applicantFrequency": "4WEEKLY",
+          "assessmentDetailCode": "SAVINGS"
+        },
+        {
+          "applicantAmount": 0.55,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 10.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 0.5,
+          "applicantFrequency": "WEEKLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 3.1,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 0.8,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 3.9,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 2.5,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "partnerAmount": 1.5,
+          "partnerFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_INC"
+        },
+        {
+          "applicantAmount": 2.5,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "WORK_BEN"
+        },
+        {
+          "partnerAmount": 2.5,
+          "partnerFrequency": "ANNUALLY",
+          "assessmentDetailCode": "WORK_BEN"
+        },
+        {
+          "applicantAmount": 500.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "EMP_INC"
+        },
+        {
+          "partnerAmount": 600.0,
+          "partnerFrequency": "ANNUALLY",
+          "assessmentDetailCode": "EMP_INC"
+        }
+      ],
+      "childWeighting": [
+        {
+          "noOfChildren": 1,
+          "lowerAgeRange": 16,
+          "upperAgeRange": 18
+        }
+      ]
+    },
+    "fullMeansAssessment": {
+      "assessmentDetails": [
+        {
+          "applicantAmount": 7.0,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "RENT_MORT"
+        },
+        {
+          "applicantAmount": 10.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "COUNCIL"
+        },
+        {
+          "applicantAmount": 1.0,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "CHILD_COST"
+        },
+        {
+          "applicantAmount": 2.5,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "MAINT_COST"
+        },
+        {
+          "applicantAmount": 1.0,
+          "applicantFrequency": "MONTHLY",
+          "assessmentDetailCode": "OTHER_LAC"
+        },
+        {
+          "applicantAmount": 20.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "TAX"
+        },
+        {
+          "partnerAmount": 20.0,
+          "partnerFrequency": "ANNUALLY",
+          "assessmentDetailCode": "TAX"
+        },
+        {
+          "applicantAmount": 20.0,
+          "applicantFrequency": "ANNUALLY",
+          "assessmentDetailCode": "NI"
+        },
+        {
+          "partnerAmount": 20.0,
+          "partnerFrequency": "ANNUALLY",
+          "assessmentDetailCode": "NI"
+        }
+      ]
+    }
+  },
+  "capitalEquity": {
+    "capitalProperty": [
+      {
+        "propertyType": "SEMI",
+        "bedrooms": "3",
+        "declaredMortgageCharges": 390.0,
+        "declaredMarketValue": 48000.0,
+        "percentageOwnedApplicant": 62.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "296 Oak Court",
+          "line2": "Higham",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "E1 4AD"
+        },
+        "thirdPartyOwner": [
+          {
+            "ownerRelation": "FAMILY",
+            "ownerName": "Freya Brennan"
+          }
+        ]
+      },
+      {
+        "propertyType": "COMMERCIAL",
+        "declaredMortgageCharges": 0.0,
+        "declaredMarketValue": 8800.0,
+        "percentageOwnedApplicant": 100.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "1 Park Road",
+          "line2": "Oldtown",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "E1 2DA"
+        }
+      },
+      {
+        "propertyType": "LAND",
+        "declaredMortgageCharges": 220.0,
+        "declaredMarketValue": 7200.0,
+        "percentageOwnedApplicant": 100.0,
+        "percentageOwnedPartner": 0,
+        "address": {
+          "line1": "1 High Street",
+          "line2": "Newtown",
+          "city": "London",
+          "country": "United Kingdom",
+          "postCode": "SW1A 2AA"
+        }
+      }
+    ],
+    "capital": [
+      {
+        "capitalType": "PEPS",
+        "assetAmount": 500.0,
+        "otherDescription": "Private equity plan",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "SHARES",
+        "assetAmount": 100.0,
+        "otherDescription": "500 Shares in Acme Ltd",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "SAVINGS",
+        "assetAmount": 100.0,
+        "bankName": "Lloyds Bank",
+        "branchSortCode": "12-23-45",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "CASH ISA",
+        "assetAmount": 100.0,
+        "bankName": "Lloyds Bank",
+        "branchSortCode": "12-23-45",
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "PREMIUM BONDS",
+        "assetAmount": 20.0,
+        "accountOwner": "APPLICANT"
+      },
+      {
+        "capitalType": "PREMIUM BONDS",
+        "assetAmount": 1000000.0
+      },
+      {
+        "capitalType": "TRUST FUND",
+        "assetAmount": 5000.0
+      }
+    ]
+  },
+  "iojBypass": false
+}

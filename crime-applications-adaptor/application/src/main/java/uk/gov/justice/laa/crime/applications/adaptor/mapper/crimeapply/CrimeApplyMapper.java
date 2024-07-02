@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.Assessment;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.MaatApplicationInternal;
+import uk.gov.justice.laa.crime.model.common.crimeapplication.common.FullMeansAssessment;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.MagistrateCourt;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Supplier;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
@@ -81,10 +83,11 @@ public class CrimeApplyMapper {
       assessment.setInitialMeansAssessment(
           initialMeansAssessmentMapper.map(meansDetails.getIncomeDetails()));
     }
-    if (Objects.nonNull(meansDetails.getOutgoingsDetails())) {
-      assessment.setFullMeansAssessment(
-          fullMeansAssessmentMapper.map(meansDetails.getOutgoingsDetails()));
+    FullMeansAssessment fullMeansAssessment = fullMeansAssessmentMapper.map(meansDetails);
+    if (!CollectionUtils.isEmpty(fullMeansAssessment.getAssessmentDetails())) {
+      assessment.setFullMeansAssessment(fullMeansAssessment);
     }
+
     return assessment;
   }
 
