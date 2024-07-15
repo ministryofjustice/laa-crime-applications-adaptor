@@ -63,6 +63,7 @@ class CapitalEquityMapperTest {
     return Stream.of(
         Arguments.of(Applicant.ResidenceType.RENTED, "TENANT"),
         Arguments.of(Applicant.ResidenceType.TEMPORARY, "TEMP"),
+        Arguments.of(ResidenceType.SOMEONE_ELSE, "TEMP"),
         Arguments.of(Applicant.ResidenceType.PARENTS, "PARENTS"),
         Arguments.of(ResidenceType.PARTNER_OWNED, "OWNER"),
         Arguments.of(ResidenceType.JOINT_OWNED, "OWNER"));
