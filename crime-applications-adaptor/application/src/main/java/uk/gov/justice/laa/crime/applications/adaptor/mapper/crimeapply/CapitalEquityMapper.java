@@ -50,7 +50,7 @@ public class CapitalEquityMapper {
     switch (residenceType) {
       case APPLICANT_OWNED, PARTNER_OWNED, JOINT_OWNED -> residentialStatus = OWNER;
       case RENTED -> residentialStatus = TENANT;
-      case TEMPORARY -> residentialStatus = TEMP;
+      case TEMPORARY, SOMEONE_ELSE -> residentialStatus = TEMP;
       case PARENTS -> residentialStatus = PARENTS;
       default -> residentialStatus = null;
     }
