@@ -1,6 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -20,6 +21,7 @@ import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentS
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MeansPassport;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner.InvolvementInCase;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
 
 class ApplicantMapperTest {
@@ -40,6 +42,24 @@ class ApplicantMapperTest {
 
     String actualApplicantJSON = JsonUtils.objectToJson(actualApplicant);
     JSONAssert.assertEquals("{}", actualApplicantJSON, JSONCompareMode.STRICT);
+  }
+
+  @Test
+  void shouldSuccessfullyMapWhenNoFixedAbodeEmptyAddress() {
+    Address emptyAddress = new Address();
+
+    boolean isNoFixedAbode = applicantMapper.mapNoFixedAbode(emptyAddress);
+
+    assertTrue(isNoFixedAbode);
+  }
+
+  @Test
+  void shouldSuccessfullyMapWhenNoFixedAbode() {
+    Address emptyAddress = null;
+
+    boolean isNoFixedAbode = applicantMapper.mapNoFixedAbode(emptyAddress);
+
+    assertTrue(isNoFixedAbode);
   }
 
   @Test
@@ -141,6 +161,6 @@ class ApplicantMapperTest {
     return Stream.of(
         Arguments.of("MaatApplication_partner.json", InvolvementInCase.VICTIM, "ALLV"),
         Arguments.of("MaatApplication_partner.json", InvolvementInCase.PROSECUTION_WITNESS, "PROW"),
-        Arguments.of("MaatApplication_partner.json", InvolvementInCase.NO_INVOLVEMENT, "NOCON"));
+        Arguments.of("MaatApplication_partner.json", InvolvementInCase.NONE, "NOCON"));
   }
 }

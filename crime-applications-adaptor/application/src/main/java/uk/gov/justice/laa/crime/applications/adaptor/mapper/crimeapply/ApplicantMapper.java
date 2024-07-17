@@ -2,6 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Address;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
@@ -133,10 +134,20 @@ class ApplicantMapper {
         .equals(crimeApplyAddressType);
   }
 
-  private boolean mapNoFixedAbode(
+  boolean mapNoFixedAbode(
       uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address
           crimeApplyAddress) {
-    return crimeApplyAddress == null;
+    return crimeApplyAddress == null || isAddressEmpty(crimeApplyAddress);
+  }
+
+  private boolean isAddressEmpty(
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address
+          crimeApplyAddress) {
+    return StringUtils.isEmpty(crimeApplyAddress.getAddressLineOne())
+        && StringUtils.isEmpty(crimeApplyAddress.getAddressLineTwo())
+        && StringUtils.isEmpty(crimeApplyAddress.getCity())
+        && StringUtils.isEmpty(crimeApplyAddress.getCountry())
+        && StringUtils.isEmpty(crimeApplyAddress.getPostcode());
   }
 
   private Address mapAddress(

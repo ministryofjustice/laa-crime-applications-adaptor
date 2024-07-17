@@ -16,7 +16,7 @@ import io.restassured.response.ValidatableResponse;
 import java.io.File;
 import net.serenitybdd.annotations.Steps;
 import net.serenitybdd.core.Serenity;
-import org.eclipse.jetty.http.HttpStatus;
+import org.htmlunit.jetty.http.HttpStatus;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
