@@ -11,6 +11,7 @@ class InitialMeansAssessmentMapper {
   private final ChildWeightingMapper childWeightingMapper = new ChildWeightingMapper();
   private final BenefitsMapper benefitsMapper = new BenefitsMapper();
   private final OtherIncomeMapper otherIncomeMapper = new OtherIncomeMapper();
+  private final EmployedIncomeMapper employedIncomeMapper = new EmployedIncomeMapper();
 
   @NotNull InitialMeansAssessment map(IncomeDetails crimeApplyIncomeDetails) {
 
@@ -30,6 +31,13 @@ class InitialMeansAssessmentMapper {
       List<AssessmentDetail> otherIncome =
           otherIncomeMapper.mapOtherIncome(crimeApplyIncomeDetails.getIncomePayments());
       assessmentDetails.addAll(otherIncome);
+    }
+
+    if (Objects.nonNull(crimeApplyIncomeDetails.getEmploymentIncomePayments())) {
+      List<AssessmentDetail> employedIncome =
+          employedIncomeMapper.mapEmployedIncome(
+              crimeApplyIncomeDetails.getEmploymentIncomePayments());
+      assessmentDetails.addAll(employedIncome);
     }
 
     initialMeansAssessment.setAssessmentDetails(assessmentDetails);

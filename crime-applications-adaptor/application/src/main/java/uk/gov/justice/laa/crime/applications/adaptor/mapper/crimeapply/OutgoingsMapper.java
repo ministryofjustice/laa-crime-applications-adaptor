@@ -1,12 +1,13 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.BenefitsMapper.DEFAULT_OWNERSHIP_TYPE;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.enums.OutgoingDetails;
-import uk.gov.justice.laa.crime.applications.adaptor.factory.PoundSterling;
-import uk.gov.justice.laa.crime.applications.adaptor.util.FrequencyMapper;
+import uk.gov.justice.laa.crime.applications.adaptor.util.AssessmentDetailMapperUtil;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.AssessmentDetail;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Outgoing;
 
@@ -19,16 +20,14 @@ public class OutgoingsMapper {
 
     if (Objects.nonNull(outgoings)) {
       for (Outgoing outgoing : outgoings) {
-        AssessmentDetail assessmentDetail = new AssessmentDetail();
         String outgoingsType = outgoing.getPaymentType().value();
         OutgoingDetails outgoingDetail = OutgoingDetails.findByValue(outgoingsType);
-        assessmentDetail.setAssessmentDetailCode(outgoingDetail.getCode());
-
-        assessmentDetail.setApplicantAmount(
-            PoundSterling.ofPennies(outgoing.getAmount()).toPounds());
-        assessmentDetail.setApplicantFrequency(
-            FrequencyMapper.mapFrequency(outgoing.getFrequency().value()));
-
+        AssessmentDetail assessmentDetail =
+            AssessmentDetailMapperUtil.mapMeansAssessmentDetails(
+                DEFAULT_OWNERSHIP_TYPE,
+                outgoingDetail.getCode(),
+                outgoing.getAmount(),
+                outgoing.getFrequency().value());
         assessmentDetails.add(assessmentDetail);
       }
     }

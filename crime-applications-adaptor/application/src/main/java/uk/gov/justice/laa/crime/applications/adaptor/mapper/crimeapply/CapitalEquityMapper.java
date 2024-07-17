@@ -50,7 +50,7 @@ public class CapitalEquityMapper {
     switch (residenceType) {
       case APPLICANT_OWNED, PARTNER_OWNED, JOINT_OWNED -> residentialStatus = OWNER;
       case RENTED -> residentialStatus = TENANT;
-      case TEMPORARY -> residentialStatus = TEMP;
+      case TEMPORARY, SOMEONE_ELSE -> residentialStatus = TEMP;
       case PARENTS -> residentialStatus = PARENTS;
       default -> residentialStatus = null;
     }
@@ -79,8 +79,29 @@ public class CapitalEquityMapper {
       mapPremiumBondsToCapitalEquity(capitalDetails.getPremiumBondsTotalValue(), capitalEquity);
     }
 
-    if (hasTrustFund(crimeApplyResponse)) {
-      mapTrustFundToCapitalEquity(capitalDetails.getTrustFundAmountHeld(), capitalEquity);
+    mapTrustFund(crimeApplyResponse, capitalEquity);
+  }
+
+  private void mapTrustFund(
+      MaatApplicationExternal crimeApplyResponse, CapitalEquity capitalEquity) {
+    int trustFund =
+        hasTrustFund(crimeApplyResponse)
+            ? (Integer)
+                crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld()
+            : 0;
+
+    int partnerTrustFund =
+        hasPartnerTrustFund(crimeApplyResponse)
+            ? (Integer)
+                crimeApplyResponse
+                    .getMeansDetails()
+                    .getCapitalDetails()
+                    .getPartnerTrustFundAmountHeld()
+            : 0;
+
+    int totalTrustFund = Integer.sum(trustFund, partnerTrustFund);
+    if (totalTrustFund > 0) {
+      mapTrustFundToCapitalEquity(totalTrustFund, capitalEquity);
     }
   }
 
@@ -125,6 +146,16 @@ public class CapitalEquityMapper {
     return Objects.nonNull(
             crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld())
         && crimeApplyResponse.getMeansDetails().getCapitalDetails().getTrustFundAmountHeld()
+            instanceof Integer;
+  }
+
+  private boolean hasPartnerTrustFund(MaatApplicationExternal crimeApplyResponse) {
+    return Objects.nonNull(
+            crimeApplyResponse
+                .getMeansDetails()
+                .getCapitalDetails()
+                .getPartnerTrustFundAmountHeld())
+        && crimeApplyResponse.getMeansDetails().getCapitalDetails().getPartnerTrustFundAmountHeld()
             instanceof Integer;
   }
 
