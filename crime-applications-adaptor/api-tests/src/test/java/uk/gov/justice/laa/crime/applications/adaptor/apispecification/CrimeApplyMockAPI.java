@@ -3,7 +3,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.apispecification;
 import static io.restassured.RestAssured.given;
 
 import java.io.File;
-import org.eclipse.jetty.http.HttpStatus;
+import org.htmlunit.jetty.http.HttpStatus;
 
 /**
  * This class holds the API specification for the Crime Apply Mock API which is used to set up data
