@@ -7,6 +7,7 @@ public enum OtherIncomeDetails {
   STATE_PENSION("state_pension", "STATE_PEN"),
   MAINTENANCE("maintenance", "MAINT_INC"),
   INTEREST_INVESTMENT("interest_investment", "SAVINGS"),
+  WORK_BENEFITS("work_benefits", "WORK_BEN"),
   OTHER("other", Constants.OTHER_INC),
   STUDENT_LOAN_GRANT("student_loan_grant", Constants.OTHER_INC),
   BOARD_FROM_FAMILY("board_from_family", Constants.OTHER_INC),
