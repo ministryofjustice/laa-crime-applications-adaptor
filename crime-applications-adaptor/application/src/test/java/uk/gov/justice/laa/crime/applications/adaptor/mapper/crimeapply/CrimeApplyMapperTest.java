@@ -4,10 +4,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.stream.Stream;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.FileUtils;
@@ -23,23 +27,6 @@ class CrimeApplyMapperTest {
   @BeforeEach
   void setUp() {
     crimeApplyMapper = new CrimeApplyMapper();
-  }
-
-  @Test
-  void shouldMapAllRequiredFieldsFromMaatApplicationResponse_to_CrimeApplication()
-      throws JSONException {
-    MaatApplicationExternal crimeApplyApplicationDetails =
-        TestData.getMaatApplication("MaatApplication_6000308.json");
-
-    MaatApplicationInternal maatApplicationInternal =
-        crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
-
-    String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
-    String expectedCrimeApplicationJson =
-        JsonUtils.objectToJson(TestData.getCrimeApplication("CrimeApplication_6000308.json"));
-
-    JSONAssert.assertEquals(
-        expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
   }
 
   @Test
@@ -97,7 +84,7 @@ class CrimeApplyMapperTest {
   }
 
   @Test
-  void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() throws JSONException {
+  void shouldSuccessfullyMapWhenNoInterestsOfJusticeAreAvailable() {
     MaatApplicationExternal maatApplicationExternal =
         TestData.getMaatApplication("MaatApplicationNoHomeAddress_toBeMapped.json");
 
@@ -158,20 +145,29 @@ class CrimeApplyMapperTest {
         JSONCompareMode.STRICT);
   }
 
-  @Test
-  void shouldMapAllRequiredFieldsFromMaatApplicationResponseWithUnEmployment_to_CrimeApplication()
-      throws JSONException {
+  @ParameterizedTest
+  @MethodSource("crimeApplicationMappingTestData")
+  void shouldMapAllRequiredFieldsFromMaatApplicationExternalResponse_to_MaatApplicationInternal(
+      String stubMaatDataFileName, String stubCADataFileName) throws JSONException {
     MaatApplicationExternal crimeApplyApplicationDetails =
-        TestData.getMaatApplication("MaatApplication_unemployed.json");
+        TestData.getMaatApplication(stubMaatDataFileName);
 
     MaatApplicationInternal maatApplicationInternal =
         crimeApplyMapper.mapToCrimeApplication(crimeApplyApplicationDetails);
 
     String actualCrimeApplicationJson = JsonUtils.objectToJson(maatApplicationInternal);
     String expectedCrimeApplicationJson =
-        JsonUtils.objectToJson(TestData.getCrimeApplication("CrimeApplication_unemployed.json"));
+        JsonUtils.objectToJson(TestData.getCrimeApplication(stubCADataFileName));
 
     JSONAssert.assertEquals(
         expectedCrimeApplicationJson, actualCrimeApplicationJson, JSONCompareMode.STRICT);
+  }
+
+  private static Stream<Arguments> crimeApplicationMappingTestData() {
+    return Stream.of(
+        Arguments.of("MaatApplication_6000308.json", "CrimeApplication_6000308.json"),
+        Arguments.of("MaatApplication_unemployed.json", "CrimeApplication_unemployed.json"),
+        Arguments.of("MaatApplication_partner.json", "CrimeApplication_partnerDetails.json"),
+        Arguments.of("MaatApplication_employed.json", "CrimeApplication_employed.json"));
   }
 }
