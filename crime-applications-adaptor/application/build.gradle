@@ -14,7 +14,7 @@ def versions = [
         okhttpVersion          : "4.9.3",
         mockwebserverVersion   : "4.12.0",
         pitest                 : "1.16.1",
-        commonsLang3Version    : "3.14.0",
+        commonsLang3Version    : "3.15.0",
         postgresqlVersion      : "42.3.3",
         springauthserverVersion: "1.0.1",
         festVersion            : '1.4',
