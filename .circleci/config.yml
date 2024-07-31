@@ -391,6 +391,7 @@ workflows:
       - deploy-dev:
           requires:
             - build_and_push_image
+          context: laa-crime-apps-slack
 
       - hold_install_on_test:
           type: approval
@@ -400,6 +401,7 @@ workflows:
       - deploy-test:
           requires:
             - hold_install_on_test
+          context: laa-crime-apps-slack
 
       - hold_install_on_uat:
           type: approval
@@ -409,6 +411,7 @@ workflows:
       - deploy-uat:
           requires:
             - hold_install_on_uat
+          context: laa-crime-apps-slack
 
       - hold_install_on_prod:
           type: approval
@@ -418,6 +421,7 @@ workflows:
       - deploy-prod:
           requires:
             - hold_install_on_prod
+          context: laa-crime-apps-slack
 
   build-deploy-branch:
     jobs:
