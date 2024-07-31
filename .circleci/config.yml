@@ -379,6 +379,7 @@ workflows:
       - test_and_assemble:
           requires:
             - scan_app
+          context: laa-crime-apps-slack
 
       - build_and_scan_image:
           requires:
