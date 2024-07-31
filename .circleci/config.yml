@@ -232,7 +232,7 @@ jobs:
           path: application/build/libs
       - slack/notify:
           channel: laa-crimeapps-ci
-          event: fail
+          event: pass
           template: basic_fail_1
           #branch_pattern: main
 
