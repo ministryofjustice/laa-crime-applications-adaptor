@@ -233,7 +233,7 @@ jobs:
       - slack/notify:
           channel: laa-crimeapps-ci
           event: pass
-          template: basic_fail_1
+          template: success_tagged_deploy_1
           #branch_pattern: main
 
   build_and_scan_image:
