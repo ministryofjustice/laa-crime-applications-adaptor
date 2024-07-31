@@ -234,7 +234,7 @@ jobs:
           channel: laa-crimeapps-ci
           event: fail
           template: basic_fail_1
-          branch_pattern: main
+          #branch_pattern: main
 
   build_and_scan_image:
     docker:
