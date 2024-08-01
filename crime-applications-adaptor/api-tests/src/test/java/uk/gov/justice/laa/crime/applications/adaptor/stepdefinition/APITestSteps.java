@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -160,6 +161,12 @@ public class APITestSteps {
   public void noEntryForTheApplicationShouldBePresentInTheEformsHistoryTable(int usn) {
     ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormHistoryByUsn(usn);
     validatableResponse.assertThat().statusCode(HttpStatus.OK_200).body(equalTo("[]"));
+  }
+
+  @And("any existing EFORMS_STAGING and EFORMS_HISTORY data has been deleted for USN {int}")
+  public void anyExistingEformsStagingAndEformsHistoryDataHasBeenDeletedForUsn(int usn) {
+    maatCourtDataAPI.deleteEFormStagingByUsn(usn);
+    maatCourtDataAPI.deleteEFormHistoryByUsn(usn);
   }
 
   @After

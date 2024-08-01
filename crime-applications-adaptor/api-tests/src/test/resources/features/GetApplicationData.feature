@@ -2,6 +2,7 @@ Feature: Retrieve application data from the Crime Apply Datastore.
 
   Scenario Outline: Retrieve valid application data from Crime Apply Data Store by USN.
     Given an application with usn <usn> exists in the datastore
+    And any existing EFORMS_STAGING and EFORMS_HISTORY data has been deleted for USN <usn>
     And no entry for usn <usn> should be present in the EFORMS_STAGING table
     And no entry for usn <usn> should be present in the EFORMS_HISTORY table
     When the GET internal V1 crimeapply endpoint is called with usn <usn> and user "<user>"
