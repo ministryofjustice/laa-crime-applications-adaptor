@@ -232,9 +232,9 @@ jobs:
           path: application/build/libs
       - slack/notify:
           channel: laa-crimeapps-ci
-          event: pass
-          template: success_tagged_deploy_1
-          #branch_pattern: main
+          event: fail
+          template: basic_fail_1
+          branch_pattern: main
 
   build_and_scan_image:
     docker:
@@ -302,7 +302,6 @@ jobs:
           channel: laa-crimeapps-ci
           event: pass
           template: success_tagged_deploy_1
-          branch_pattern: main
 
   deploy-test:
     executor: cloud-platform-executor
@@ -322,7 +321,6 @@ jobs:
           channel: laa-crimeapps-ci
           event: pass
           template: success_tagged_deploy_1
-          branch_pattern: main
 
   deploy-uat:
     executor: cloud-platform-executor
@@ -339,7 +337,6 @@ jobs:
           channel: laa-crimeapps-ci
           event: pass
           template: success_tagged_deploy_1
-          branch_pattern: main
 
   deploy-prod:
     executor: cloud-platform-executor
@@ -356,7 +353,6 @@ jobs:
           channel: laa-crimeapps-ci
           event: pass
           template: success_tagged_deploy_1
-          branch_pattern: main
 
 # ------------------
 # WORKFLOWS
@@ -457,6 +453,7 @@ workflows:
       - deploy-dev:
           requires:
             - hold_install_on_dev
+          context: laa-crime-apps-slack
 
       - hold_install_on_test:
           type: approval
@@ -466,6 +463,7 @@ workflows:
       - deploy-test:
           requires:
             - hold_install_on_test
+          context: laa-crime-apps-slack
 
       - hold_install_on_uat:
           type: approval
@@ -475,3 +473,4 @@ workflows:
       - deploy-uat:
           requires:
             - hold_install_on_uat
+          context: laa-crime-apps-slack
