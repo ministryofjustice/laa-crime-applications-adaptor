@@ -246,7 +246,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "###Deployment Successful! 🥳",
+                      "text": "###Deployment Successful! 🥳"
                     },   
                     {
                       "type": "mrkdwn",
