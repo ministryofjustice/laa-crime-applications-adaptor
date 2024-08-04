@@ -247,7 +247,6 @@ jobs:
                     {
                       "type": "mrkdwn",
                       "text": "###Deployment Successful! 🥳",
-                      "emoji": true
                     },   
                     {
                       "type": "mrkdwn",
