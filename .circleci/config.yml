@@ -83,7 +83,6 @@ commands:
                 }
               ]
             }
-
   checkout_and_decrypt:
     steps:
       - checkout
@@ -178,7 +177,7 @@ commands:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack_successful_deployment_notify
+
 
   deploy-to:
     description: >
@@ -291,6 +290,7 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+      - slack_successful_deployment_notify
 
   build_and_scan_image:
     docker:
@@ -354,10 +354,7 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack/notify:
-          channel: laa-crimeapps-ci
-          event: pass
-          template: success_tagged_deploy_1
+      - slack_successful_deployment_notify
 
   deploy-test:
     executor: cloud-platform-executor
@@ -373,10 +370,7 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack/notify:
-          channel: laa-crimeapps-ci
-          event: pass
-          template: success_tagged_deploy_1
+      - slack_successful_deployment_notify
 
   deploy-uat:
     executor: cloud-platform-executor
@@ -389,10 +383,7 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack/notify:
-          channel: laa-crimeapps-ci
-          event: pass
-          template: success_tagged_deploy_1
+      - slack_successful_deployment_notify
 
   deploy-prod:
     executor: cloud-platform-executor
@@ -405,10 +396,7 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack/notify:
-          channel: laa-crimeapps-ci
-          event: pass
-          template: success_tagged_deploy_1
+      - slack_successful_deployment_notify
 
 # ------------------
 # WORKFLOWS
