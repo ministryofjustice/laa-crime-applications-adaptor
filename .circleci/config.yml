@@ -243,12 +243,17 @@ jobs:
               "blocks": [
                 {
                   "type": "header",
-                  "fields": [
+                  "text": [
                     {
                       "type": "plain_text",
                       "text": "Deployment Successful! 🥳",
                       "emoji": true
-                    },   
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "fields": [
                     {
                       "type": "mrkdwn",
                       "text": "*Branch:*\n$CIRCLE_BRANCH"
@@ -256,6 +261,20 @@ jobs:
                     {
                       "type": "mrkdwn",
                       "text": "*Successful Job:*\n$CIRCLE_JOB"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "action_id": "deployment_link",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Job"
+                      },
+                      "url": "${CIRCLE_BUILD_URL}"
                     }
                   ]
                 }
