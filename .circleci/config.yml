@@ -243,13 +243,12 @@ jobs:
               "blocks": [
                 {
                   "type": "header",
-                  "text": [
-                    {
-                      "type": "plain_text",
-                      "text": "Deployment Successful! :partying_face:",
-                      "emoji": true
-                    }
-                  ]
+                  "text":
+                  {
+                    "type": "plain_text",
+                    "text": "Deployment Successful! :partying_face:",
+                    "emoji": true
+                  }
                 },
                 {
                   "type": "section",
