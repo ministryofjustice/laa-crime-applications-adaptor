@@ -246,7 +246,7 @@ jobs:
                   "text": [
                     {
                       "type": "plain_text",
-                      "text": "Deployment Successful! 🥳",
+                      "text": "Deployment Successful! :partying_face:",
                       "emoji": true
                     }
                   ]
@@ -254,13 +254,21 @@ jobs:
                 {
                   "type": "section",
                   "fields": [
-                    {
+            		{
                       "type": "mrkdwn",
-                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                      "text": "*Project:* $CIRCLE_PROJECT_REPONAME"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Successful Job:*\n$CIRCLE_JOB"
+                      "text": "*When:* $(date +'%m/%d/%Y %T')"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:* \n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Successful Job:* \n$CIRCLE_JOB"
                     }
                   ]
                 },
