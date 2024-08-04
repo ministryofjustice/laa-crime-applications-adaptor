@@ -235,6 +235,32 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+      - slack/notify:
+          channel: laa-crimeapps-ci
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "###Deployment Successful! 🥳",
+                      "emoji": true
+                    },   
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Successful Deployment:*\n$CIRCLE_JOB"
+                    }
+                  ]
+                }
+              ]
+            }
 
   build_and_scan_image:
     docker:
