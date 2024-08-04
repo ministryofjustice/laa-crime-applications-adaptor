@@ -29,60 +29,6 @@ executors:
 # COMMANDS
 # ------------------
 commands:
-  slack_successful_deployment_notify:
-    steps:
-      - slack/notify:
-          channel: laa-crimeapps-ci
-          event: pass
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "header",
-                  "text":
-                  {
-                    "type": "plain_text",
-                    "text": "Deployment Successful! :partying_face:",
-                    "emoji": true
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-            		{
-                      "type": "mrkdwn",
-                      "text": "*Project:* $CIRCLE_PROJECT_REPONAME"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*When:* $(date +'%m/%d/%Y %T')"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Branch:* \n$CIRCLE_BRANCH"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Successful Job:* \n$CIRCLE_JOB"
-                    }
-                  ]
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "action_id": "deployment_link",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Job"
-                      },
-                      "url": "${CIRCLE_BUILD_URL}"
-                    }
-                  ]
-                }
-              ]
-            }
   checkout_and_decrypt:
     steps:
       - checkout
@@ -177,7 +123,60 @@ commands:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-
+  slack_successful_deployment_notify:
+    steps:
+      - slack/notify:
+          channel: laa-crimeapps-ci
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text":
+                  {
+                    "type": "plain_text",
+                    "text": "Deployment Successful! :partying_face:",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+            		{
+                      "type": "mrkdwn",
+                      "text": "*Project:* $CIRCLE_PROJECT_REPONAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*When:* $(date +'%m/%d/%Y %T')"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:* \n$CIRCLE_BRANCH"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Successful Job:* \n$CIRCLE_JOB"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "action_id": "deployment_link",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Job"
+                      },
+                      "url": "${CIRCLE_BUILD_URL}"
+                    }
+                  ]
+                }
+              ]
+            }
 
   deploy-to:
     description: >
@@ -290,7 +289,6 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-      - slack_successful_deployment_notify
 
   build_and_scan_image:
     docker:
