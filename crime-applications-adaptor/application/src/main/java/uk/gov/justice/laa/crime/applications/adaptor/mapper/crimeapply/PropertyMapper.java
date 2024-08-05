@@ -103,17 +103,18 @@ public class PropertyMapper {
   }
 
   private BigDecimal getPercentagePartnerOwned(Object percentagePartnerOwned) {
-    if (Objects.nonNull(percentagePartnerOwned)) {
-      if (percentagePartnerOwned instanceof Integer integerPercentagePartnerOwned) {
-        return BigDecimal.valueOf(integerPercentagePartnerOwned);
-      } else if (percentagePartnerOwned instanceof BigDecimal bigDecimalPercentagePartnerOwned) {
-        return bigDecimalPercentagePartnerOwned;
-      } else {
-        return BigDecimal.ZERO;
-      }
-    } else {
+    if (Objects.isNull(percentagePartnerOwned)) {
       return BigDecimal.ZERO;
     }
+
+    if (percentagePartnerOwned instanceof Integer integerPercentagePartnerOwned) {
+      return BigDecimal.valueOf(integerPercentagePartnerOwned);
+    } else if (percentagePartnerOwned instanceof Double doublePercentagePartnerOwned) {
+      return BigDecimal.valueOf(doublePercentagePartnerOwned);
+    } else if (percentagePartnerOwned instanceof BigDecimal bigDecimalPercentagePartnerOwned) {
+      return bigDecimalPercentagePartnerOwned;
+    }
+    return BigDecimal.ZERO;
   }
 
   private String getBedrooms(Object bedrooms) {

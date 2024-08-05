@@ -162,6 +162,12 @@ public class APITestSteps {
     validatableResponse.assertThat().statusCode(HttpStatus.OK_200).body(equalTo("[]"));
   }
 
+  @And("any existing EFORMS_STAGING and EFORMS_HISTORY data has been deleted for USN {int}")
+  public void anyExistingEformsStagingAndEformsHistoryDataHasBeenDeletedForUsn(int usn) {
+    maatCourtDataAPI.deleteEFormStagingByUsn(usn);
+    maatCourtDataAPI.deleteEFormHistoryByUsn(usn);
+  }
+
   @After
   public void cleanUpTestData() {
     int usnToClean = getSessionUsn();

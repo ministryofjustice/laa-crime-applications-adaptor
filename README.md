@@ -79,6 +79,14 @@ These endpoints include:
 
 For a complete list of all out of the box actuator endpoints see [Spring Boot 3.1.5 - Actuator](https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/actuator.html#actuator).
 
+### Debugging in IntelliJ
+
+If you are using IntelliJ, you can do the following to run the debugger when running the application using docker:
+
+- In IntelliJ, go to 'Run Configurations' and add a new 'Remote JVM Debug' configuration.
+- Give it a name, set the host to `localhost` and the port to `8183`. Set 'Use module classpath' to `crime-applications-adaptor`. Hit 'OK' to save your changes.
+- Run the application using `docker-compose up`. When it has started, you can select the debugger in IntelliJ at the top right and hit run.
+
 ### Functional API Tests
 
 The project has been split into two sub module, `application` and `api-tests`. `api-tests` has been added to hold API tests written use Serenity, Cucumber and RestAssured. These tests
