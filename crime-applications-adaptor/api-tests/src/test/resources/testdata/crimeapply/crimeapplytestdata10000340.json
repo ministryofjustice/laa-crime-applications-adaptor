@@ -84,36 +84,6 @@
             "frequency": "four_weeks"
           },
           {
-            "payment_type": "student_loan_grant",
-            "amount": 55,
-            "frequency": "month"
-          },
-          {
-            "payment_type": "board_from_family",
-            "amount": 1000,
-            "frequency": "annual"
-          },
-          {
-            "payment_type": "from_friends_relatives",
-            "amount": 50,
-            "frequency": "week"
-          },
-          {
-            "payment_type": "rent",
-            "amount": 310,
-            "frequency": "month"
-          },
-          {
-            "payment_type": "financial_support_with_access",
-            "amount": 80,
-            "frequency": "month"
-          },
-          {
-            "payment_type": "from_friends_relatives",
-            "amount": 390,
-            "frequency": "month"
-          },
-          {
             "payment_type": "other",
             "amount": 250,
             "frequency": "month",
@@ -140,11 +110,6 @@
             "payment_type": "industrial_injuries_disablement",
             "amount": 400,
             "frequency": "month"
-          },
-          {
-            "payment_type": "jsa",
-            "amount": 400,
-            "frequency": "annual"
           },
           {
             "payment_type": "other",

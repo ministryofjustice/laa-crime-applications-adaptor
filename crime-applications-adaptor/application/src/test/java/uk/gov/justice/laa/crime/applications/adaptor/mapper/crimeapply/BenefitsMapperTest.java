@@ -132,21 +132,6 @@ class BenefitsMapperTest {
   }
 
   @Test
-  void shouldMapJsaToOtherBen() {
-    IncomeBenefit benefit = getBenefitObject();
-    benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
-    List<IncomeBenefit> benefits = List.of(benefit);
-
-    AssessmentDetail assessmentDetail = getAssessmentDetailObject();
-    assessmentDetail.setAssessmentDetailCode(BenefitDetails.OTHER.getCode());
-
-    List<AssessmentDetail> expectedAssessmentDetail = List.of(assessmentDetail);
-    List<AssessmentDetail> actualAssessmentDetail = benefitsMapper.mapBenefits(benefits);
-
-    assertEquals(expectedAssessmentDetail, actualAssessmentDetail);
-  }
-
-  @Test
   void shouldAddBenefitDetailsToNotes() {
     IncomeBenefit benefit = getBenefitObject();
     List<IncomeBenefit> benefits = List.of(benefit);

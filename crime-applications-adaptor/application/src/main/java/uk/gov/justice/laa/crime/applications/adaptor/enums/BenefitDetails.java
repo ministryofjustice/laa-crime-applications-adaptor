@@ -8,8 +8,7 @@ public enum BenefitDetails {
   INCAPACITY("incapacity", "INCAP_BEN"),
   INDUSTRIAL_INJURIES_DISABLEMENT("industrial_injuries_disablement", "INJ_BEN"),
   OTHER("other", Constants.OTHER_BEN),
-  UNIVERSAL_CREDIT("universal_credit", Constants.OTHER_BEN),
-  JSA("jsa", Constants.OTHER_BEN);
+  UNIVERSAL_CREDIT("universal_credit", Constants.OTHER_BEN);
 
   private final String value;
   private final String code;
