@@ -85,7 +85,7 @@
         }
       ],
       "otherBenefitNote": "Details about child benefit\nUniversal Credit",
-      "otherIncomeNote": "Details about private pension\nRent from a tenant",
+      "otherIncomeNote": "Details about private pension",
       "childWeighting": [
         {
           "lowerAgeRange": 8,
