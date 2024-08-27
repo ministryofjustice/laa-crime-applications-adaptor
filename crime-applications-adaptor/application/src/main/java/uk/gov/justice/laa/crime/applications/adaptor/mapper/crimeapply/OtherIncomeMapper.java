@@ -37,16 +37,16 @@ public class OtherIncomeMapper {
   }
 
   public String mapOtherIncomeNotes(List<IncomePayment> otherIncome) {
-    List<String> otherBenefitNotes = new ArrayList<>();
+    List<String> otherIncomeNotes = new ArrayList<>();
     if (Objects.isNull(otherIncome)) {
       return StringUtils.EMPTY;
     }
 
     for (IncomePayment other : otherIncome) {
       if (Objects.nonNull(other.getDetails())) {
-        otherBenefitNotes.add(other.getDetails().toString());
+        otherIncomeNotes.add(other.getDetails().toString());
       }
     }
-    return String.join("\n", otherBenefitNotes);
+    return String.join("\n", otherIncomeNotes);
   }
 }

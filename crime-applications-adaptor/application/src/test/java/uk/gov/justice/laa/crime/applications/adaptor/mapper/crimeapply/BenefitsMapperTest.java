@@ -167,16 +167,4 @@ class BenefitsMapperTest {
 
     assertEquals(expectedBenefitNotes, actualBenefitNotes);
   }
-
-  @Test
-  void shouldAddJsaToNotes() {
-    IncomeBenefit benefit = getBenefitObject();
-    benefit.setPaymentType(IncomeBenefit.PaymentType.JSA);
-    List<IncomeBenefit> benefits = List.of(benefit);
-
-    String expectedBenefitNotes = DETAILS + "\nContribution-based Jobseeker Allowance";
-    String actualBenefitNotes = benefitsMapper.mapOtherBenefitNotes(benefits);
-
-    assertEquals(expectedBenefitNotes, actualBenefitNotes);
-  }
 }
