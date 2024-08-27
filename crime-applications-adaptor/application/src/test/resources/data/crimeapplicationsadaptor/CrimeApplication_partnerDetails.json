@@ -67,8 +67,8 @@
   },
   "assessment": {
     "initialMeansAssessment": {
-      "otherBenefitNote": "Contribution-based Jobseeker Allowance\nDetails of the other benefit",
-      "otherIncomeNote": "Student grant or loan\nBoard from family members living with your client\nMoney from friends or family\nRent from a tenant\nFinancial support from someone who allows your client access to their assets or money\nMoney from friends or family\nDetails of the other payment\nRent from a tenant",
+      "otherBenefitNote": "Details of the other benefit",
+      "otherIncomeNote": "Details of the other payment",
       "assessmentDetails": [
         {
           "applicantAmount": 1.0,
@@ -89,11 +89,6 @@
           "applicantAmount": 4.0,
           "applicantFrequency": "MONTHLY",
           "assessmentDetailCode": "INJ_BEN"
-        },
-        {
-          "applicantAmount": 4.0,
-          "applicantFrequency": "ANNUALLY",
-          "assessmentDetailCode": "OTHER_BEN"
         },
         {
           "applicantAmount": 8.0,
@@ -119,36 +114,6 @@
           "applicantAmount": 1.0,
           "applicantFrequency": "4WEEKLY",
           "assessmentDetailCode": "SAVINGS"
-        },
-        {
-          "applicantAmount": 0.55,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_INC"
-        },
-        {
-          "applicantAmount": 10.0,
-          "applicantFrequency": "ANNUALLY",
-          "assessmentDetailCode": "OTHER_INC"
-        },
-        {
-          "applicantAmount": 0.5,
-          "applicantFrequency": "WEEKLY",
-          "assessmentDetailCode": "OTHER_INC"
-        },
-        {
-          "applicantAmount": 3.1,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_INC"
-        },
-        {
-          "applicantAmount": 0.8,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_INC"
-        },
-        {
-          "applicantAmount": 3.9,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_INC"
         },
         {
           "applicantAmount": 2.5,
