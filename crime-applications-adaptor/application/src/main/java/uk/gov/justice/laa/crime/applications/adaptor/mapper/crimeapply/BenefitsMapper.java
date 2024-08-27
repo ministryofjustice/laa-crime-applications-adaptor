@@ -12,7 +12,6 @@ import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.gener
 public class BenefitsMapper {
 
   private static final String UNIVERSAL_CREDIT = "Universal Credit";
-  private static final String JSA = "Contribution-based Jobseeker Allowance";
   protected static final String DEFAULT_OWNERSHIP_TYPE = "applicant";
 
   public List<AssessmentDetail> mapBenefits(List<IncomeBenefit> benefits) {
@@ -54,8 +53,6 @@ public class BenefitsMapper {
       BenefitDetails benefitDetail = BenefitDetails.findByValue(benefitType);
       if (benefitDetail.getValue().equals(BenefitDetails.UNIVERSAL_CREDIT.getValue())) {
         otherBenefitNotes.add(UNIVERSAL_CREDIT);
-      } else if (benefitDetail.getValue().equals(BenefitDetails.JSA.getValue())) {
-        otherBenefitNotes.add(JSA);
       }
     }
 
