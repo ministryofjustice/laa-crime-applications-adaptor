@@ -114,7 +114,7 @@
           "applicantAmount": 1.0,
           "applicantFrequency": "4WEEKLY",
           "assessmentDetailCode": "SAVINGS"
-        }
+        },
         {
           "applicantAmount": 2.5,
           "applicantFrequency": "MONTHLY",
