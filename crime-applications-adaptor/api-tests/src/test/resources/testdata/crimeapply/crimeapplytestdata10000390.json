@@ -112,7 +112,7 @@
             "ownership_type": "applicant"
           },
           {
-            "payment_type": "rent",
+            "payment_type": "other",
             "amount": 150,
             "frequency": "month",
             "ownership_type": "partner"
