@@ -1,5 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,5 +59,19 @@ class InitialMeansAssessmentMapperTest {
 
     String actualInitialMeansAssessmentJSON = JsonUtils.objectToJson(initialMeansAssessment);
     JSONAssert.assertEquals("{}", actualInitialMeansAssessmentJSON, JSONCompareMode.STRICT);
+  }
+
+  @Test
+  void shouldMapInitialAssessmentNote() {
+    IncomeDetails crimeApplyIncomeDetails =
+        TestData.getMaatApplication("MaatApplication_unemployed.json")
+            .getMeansDetails()
+            .getIncomeDetails();
+    crimeApplyIncomeDetails.setManageOtherDetails("They are living on the streets or homeless");
+    InitialMeansAssessment initialMeansAssessment =
+        initialMeansAssessmentMapper.map(crimeApplyIncomeDetails);
+    assertEquals(
+        crimeApplyIncomeDetails.getManageOtherDetails(),
+        initialMeansAssessment.getInitialAssessmentNote());
   }
 }
