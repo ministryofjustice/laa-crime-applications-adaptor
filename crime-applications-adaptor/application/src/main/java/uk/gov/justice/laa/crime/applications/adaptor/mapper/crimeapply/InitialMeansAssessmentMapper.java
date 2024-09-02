@@ -48,6 +48,11 @@ class InitialMeansAssessmentMapper {
     initialMeansAssessment.setChildWeighting(
         childWeightingMapper.mapChildWeighting(crimeApplyIncomeDetails.getDependants()));
 
+    initialMeansAssessment.setInitialAssessmentNote(
+        Objects.nonNull(crimeApplyIncomeDetails.getManageOtherDetails())
+            ? (String) crimeApplyIncomeDetails.getManageOtherDetails()
+            : null);
+
     return initialMeansAssessment;
   }
 }
