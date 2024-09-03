@@ -67,6 +67,7 @@ class InitialMeansAssessmentMapperTest {
         TestData.getMaatApplication("MaatApplication_unemployed.json")
             .getMeansDetails()
             .getIncomeDetails();
+    crimeApplyIncomeDetails.setManageWithoutIncome("other");
     crimeApplyIncomeDetails.setManageOtherDetails("They are living on the streets or homeless");
     InitialMeansAssessment initialMeansAssessment =
         initialMeansAssessmentMapper.map(crimeApplyIncomeDetails);
