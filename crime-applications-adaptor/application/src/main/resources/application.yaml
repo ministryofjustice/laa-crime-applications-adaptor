@@ -37,6 +37,8 @@ resilience4j:
         base-config: default
       callCrimeApplyDatastore:
         base-config: default
+      crimeApplicationResultService:
+        base-config: default
 
 spring:
   security:

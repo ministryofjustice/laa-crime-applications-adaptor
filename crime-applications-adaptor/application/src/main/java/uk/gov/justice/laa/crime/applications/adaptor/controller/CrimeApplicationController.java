@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
-import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
+import uk.gov.justice.laa.crime.applications.adaptor.annotation.StandardApiResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
@@ -42,20 +42,7 @@ public class CrimeApplicationController {
           @Content(
               mediaType = MediaType.APPLICATION_JSON_VALUE,
               schema = @Schema(implementation = MaatApplicationInternal.class)))
-  @ApiResponse(
-      responseCode = "400",
-      description = "Bad request.",
-      content =
-          @Content(
-              mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
-              schema = @Schema(implementation = ProblemDetail.class)))
-  @ApiResponse(
-      responseCode = "500",
-      description = "Server Error.",
-      content =
-          @Content(
-              mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
-              schema = @Schema(implementation = ProblemDetail.class)))
+  @StandardApiResponse
   public MaatApplicationInternal getCrimeApplyData(
       @PathVariable long id, @PathVariable String userCreated) {
     log.info("Get applicant details from Crime Apply datastore");
