@@ -20,7 +20,7 @@ public class CrimeApplicationResultMapper {
     crimeApplicationResult.setCaseId(repOrderState.getCaseId());
     crimeApplicationResult.setCaseType(
         Objects.nonNull(repOrderState.getCaseType())
-            ? CrimeApplicationResult.CaseType.valueOf(repOrderState.getCaseType())
+            ? CrimeApplicationResult.CaseType.fromValue(repOrderState.getCaseType())
             : null);
     crimeApplicationResult.setAppCreatedDate(repOrderState.getDateMeansCreated());
     crimeApplicationResult.setIojResult(repOrderState.getIojResult());

@@ -94,7 +94,7 @@ class CrimeApplicationResultMapperTest {
         .usn(123455)
         .maatRef(56789)
         .caseId("case_id")
-        .caseType("INDICTABLE")
+        .caseType("SUMMARY ONLY")
         .iojResult("PASS")
         .iojReason("IOJ Notes")
         .dateAppCreated(LocalDate.of(2024, 5, 5))
@@ -115,7 +115,7 @@ class CrimeApplicationResultMapperTest {
     result.setCaseId("case_id");
     result.setMaatRef(56789);
     result.setCaseId("case_id");
-    result.setCaseType(CrimeApplicationResult.CaseType.INDICTABLE);
+    result.setCaseType(CrimeApplicationResult.CaseType.fromValue("SUMMARY ONLY"));
     result.setIojResult("PASS");
     result.setIojReason("IOJ Notes");
     result.setAppCreatedDate(LocalDate.of(2024, 5, 5).atStartOfDay());
