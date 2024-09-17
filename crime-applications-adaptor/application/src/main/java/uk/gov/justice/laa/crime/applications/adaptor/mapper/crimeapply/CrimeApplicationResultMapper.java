@@ -22,7 +22,10 @@ public class CrimeApplicationResultMapper {
         Objects.nonNull(repOrderState.getCaseType())
             ? CrimeApplicationResult.CaseType.fromValue(repOrderState.getCaseType())
             : null);
-    crimeApplicationResult.setAppCreatedDate(repOrderState.getDateMeansCreated());
+    crimeApplicationResult.setAppCreatedDate(
+        Objects.nonNull(repOrderState.getDateAppCreated())
+            ? repOrderState.getDateAppCreated().atStartOfDay()
+            : null);
     crimeApplicationResult.setIojResult(repOrderState.getIojResult());
     crimeApplicationResult.setIojReason(repOrderState.getIojReason());
     crimeApplicationResult.setIojAssessorName(repOrderState.getIojAssessorName());
@@ -49,7 +52,7 @@ public class CrimeApplicationResultMapper {
 
   private void mapPassportAssessments(
       CrimeApplicationResult crimeApplicationResult, RepOrderState repOrderState) {
-    if (Objects.isNull(crimeApplicationResult.getMeansResult())) {
+    if (Objects.isNull(crimeApplicationResult.getMeansResult()) && Objects.nonNull(repOrderState.getPassportStatus())) {
       crimeApplicationResult.setMeansResult(mapPassportResults(repOrderState.getPassportResult()));
       crimeApplicationResult.setDateMeansCreated(repOrderState.getDatePassportCreated());
       crimeApplicationResult.setMeansAssessorName(repOrderState.getPassportAssessorName());
