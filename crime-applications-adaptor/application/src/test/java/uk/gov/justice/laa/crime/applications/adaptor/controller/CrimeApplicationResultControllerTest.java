@@ -89,4 +89,26 @@ class CrimeApplicationResultControllerTest {
         .andExpect(jsonPath("$.status").value("503"))
         .andExpect(jsonPath("$.detail").value("503 SERVICE_UNAVAILABLE"));
   }
+
+  @Test
+  void shouldReturnCrimeApplicationResultsForGivenRepID() throws Exception {
+    CrimeApplicationResult crimeApplicationResult = new CrimeApplicationResult();
+    crimeApplicationResult.setMaatRef(9775838);
+    crimeApplicationResult.setMeansResult("PASS");
+    when(crimeApplicationResultService.getCrimeApplicationResultByRepId(9775838))
+        .thenReturn(crimeApplicationResult);
+
+    RequestBuilder request =
+        MockMvcRequestBuilders.get(BASE_ENDPOINT_FORMAT + "/rep-order-id/{repId}", "9775838")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON);
+
+    mockMvc
+        .perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.maat_ref", is(9775838)))
+        .andExpect(jsonPath("$.means_result", is("PASS")));
+    verify(crimeApplicationResultService, times(1)).getCrimeApplicationResultByRepId(9775838);
+  }
 }

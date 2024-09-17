@@ -28,7 +28,7 @@ public class CrimeApplicationResultController {
   private final CrimeApplicationResultService crimeApplicationResultService;
 
   @GetMapping(value = "/usn/{usn}", produces = MediaType.APPLICATION_JSON_VALUE)
-  @Operation(description = "Retrieve application details from crime apply datastore")
+  @Operation(description = "Retrieve Crime Application Result from MAAT by USN")
   @ApiResponse(
       responseCode = "200",
       content =
@@ -39,5 +39,19 @@ public class CrimeApplicationResultController {
   public CrimeApplicationResult getCrimeApplicationResultByUsn(@PathVariable int usn) {
     log.info("Invoking Service to get Crime Application Result for usn {}", usn);
     return crimeApplicationResultService.getCrimeApplicationResult(usn);
+  }
+
+  @GetMapping(value = "/rep-order-id/{repId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description = "Retrieve Crime Application Result from MAAT by Rep ID")
+  @ApiResponse(
+      responseCode = "200",
+      content =
+          @Content(
+              mediaType = MediaType.APPLICATION_JSON_VALUE,
+              schema = @Schema(implementation = CrimeApplicationResult.class)))
+  @StandardApiResponse
+  public CrimeApplicationResult getCrimeApplicationResultByRepId(@PathVariable int repId) {
+    log.info("Invoking Service to get Crime Application Result for repId {}", repId);
+    return crimeApplicationResultService.getCrimeApplicationResultByRepId(repId);
   }
 }

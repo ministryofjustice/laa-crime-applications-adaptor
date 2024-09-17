@@ -23,8 +23,18 @@ public class CrimeApplicationResultService {
 
   @Retry(name = SERVICE_NAME)
   public CrimeApplicationResult getCrimeApplicationResult(int usn) {
-    log.info("Start - call to Rep Order State API ");
+    log.info("Start - call to Rep Order State API with usn: {}", usn);
     RepOrderState repOrderState = maatCourtDataApiClient.retrieveCrimeApplicationResultsByUsn(usn);
+    CrimeApplicationResult crimeApplicationResult = crimeApplicationResultMapper.map(repOrderState);
+    return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
+        .observe(() -> crimeApplicationResult);
+  }
+
+  @Retry(name = SERVICE_NAME)
+  public CrimeApplicationResult getCrimeApplicationResultByRepId(int repId) {
+    log.info("Start - call to Rep Order State API with repId: {}", repId);
+    RepOrderState repOrderState =
+        maatCourtDataApiClient.retrieveCrimeApplicationResultsByRepId(repId);
     CrimeApplicationResult crimeApplicationResult = crimeApplicationResultMapper.map(repOrderState);
     return Observation.createNotStarted(SERVICE_NAME, observationRegistry)
         .observe(() -> crimeApplicationResult);
