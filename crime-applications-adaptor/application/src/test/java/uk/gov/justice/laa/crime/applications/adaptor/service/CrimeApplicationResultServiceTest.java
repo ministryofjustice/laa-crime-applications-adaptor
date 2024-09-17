@@ -99,7 +99,8 @@ class CrimeApplicationResultServiceTest {
         .thenReturn(repOrderState);
     when(crimeApplicationResultMapper.map(repOrderState)).thenCallRealMethod();
 
-    CrimeApplicationResult actual = crimeApplicationResultService.getCrimeApplicationResultByRepId(123456);
+    CrimeApplicationResult actual =
+        crimeApplicationResultService.getCrimeApplicationResultByRepId(123456);
 
     verify(maatCourtDataApiClient, times(1)).retrieveCrimeApplicationResultsByRepId(123456);
     assertEquals(expected.getMaatRef(), actual.getMaatRef());
@@ -117,7 +118,8 @@ class CrimeApplicationResultServiceTest {
   }
 
   @Test
-  void shouldThrowWebClientRequestException_givenNetworkUnreachableOnInvokingMaatCourtDataAPIByRepId() {
+  void
+      shouldThrowWebClientRequestException_givenNetworkUnreachableOnInvokingMaatCourtDataAPIByRepId() {
     when(maatCourtDataApiClient.retrieveCrimeApplicationResultsByRepId(123456))
         .thenThrow(WebClientRequestException.class);
     assertThrows(
