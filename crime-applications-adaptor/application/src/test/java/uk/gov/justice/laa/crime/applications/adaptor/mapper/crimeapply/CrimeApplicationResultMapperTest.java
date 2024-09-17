@@ -50,6 +50,16 @@ class CrimeApplicationResultMapperTest {
         expectedCrimeApplicationResults, actualCrimeApplicationResults, JSONCompareMode.STRICT);
   }
 
+  @Test
+  void shouldMapNullValuesWithoutException() throws JSONException {
+    var expected = nullValueCrimeApplicationResult();
+    var actual = mapper.map(nullValueRepOrderState());
+    String actualCrimeApplicationResults = JsonUtils.objectToJson(actual);
+    String expectedCrimeApplicationResults = JsonUtils.objectToJson(expected);
+    JSONAssert.assertEquals(
+        expectedCrimeApplicationResults, actualCrimeApplicationResults, JSONCompareMode.STRICT);
+  }
+
   @ParameterizedTest
   @MethodSource("PassportResultTestData")
   void shouldMapCrimeApplicationResultWithPassportAssessment(
@@ -124,6 +134,44 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult("PASS");
     result.setDateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setMeansAssessorName("MEANS ASSESSOR");
+    return result;
+  }
+
+  private RepOrderState nullValueRepOrderState() {
+    return RepOrderState.builder()
+        .usn(null)
+        .maatRef(null)
+        .caseId(null)
+        .caseType(null)
+        .iojResult(null)
+        .iojReason(null)
+        .dateAppCreated(null)
+        .iojAssessorName(null)
+        .fundingDecision(null)
+        .meansInitResult(null)
+        .meansInitStatus(null)
+        .meansFullResult(null)
+        .dateMeansCreated(null)
+        .meansFullStatus(null)
+        .meansAssessorName(null)
+        .build();
+  }
+
+  private CrimeApplicationResult nullValueCrimeApplicationResult() {
+    CrimeApplicationResult result = new CrimeApplicationResult();
+    result.setUsn(null);
+    result.setCaseId(null);
+    result.setMaatRef(null);
+    result.setCaseId(null);
+    result.setCaseType(null);
+    result.setIojResult(null);
+    result.setIojReason(null);
+    result.setAppCreatedDate(null);
+    result.setIojAssessorName(null);
+    result.setFundingDecision(null);
+    result.setMeansResult(null);
+    result.setDateMeansCreated(null);
+    result.setMeansAssessorName(null);
     return result;
   }
 }
