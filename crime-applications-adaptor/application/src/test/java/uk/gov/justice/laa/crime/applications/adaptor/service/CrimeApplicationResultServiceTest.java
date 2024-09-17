@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClie
 import uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply.CrimeApplicationResultMapper;
 import uk.gov.justice.laa.crime.applications.adaptor.model.RepOrderState;
 import uk.gov.justice.laa.crime.model.common.atis.CrimeApplicationResult;
+import uk.gov.justice.laa.crime.model.common.atis.CrimeApplicationResult.CaseType;
 
 @ExtendWith(MockitoExtension.class)
 class CrimeApplicationResultServiceTest {
@@ -51,5 +53,35 @@ class CrimeApplicationResultServiceTest {
     assertThrows(
         WebClientRequestException.class,
         () -> crimeApplicationResultService.getCrimeApplicationResult(123455));
+  }
+
+  @Test
+  void shouldReturnCrimeApplicationResultsByRepId_AfterInvokingMAATCourtDataAPI() {
+
+    RepOrderState repOrderState =
+        RepOrderState.builder()
+            .maatRef(123456)
+            .usn(123455)
+            .meansInitResult("FAIL")
+            .meansInitStatus("COMPLETE")
+            .meansFullResult("PASS")
+            .meansFullStatus("COMPLETE")
+            .build();
+
+    CrimeApplicationResult expected = new CrimeApplicationResult();
+    expected.setMaatRef(123456);
+    expected.setUsn(123455);
+    expected.setMeansResult("PASS");
+
+
+    when(maatCourtDataApiClient.retrieveCrimeApplicationResultsByRepId(123456))
+        .thenReturn(repOrderState);
+    when(crimeApplicationResultMapper.map(repOrderState)).thenReturn(expected);
+
+    CrimeApplicationResult actual = crimeApplicationResultService.getCrimeApplicationResultByRepId(123456);
+
+    verify(maatCourtDataApiClient, times(1)).retrieveCrimeApplicationResultsByRepId(123456);
+    assertEquals(expected.getMaatRef(), actual.getMaatRef());
+    assertEquals(expected.getMeansResult(), actual.getMeansResult());
   }
 }
