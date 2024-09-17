@@ -22,6 +22,6 @@ public interface MaatCourtDataApiClient {
   @GetExchange("/internal/v1/assessment/rep-orders/usn/{usn}")
   RepOrderState retrieveCrimeApplicationResultsByUsn(@PathVariable int usn);
 
-  @GetExchange("/api/internal/v1/assessment/rep-orders/rep-order-state/{repId}")
+  @GetExchange("/internal/v1/assessment/rep-orders/rep-order-state/{repId}")
   RepOrderState retrieveCrimeApplicationResultsByRepId(@PathVariable int repId);
 }
