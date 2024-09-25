@@ -9,7 +9,7 @@ def versions = [
         jUnitPlatformSuiteVersion: "1.10.2",
         cucumberEngineVersion    : "7.18.0",
         junitBOMVersion          : "5.10.2",
-        commonsVersion: "1.5.0"
+        commonsVersion: "1.5.1"
 ]
 
 dependencies {

@@ -15,9 +15,6 @@ public class CrimeApplicationResultMapper {
 
   public CrimeApplicationResult map(RepOrderState repOrderState) {
     CrimeApplicationResult crimeApplicationResult = new CrimeApplicationResult();
-    if (Objects.isNull(repOrderState)) {
-      return crimeApplicationResult;
-    }
     crimeApplicationResult.setUsn(repOrderState.getUsn());
     crimeApplicationResult.setMaatRef(repOrderState.getMaatRef());
     crimeApplicationResult.setCaseId(repOrderState.getCaseId());
