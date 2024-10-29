@@ -21,7 +21,6 @@ import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentS
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MeansPassport;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner.InvolvementInCase;
-import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.Address;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
 
 class ApplicantMapperTest {
@@ -46,8 +45,10 @@ class ApplicantMapperTest {
 
   @Test
   void shouldSuccessfullyMapWhenNoFixedAbode() {
-    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType nfaResidence =
-            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType.NONE;
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType
+        nfaResidence =
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+                .ResidenceType.NONE;
 
     boolean isNoFixedAbode = applicantMapper.mapNoFixedAbode(nfaResidence);
 

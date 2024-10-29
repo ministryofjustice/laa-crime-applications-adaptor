@@ -23,7 +23,8 @@
       "correspondence_address_type": "providers_office_address",
       "last_name": "Walker",
       "first_name": "Pat",
-      "other_names": ""
+      "other_names": "",
+      "residence_type": "none"
     }
   },
   "case_details": {

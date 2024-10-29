@@ -2,7 +2,6 @@ package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
-import org.apache.commons.lang3.StringUtils;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Address;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
@@ -135,9 +134,12 @@ class ApplicantMapper {
   }
 
   boolean mapNoFixedAbode(
-          uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType residenceType) {
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType
+          residenceType) {
     return residenceType != null
-            && uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.ResidenceType.NONE.equals(residenceType);
+        && uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+            .ResidenceType.NONE
+            .equals(residenceType);
   }
 
   private Address mapAddress(
