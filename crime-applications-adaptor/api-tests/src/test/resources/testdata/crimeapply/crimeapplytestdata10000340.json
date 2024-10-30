@@ -42,6 +42,7 @@
         "date_of_birth": "1980-01-10",
         "telephone_number": "",
         "correspondence_address": null,
+        "residence_type": "none",
         "correspondence_address_type": "providers_office_address"
       }
     },
