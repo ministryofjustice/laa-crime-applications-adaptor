@@ -23,6 +23,7 @@
       "telephone_number": "07771231231",
       "correspondence_address_type": "providers_office_address",
       "home_address": null,
+      "residence_type": "none",
       "correspondence_address": {
         "lookup_id": null,
         "address_line_one": "1 Road",
