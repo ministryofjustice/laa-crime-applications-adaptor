@@ -7,7 +7,10 @@ env:
   - name: AWS_REGION
     value: {{ .Values.aws_region }}
   - name: SENTRY_DSN
-    value: {{ .Values.sentry.dsn }}
+    valueFrom:
+        secretKeyRef:
+            name: sentry-dsn
+            key: SENTRY_DSN
   - name: SENTRY_SAMPLE_RATE
     value: {{ .Values.sentry.sampleRate | quote }}
   - name: SENTRY_ENV
@@ -36,9 +39,13 @@ env:
     value: {{ .Values.crimeApplyApi.issuer }}
   - name: CRIME_APPLICATION_ADAPTOR_RESOURCE_SERVER_ISSUER_URI
     value: {{ .Values.crimeApplicationAdaptor.issuerUri }}
-  {{- if hasKey .Values.crimeApplyApi "secret" }}
+  {{- $mockSecret := lookup "v1" "Secret" .Release.Namespace "crime-apply-mock-api-auth-secret" }}
+  {{- if $mockSecret.data }}
   - name: CRIME_APPLY_API_AUTH_SECRET
-    value: {{ .Values.crimeApplyApi.secret }}
+    valueFrom:
+      secretKeyRef:
+        name: crime-apply-mock-api-auth-secret
+        key: CRIME_APPLY_MOCK_API_AUTH_SECRET
   {{- else }}
   - name: CRIME_APPLY_API_AUTH_SECRET
     valueFrom:
