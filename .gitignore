@@ -42,3 +42,6 @@ out/
 crime-applications-adaptor/api-tests/src/test/resources/local.config.properties*
 /crime-applications-adaptor/target/
 crime-applications-adaptor/.env*
+
+# Local environment variables for testing
+*.env
