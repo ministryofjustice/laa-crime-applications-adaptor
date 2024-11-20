@@ -76,7 +76,7 @@ You will need to build the artifacts for the source code, using `gradle`.
 ```
 
 ```sh
-./startup-local.sh
+./start-local.sh
 ```
 
 `laa-crime-applications-adaptor` application will be running on http://localhost:8088
