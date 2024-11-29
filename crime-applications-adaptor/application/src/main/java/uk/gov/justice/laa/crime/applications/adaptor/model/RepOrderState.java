@@ -38,4 +38,5 @@ public class RepOrderState {
   private LocalDateTime datePassportCreated;
 
   private String fundingDecision;
+  private String ccRepDecision;
 }

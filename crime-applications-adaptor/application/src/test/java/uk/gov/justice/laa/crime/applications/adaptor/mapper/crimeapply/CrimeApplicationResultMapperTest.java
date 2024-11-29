@@ -116,6 +116,7 @@ class CrimeApplicationResultMapperTest {
         .dateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay())
         .meansFullStatus("COMPLETED")
         .meansAssessorName("MEANS ASSESSOR")
+        .ccRepDecision("Granted - Passed Means Test")
         .build();
   }
 
@@ -134,6 +135,7 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult("PASS");
     result.setDateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setMeansAssessorName("MEANS ASSESSOR");
+    result.setCcRepDecision("Granted - Passed Means Test");
     return result;
   }
 
@@ -154,6 +156,7 @@ class CrimeApplicationResultMapperTest {
         .dateMeansCreated(null)
         .meansFullStatus(null)
         .meansAssessorName(null)
+        .ccRepDecision(null)
         .build();
   }
 
@@ -172,6 +175,7 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult(null);
     result.setDateMeansCreated(null);
     result.setMeansAssessorName(null);
+    result.setCcRepDecision(null);
     return result;
   }
 }
