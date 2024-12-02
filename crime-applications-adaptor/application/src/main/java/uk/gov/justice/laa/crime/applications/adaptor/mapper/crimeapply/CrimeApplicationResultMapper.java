@@ -37,6 +37,7 @@ public class CrimeApplicationResultMapper {
       mapPassportAssessments(crimeApplicationResult, repOrderState);
     }
     crimeApplicationResult.setFundingDecision(repOrderState.getFundingDecision());
+    crimeApplicationResult.setCcRepDecision(repOrderState.getCcRepDecision());
     return crimeApplicationResult;
   }
 
