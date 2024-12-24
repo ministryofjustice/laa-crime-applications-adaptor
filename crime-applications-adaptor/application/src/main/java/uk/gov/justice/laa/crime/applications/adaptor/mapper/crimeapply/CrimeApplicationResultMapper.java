@@ -36,6 +36,9 @@ public class CrimeApplicationResultMapper {
       mapMeansAssessments(crimeApplicationResult, repOrderState);
       mapPassportAssessments(crimeApplicationResult, repOrderState);
     }
+    crimeApplicationResult.setIojAppealResult(repOrderState.getIojAppealResult());
+    crimeApplicationResult.setIojAppealAssessorName(repOrderState.getIojAppealAssessorName());
+    crimeApplicationResult.setIojAppealDate(repOrderState.getIojAppealDate());
     crimeApplicationResult.setFundingDecision(repOrderState.getFundingDecision());
     crimeApplicationResult.setCcRepDecision(repOrderState.getCcRepDecision());
     return crimeApplicationResult;
