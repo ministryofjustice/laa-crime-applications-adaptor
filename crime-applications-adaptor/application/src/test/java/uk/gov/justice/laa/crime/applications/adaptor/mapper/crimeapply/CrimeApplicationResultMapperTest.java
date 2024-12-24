@@ -116,6 +116,9 @@ class CrimeApplicationResultMapperTest {
         .dateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay())
         .meansFullStatus("COMPLETED")
         .meansAssessorName("MEANS ASSESSOR")
+        .iojAppealResult("PASS")
+        .iojAppealAssessorName("IOJ APPEAL ASSESSOR")
+        .iojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay())
         .ccRepDecision("Granted - Passed Means Test")
         .build();
   }
@@ -135,6 +138,9 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult("PASS");
     result.setDateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setMeansAssessorName("MEANS ASSESSOR");
+    result.setIojAppealResult("PASS");
+    result.setIojAppealAssessorName("IOJ APPEAL ASSESSOR");
+    result.setIojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setCcRepDecision("Granted - Passed Means Test");
     return result;
   }
@@ -156,6 +162,9 @@ class CrimeApplicationResultMapperTest {
         .dateMeansCreated(null)
         .meansFullStatus(null)
         .meansAssessorName(null)
+        .iojAppealResult(null)
+        .iojAppealAssessorName(null)
+        .iojAppealDate(null)
         .ccRepDecision(null)
         .build();
   }
@@ -175,6 +184,9 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult(null);
     result.setDateMeansCreated(null);
     result.setMeansAssessorName(null);
+    result.setIojAppealResult(null);
+    result.setIojAppealAssessorName(null);
+    result.setIojAppealDate(null);
     result.setCcRepDecision(null);
     return result;
   }

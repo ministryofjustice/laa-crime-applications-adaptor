@@ -37,6 +37,10 @@ public class RepOrderState {
   private String passportAssessorName;
   private LocalDateTime datePassportCreated;
 
+  private String iojAppealResult;
+  private String iojAppealAssessorName;
+  private LocalDateTime iojAppealDate;
+
   private String fundingDecision;
   private String ccRepDecision;
 }
