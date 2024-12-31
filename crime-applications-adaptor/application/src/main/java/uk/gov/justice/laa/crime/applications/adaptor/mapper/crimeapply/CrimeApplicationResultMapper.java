@@ -57,7 +57,8 @@ public class CrimeApplicationResultMapper {
   private void mapPassportAssessments(
       CrimeApplicationResult crimeApplicationResult, RepOrderState repOrderState) {
     if (Objects.nonNull(repOrderState.getPassportStatus())) {
-      crimeApplicationResult.setPassportResult(mapPassportResults(repOrderState.getPassportResult()));
+      crimeApplicationResult.setPassportResult(
+          mapPassportResults(repOrderState.getPassportResult()));
       crimeApplicationResult.setDatePassportCreated(repOrderState.getDatePassportCreated());
       crimeApplicationResult.setPassportAssessorName(repOrderState.getPassportAssessorName());
     }
