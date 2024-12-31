@@ -65,8 +65,8 @@ class CrimeApplicationResultMapperTest {
   void shouldMapCrimeApplicationResultWithPassportAssessment(
       String actualResult, String expectedResult) throws JSONException {
     var expected = expectedCrimeApplicationResult();
-    expected.setMeansAssessorName("PASSPORT ASSESSOR");
-    expected.setMeansResult(expectedResult);
+    expected.setPassportResult(expectedResult);
+    expected.setMeansResult(null);
 
     RepOrderState repOrderState = getRepOrderStatePassport(actualResult);
 
@@ -116,6 +116,10 @@ class CrimeApplicationResultMapperTest {
         .dateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay())
         .meansFullStatus("COMPLETED")
         .meansAssessorName("MEANS ASSESSOR")
+        .passportStatus("COMPLETED")
+        .passportResult("PASS")
+        .datePassportCreated(LocalDate.of(2024, 5, 5).atStartOfDay())
+        .passportAssessorName("PASSPORT ASSESSOR")
         .iojAppealResult("PASS")
         .iojAppealAssessorName("IOJ APPEAL ASSESSOR")
         .iojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay())
@@ -138,6 +142,9 @@ class CrimeApplicationResultMapperTest {
     result.setMeansResult("PASS");
     result.setDateMeansCreated(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setMeansAssessorName("MEANS ASSESSOR");
+    result.setPassportResult("PASS");
+    result.setDatePassportCreated(LocalDate.of(2024, 5, 5).atStartOfDay());
+    result.setPassportAssessorName("PASSPORT ASSESSOR");
     result.setIojAppealResult("PASS");
     result.setIojAppealAssessorName("IOJ APPEAL ASSESSOR");
     result.setIojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay());
