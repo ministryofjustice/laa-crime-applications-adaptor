@@ -29,9 +29,6 @@ executors:
 # COMMANDS
 # ------------------
 commands:
-  checkout:
-    steps:
-      - checkout
   setup-kubectl:
     description: >
       Authenticate with kubernetes cluster
@@ -43,6 +40,7 @@ commands:
         description: CircleCI Service account token
         type: string
     steps:
+      - checkout
       - run:
           command: |
             echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
