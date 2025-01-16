@@ -31,6 +31,12 @@ env:
           secretKeyRef:
             name: crime-apply-mock-api-auth-secret
             key: CRIME_APPLY_MOCK_API_AUTH_SECRET
+      {{- else }}
+      - name: CAM_JWT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: datastore-api-auth-secret
+            key: secret
       {{- end -}}
   - name: CAA_BASE_URL
     value: {{ .Values.caa.baseUrl }}
