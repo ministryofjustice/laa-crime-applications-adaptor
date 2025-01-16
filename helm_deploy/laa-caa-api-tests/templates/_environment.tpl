@@ -31,7 +31,7 @@ env:
           secretKeyRef:
             name: crime-apply-mock-api-auth-secret
             key: CRIME_APPLY_MOCK_API_AUTH_SECRET
-      {{- else }}
+      {{- end -}}
   - name: CAA_BASE_URL
     value: {{ .Values.caa.baseUrl }}
   - name: CAA_OAUTH_BASE_URL
