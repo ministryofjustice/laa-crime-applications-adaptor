@@ -24,20 +24,20 @@ env:
     value: {{ .Values.crimeApplyApi.baseUrl }}
   - name: CAM_JWT_ISSUER
     value: {{ .Values.crimeApplyApi.issuer }}
-    {{- $mockSecret := lookup "v1" "Secret" .Release.Namespace "crime-apply-mock-api-auth-secret" }}
-      {{- if $mockSecret.data }}
-      - name: CAM_JWT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: crime-apply-mock-api-auth-secret
-            key: CRIME_APPLY_MOCK_API_AUTH_SECRET
-      {{- else }}
-      - name: CAM_JWT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: datastore-api-auth-secret
-            key: secret
-      {{- end -}}
+  {{- $mockSecret := lookup "v1" "Secret" .Release.Namespace "crime-apply-mock-api-auth-secret" }}
+  {{- if $mockSecret.data }}
+  - name: CAM_JWT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: crime-apply-mock-api-auth-secret
+        key: CRIME_APPLY_MOCK_API_AUTH_SECRET
+  {{- else }}
+  - name: CAM_JWT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: datastore-api-auth-secret
+        key: secret
+  {{- end }}
   - name: CAA_BASE_URL
     value: {{ .Values.caa.baseUrl }}
   - name: CAA_OAUTH_BASE_URL
