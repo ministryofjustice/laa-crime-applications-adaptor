@@ -4,8 +4,7 @@
   "applicationType": "initial",
   "caseDetails": {
     "caseType": "APPEAL CC",
-    "offenceClass": "MURDER",
-    "appealReceivedDate": "2021-10-25"
+    "offenceClass": "MURDER"
   },
   "magsCourt": {
     "court": "Cardiff Magistrates' Court"
