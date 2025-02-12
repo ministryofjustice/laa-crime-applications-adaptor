@@ -22,7 +22,7 @@ class CaseDetailsMapper {
     caseDetails.setOffenceClass(offenceClassMapper.map(crimeApplyCaseDetails.getOffenceClass()));
     caseDetails.setAppealMaatId(crimeApplyCaseDetails.getAppealMaatId());
     caseDetails.setAppealWithChangesDetails(crimeApplyCaseDetails.getAppealWithChangesDetails());
-    caseDetails.setAppealReceivedDate(crimeApplyCaseDetails.getAppealLodgedDate());
+    // LASB-3851 Do not map the appealReceivedDate as this will not be persisted correctly in MAAT
 
     return caseDetails;
   }
