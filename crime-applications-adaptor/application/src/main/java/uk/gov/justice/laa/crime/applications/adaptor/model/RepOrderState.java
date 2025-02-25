@@ -43,4 +43,7 @@ public class RepOrderState {
 
   private String fundingDecision;
   private String ccRepDecision;
+
+  private String meansReviewType;
+  private String passportReviewType;
 }

@@ -124,6 +124,8 @@ class CrimeApplicationResultMapperTest {
         .iojAppealAssessorName("IOJ APPEAL ASSESSOR")
         .iojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay())
         .ccRepDecision("Granted - Passed Means Test")
+        .meansReviewType("NAFI")
+        .passportReviewType("ER")
         .build();
   }
 
@@ -149,6 +151,8 @@ class CrimeApplicationResultMapperTest {
     result.setIojAppealAssessorName("IOJ APPEAL ASSESSOR");
     result.setIojAppealDate(LocalDate.of(2024, 5, 5).atStartOfDay());
     result.setCcRepDecision("Granted - Passed Means Test");
+    result.setMeansReviewType("NAFI");
+    result.setPassportReviewType("ER");
     return result;
   }
 
@@ -173,6 +177,8 @@ class CrimeApplicationResultMapperTest {
         .iojAppealAssessorName(null)
         .iojAppealDate(null)
         .ccRepDecision(null)
+        .meansReviewType(null)
+        .passportReviewType(null)
         .build();
   }
 
@@ -195,6 +201,8 @@ class CrimeApplicationResultMapperTest {
     result.setIojAppealAssessorName(null);
     result.setIojAppealDate(null);
     result.setCcRepDecision(null);
+    result.setPassportReviewType(null);
+    result.setMeansReviewType(null);
     return result;
   }
 }
