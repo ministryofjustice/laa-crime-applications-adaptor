@@ -15,7 +15,7 @@ public class TestData {
 
   public static Integer getMaatRef(String stubDataFileName) {
     String maatRef =
-        FileUtils.readFileToString("data/crimeapplicationsadaptor/" + stubDataFileName);
+        FileUtils.readFileToString("data/crimeapplicationsadaptor/" + stubDataFileName).strip();
     return Integer.valueOf(maatRef);
   }
 
