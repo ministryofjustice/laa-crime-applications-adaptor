@@ -16,10 +16,9 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
+import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClient;
+import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationResultService;
 import uk.gov.justice.laa.crime.applications.adaptor.service.CrimeApplicationService;
-import uk.gov.justice.laa.crime.applications.adaptor.service.EformStagingService;
-import uk.gov.justice.laa.crime.applications.adaptor.service.EformsHistoryService;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.MaatApplicationInternal;
 
@@ -34,24 +33,17 @@ class MaatApplicationExternalInternalControllerTest {
 
   @MockBean private CrimeApplicationService crimeApplicationService;
 
-  @MockBean private EformStagingService eformStagingService;
-
-  @MockBean private EformsHistoryService eformsHistoryService;
+  @MockBean private MaatCourtDataApiClient maatCourtDataApiClient;
 
   @Test
-  void
-      givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData()
-          throws Exception {
+  void givenValidParams_whenMaatReferenceNotExistForUsn_thenCallCrimeApplyAndReturnApplicationData()
+      throws Exception {
     MaatApplicationInternal maatApplicationInternal =
         TestData.getCrimeApplication("CrimeApplication_6000308.json");
-    EformStagingResponse eformStagingResponse =
-        TestData.getEformStagingResponse("EformStagingResponse_WithNoMaatRef_6000308.json");
 
     when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
         .thenReturn(maatApplicationInternal);
-    when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER))
-        .thenReturn(eformStagingResponse);
-    doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
+    when(maatCourtDataApiClient.retrieveRepOrderIdByUsn(6000308)).thenReturn(null);
 
     RequestBuilder request =
         MockMvcRequestBuilders.get(
@@ -67,24 +59,20 @@ class MaatApplicationExternalInternalControllerTest {
         .andExpect(jsonPath("$.maatRef").doesNotExist());
     verify(crimeApplicationService, times(1))
         .retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
-    verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER);
-    verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308, DEFAULT_USER);
+    verify(maatCourtDataApiClient, times(1)).retrieveRepOrderIdByUsn(6000308);
   }
 
   @Test
   void
-      givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef()
+      givenValidParams_whenMaatReferenceExistForUsn_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef()
           throws Exception {
     MaatApplicationInternal maatApplicationInternal =
         TestData.getCrimeApplication("CrimeApplication_6000308.json");
-    EformStagingResponse eformStagingResponse =
-        TestData.getEformStagingResponse("EformStagingResponse_WithMaatRef_6000308.json");
+    Integer maatRef = TestData.getMaatRef("CrimeApplicationResult_6000308.json");
 
-    when(eformStagingService.retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER))
-        .thenReturn(eformStagingResponse);
     when(crimeApplicationService.retrieveApplicationDetailsFromCrimeApplyDatastore(6000308))
         .thenReturn(maatApplicationInternal);
-    doNothing().when(eformsHistoryService).createEformsHistoryRecord(6000308, DEFAULT_USER);
+    when(maatCourtDataApiClient.retrieveRepOrderIdByUsn(6000308)).thenReturn(maatRef);
 
     RequestBuilder request =
         MockMvcRequestBuilders.get(
@@ -100,8 +88,7 @@ class MaatApplicationExternalInternalControllerTest {
         .andExpect(jsonPath("$.maatRef", is(5676399)));
     verify(crimeApplicationService, times(1))
         .retrieveApplicationDetailsFromCrimeApplyDatastore(6000308);
-    verify(eformStagingService, times(1)).retrieveOrInsertDummyUsnRecord(6000308, DEFAULT_USER);
-    verify(eformsHistoryService, times(1)).createEformsHistoryRecord(6000308, DEFAULT_USER);
+    verify(maatCourtDataApiClient, times(1)).retrieveRepOrderIdByUsn(6000308);
   }
 
   @Test

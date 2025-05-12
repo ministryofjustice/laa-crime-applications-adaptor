@@ -1,6 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.testutils;
 
-import uk.gov.justice.laa.crime.applications.adaptor.model.eform.EformStagingResponse;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.MaatApplicationInternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 
@@ -14,6 +13,12 @@ public class TestData {
     return JsonUtils.jsonToObject(crimeApplicationJson, MaatApplicationInternal.class);
   }
 
+  public static Integer getMaatRef(String stubDataFileName) {
+    String maatRef =
+        FileUtils.readFileToString("data/crimeapplicationsadaptor/" + stubDataFileName);
+    return Integer.valueOf(maatRef);
+  }
+
   public static MaatApplicationInternal getCrimeApplication() {
     return getCrimeApplication("CrimeApplication_default.json");
   }
@@ -24,12 +29,6 @@ public class TestData {
 
   public static MaatApplicationExternal getMaatApplicationWithCapitalDetails() {
     return getMaatApplication("MaatApplication_10000331.json");
-  }
-
-  public static EformStagingResponse getEformStagingResponse(String stubDataFileName) {
-    String eformStagingResponseJson =
-        FileUtils.readFileToString("data/eformstaging/" + stubDataFileName);
-    return JsonUtils.jsonToObject(eformStagingResponseJson, EformStagingResponse.class);
   }
 
   public static MaatApplicationExternal getMaatApplication(String stubDataFileName) {
