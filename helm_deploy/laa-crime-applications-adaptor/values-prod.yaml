@@ -19,10 +19,10 @@ java:
   host_env: production
 
 maatApi:
- baseUrl: https://maat-cd-api.legalservices.gov.uk/api
- oauthUrl: https://maat-cd-api-prd.auth.eu-west-2.amazoncognito.com/oauth2/token
+ baseUrl: https://laa-maat-data-api-prod.apps.live.cloud-platform.service.justice.gov.uk/api
+ oauthUrl: https://maat-api-prd.auth.eu-west-2.amazoncognito.com/oauth2/token
  registrationId: maatapi
- oauthScope: maat-cd-api/standard
+ oauthScope: maat-api-prod/standard
 
 crimeApplyApi:
  baseUrl: http://service-production.laa-criminal-applications-datastore-production.svc.cluster.local/api/v1/maat/applications
