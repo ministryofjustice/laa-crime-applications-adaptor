@@ -3,7 +3,7 @@ plugins {
 }
 
 def versions = [
-        jjwtVersion              : '0.12.5',
+        jjwtVersion              : '0.12.6',
         sentryVersion            : "7.6.0",
         serenityVersion          : "4.1.20",
         jUnitPlatformSuiteVersion: "1.10.2",
@@ -18,7 +18,7 @@ dependencies {
     testImplementation "org.junit.platform:junit-platform-suite"
     testImplementation "org.junit.vintage:junit-vintage-engine"
     testImplementation "io.cucumber:cucumber-junit-platform-engine:$versions.cucumberEngineVersion"
-    testImplementation 'org.skyscreamer:jsonassert:1.5.1'
+    testImplementation 'org.skyscreamer:jsonassert:1.5.3'
     testImplementation "uk.gov.justice.service.laa-crime:crime-commons-schemas:$versions.commonsVersion"
 
     testImplementation "io.rest-assured:json-schema-validator:5.4.0"
