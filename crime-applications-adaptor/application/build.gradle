@@ -2,7 +2,7 @@ plugins {
     id 'jacoco'
     id 'org.springframework.boot' version '3.2.12'
     id 'io.spring.dependency-management' version '1.1.7'
-    id "org.sonarqube" version "5.0.0.4638"
+    id "org.sonarqube" version "6.1.0.5360"
     id 'info.solidsoft.pitest' version '1.15.0'
     id 'com.diffplug.spotless' version '6.25.0'
 }
@@ -24,8 +24,10 @@ def versions = [
         resilience4jVersion    : "2.2.0",
         commonsioVersion       : '2.11.0',
         sentryVersion          : "7.11.0",
-        commonsVersion         : "1.9.0",
+        commonsVersion         : "1.10.0",
         tomcatEmbedCoreVersion : "10.1.34",
+        oauth2ResourceServer   : "3.4.1",
+        securityCrypto         : "6.4.4"
 ]
 
 
@@ -42,8 +44,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-aop"
-    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:$versions.oauth2ResourceServer"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    implementation "org.springframework.security:spring-security-crypto:$versions.securityCrypto"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$versions.springdocVersion"
     implementation "org.apache.commons:commons-lang3:$versions.commonsLang3Version"

@@ -7,7 +7,7 @@ def versions = [
         sentryVersion            : "7.6.0",
         serenityVersion          : "4.1.20",
         jUnitPlatformSuiteVersion: "1.10.2",
-        cucumberEngineVersion    : "7.18.0",
+        cucumberEngineVersion    : "7.22.2",
         junitBOMVersion          : "5.10.2",
         commonsVersion           : "1.7.1"
 ]
