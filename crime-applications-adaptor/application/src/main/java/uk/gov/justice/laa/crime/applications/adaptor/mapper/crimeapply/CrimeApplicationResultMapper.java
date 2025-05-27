@@ -53,6 +53,7 @@ public class CrimeApplicationResultMapper {
     crimeApplicationResult.setDateMeansCreated(repOrderState.getDateMeansCreated());
     crimeApplicationResult.setMeansAssessorName(repOrderState.getMeansAssessorName());
     crimeApplicationResult.setMeansReviewType(repOrderState.getMeansReviewType());
+    crimeApplicationResult.setMeansWorkReason(repOrderState.getMeansWorkReason());
   }
 
   private void mapPassportAssessments(
@@ -63,6 +64,7 @@ public class CrimeApplicationResultMapper {
       crimeApplicationResult.setDatePassportCreated(repOrderState.getDatePassportCreated());
       crimeApplicationResult.setPassportAssessorName(repOrderState.getPassportAssessorName());
       crimeApplicationResult.setPassportReviewType(repOrderState.getPassportReviewType());
+      crimeApplicationResult.setPassportWorkReason(repOrderState.getPassportWorkReason());
     }
   }
 

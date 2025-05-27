@@ -126,6 +126,8 @@ class CrimeApplicationResultMapperTest {
         .ccRepDecision("Granted - Passed Means Test")
         .meansReviewType("NAFI")
         .passportReviewType("ER")
+        .meansWorkReason("PAI")
+        .passportWorkReason("FMA")
         .build();
   }
 
@@ -153,6 +155,8 @@ class CrimeApplicationResultMapperTest {
     result.setCcRepDecision("Granted - Passed Means Test");
     result.setMeansReviewType("NAFI");
     result.setPassportReviewType("ER");
+    result.setMeansWorkReason("PAI");
+    result.setPassportWorkReason("FMA");
     return result;
   }
 
@@ -179,6 +183,8 @@ class CrimeApplicationResultMapperTest {
         .ccRepDecision(null)
         .meansReviewType(null)
         .passportReviewType(null)
+        .meansWorkReason(null)
+        .passportWorkReason(null)
         .build();
   }
 
@@ -203,6 +209,8 @@ class CrimeApplicationResultMapperTest {
     result.setCcRepDecision(null);
     result.setPassportReviewType(null);
     result.setMeansReviewType(null);
+    result.setMeansWorkReason(null);
+    result.setPassportWorkReason(null);
     return result;
   }
 }
