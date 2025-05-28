@@ -32,17 +32,6 @@ public class MockWebServerStubs {
   }
 
   enum RequestPathResponseMapping {
-    EFORM_STAGING_WITH_NO_MAAT_REF(
-        "/eform/initialise/6000308?userCreated=causer",
-        "data/eformstaging/EformStagingResponse_WithNoMaatRef_6000308.json",
-        HttpStatus.OK),
-    EFORM_STAGING_WITH_MAAT_REF(
-        "/eform/initialise/6000288?userCreated=causer",
-        "data/eformstaging/EformStagingResponse_WithMaatRef_6000288.json",
-        HttpStatus.OK),
-    CREATE_EFORMS_HISTORY_RECORD("/eform/history", null, HttpStatus.OK),
-    EFORM_STAGING_403("/eform/initialise/403", null, HttpStatus.FORBIDDEN),
-    EFORM_STAGING_503("/eform/initialise/503", null, HttpStatus.SERVICE_UNAVAILABLE),
     REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000288(
         "/6000288",
         "data/criminalapplicationsdatastore/MaatApplication_6000288.json",
@@ -50,6 +39,14 @@ public class MockWebServerStubs {
     REQUEST_PATH_CRIME_APPLY_DATASTORE_200OK_6000308(
         "/6000308",
         "data/criminalapplicationsdatastore/MaatApplication_6000308.json",
+        HttpStatus.OK),
+    REQUEST_PATH_MAAT_API_CRIME_APPLICATION_RESULT_200OK_6000288(
+        "/internal/v1/assessment/rep-orders?usn=6000288",
+        "data/criminalapplicationsdatastore/CrimeApplicationResult_6000288.json",
+        HttpStatus.OK),
+    REQUEST_PATH_MAAT_API_CRIME_APPLICATION_RESULT_200OK_6000308(
+        "/internal/v1/assessment/rep-orders?usn=6000308",
+        "data/criminalapplicationsdatastore/CrimeApplicationResult_6000308.json",
         HttpStatus.OK),
     REQUEST_PATH_CRIME_APPLY_403("/403", null, HttpStatus.FORBIDDEN),
     REQUEST_PATH_CRIME_APPLY_503("/503", null, HttpStatus.SERVICE_UNAVAILABLE),

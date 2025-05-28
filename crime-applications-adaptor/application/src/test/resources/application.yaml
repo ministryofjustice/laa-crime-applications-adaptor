@@ -16,13 +16,11 @@ resilience4j:
           - org.springframework.web.reactive.function.client.WebClientResponseException.GatewayTimeout
 
     instances:
-      eformStagingService:
-        base-config: default
       callCrimeApplyDatastore:
         base-config: default
 
 services:
-  eform-staging-api:
+  maat-api:
     baseUrl: http://localhost:9999
     registrationId: maatapi
 

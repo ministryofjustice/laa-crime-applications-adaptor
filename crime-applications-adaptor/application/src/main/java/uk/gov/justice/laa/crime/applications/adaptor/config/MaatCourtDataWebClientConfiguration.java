@@ -29,8 +29,7 @@ public class MaatCourtDataWebClientConfiguration {
     ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
         new ServletOAuth2AuthorizedClientExchangeFilterFunction(
             clientRegistrations, authorizedClients);
-    oauth.setDefaultClientRegistrationId(
-        servicesConfiguration.getEformStagingApi().getRegistrationId());
+    oauth.setDefaultClientRegistrationId(servicesConfiguration.getMaatApi().getRegistrationId());
     ConnectionProvider provider =
         ConnectionProvider.builder("custom")
             .maxConnections(500)
@@ -41,7 +40,7 @@ public class MaatCourtDataWebClientConfiguration {
             .build();
 
     return WebClient.builder()
-        .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
+        .baseUrl(servicesConfiguration.getMaatApi().getBaseUrl())
         .clientConnector(
             new ReactorClientHttpConnector(
                 HttpClient.create(provider)

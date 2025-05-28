@@ -14,7 +14,7 @@ public class ServicesConfiguration {
 
   @NotNull private CrimeApplyApi crimeApplyApi;
 
-  @NotNull private EformStagingApi eformStagingApi;
+  @NotNull private MaatApi maatApi;
 
   @Data
   @AllArgsConstructor
@@ -31,7 +31,7 @@ public class ServicesConfiguration {
   @Data
   @AllArgsConstructor
   @NoArgsConstructor
-  public static class EformStagingApi {
+  public static class MaatApi {
 
     @NotNull private String baseUrl;
 

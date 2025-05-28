@@ -54,9 +54,8 @@ class MaatApplicationExternalInternalIntegrationTest {
   }
 
   @Test
-  void
-      givenValidParams_whenMaatReferenceNotExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationData()
-          throws Exception {
+  void givenValidParams_whenMaatReferenceNotExistForUsn_thenCallCrimeApplyAndReturnApplicationData()
+      throws Exception {
     RequestBuilder request =
         MockMvcRequestBuilders.get(
                 "/api/internal/v1/crimeapply/{usn}/userCreated/causer", "6000308")
@@ -77,7 +76,7 @@ class MaatApplicationExternalInternalIntegrationTest {
 
   @Test
   void
-      givenValidParams_whenMaatReferenceExistForUsnInEFormStaging_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef()
+      givenValidParams_whenMaatReferenceExistForUsn_thenCallCrimeApplyAndReturnApplicationDataWithMaatRef()
           throws Exception {
     RequestBuilder request =
         MockMvcRequestBuilders.get(

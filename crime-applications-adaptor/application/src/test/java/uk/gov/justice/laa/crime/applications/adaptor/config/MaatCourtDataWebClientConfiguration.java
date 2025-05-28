@@ -11,9 +11,7 @@ import uk.gov.justice.laa.crime.applications.adaptor.client.MaatCourtDataApiClie
 public class MaatCourtDataWebClientConfiguration {
   @Bean
   WebClient maatCourtDataWebClient(ServicesConfiguration servicesConfiguration) {
-    return WebClient.builder()
-        .baseUrl(servicesConfiguration.getEformStagingApi().getBaseUrl())
-        .build();
+    return WebClient.builder().baseUrl(servicesConfiguration.getMaatApi().getBaseUrl()).build();
   }
 
   @Bean

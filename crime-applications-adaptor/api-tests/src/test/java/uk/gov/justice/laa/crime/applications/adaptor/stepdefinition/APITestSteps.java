@@ -4,8 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
-import io.cucumber.java.After;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,7 +20,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeApplicationsAdaptorAPI;
 import uk.gov.justice.laa.crime.applications.adaptor.apispecification.CrimeApplyMockAPI;
-import uk.gov.justice.laa.crime.applications.adaptor.apispecification.MaatCourtDataAPI;
 
 /** This class holds the test steps (e.g. given, when, then) for the test scenarios. */
 public class APITestSteps {
@@ -35,14 +32,10 @@ public class APITestSteps {
       "src/test/resources/testdata/crimeapply/";
   private static final String EXPECTED_RESPONSE_FILE_PATH_BASE =
       "src/test/resources/testdata/expectedresponses/";
-  private static final String EXPECTED_EFORMS_STAGING_FILE_END = "_eforms_staging.json";
-  private static final String EXPECTED_EFORMS_HISTORY_FILE_END = "_eforms_history.json";
 
   @Steps CrimeApplicationsAdaptorAPI crimeApplicationsAdaptorAPI;
 
   @Steps CrimeApplyMockAPI crimeApplyMockAPI;
-
-  @Steps MaatCourtDataAPI maatCourtDataAPI;
 
   @Given("an application with usn {int} exists in the datastore")
   public void theFollowingApplicationExistsInTheDatastore(int usn) {
@@ -80,52 +73,6 @@ public class APITestSteps {
         expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
   }
 
-  private Response getEformsStagingResponse(int usn) {
-    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormStatingByUsn(usn);
-    validatableResponse.assertThat().statusCode(HttpStatus.OK_200);
-
-    return validatableResponse.assertThat().statusCode(200).extract().response();
-  }
-
-  @And("an entry for usn {int} should have been created in the EFORMS_STAGING table")
-  public void anEntryForTheApplicationShouldBePresentInTheEformsStagingTable(int usn)
-      throws JSONException {
-    JsonPath expectedJson =
-        new JsonPath(
-            new File(EXPECTED_RESPONSE_FILE_PATH_BASE + usn + EXPECTED_EFORMS_STAGING_FILE_END));
-
-    Response response = getEformsStagingResponse(usn);
-
-    JSONAssert.assertEquals(
-        expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
-  }
-
-  @And("the entry in the EFORMS_STAGING table for usn {int} should have no maatRef")
-  public void theEntryInTheEformsStagingTableShouldHaveNoMaatRef(int usn) throws JSONException {
-    JsonPath expectedJson = JsonPath.given("{\"maatRef\": null}");
-
-    Response response = getEformsStagingResponse(usn);
-
-    JSONAssert.assertEquals(
-        expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
-  }
-
-  @And("an entry for usn {int} should have been created in the EFORMS_HISTORY table")
-  public void anEntryForTheApplicationShouldBePresentInTheEformsHistoryTable(int usn)
-      throws JSONException {
-    JsonPath expectedJson =
-        new JsonPath(
-            new File(EXPECTED_RESPONSE_FILE_PATH_BASE + usn + EXPECTED_EFORMS_HISTORY_FILE_END));
-
-    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormHistoryByUsn(usn);
-    validatableResponse.assertThat().statusCode(HttpStatus.OK_200);
-
-    Response response = validatableResponse.assertThat().statusCode(200).extract().response();
-
-    JSONAssert.assertEquals(
-        expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
-  }
-
   @Given("an application with usn {int} does not exists in the datastore")
   public void anApplicationWithUsnUsnDoesNotExistsInTheDatastore(int usn) {
     crimeApplyMockAPI.getCrimeApplyMockApplicationByUsn(usn, HttpStatus.NOT_FOUND_404);
@@ -141,38 +88,6 @@ public class APITestSteps {
     JsonPath responseJsonPath = response.jsonPath();
     assertThat(responseJsonPath.getString("title"), equalTo("Not Found"));
     assertThat(responseJsonPath.getString("detail"), containsString("404 Not Found from GET"));
-  }
-
-  @And("no entry for usn {int} should be present in the EFORMS_STAGING table")
-  public void noEntryForTheApplicationShouldBePresentInTheEformsStagingTable(int usn) {
-    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormStatingByUsn(usn);
-    validatableResponse.assertThat().statusCode(HttpStatus.NOT_FOUND_404);
-
-    JsonPath responseJsonPath = validatableResponse.extract().body().jsonPath();
-
-    assertThat(responseJsonPath.getString("code"), equalTo("NOT_FOUND"));
-    assertThat(
-        responseJsonPath.getString("message"),
-        equalTo(String.format("The USN [%d] does not exist in the data store.", usn)));
-  }
-
-  @And("no entry for usn {int} should be present in the EFORMS_HISTORY table")
-  public void noEntryForTheApplicationShouldBePresentInTheEformsHistoryTable(int usn) {
-    ValidatableResponse validatableResponse = maatCourtDataAPI.getEFormHistoryByUsn(usn);
-    validatableResponse.assertThat().statusCode(HttpStatus.OK_200).body(equalTo("[]"));
-  }
-
-  @And("any existing EFORMS_STAGING and EFORMS_HISTORY data has been deleted for USN {int}")
-  public void anyExistingEformsStagingAndEformsHistoryDataHasBeenDeletedForUsn(int usn) {
-    maatCourtDataAPI.deleteEFormStagingByUsn(usn);
-    maatCourtDataAPI.deleteEFormHistoryByUsn(usn);
-  }
-
-  @After
-  public void cleanUpTestData() {
-    int usnToClean = getSessionUsn();
-    maatCourtDataAPI.deleteEFormStagingByUsn(usnToClean);
-    maatCourtDataAPI.deleteEFormHistoryByUsn(usnToClean);
   }
 
   private ValidatableResponse getSessionResponseData() {
