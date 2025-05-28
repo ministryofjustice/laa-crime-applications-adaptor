@@ -28,5 +28,5 @@ services:
 
   crime-apply-api:
     baseUrl: http://localhost:9999
-    clientSecret: TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=
+    clientSecret: TESTVALUENOTREALxGZIKU5MQUVtd2NPY0FSLVN6J66=
     issuer: maat-adaptor
