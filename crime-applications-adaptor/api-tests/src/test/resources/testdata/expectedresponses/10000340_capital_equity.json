@@ -10,7 +10,7 @@
     "court": "Cardiff Crown Court"
   },
   "usn": 10000340,
-  "solicitorAdminEmail": "acox@smw-law.co.uk",
+  "solicitorAdminEmail": "fake@test.co.uk",
   "courtCustody": false,
   "callEform": false,
   "dateCreated": "2023-07-17T08:23:15.334Z",
@@ -36,7 +36,7 @@
   },
   "supplier": {
     "officeCode": "1K022G",
-    "email": "acox@smw-law.co.uk",
+    "email": "fake@test.co.uk",
     "telephone": "07800888888",
     "firstName": "John",
     "surname": "Sandon"

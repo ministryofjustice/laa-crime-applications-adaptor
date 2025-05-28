@@ -10,7 +10,7 @@
     "court": "Caernarfon Crown Court"
   },
   "usn": 10000988,
-  "solicitorAdminEmail": "acox@smw-law.co.uk",
+  "solicitorAdminEmail": "fake@test.co.uk",
   "courtCustody": false,
   "dateCreated": "2023-07-17T08:20:36.998Z",
   "dateStamp": "2023-07-17T08:20:36.998Z",
@@ -42,7 +42,7 @@
   },
   "supplier": {
     "officeCode": "1K022G",
-    "email": "acox@smw-law.co.uk",
+    "email": "afake@test.co.uk",
     "telephone": "07800888888",
     "firstName": "Gary",
     "surname": "Johnson"
