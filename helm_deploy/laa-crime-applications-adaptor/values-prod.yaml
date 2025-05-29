@@ -20,7 +20,7 @@ java:
 
 maatApi:
  baseUrl: https://laa-maat-data-api-prod.apps.live.cloud-platform.service.justice.gov.uk/api
- oauthUrl: https://maat-api-prd.auth.eu-west-2.amazoncognito.com/oauth2/token
+ oauthUrl: https://maat-api-prod.auth.eu-west-2.amazoncognito.com/oauth2/token
  registrationId: maatapi
  oauthScope: maat-api-prod/standard
 
