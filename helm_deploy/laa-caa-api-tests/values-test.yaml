@@ -59,7 +59,7 @@ tolerations: []
 affinity: {}
 
 maatApi:
-  baseUrl: https://maat-cd-api.tst.legalservices.gov.uk/
+  baseUrl: https://maat-cd-api.tst.legalservices.gov.uk/api
   oauthUrl: https://maat-cd-api-tst.auth.eu-west-2.amazoncognito.com/
   tokenUri: oauth2/token
 crimeApplyApi:
