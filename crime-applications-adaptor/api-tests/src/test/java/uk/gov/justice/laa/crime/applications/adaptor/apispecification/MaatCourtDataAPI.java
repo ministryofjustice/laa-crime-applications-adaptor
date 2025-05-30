@@ -6,9 +6,9 @@ import io.restassured.response.ValidatableResponse;
 
 public class MaatCourtDataAPI {
 
-  private static final String EFORM_STAGING_URI = "api/eform/{usn}";
+  private static final String EFORM_STAGING_URI = "eform/{usn}";
 
-  private static final String EFORM_HISTORY_URI = "api/eform/history/{usn}";
+  private static final String EFORM_HISTORY_URI = "eform/history/{usn}";
 
   public void deleteEFormStagingByUsn(Integer usn) {
     given()
