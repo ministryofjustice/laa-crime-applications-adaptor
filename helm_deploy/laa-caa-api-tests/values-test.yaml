@@ -59,8 +59,8 @@ tolerations: []
 affinity: {}
 
 maatApi:
-  baseUrl: https://maat-cd-api.tst.legalservices.gov.uk/api
-  oauthUrl: https://maat-cd-api-tst.auth.eu-west-2.amazoncognito.com/
+  baseUrl: https://laa-maat-data-api-test.apps.live.cloud-platform.service.justice.gov.uk/api
+  oauthUrl: https://maat-api-test.auth.eu-west-2.amazoncognito.com/
   tokenUri: oauth2/token
 crimeApplyApi:
   baseUrl: https://laa-crime-apply-mock-api-test.apps.live.cloud-platform.service.justice.gov.uk/
