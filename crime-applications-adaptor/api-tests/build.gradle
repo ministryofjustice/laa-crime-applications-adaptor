@@ -47,7 +47,7 @@ spotless {
         }
         importOrder()
         removeUnusedImports()
-        cleanthat().sourceCompatibility('17')
+        cleanthat().sourceCompatibility('21')
         googleJavaFormat()
         formatAnnotations()
     }

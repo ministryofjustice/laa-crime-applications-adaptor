@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine
+FROM amazoncorretto:21-alpine
 RUN mkdir -p /opt/laa-crime-applications-adaptor/
 WORKDIR /opt/laa-crime-applications-adaptor/
 COPY ./application/build/libs/crime-applications-adaptor.jar /opt/laa-crime-applications-adaptor/app.jar

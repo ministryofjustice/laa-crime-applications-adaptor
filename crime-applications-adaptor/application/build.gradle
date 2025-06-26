@@ -77,7 +77,7 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.13"
 }
 tasks.named('test') {
     useJUnitPlatform()
@@ -135,7 +135,7 @@ spotless {
         }
         importOrder()
         removeUnusedImports()
-        cleanthat().sourceCompatibility('17')
+        cleanthat().sourceCompatibility('21')
         googleJavaFormat()
         formatAnnotations()
     }
