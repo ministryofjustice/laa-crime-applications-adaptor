@@ -2,7 +2,7 @@ package uk.gov.justice.laa.crime.applications.adaptor.config;
 
 public class MockServicesConfiguration {
 
-  private static final String CLIENT_SECRET = "TESTVjBtRXlpQGNDJGZIKU5MQUVtd2NPY0FbLVN6JGg=";
+  private static final String CLIENT_SECRET = "TESTVALUENOTREALxGZIKU5MQUVtd2NPY0FSLVN6J66=";
   private static final String ISSUER = "maat-adapter";
   private static final int PORT_NO = 8080;
 

@@ -10,7 +10,7 @@ class MaatApplicationExternalInternalUtilTest {
   void testJWSTokenGenerationForCrimeApplyApi() {
     assertThat(
             CrimeApplicationHttpUtil.getHttpHeaders(
-                "TESTVjFtRXlpQGNDJGZIKU5MQUVtd2NPY0FSLVN6JGg=", "maat-adapter"))
+                "TESTVALUENOTREALxGZIKU5MQUVtd2NPY0FSLVN6J66=", "maat-adapter"))
         .isNotEmpty();
   }
 }
