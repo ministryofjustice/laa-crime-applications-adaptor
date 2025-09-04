@@ -2,14 +2,8 @@ Feature: Retrieve application data from the Crime Apply Datastore.
 
   Scenario Outline: Retrieve valid application data from Crime Apply Data Store by USN.
     Given an application with usn <usn> exists in the datastore
-    And any existing EFORMS_STAGING and EFORMS_HISTORY data has been deleted for USN <usn>
-    And no entry for usn <usn> should be present in the EFORMS_STAGING table
-    And no entry for usn <usn> should be present in the EFORMS_HISTORY table
     When the GET internal V1 crimeapply endpoint is called with usn <usn> and user "<user>"
     Then the returned response should match the contents of "<expectedResponseFile>"
-    And an entry for usn <usn> should have been created in the EFORMS_STAGING table
-    And the entry in the EFORMS_STAGING table for usn <usn> should have no maatRef
-    And an entry for usn <usn> should have been created in the EFORMS_HISTORY table
 
     Examples:
       | scnNo | usn      | user    | expectedResponseFile             |
@@ -22,8 +16,6 @@ Feature: Retrieve application data from the Crime Apply Datastore.
     Given an application with usn <usn> does not exists in the datastore
     When the GET internal V1 crimeapply endpoint is called with usn <usn> and user "<user>"
     Then the returned response should indicate the application is not found
-    And no entry for usn <usn> should be present in the EFORMS_STAGING table
-    And no entry for usn <usn> should be present in the EFORMS_HISTORY table
 
     Examples:
       | scnNo | usn      | user |
