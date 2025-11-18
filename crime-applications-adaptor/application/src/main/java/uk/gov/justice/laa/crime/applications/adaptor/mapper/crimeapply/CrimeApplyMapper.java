@@ -63,6 +63,8 @@ public class CrimeApplyMapper {
       maatApplicationInternal.setAssessment(mapAssessment(crimeApplyResponse.getMeansDetails()));
       mapCapitalAndEquity(maatApplicationInternal, crimeApplyResponse);
     }
+    maatApplicationInternal.setWelshCorrespondence(
+        applicantMapper.getWelshCorrespondence(crimeApplyResponse));
     return maatApplicationInternal;
   }
 

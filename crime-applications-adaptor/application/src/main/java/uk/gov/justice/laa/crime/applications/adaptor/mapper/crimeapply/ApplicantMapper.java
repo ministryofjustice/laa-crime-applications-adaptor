@@ -159,4 +159,15 @@ class ApplicantMapper {
     address.setPostCode(crimeApplyAddress.getPostcode());
     return address;
   }
+
+  boolean getWelshCorrespondence(MaatApplicationExternal crimeApplyResponse) {
+
+    if (Objects.nonNull(crimeApplyResponse)
+        && Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant())
+        && Objects.nonNull(
+            crimeApplyResponse.getClientDetails().getApplicant().getWelshCorrespondence())) {
+      return crimeApplyResponse.getClientDetails().getApplicant().getWelshCorrespondence();
+    }
+    return false;
+  }
 }
