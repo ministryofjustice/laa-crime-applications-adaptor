@@ -168,7 +168,9 @@ class ApplicantMapper {
         .map(MaatApplicationExternal::getClientDetails)
         .map(ClientDetails::getApplicant)
         .filter(applicant -> Objects.nonNull(applicant.getWelshCorrespondence()))
-        .map(applicant -> applicant.getWelshCorrespondence())
+        .map(
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+                ::getWelshCorrespondence)
         .orElse(false);
   }
 }
