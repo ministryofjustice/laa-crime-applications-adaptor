@@ -1,11 +1,13 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
 import java.util.Objects;
+import java.util.Optional;
 import javax.validation.constraints.NotNull;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Address;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.PartnerContraryInterest;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.ClientDetails;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
@@ -162,12 +164,11 @@ class ApplicantMapper {
 
   boolean getWelshCorrespondence(MaatApplicationExternal crimeApplyResponse) {
 
-    if (Objects.nonNull(crimeApplyResponse)
-        && Objects.nonNull(crimeApplyResponse.getClientDetails().getApplicant())
-        && Objects.nonNull(
-            crimeApplyResponse.getClientDetails().getApplicant().getWelshCorrespondence())) {
-      return crimeApplyResponse.getClientDetails().getApplicant().getWelshCorrespondence();
-    }
-    return false;
+    return Optional.ofNullable(crimeApplyResponse)
+        .map(MaatApplicationExternal::getClientDetails)
+        .map(ClientDetails::getApplicant)
+        .filter(applicant -> Objects.nonNull(applicant.getWelshCorrespondence()))
+        .map(applicant -> applicant.getWelshCorrespondence())
+        .orElse(false);
   }
 }
