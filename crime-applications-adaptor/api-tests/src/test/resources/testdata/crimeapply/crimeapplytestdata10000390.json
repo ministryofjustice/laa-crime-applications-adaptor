@@ -35,7 +35,8 @@
         },
         "correspondence_address": null,
         "residence_type": "applicant_owned",
-        "has_partner": "yes"
+        "has_partner": "yes",
+        "welsh_correspondence": true
       },
       "partner": {
         "first_name": "Jennifer",

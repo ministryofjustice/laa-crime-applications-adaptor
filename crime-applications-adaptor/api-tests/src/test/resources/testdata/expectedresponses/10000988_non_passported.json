@@ -56,5 +56,6 @@
     "benefitClaimedByPartner": false
   },
   "assessment": {},
-  "iojBypass": false
+  "iojBypass": false,
+  "welshCorrespondence": false
 }

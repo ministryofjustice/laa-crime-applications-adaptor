@@ -47,7 +47,8 @@
         "date_of_birth": "1980-01-10",
         "telephone_number": "07812345678",
         "correspondence_address": null,
-        "correspondence_address_type": "home_address"
+        "correspondence_address_type": "home_address",
+        "welsh_correspondence": true
       }
     },
     "means_passport": ["on_benefit_check"],

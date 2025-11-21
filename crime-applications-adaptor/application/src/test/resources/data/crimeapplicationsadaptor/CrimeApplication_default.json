@@ -18,7 +18,6 @@
   "usn": 6000001,
   "solicitorAdminEmail": "provider@example.com",
   "courtCustody": false,
-  "callEform": false,
   "dateCreated": "2022-10-24T09:50:04.019Z",
   "dateStamp": "2022-10-24T09:50:04.019Z",
   "hearingDate": "2024-11-11",
