@@ -12,7 +12,6 @@
   "usn": 10000340,
   "solicitorAdminEmail": "fake@test.co.uk",
   "courtCustody": false,
-  "callEform": false,
   "dateCreated": "2023-07-17T08:23:15.334Z",
   "dateStamp": "2023-07-17T08:22:35.997Z",
   "hearingDate": "2023-12-10",
@@ -232,5 +231,6 @@
       }
     ]
   },
-  "iojBypass": true
+  "iojBypass": true,
+  "welshCorrespondence": false
 }

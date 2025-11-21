@@ -59,5 +59,6 @@
     "meansPassport": "on_benefit_check"
   },
   "assessment": {},
-  "iojBypass": false
+  "iojBypass": false,
+  "welshCorrespondence": true
 }
