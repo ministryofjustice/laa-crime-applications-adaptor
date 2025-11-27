@@ -1,8 +1,5 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.stream.Stream;
 import org.json.JSONException;
@@ -18,10 +15,14 @@ import uk.gov.justice.laa.crime.applications.adaptor.testutils.JsonUtils;
 import uk.gov.justice.laa.crime.applications.adaptor.testutils.TestData;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.Applicant;
 import uk.gov.justice.laa.crime.model.common.crimeapplication.common.EmploymentStatus;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.ClientDetails;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MaatApplicationExternal;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.MeansPassport;
+import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner.InvolvementInCase;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicantMapperTest {
 
@@ -30,6 +31,168 @@ class ApplicantMapperTest {
   @BeforeEach
   void setUp() {
     applicantMapper = new ApplicantMapper();
+  }
+
+  // --- map(Partner.DwpResponse) ---
+
+  @Test
+  void mapPartnerEnum_whenSourceIsNull_returnsNull() {
+    Applicant.PartnerDwpResponse result = applicantMapper.map((Partner.DwpResponse) null);
+    assertNull(result);
+  }
+
+  @Test
+  void mapPartnerEnum_whenSourceIsValid_mapsCorrectly() {
+    Partner.DwpResponse source = Partner.DwpResponse.YES; // "Yes"
+    Applicant.PartnerDwpResponse result = applicantMapper.map(source);
+
+    assertNotNull(result);
+    assertEquals(Applicant.PartnerDwpResponse.YES, result);
+    assertEquals(source.value(), result.value()); // both "Yes"
+  }
+
+  // --- mapPartnerDwpResponse(MaatApplicationExternal) ---
+
+  @Test
+  void mapPartnerDwpResponse_whenCrimeApplyResponseIsNull_returnsNull() {
+    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(null);
+    assertNull(result);
+  }
+
+  @Test
+  void mapPartnerDwpResponse_whenClientDetailsIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    external.setClientDetails(null);
+
+    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapPartnerDwpResponse_whenPartnerIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    clientDetails.setPartner(null);
+    external.setClientDetails(clientDetails);
+
+    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapPartnerDwpResponse_whenPartnerDwpResponseIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    Partner partner = new Partner();
+    partner.setDwpResponse(null);
+    clientDetails.setPartner(partner);
+    external.setClientDetails(clientDetails);
+
+    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapPartnerDwpResponse_whenPartnerDwpResponseIsValid_mapsCorrectly() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    Partner partner = new Partner();
+
+    partner.setDwpResponse(Partner.DwpResponse.UNDETERMINED); // "Undetermined"
+    clientDetails.setPartner(partner);
+    external.setClientDetails(clientDetails);
+
+    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(external);
+
+    assertNotNull(result);
+    assertEquals(Applicant.PartnerDwpResponse.UNDETERMINED, result);
+    assertEquals("Undetermined", result.value());
+  }
+
+  // --- map(uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse) ---
+
+  @Test
+  void mapApplicantEnum_whenSourceIsNull_returnsNull() {
+    Applicant.DwpResponse result = applicantMapper.map(
+            (uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse) null
+    );
+    assertNull(result);
+  }
+
+  @Test
+  void mapApplicantEnum_whenSourceIsValid_mapsCorrectly() {
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse source =
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse.NO; // "No"
+
+    Applicant.DwpResponse result = applicantMapper.map(source);
+
+    assertNotNull(result);
+    assertEquals(Applicant.DwpResponse.NO, result);
+    assertEquals(source.value(), result.value()); // both "No"
+  }
+
+  // --- mapDwpResponse(MaatApplicationExternal) ---
+
+  @Test
+  void mapDwpResponse_whenCrimeApplyResponseIsNull_returnsNull() {
+    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(null);
+    assertNull(result);
+  }
+
+  @Test
+  void mapDwpResponse_whenClientDetailsIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    external.setClientDetails(null);
+
+    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapDwpResponse_whenApplicantIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    clientDetails.setApplicant(null);
+    external.setClientDetails(clientDetails);
+
+    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapDwpResponse_whenApplicantDwpResponseIsNull_returnsNull() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant applicant =
+            new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
+
+    applicant.setDwpResponse(null);
+    clientDetails.setApplicant(applicant);
+    external.setClientDetails(clientDetails);
+
+    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
+    assertNull(result);
+  }
+
+  @Test
+  void mapDwpResponse_whenApplicantDwpResponseIsValid_mapsCorrectly() {
+    MaatApplicationExternal external = new MaatApplicationExternal();
+    ClientDetails clientDetails = new ClientDetails();
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant applicant =
+            new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
+
+    applicant.setDwpResponse(
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse.YES
+    ); // "Yes"
+
+    clientDetails.setApplicant(applicant);
+    external.setClientDetails(clientDetails);
+
+    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
+
+    assertNotNull(result);
+    assertEquals(Applicant.DwpResponse.YES, result);
+    assertEquals("Yes", result.value());
   }
 
   @Test
