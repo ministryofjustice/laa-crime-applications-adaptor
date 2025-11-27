@@ -1,5 +1,7 @@
 package uk.gov.justice.laa.crime.applications.adaptor.mapper.crimeapply;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 import java.util.stream.Stream;
 import org.json.JSONException;
@@ -21,8 +23,6 @@ import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Means
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Partner.InvolvementInCase;
 import uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.general.EmploymentType;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicantMapperTest {
 
@@ -109,20 +109,26 @@ class ApplicantMapperTest {
     assertEquals("Undetermined", result.value());
   }
 
-  // --- map(uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse) ---
+  // ---
+  // map(uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse)
+  // ---
 
   @Test
   void mapApplicantEnum_whenSourceIsNull_returnsNull() {
-    Applicant.DwpResponse result = applicantMapper.map(
-            (uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse) null
-    );
+    Applicant.DwpResponse result =
+        applicantMapper.map(
+            (uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+                    .DwpResponse)
+                null);
     assertNull(result);
   }
 
   @Test
   void mapApplicantEnum_whenSourceIsValid_mapsCorrectly() {
-    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse source =
-            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse.NO; // "No"
+    uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse
+        source =
+            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant
+                .DwpResponse.NO; // "No"
 
     Applicant.DwpResponse result = applicantMapper.map(source);
 
@@ -164,7 +170,7 @@ class ApplicantMapperTest {
     MaatApplicationExternal external = new MaatApplicationExternal();
     ClientDetails clientDetails = new ClientDetails();
     uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant applicant =
-            new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
+        new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
 
     applicant.setDwpResponse(null);
     clientDetails.setApplicant(applicant);
@@ -179,11 +185,11 @@ class ApplicantMapperTest {
     MaatApplicationExternal external = new MaatApplicationExternal();
     ClientDetails clientDetails = new ClientDetails();
     uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant applicant =
-            new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
+        new uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant();
 
     applicant.setDwpResponse(
-            uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse.YES
-    ); // "Yes"
+        uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse
+            .YES); // "Yes"
 
     clientDetails.setApplicant(applicant);
     external.setClientDetails(clientDetails);

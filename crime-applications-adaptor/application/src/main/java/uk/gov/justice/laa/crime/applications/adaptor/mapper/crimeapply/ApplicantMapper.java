@@ -87,7 +87,9 @@ class ApplicantMapper {
     return map(crimeApplyResponse.getClientDetails().getApplicant().getDwpResponse());
   }
 
-  Applicant.DwpResponse map(uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse source) {
+  Applicant.DwpResponse map(
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse
+          source) {
     if (source == null) return null;
     return Applicant.DwpResponse.fromValue(source.value());
   }
