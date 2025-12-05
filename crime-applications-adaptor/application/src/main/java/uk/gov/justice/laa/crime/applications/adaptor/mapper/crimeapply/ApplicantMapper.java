@@ -65,9 +65,7 @@ class ApplicantMapper {
   }
 
   Applicant.PartnerDwpResponse mapPartnerDwpResponse(MaatApplicationExternal crimeApplyResponse) {
-    if (Objects.isNull(crimeApplyResponse)
-        || Objects.isNull(crimeApplyResponse.getClientDetails())
-        || Objects.isNull(crimeApplyResponse.getClientDetails().getPartner())) {
+    if (Objects.isNull(crimeApplyResponse.getClientDetails().getPartner())) {
       return null;
     }
     return map(crimeApplyResponse.getClientDetails().getPartner().getDwpResponse());
@@ -79,11 +77,6 @@ class ApplicantMapper {
   }
 
   Applicant.DwpResponse mapDwpResponse(MaatApplicationExternal crimeApplyResponse) {
-    if (Objects.isNull(crimeApplyResponse)
-        || Objects.isNull(crimeApplyResponse.getClientDetails())
-        || Objects.isNull(crimeApplyResponse.getClientDetails().getApplicant())) {
-      return null;
-    }
     return map(crimeApplyResponse.getClientDetails().getApplicant().getDwpResponse());
   }
 

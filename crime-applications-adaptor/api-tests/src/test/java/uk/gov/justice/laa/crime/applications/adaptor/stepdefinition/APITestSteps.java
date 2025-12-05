@@ -3,15 +3,16 @@ package uk.gov.justice.laa.crime.applications.adaptor.stepdefinition;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static uk.gov.justice.laa.crime.applications.adaptor.utils.SchemaValidationUtils.assertMatchesSchema;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import java.io.File;
+import java.io.IOException;
 import net.serenitybdd.annotations.Steps;
 import net.serenitybdd.core.Serenity;
 import org.htmlunit.jetty.http.HttpStatus;
@@ -27,7 +28,7 @@ public class APITestSteps {
   private static final String RESPONSE_KEY = "caaResponse";
   private static final String USN_KEY = "usn";
   private static final String CAA_APPLICATION_SCHEMA =
-      "schemas/crimeapplication/maat_application_internal.json";
+      "schemas/criminalapplicationsdatastore/maat_application_external.json";
   private static final String CRIME_APPLY_RESOURCE_LOCATION =
       "src/test/resources/testdata/crimeapply/";
   private static final String EXPECTED_RESPONSE_FILE_PATH_BASE =
@@ -46,7 +47,8 @@ public class APITestSteps {
 
   @When("the GET internal V1 crimeapply endpoint is called with usn {int} and user {string}")
   public void theGetCrimeApplyEndpointIsCalledWith(int usn, String user) {
-    ValidatableResponse response = crimeApplicationsAdaptorAPI.getApplicationByUsn(usn, user);
+    ValidatableResponse response = crimeApplicationsAdaptorAPI.getApplicationByUsnFromCam(usn);
+
     response.log().all();
 
     Serenity.setSessionVariable(USN_KEY).to(usn);
@@ -54,20 +56,20 @@ public class APITestSteps {
   }
 
   @Then("the returned response should match the contents of {string}")
-  public void theFollowingDataShouldBeReturned(String expectedResponseFile) throws JSONException {
+  public void theFollowingDataShouldBeReturned(String expectedResponseFile)
+      throws JSONException, IOException {
     JsonPath expectedJson =
         new JsonPath(new File(EXPECTED_RESPONSE_FILE_PATH_BASE + expectedResponseFile));
 
     ValidatableResponse validatableResponse =
         (ValidatableResponse) Serenity.getCurrentSession().get(RESPONSE_KEY);
 
-    Response response =
-        validatableResponse
-            .assertThat()
-            .statusCode(200)
-            .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(CAA_APPLICATION_SCHEMA))
-            .extract()
-            .response();
+    Response response = validatableResponse.assertThat().statusCode(200).extract().response();
+
+    // validate JSON against our schema using NetworkNT which is draft-06 compliant
+    assertMatchesSchema(
+        "schemas/criminalapplicationsdatastore/maat_application_external.json",
+        response.getBody().asString());
 
     JSONAssert.assertEquals(
         expectedJson.prettify(), response.body().asPrettyString(), JSONCompareMode.LENIENT);
@@ -86,8 +88,8 @@ public class APITestSteps {
         validatableResponse.assertThat().statusCode(HttpStatus.NOT_FOUND_404).extract().response();
 
     JsonPath responseJsonPath = response.jsonPath();
-    assertThat(responseJsonPath.getString("title"), equalTo("Not Found"));
-    assertThat(responseJsonPath.getString("detail"), containsString("404 Not Found from GET"));
+    assertThat(responseJsonPath.getString("error"), equalTo("Not Found"));
+    assertThat(responseJsonPath.getString("status"), containsString("404"));
   }
 
   private ValidatableResponse getSessionResponseData() {

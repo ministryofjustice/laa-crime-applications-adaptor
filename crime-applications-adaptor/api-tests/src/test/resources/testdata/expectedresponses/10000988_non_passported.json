@@ -1,61 +1,54 @@
 {
-  "statusReason": "current",
-  "solicitorName": "Gary Johnson",
-  "applicationType": "initial",
-  "caseDetails": {
-    "caseType": "INDICTABLE",
-    "offenceClass": "OTHER"
+  "id": "3e2ba49a-0cd7-4b74-99e9-788a88e717fe",
+  "schema_version": 1,
+  "reference": 10000988,
+  "application_type": "initial",
+  "submitted_at": "2023-07-17T08:20:36.998Z",
+  "case_details": {
+    "urn": "",
+    "case_type": "indictable",
+    "appeal_maat_id": null,
+    "appeal_lodged_date": null,
+    "appeal_with_changes_details": null,
+    "offence_class": "H",
+    "hearing_court_name": "Caernarfon Crown Court",
+    "hearing_date": "2023-12-10"
   },
-  "magsCourt": {
-    "court": "Caernarfon Crown Court"
-  },
-  "usn": 10000988,
-  "solicitorAdminEmail": "fake@test.co.uk",
-  "courtCustody": false,
-  "dateCreated": "2023-07-17T08:20:36.998Z",
-  "dateStamp": "2023-07-17T08:20:36.998Z",
-  "hearingDate": "2023-12-10",
-  "dateOfSignature": "2023-07-17T08:20:36.998Z",
-  "applicant": {
-    "firstName": "DO NOT MODIFY John",
-    "otherNames": "Edelweiss",
-    "surname": "Walker",
-    "dateOfBirth": "1980-01-10",
-    "hasPartner": false,
-    "telephone": "07812345678",
-    "niNumber": "JA293483A",
-    "useHomeAddress": true,
-    "noFixedAbode": false,
-    "useSupplierAddressForPost": false,
-    "partnerContraryInterest": {
-      "code": "NOCON"
-    },
-    "employmentStatus": {},
-    "homeAddress": {
-      "lookupId": "25762865",
-      "line1": "2",
-      "line2": "GILPIN CLOSE",
-      "city": "LONDON",
-      "country": "UNITED KINGDOM",
-      "postCode": "W2 1AD"
+  "client_details": {
+    "applicant": {
+      "nino": "JA293483A",
+      "last_name": "Walker",
+      "first_name": "DO NOT MODIFY John",
+      "other_names": "Edelweiss",
+      "home_address": {
+        "city": "LONDON",
+        "country": "UNITED KINGDOM",
+        "postcode": "W2 1AD",
+        "lookup_id": "25762865",
+        "address_line_one": "2",
+        "address_line_two": "GILPIN CLOSE"
+      },
+      "date_of_birth": "1980-01-10",
+      "telephone_number": "07812345678",
+      "welsh_correspondence": false,
+      "correspondence_address": null,
+      "correspondence_address_type": "home_address"
     }
   },
-  "supplier": {
-    "officeCode": "1K022G",
-    "email": "fake@test.co.uk",
-    "telephone": "07800888888",
-    "firstName": "Gary",
-    "surname": "Johnson"
+  "date_stamp": "2023-07-17T08:20:36.998Z",
+  "ioj_bypass": false,
+  "means_passport": [
+
+  ],
+  "provider_details": {
+    "office_code": "1K022G",
+    "provider_email": "fake@test.co.uk",
+    "legal_rep_last_name": "Johnson",
+    "legal_rep_telephone": "07800888888",
+    "legal_rep_first_name": "Gary"
   },
-  "passported": {
-    "benefitIncomeSupport": false,
-    "benefitGuaranteedStatePension": false,
-    "benefitJobSeeker": false,
-    "benefitUniversalCredit": false,
-    "benefitEmploymentSupport": false,
-    "benefitClaimedByPartner": false
-  },
-  "assessment": {},
-  "iojBypass": false,
-  "welshCorrespondence": false
+  "declaration_signed_at": "2023-07-17T08:20:36.998Z",
+  "means_details": {
+
+  }
 }

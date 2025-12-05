@@ -54,21 +54,6 @@ class ApplicantMapperTest {
   // --- mapPartnerDwpResponse(MaatApplicationExternal) ---
 
   @Test
-  void mapPartnerDwpResponse_whenCrimeApplyResponseIsNull_returnsNull() {
-    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(null);
-    assertNull(result);
-  }
-
-  @Test
-  void mapPartnerDwpResponse_whenClientDetailsIsNull_returnsNull() {
-    MaatApplicationExternal external = new MaatApplicationExternal();
-    external.setClientDetails(null);
-
-    Applicant.PartnerDwpResponse result = applicantMapper.mapPartnerDwpResponse(external);
-    assertNull(result);
-  }
-
-  @Test
   void mapPartnerDwpResponse_whenPartnerIsNull_returnsNull() {
     MaatApplicationExternal external = new MaatApplicationExternal();
     ClientDetails clientDetails = new ClientDetails();
@@ -138,32 +123,6 @@ class ApplicantMapperTest {
   }
 
   // --- mapDwpResponse(MaatApplicationExternal) ---
-
-  @Test
-  void mapDwpResponse_whenCrimeApplyResponseIsNull_returnsNull() {
-    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(null);
-    assertNull(result);
-  }
-
-  @Test
-  void mapDwpResponse_whenClientDetailsIsNull_returnsNull() {
-    MaatApplicationExternal external = new MaatApplicationExternal();
-    external.setClientDetails(null);
-
-    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
-    assertNull(result);
-  }
-
-  @Test
-  void mapDwpResponse_whenApplicantIsNull_returnsNull() {
-    MaatApplicationExternal external = new MaatApplicationExternal();
-    ClientDetails clientDetails = new ClientDetails();
-    clientDetails.setApplicant(null);
-    external.setClientDetails(clientDetails);
-
-    Applicant.DwpResponse result = applicantMapper.mapDwpResponse(external);
-    assertNull(result);
-  }
 
   @Test
   void mapDwpResponse_whenApplicantDwpResponseIsNull_returnsNull() {

@@ -30,7 +30,8 @@
     },
     "partnerContraryInterest": {
       "code": "NOCON"
-    }
+    },
+    "dwpResponse": "Yes"
   },
   "supplier": {
     "officeCode": "0Z981E",
