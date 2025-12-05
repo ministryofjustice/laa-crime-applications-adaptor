@@ -37,9 +37,7 @@
   },
   "date_stamp": "2023-07-17T08:20:36.998Z",
   "ioj_bypass": false,
-  "means_passport": [
-
-  ],
+  "means_passport": [],
   "provider_details": {
     "office_code": "1K022G",
     "provider_email": "fake@test.co.uk",
@@ -48,7 +46,5 @@
     "legal_rep_first_name": "Gary"
   },
   "declaration_signed_at": "2023-07-17T08:20:36.998Z",
-  "means_details": {
-
-  }
+  "means_details": {}
 }

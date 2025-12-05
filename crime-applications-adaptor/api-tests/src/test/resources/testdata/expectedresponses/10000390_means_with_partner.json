@@ -49,9 +49,7 @@
   },
   "date_stamp": "2022-10-24T09:50:04.019Z",
   "ioj_bypass": true,
-  "means_passport": [
-
-  ],
+  "means_passport": [],
   "provider_details": {
     "office_code": "1A123B",
     "provider_email": "provider@example.com",
@@ -68,9 +66,7 @@
           "age": 15
         }
       ],
-      "employment_type": [
-        "not_working"
-      ],
+      "employment_type": ["not_working"],
       "income_benefits": [
         {
           "amount": 100,
@@ -144,20 +140,14 @@
         }
       ],
       "employment_details": {
-        "paye": [
-
-        ],
+        "paye": [],
         "other": {
           "amount": 300,
           "details": "Other employment details"
         },
-        "businesses": [
-
-        ]
+        "businesses": []
       },
-      "partner_employment_type": [
-        "not_working"
-      ]
+      "partner_employment_type": ["not_working"]
     },
     "capital_details": {
       "savings": [
@@ -226,9 +216,7 @@
           "property_type": "commercial",
           "size_in_acres": null,
           "is_home_address": "no",
-          "property_owners": [
-
-          ],
+          "property_owners": [],
           "has_other_owners": "no",
           "outstanding_mortgage": 0,
           "percentage_partner_owned": null,
@@ -249,9 +237,7 @@
           "property_type": "land",
           "size_in_acres": 1,
           "is_home_address": "no",
-          "property_owners": [
-
-          ],
+          "property_owners": [],
           "has_other_owners": "no",
           "outstanding_mortgage": 22000,
           "percentage_partner_owned": null,
