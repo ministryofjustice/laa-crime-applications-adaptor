@@ -10,6 +10,8 @@ import io.restassured.response.ValidatableResponse;
 public class CrimeApplicationsAdaptorAPI {
 
   private static final String CAA_GET_URI = "api/internal/v1/crimeapply/{usn}/userCreated/{user}";
+  private static final String CAM_URI = "api/v1/maat/applications/{usn}";
+
 
   public ValidatableResponse getApplicationByUsn(int usn, String user) {
     return given()
@@ -17,6 +19,15 @@ public class CrimeApplicationsAdaptorAPI {
         .pathParam("usn", usn)
         .pathParam("user", user)
         .get(CAA_GET_URI)
+        .then();
+  }
+
+  // The API tests only appear to be inserting applications in to the Crime Apply Mock
+  public ValidatableResponse getApplicationByUsnFromCam(int usn) {
+    return given()
+        .spec(RequestSpecificationBuilder.getCAMCrimeApplyReqSpec())
+        .pathParam("usn", usn)
+        .get(CAM_URI)
         .then();
   }
 }

@@ -25,7 +25,8 @@
       "first_name": "Pat",
       "other_names": "",
       "residence_type": "none",
-      "welsh_correspondence": true
+      "welsh_correspondence": true,
+      "dwp_response": "Yes"
     }
   },
   "case_details": {

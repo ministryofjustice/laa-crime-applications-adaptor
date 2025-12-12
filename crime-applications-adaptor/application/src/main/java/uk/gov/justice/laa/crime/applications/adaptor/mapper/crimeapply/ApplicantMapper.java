@@ -58,7 +58,33 @@ class ApplicantMapper {
 
     applicant.setEmploymentStatus(mapEmploymentStatus(crimeApplyResponse));
 
+    applicant.setDwpResponse(mapDwpResponse(crimeApplyResponse));
+    applicant.setPartnerDwpResponse(mapPartnerDwpResponse(crimeApplyResponse));
+
     return applicant;
+  }
+
+  Applicant.PartnerDwpResponse mapPartnerDwpResponse(MaatApplicationExternal crimeApplyResponse) {
+    if (Objects.isNull(crimeApplyResponse.getClientDetails().getPartner())) {
+      return null;
+    }
+    return map(crimeApplyResponse.getClientDetails().getPartner().getDwpResponse());
+  }
+
+  Applicant.PartnerDwpResponse map(Partner.DwpResponse source) {
+    if (source == null) return null;
+    return Applicant.PartnerDwpResponse.fromValue(source.value());
+  }
+
+  Applicant.DwpResponse mapDwpResponse(MaatApplicationExternal crimeApplyResponse) {
+    return map(crimeApplyResponse.getClientDetails().getApplicant().getDwpResponse());
+  }
+
+  Applicant.DwpResponse map(
+      uk.gov.justice.laa.crime.model.common.criminalapplicationsdatastore.Applicant.DwpResponse
+          source) {
+    if (source == null) return null;
+    return Applicant.DwpResponse.fromValue(source.value());
   }
 
   private EmploymentStatus mapEmploymentStatus(MaatApplicationExternal crimeApplyResponse) {

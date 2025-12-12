@@ -1,236 +1,266 @@
 {
-  "statusReason": "current",
-  "solicitorName": "John Sandon",
-  "applicationType": "initial",
-  "caseDetails": {
-    "caseType": "SUMMARY ONLY",
-    "offenceClass": "OTHER"
+  "id": "da297c78-1a58-419c-8b57-ca5dca2f056jh",
+  "schema_version": 1,
+  "reference": 10000340,
+  "application_type": "initial",
+  "submitted_at": "2023-07-17T08:23:15.334Z",
+  "case_details": {
+    "urn": "",
+    "case_type": "summary_only",
+    "appeal_maat_id": null,
+    "appeal_lodged_date": null,
+    "appeal_with_changes_details": null,
+    "offence_class": "H",
+    "hearing_court_name": "Cardiff Crown Court",
+    "hearing_date": "2023-12-10"
   },
-  "magsCourt": {
-    "court": "Cardiff Crown Court"
-  },
-  "usn": 10000340,
-  "solicitorAdminEmail": "fake@test.co.uk",
-  "courtCustody": false,
-  "dateCreated": "2023-07-17T08:23:15.334Z",
-  "dateStamp": "2023-07-17T08:22:35.997Z",
-  "hearingDate": "2023-12-10",
-  "dateOfSignature": "2023-07-17T08:23:15.334Z",
-  "applicant": {
-    "firstName": "DO NOT MODIFY Jane",
-    "otherNames": "Crusher",
-    "surname": "Walker",
-    "dateOfBirth": "1980-01-10",
-    "hasPartner": false,
-    "niNumber": "JA293483A",
-    "useHomeAddress": false,
-    "noFixedAbode": true,
-    "useSupplierAddressForPost": true,
-    "partnerContraryInterest": {
-      "code": "NOCON"
-    },
-    "employmentStatus": {
-      "code": "NONPASS"
+  "client_details": {
+    "applicant": {
+      "nino": "JA293483A",
+      "last_name": "Walker",
+      "first_name": "DO NOT MODIFY Jane",
+      "other_names": "Crusher",
+      "benefit_type": "universal_credit",
+      "home_address": null,
+      "date_of_birth": "1980-01-10",
+      "residence_type": "none",
+      "telephone_number": "",
+      "welsh_correspondence": false,
+      "correspondence_address": null,
+      "correspondence_address_type": "providers_office_address"
     }
   },
-  "supplier": {
-    "officeCode": "1K022G",
-    "email": "fake@test.co.uk",
-    "telephone": "07800888888",
-    "firstName": "John",
-    "surname": "Sandon"
+  "date_stamp": "2023-07-17T08:22:35.997Z",
+  "ioj_bypass": true,
+  "means_passport": [],
+  "provider_details": {
+    "office_code": "1K022G",
+    "provider_email": "fake@test.co.uk",
+    "legal_rep_last_name": "Sandon",
+    "legal_rep_telephone": "07800888888",
+    "legal_rep_first_name": "John"
   },
-  "passported": {
-    "benefitIncomeSupport": false,
-    "benefitGuaranteedStatePension": false,
-    "benefitJobSeeker": false,
-    "benefitUniversalCredit": true,
-    "benefitEmploymentSupport": false,
-    "benefitClaimedByPartner": false
-  },
-  "assessment": {
-    "initialMeansAssessment": {
-      "otherBenefitNote": "Details of the other benefit",
-      "otherIncomeNote": "Details of the other payment",
-      "assessmentDetails": [
+  "declaration_signed_at": "2023-07-17T08:23:15.334Z",
+  "means_details": {
+    "income_details": {
+      "total": 1000,
+      "dependants": [
         {
-          "applicantAmount": 1.0,
-          "applicantFrequency": "WEEKLY",
-          "assessmentDetailCode": "CHILD_BEN"
-        },
-        {
-          "applicantAmount": 1.6,
-          "applicantFrequency": "2WEEKLY",
-          "assessmentDetailCode": "TAX_CRED"
-        },
-        {
-          "applicantAmount": 4.0,
-          "applicantFrequency": "4WEEKLY",
-          "assessmentDetailCode": "INCAP_BEN"
-        },
-        {
-          "applicantAmount": 4.0,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "INJ_BEN"
-        },
-        {
-          "applicantAmount": 8.0,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_BEN"
-        },
-        {
-          "applicantAmount": 0.1,
-          "applicantFrequency": "WEEKLY",
-          "assessmentDetailCode": "PRIV_PENS"
-        },
-        {
-          "applicantAmount": 3.6,
-          "applicantFrequency": "2WEEKLY",
-          "assessmentDetailCode": "STATE_PEN"
-        },
-        {
-          "applicantAmount": 1.0,
-          "applicantFrequency": "4WEEKLY",
-          "assessmentDetailCode": "SAVINGS"
-        },
-        {
-          "applicantAmount": 2.5,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_INC"
+          "age": 15
         }
       ],
-      "childWeighting": [
+      "employment_type": ["not_working"],
+      "income_benefits": [
         {
-          "noOfChildren": 1,
-          "lowerAgeRange": 16,
-          "upperAgeRange": 18
+          "amount": 100,
+          "frequency": "week",
+          "payment_type": "child"
+        },
+        {
+          "amount": 160,
+          "frequency": "fortnight",
+          "payment_type": "working_or_child_tax_credit"
+        },
+        {
+          "amount": 400,
+          "frequency": "four_weeks",
+          "payment_type": "incapacity"
+        },
+        {
+          "amount": 400,
+          "frequency": "month",
+          "payment_type": "industrial_injuries_disablement"
+        },
+        {
+          "amount": 800,
+          "details": "Details of the other benefit",
+          "frequency": "month",
+          "payment_type": "other"
+        }
+      ],
+      "income_payments": [
+        {
+          "amount": 10,
+          "frequency": "week",
+          "payment_type": "private_pension"
+        },
+        {
+          "amount": 360,
+          "frequency": "fortnight",
+          "payment_type": "state_pension"
+        },
+        {
+          "amount": 100,
+          "frequency": "four_weeks",
+          "payment_type": "interest_investment"
+        },
+        {
+          "amount": 250,
+          "details": "Details of the other payment",
+          "frequency": "month",
+          "payment_type": "other"
+        }
+      ],
+      "employment_details": {
+        "paye": [],
+        "other": {
+          "amount": 300,
+          "details": "Other employment details"
+        },
+        "businesses": []
+      }
+    },
+    "capital_details": {
+      "savings": [
+        {
+          "sort_code": "12-23-45",
+          "saving_type": "bank",
+          "is_overdrawn": "no",
+          "provider_name": "Lloyds Bank",
+          "account_number": "12345678",
+          "ownership_type": "applicant",
+          "account_balance": 10000,
+          "are_wages_paid_into_account": "yes"
+        },
+        {
+          "sort_code": "12-23-45",
+          "saving_type": "cash_isa",
+          "is_overdrawn": "no",
+          "provider_name": "Lloyds Bank",
+          "account_number": "87654321",
+          "ownership_type": "applicant",
+          "account_balance": 10000,
+          "are_wages_paid_into_account": "no"
+        }
+      ],
+      "properties": [
+        {
+          "usage": null,
+          "value": 4800000,
+          "address": {
+            "city": "London",
+            "country": "United Kingdom",
+            "postcode": "E1 4AD",
+            "address_line_one": "296 Oak Court",
+            "address_line_two": "Higham"
+          },
+          "bedrooms": 3,
+          "house_type": "semidetached",
+          "property_type": "residential",
+          "size_in_acres": null,
+          "is_home_address": "no",
+          "property_owners": [
+            {
+              "name": "Freya Brennan",
+              "relationship": "family_members",
+              "percentage_owned": 38.0,
+              "other_relationship": ""
+            }
+          ],
+          "has_other_owners": "yes",
+          "outstanding_mortgage": 39000,
+          "percentage_partner_owned": null,
+          "percentage_applicant_owned": 62.0
+        },
+        {
+          "usage": "Storage",
+          "value": 880000,
+          "address": {
+            "city": "London",
+            "country": "United Kingdom",
+            "postcode": "E1 2DA",
+            "address_line_one": "1 Park Road",
+            "address_line_two": "Oldtown"
+          },
+          "bedrooms": null,
+          "house_type": null,
+          "property_type": "commercial",
+          "size_in_acres": null,
+          "is_home_address": "no",
+          "property_owners": [],
+          "has_other_owners": "no",
+          "outstanding_mortgage": 0,
+          "percentage_partner_owned": null,
+          "percentage_applicant_owned": 100.0
+        },
+        {
+          "usage": "Agriculture",
+          "value": 720000,
+          "address": {
+            "city": "London",
+            "country": "United Kingdom",
+            "postcode": "SW1A 2AA",
+            "address_line_one": "1 High Street",
+            "address_line_two": "Newtown"
+          },
+          "bedrooms": null,
+          "house_type": null,
+          "property_type": "land",
+          "size_in_acres": 1,
+          "is_home_address": "no",
+          "property_owners": [],
+          "has_other_owners": "no",
+          "outstanding_mortgage": 22000,
+          "percentage_partner_owned": null,
+          "percentage_applicant_owned": 100.0
+        }
+      ],
+      "investments": [
+        {
+          "value": 50000,
+          "description": "Private equity plan",
+          "ownership_type": "applicant",
+          "investment_type": "pep"
+        },
+        {
+          "value": 10000,
+          "description": "500 Shares in Acme Ltd",
+          "ownership_type": "applicant",
+          "investment_type": "share"
+        }
+      ],
+      "trust_fund_amount_held": 500000,
+      "premium_bonds_total_value": 100000000,
+      "national_savings_certificates": [
+        {
+          "value": 2000,
+          "holder_number": "9313456",
+          "ownership_type": "applicant",
+          "certificate_number": "4441252"
         }
       ]
     },
-    "fullMeansAssessment": {
-      "assessmentDetails": [
+    "outgoings_details": {
+      "outgoings": [
         {
-          "applicantAmount": 7.0,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "RENT_MORT"
+          "amount": 700,
+          "frequency": "month",
+          "payment_type": "rent"
         },
         {
-          "applicantAmount": 10.0,
-          "applicantFrequency": "ANNUALLY",
-          "assessmentDetailCode": "COUNCIL"
+          "amount": 1000,
+          "frequency": "annual",
+          "payment_type": "council_tax"
         },
         {
-          "applicantAmount": 1.0,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "CHILD_COST"
+          "amount": 100,
+          "frequency": "month",
+          "payment_type": "childcare"
         },
         {
-          "applicantAmount": 2.5,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "MAINT_COST"
+          "amount": 250,
+          "frequency": "month",
+          "payment_type": "maintenance"
         },
         {
-          "applicantAmount": 1.0,
-          "applicantFrequency": "MONTHLY",
-          "assessmentDetailCode": "OTHER_LAC"
+          "amount": 100,
+          "metadata": {
+            "case_reference": "6300928"
+          },
+          "frequency": "month",
+          "payment_type": "legal_aid_contribution"
         }
       ]
     }
-  },
-  "capitalEquity": {
-    "capitalProperty": [
-      {
-        "propertyType": "SEMI",
-        "bedrooms": "3",
-        "declaredMortgageCharges": 390.0,
-        "declaredMarketValue": 48000.0,
-        "percentageOwnedApplicant": 62.0,
-        "percentageOwnedPartner": 0,
-        "address": {
-          "line1": "296 Oak Court",
-          "line2": "Higham",
-          "city": "London",
-          "country": "United Kingdom",
-          "postCode": "E1 4AD"
-        },
-        "thirdPartyOwner": [
-          {
-            "ownerRelation": "FAMILY",
-            "ownerName": "Freya Brennan"
-          }
-        ]
-      },
-      {
-        "propertyType": "COMMERCIAL",
-        "declaredMortgageCharges": 0.0,
-        "declaredMarketValue": 8800.0,
-        "percentageOwnedApplicant": 100.0,
-        "percentageOwnedPartner": 0,
-        "address": {
-          "line1": "1 Park Road",
-          "line2": "Oldtown",
-          "city": "London",
-          "country": "United Kingdom",
-          "postCode": "E1 2DA"
-        }
-      },
-      {
-        "propertyType": "LAND",
-        "declaredMortgageCharges": 220.0,
-        "declaredMarketValue": 7200.0,
-        "percentageOwnedApplicant": 100.0,
-        "percentageOwnedPartner": 0,
-        "address": {
-          "line1": "1 High Street",
-          "line2": "Newtown",
-          "city": "London",
-          "country": "United Kingdom",
-          "postCode": "SW1A 2AA"
-        }
-      }
-    ],
-    "capital": [
-      {
-        "capitalType": "PEPS",
-        "assetAmount": 500.0,
-        "otherDescription": "Private equity plan",
-        "accountOwner": "APPLICANT"
-      },
-      {
-        "capitalType": "SHARES",
-        "assetAmount": 100.0,
-        "otherDescription": "500 Shares in Acme Ltd",
-        "accountOwner": "APPLICANT"
-      },
-      {
-        "capitalType": "SAVINGS",
-        "assetAmount": 100.0,
-        "bankName": "Lloyds Bank",
-        "branchSortCode": "12-23-45",
-        "accountOwner": "APPLICANT"
-      },
-      {
-        "capitalType": "CASH ISA",
-        "assetAmount": 100.0,
-        "bankName": "Lloyds Bank",
-        "branchSortCode": "12-23-45",
-        "accountOwner": "APPLICANT"
-      },
-      {
-        "capitalType": "PREMIUM BONDS",
-        "assetAmount": 20.0,
-        "accountOwner": "APPLICANT"
-      },
-      {
-        "capitalType": "PREMIUM BONDS",
-        "assetAmount": 1000000.0
-      },
-      {
-        "capitalType": "TRUST FUND",
-        "assetAmount": 5000.0
-      }
-    ]
-  },
-  "iojBypass": true,
-  "welshCorrespondence": false
+  }
 }
