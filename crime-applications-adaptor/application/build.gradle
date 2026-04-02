@@ -26,7 +26,7 @@ def versions = [
         sentryVersion          : "8.24.0",
         commonsVersion         : "1.18.0",
         tomcatEmbedCoreVersion : "10.1.34",
-        oauth2ResourceServer   : "3.4.1",
+        oauth2ResourceServer   : "3.5.7",
         securityCrypto         : "6.4.4"
 ]
 
